@@ -1,3 +1,5 @@
+[www.kaonomi.net](https://www.kaonomi.net)
+
 # KAONOMI.Admin
 
 Interactive console that sends prompts to Ollama and persists logs, performance metrics, and completions through `SessionManager` / Elasticsearch.

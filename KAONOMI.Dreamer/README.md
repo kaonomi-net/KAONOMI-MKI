@@ -1,3 +1,5 @@
+[www.kaonomi.net](https://www.kaonomi.net)
+
 # KAONOMI.Dreamer
 
 Background host for the **Dreamer** M-A-R-I agents (collect → analysis → actions). Runs the `Dreamer` sequence every 15 minutes during the night window (22:00–06:00), outside the main chat request path.

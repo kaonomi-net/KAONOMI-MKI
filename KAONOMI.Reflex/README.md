@@ -1,3 +1,5 @@
+[www.kaonomi.net](https://www.kaonomi.net)
+
 # KAONOMI.Reflex
 
 Background host for the **Reflex** M-A-R-I agents (collect → analysis → actions). Runs the `Reflex` sequence every 100 ms for reflexive / reactive context processing.

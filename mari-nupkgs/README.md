@@ -1,3 +1,5 @@
+[www.kaonomi.net](https://www.kaonomi.net)
+
 # MARI packages
 
 Local NuGet feed of the MARI packages (`MARI.*`, produced by `dotnet pack` of the MARI solution) until they are

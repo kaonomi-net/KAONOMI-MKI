@@ -1,3 +1,5 @@
+[www.kaonomi.net](https://www.kaonomi.net)
+
 # KAONOMI.Vision
 
 Background host for the **Vision** M-A-R-I agents (collect → analysis → actions). Runs the `Vision` sequence every second for vision-oriented context work.

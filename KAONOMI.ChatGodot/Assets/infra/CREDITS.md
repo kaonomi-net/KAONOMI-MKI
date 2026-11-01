@@ -1,3 +1,5 @@
+[www.kaonomi.net](https://www.kaonomi.net)
+
 # Pictures of the infrastructure elements (/infra)
 
 The pictures of the cards of the infrastructure diagrams. Each one is 256 × 256 pixels, resized (and for Mac Studio

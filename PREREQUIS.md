@@ -1,3 +1,5 @@
+[www.kaonomi.net](https://www.kaonomi.net)
+
 # KAONOMI — Prérequis
 
 Tout ce dont KAONOMI a besoin pour fonctionner, et comment l'installer. Pour le moteur de recherche et la base de

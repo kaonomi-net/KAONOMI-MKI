@@ -1,3 +1,5 @@
+[www.kaonomi.net](https://www.kaonomi.net)
+
 # KAONOMI.Metacognition
 
 Background host for the **Metacognition** M-A-R-I agents (collect → analysis → actions). Runs the `Metacognition` sequence every second for higher-level monitoring and self-reflection style updates.

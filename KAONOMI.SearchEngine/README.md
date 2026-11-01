@@ -1,3 +1,5 @@
+[www.kaonomi.net](https://www.kaonomi.net)
+
 # KAONOMI.SearchEngine
 
 A small search engine that answers like **Elasticsearch 7.14** for what KAONOMI does with it: one node (no
@@ -27,12 +29,13 @@ of the indices only, e.g. without `log`), stop Elasticsearch, then start the eng
 ## Configuration: `config/searchengine.yml`
 
 Keys in the style of `elasticsearch.yml`, dotted (`http.port: 9200`) or nested (`http: { port: 9200 }`). Any key can be
-overridden on the command line (`-E path.data=/data/kaonomi`). Relative paths are relative to the folder of the file.
+overridden on the command line (`-E path.data=/data/kaonomi`). Relative paths are relative to the folder of the file;
+`~` is the home folder of the user (`C:\Users\<user>` on Windows, `/Users/<user>` on macOS, `/home/<user>` on Linux).
 
 | Key | Default | Role |
 | --- | --- | --- |
 | `cluster.name`, `node.name` | `kaonomi`, `kaonomi-search-1` | Shown by `GET /` and `_cluster/health` |
-| `path.data` | `../data` | Where the indices are stored (`indices/<name>/`: Lucene index + `meta.json`) |
+| `path.data` | `~/kaonomi/data` | Where the indices are stored (`indices/<name>/`: Lucene index + `meta.json`); the folder is created at the first start, the same place on Windows, macOS and Linux |
 | `path.logs` | (console only) | Folder of the log file `<cluster>.log` |
 | `network.host`, `http.port` | `127.0.0.1`, `9200` | Where the API listens (`0.0.0.0`: every interface) |
 | `xpack.security.enabled`, `xpack.security.users` | `false` | Basic authentication with the listed users (`username`, `password`) |

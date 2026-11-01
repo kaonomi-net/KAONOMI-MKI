@@ -1,3 +1,5 @@
+[www.kaonomi.net](https://www.kaonomi.net)
+
 # KAONOMI.Server
 
 ASP.NET Core REST host that saves dialogs, runs a M-A-R-I agent sequence against Ollama, and exposes message-flow, cache, and symbolic-pattern APIs. Swagger UI is available at startup.

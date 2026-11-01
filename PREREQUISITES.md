@@ -1,3 +1,5 @@
+[www.kaonomi.net](https://www.kaonomi.net)
+
 # KAONOMI — Prerequisites
 
 Everything KAONOMI needs to run, and how to install it. For the search engine and the database you have the choice:
