@@ -763,6 +763,7 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     private const string FullChatCommand = "/fullchat";
     private const string SetupCommand = "/setup";
     private const string ThinkCommand = "/think";
+    private const string AudioSettingsCommand = "/audiosettings";
     private const string CloseAllCommand = "/closeall";
     private const string RelationCommand = "/relation";
     private const string FoldersCommand = "/folders";
@@ -791,7 +792,7 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
 
     private static bool IsKnownCommand(string text) =>
         IsToolCommand(text) || TryParseDetachedCommand(text, out _)
-        || IsCommand(text, GetThemesCommand) || IsCommand(text, FullChatCommand) || IsCommand(text, DetachedPrefix + FullChatCommand[1..]) || IsCommand(text, SetupCommand) || IsCommand(text, ThinkCommand) || IsCommand(text, CloseAllCommand) || IsHelpCommand(text) || IsExitCommand(text) || IsCommand(text, KillAllCommand) || IsCommand(text, BnpCommand) || TryParseThemeCommand(text, out _);
+        || IsCommand(text, GetThemesCommand) || IsCommand(text, FullChatCommand) || IsCommand(text, DetachedPrefix + FullChatCommand[1..]) || IsCommand(text, SetupCommand) || IsCommand(text, ThinkCommand) || IsCommand(text, AudioSettingsCommand) || IsCommand(text, CloseAllCommand) || IsHelpCommand(text) || IsExitCommand(text) || IsCommand(text, KillAllCommand) || IsCommand(text, BnpCommand) || TryParseThemeCommand(text, out _);
 
     /// <summary>Commands that open a tool view (a tab of the workspace window, or its own window with <c>/n</c>).</summary>
     private static bool IsToolCommand(string text) =>
@@ -910,6 +911,15 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
                     Status = "/think is only in the Godot chat";
                 else
                     ThinkRequested.Invoke();
+                return;
+            }
+
+            if (IsCommand(prompt, AudioSettingsCommand))
+            {
+                if (AudioSettingsRequested is null)
+                    Status = "/audiosettings is only in the Godot chat";
+                else
+                    AudioSettingsRequested.Invoke();
                 return;
             }
 
@@ -1230,6 +1240,7 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
             + "- `/n` instead of `/` before one of the commands above (`/ncache`, `/nlog`, `/nsystem`…): opens it in its own window instead of a tab\n"
             + "- `/fullchat`: the chat as in its full screen, in a window of the desktop: the 3D animation of the preset and the microphone (hold it to speak); the window moves, resizes and closes like the others\n"
             + "- `/setup` (Godot chat): the dependencies of the chat checked (speech to text, text to speech, the 3D animations, the services) with their installation; shown at the first start\n"
+            + "- `/audiosettings` (Godot chat): a popup to choose the output (the voice and the sounds of the chat) and the microphone (the voice input), among the devices of the system; kept for the next start\n"
             + "- `/search`: a loose search of a few words in the indices of KAONOMI at once (cache, completion, dialog, diary, document, idea, imageanalysis, intel, ontology, relation, taskitem, youtubevideo): a typo or the start of a word is enough; the hits grouped by index, the selected one shown as JSON\n"
             + "- `/closeall`: closes every window open on the desktop\n"
             + "- `/think` (Godot chat): the screen goes black and the last hour appears: a cloud of the words of the logs and completions, the pictures touched in the hour as thumbnails; a key or a click brings the chat back\n"
@@ -1530,6 +1541,9 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
 
     /// <summary>Raised when the user types <c>/think</c>: the black screen of the last hour (the Godot chat).</summary>
     public event Action? ThinkRequested;
+
+    /// <summary>Raised when the user types <c>/audiosettings</c>: the popup to choose the output and the microphone (the Godot chat).</summary>
+    public event Action? AudioSettingsRequested;
 
     /// <summary>Raised when the user types <c>/closeall</c>: every window of the desktop closes (the Godot chat).</summary>
     public event Action? CloseAllRequested;

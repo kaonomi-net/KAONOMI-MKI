@@ -11,7 +11,7 @@ using Whisper.net;
 namespace KAONOMI.Chat.Services;
 
 /// <summary>
-/// Voice input of the chat (push-to-talk): <see cref="Start"/> records the default microphone (PortAudio), then
+/// Voice input of the chat (push-to-talk): <see cref="Start"/> records the microphone (PortAudio; the one chosen with <c>/audiosettings</c>), then
 /// <see cref="StopAndTranscribeAsync"/> stops and turns the speech into text with Whisper (whisper.cpp through
 /// Whisper.net, open source, run on this machine; the multilingual model understands French, German and English).
 /// </summary>
@@ -31,9 +31,6 @@ public sealed class SpeechRecognitionService : IDisposable
 
     /// <summary>A quiet recording is raised to this peak before Whisper (a soft voice is recognised better).</summary>
     private const float TargetPeak = 0.5f;
-
-    private static readonly object PortAudioLock = new();
-    private static bool _portAudioReady;
 
     private readonly string _modelPath;
     private readonly object _samplesLock = new();
@@ -83,15 +80,8 @@ public sealed class SpeechRecognitionService : IDisposable
                 return;
             _stopRequested = false;
         }
-        lock (PortAudioLock)
-        {
-            if (!_portAudioReady)
-            {
-                PortAudio.Initialize();
-                _portAudioReady = true;
-            }
-        }
-        var device = PortAudio.DefaultInputDevice;
+        // The microphone chosen with /audiosettings, or the default one.
+        var device = AudioDevices.InputDevice();
         if (device == PortAudio.NoDevice)
             throw new InvalidOperationException("No microphone found");
         var info = PortAudio.GetDeviceInfo(device);

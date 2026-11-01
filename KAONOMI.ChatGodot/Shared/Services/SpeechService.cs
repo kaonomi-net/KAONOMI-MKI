@@ -274,6 +274,8 @@ public sealed partial class SpeechService : IDisposable
         Horrify(file, _horror, _pitch);
         RaisePitch(file, _pitch);
         var levels = LoudnessEnvelope(file);
+        if (AudioDevices.Output is not null && await PlayOnChosenOutputAsync(file, levels, cancellationToken))
+            return;
         var start = OperatingSystem.IsWindows()
             ? new ProcessStartInfo("powershell", ["-NoProfile", "-Command", $"(New-Object Media.SoundPlayer '{file.Replace("'", "''")}').PlaySync()"])
             : OperatingSystem.IsMacOS()
@@ -291,6 +293,31 @@ public sealed partial class SpeechService : IDisposable
         {
             using var killPlayer = cancellationToken.Register(() => Kill(player));
             await player.WaitForExitAsync(cancellationToken);
+        }
+        finally
+        {
+            if (ReferenceEquals(_playing, playing))
+                _playing = null;
+        }
+    }
+
+    /// <summary>
+    /// Plays the file on the output chosen with <c>/audiosettings</c> (the player of the system cannot pick one); false
+    /// when PortAudio could not play it, so the player of the system plays it instead.
+    /// </summary>
+    private async Task<bool> PlayOnChosenOutputAsync(string file, float[] levels, CancellationToken cancellationToken)
+    {
+        var playing = new PlayingSound(levels, Stopwatch.GetTimestamp());
+        _playing = playing;
+        try
+        {
+            await AudioDevices.PlayAsync(file, cancellationToken);
+            return true;
+        }
+        catch (Exception ex) when (ex is InvalidOperationException or InvalidDataException or PortAudioSharp.PortAudioException or DllNotFoundException or TypeInitializationException)
+        {
+            ActivityLog.Error("Speech", $"The voice could not be played on {AudioDevices.Output}", ex);
+            return false;
         }
         finally
         {

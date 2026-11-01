@@ -64,6 +64,8 @@ public partial class Main : Control
         _vm = new MainViewModel(settings);
         if (settings.KeepAwake)
             SleepGuard.Start();
+        // The output and the microphone chosen with /audiosettings.
+        AudioSettings.Restore();
 
         // The theme chosen last (--theme=kaonomi on the command line for a test).
         Eve.Eve.Use(Eve.Eve.Find(Argument("--theme=") ?? Preferences.Theme));
@@ -326,6 +328,7 @@ public partial class Main : Control
         });
         _vm.SetupRequested += () => Bind.OnMain(OpenSetup);
         _vm.ThinkRequested += () => Bind.OnMain(OpenThink);
+        _vm.AudioSettingsRequested += () => Bind.OnMain(() => AudioSettings.Open(this));
         _vm.CloseAllRequested += () => Bind.OnMain(() => _ = _shell.Deck.RequestCloseAllAsync());
         _vm.ExitCountdown += remaining => Bind.OnMain(() => ShowCountdown(remaining));
         _vm.ExitRequested += () => Bind.OnMain(Quit);

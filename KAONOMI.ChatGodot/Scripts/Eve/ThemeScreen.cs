@@ -13,7 +13,7 @@ namespace KAONOMI.ChatGodot.Eve;
 /// </summary>
 public static class Preferences
 {
-    private sealed record Data(string? Theme, string? Wallpaper = null, bool SetupDone = false, string[]? RecentWindows = null);
+    private sealed record Data(string? Theme, string? Wallpaper = null, bool SetupDone = false, string[]? RecentWindows = null, string? AudioInput = null, string? AudioOutput = null);
 
     private static string FilePath => ProjectSettings.GlobalizePath("user://preferences.json");
 
@@ -36,6 +36,20 @@ public static class Preferences
     {
         get => Load().SetupDone;
         set => Save(Load() with { SetupDone = value });
+    }
+
+    /// <summary>The microphone chosen with /audiosettings (null: the default one of the system).</summary>
+    public static string? AudioInput
+    {
+        get => Load().AudioInput;
+        set => Save(Load() with { AudioInput = value });
+    }
+
+    /// <summary>The output chosen with /audiosettings (null: the default one of the system).</summary>
+    public static string? AudioOutput
+    {
+        get => Load().AudioOutput;
+        set => Save(Load() with { AudioOutput = value });
     }
 
     /// <summary>The commands of the tool windows opened last (/intel, /mindmap…), the newest first (10 at most).</summary>
