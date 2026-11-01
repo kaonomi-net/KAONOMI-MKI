@@ -446,23 +446,23 @@ public sealed class SetupCheck
 
     /// <summary>
     /// The Fooocus API of the Kaonomi server (KAONOMI.Server/Fooocus/fooocus_api.py, port 8888): the images of
-    /// /fooocus. A warning only: the chat works without images. Fooocus itself is expected in ~/kaonomi/fooocus (or
-    /// the Pinokio one), with its Python 3.10 environment in its env folder.
+    /// /fooocus. A warning only: the chat works without images. Fooocus itself is found by
+    /// <see cref="ChatSettings.FindFooocus"/>: <c>fooocus.directory</c> in config.yml (a portable Windows build too),
+    /// ~/kaonomi/fooocus or the Pinokio one.
     /// </summary>
-    private static async Task CheckFooocusAsync(Dependency d, CancellationToken ct)
+    private async Task CheckFooocusAsync(Dependency d, CancellationToken ct)
     {
         if (await EngineShutdown.PortOpenAsync("127.0.0.1", 8888, ct))
         {
             d.Set(DependencyState.Ok, "127.0.0.1:8888");
             return;
         }
-        var fooocus = Path.Combine(ChatSettings.KaonomiHome, "fooocus");
-        var python = Path.Combine(fooocus, "env", "bin", "python");
-        var installed = File.Exists(Path.Combine(fooocus, "launch.py")) && File.Exists(python);
-        d.Set(DependencyState.Warning, installed ? "Fooocus is installed but its API is not running (no images in /fooocus)" : "Fooocus is not installed (no images in /fooocus)",
-            installed
-                ? "cd ~/kaonomi/fooocus && env/bin/python <kaonomi>/KAONOMI.Server/Fooocus/fooocus_api.py --fooocus ~/kaonomi/fooocus"
-                : "git clone https://github.com/lllyasviel/Fooocus.git ~/kaonomi/fooocus, a Python 3.10 venv in its env folder (uv venv --python 3.10 --seed env) with fastapi, uvicorn and pygit2, then the command of the API: its first start installs torch and the models (about 8 GB)");
+        if (_settings.FindFooocus() is var (folder, python))
+            d.Set(DependencyState.Warning, $"Fooocus is installed ({folder}) but its API is not running (no images in /fooocus)",
+                $"Start it in /process (Fooocus API), or: cd \"{folder}\" && \"{python}\" <kaonomi>/KAONOMI.Server/Fooocus/fooocus_api.py --fooocus \"{folder}\"");
+        else
+            d.Set(DependencyState.Warning, "Fooocus is not installed (no images in /fooocus)",
+                "An installed Fooocus is given with fooocus.directory in config.yml (the portable Windows build works). Otherwise: git clone https://github.com/lllyasviel/Fooocus.git ~/kaonomi/fooocus, a Python 3.10 venv in its env folder (uv venv --python 3.10 --seed env) with fastapi, uvicorn and pygit2, then the command of the API: its first start installs torch and the models (about 8 GB)");
         d.Link = "https://github.com/lllyasviel/Fooocus";
     }
 

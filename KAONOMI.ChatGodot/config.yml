@@ -61,6 +61,12 @@ calculator:
   # the first picture is saved; the Pictures folder of the system, kaonomi/maths, when this key is missing.
   graphDirectory: /Users/jerome/Pictures/kaonomi/maths
 
+fooocus:
+  # Installed Fooocus whose Python runs the Fooocus API of /fooocus (started from /process): the folder of its launch.py,
+  # or the folder of the portable Windows build (the one of run.bat, beside python_embeded). When this key is empty,
+  # FOOOCUS_HOME, ~/kaonomi/fooocus and ~/pinokio/api/fooocus.git/app are tried.
+  directory: ""
+
 ontology:
   # Standard named-entity types (NER), OntoNotes 5 label set, as used by spaCy and most NER models.
   # CoNLL-2003 uses a reduced set: PER (= PERSON), LOC (= LOC + GPE + FAC), ORG, MISC (everything else).

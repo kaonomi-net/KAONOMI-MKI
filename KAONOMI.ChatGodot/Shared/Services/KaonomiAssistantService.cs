@@ -1217,8 +1217,8 @@ public sealed class KaonomiAssistantService
                ?? throw new HttpRequestException("The Kaonomi server returned an empty response.");
     }
 
-    /// <summary>The command that starts the Fooocus API (in the Python of the Pinokio install of Fooocus), from the folder of the server.</summary>
-    public const string FooocusApiCommand = "~/pinokio/api/fooocus.git/app/env/bin/python KAONOMI.Server/Fooocus/fooocus_api.py";
+    /// <summary>How to start the Fooocus API: from /process, or by hand in the Python of the installed Fooocus.</summary>
+    public const string FooocusApiCommand = "/process (Fooocus API; fooocus.directory in config.yml), or KAONOMI.Server/Fooocus/fooocus_api.py --fooocus <folder of Fooocus> in the Python of Fooocus";
 
     /// <summary>
     /// The server answered 503 for an image route: the Fooocus API (127.0.0.1:8888) is not started; the error says so,

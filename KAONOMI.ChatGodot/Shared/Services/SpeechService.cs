@@ -195,6 +195,10 @@ public sealed partial class SpeechService : IDisposable
                 UseShellExecute = false,
                 CreateNoWindow = true
             };
+            // Piper is Python: on Windows it reads its input in the code page of the system (cp1252), and the UTF-8
+            // of "é" would arrive as "Ã©" (read "copyright a tilde"). UTF-8 mode makes it read what is written.
+            start.Environment["PYTHONUTF8"] = "1";
+            start.Environment["PYTHONIOENCODING"] = "utf-8";
             if (_speakerId is { } speakerId)
             {
                 start.ArgumentList.Add("-s");

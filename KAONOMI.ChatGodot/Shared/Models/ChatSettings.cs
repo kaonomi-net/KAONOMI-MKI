@@ -390,6 +390,47 @@ public sealed class ChatSettings
     public static string FooocusDirectory => Path.Combine(SystemPicturesDirectory, "kaonomi", "fooocus");
 
     /// <summary>
+    /// Folder of the installed Fooocus whose Python runs the Fooocus API (<c>fooocus.directory</c> in config.yml): the
+    /// folder of its launch.py, or the folder of the portable Windows build (the one of run.bat). Empty: looked for in
+    /// the FOOOCUS_HOME variable, <c>~/kaonomi/fooocus</c> and the Pinokio install (see <see cref="FindFooocus"/>).
+    /// </summary>
+    public string FooocusHome { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The installed Fooocus: the folder of its launch.py and its Python (the venv in its env folder, env\Scripts on
+    /// Windows and env/bin elsewhere, or the python_embeded of the portable Windows build next to it); null when none of
+    /// <see cref="FooocusHome"/>, FOOOCUS_HOME, <c>~/kaonomi/fooocus</c> or the Pinokio install holds one.
+    /// </summary>
+    public (string Folder, string Python)? FindFooocus()
+    {
+        var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        string?[] candidates = [FooocusHome, Environment.GetEnvironmentVariable("FOOOCUS_HOME"), Path.Combine(KaonomiHome, "fooocus"),
+            Path.Combine(home, "pinokio", "api", "fooocus.git", "app")];
+        foreach (var candidate in candidates)
+        {
+            if (string.IsNullOrWhiteSpace(candidate))
+                continue;
+            var root = candidate.Trim();
+            if (root == "~" || root.StartsWith("~/", StringComparison.Ordinal))
+                root = Path.Combine(home, root.TrimStart('~').TrimStart('/'));
+            root = ResolveDirectory(root);
+            // The portable Windows build: Fooocus in a folder of the same name, beside python_embeded.
+            var folder = File.Exists(Path.Combine(root, "launch.py")) ? root : Path.Combine(root, "Fooocus");
+            if (!File.Exists(Path.Combine(folder, "launch.py")))
+                continue;
+            string[] pythons =
+            [
+                Path.Combine(folder, "env", "Scripts", "python.exe"),
+                Path.Combine(folder, "env", "bin", OperatingSystem.IsWindows() ? "python.exe" : "python"),
+                Path.Combine(Path.GetDirectoryName(folder) ?? folder, "python_embeded", "python.exe")
+            ];
+            if (pythons.FirstOrDefault(File.Exists) is { } python)
+                return (folder, python);
+        }
+        return null;
+    }
+
+    /// <summary>
     /// Folder of the pictures of the graphs taken with 📷 Camera in the calculator (<c>calculator.graphDirectory</c> in
     /// config.yml; <see cref="DefaultCalculatorGraphDirectory"/> when missing). Created when the first picture is saved.
     /// </summary>
@@ -643,6 +684,9 @@ public sealed class ChatSettings
 
             if (!string.IsNullOrWhiteSpace(document.Calculator?.GraphDirectory))
                 settings.CalculatorGraphDirectory = document.Calculator.GraphDirectory.Trim();
+
+            if (!string.IsNullOrWhiteSpace(document.Fooocus?.Directory))
+                settings.FooocusHome = document.Fooocus.Directory.Trim();
 
             RelocateDirectories(settings, document, path);
         }
@@ -952,6 +996,8 @@ public sealed class ChatSettings
         public CalculatorSection? Calculator { get; set; }
 
         public SpeechSection? Speech { get; set; }
+
+        public FooocusSection? Fooocus { get; set; }
     }
 
     /// <summary>A preset of the <c>presets</c> section: the avatar, its voice and its personality.</summary>
@@ -1010,6 +1056,11 @@ public sealed class ChatSettings
     private sealed class CalculatorSection
     {
         public string? GraphDirectory { get; set; }
+    }
+
+    private sealed class FooocusSection
+    {
+        public string? Directory { get; set; }
     }
 
     private sealed class PromptsSection

@@ -113,8 +113,7 @@ public sealed partial class ProcessWindowViewModel : ViewModelBase, INoteContext
         var search = Uri.TryCreate(_settings.SearchEngineUrl, UriKind.Absolute, out var searchUri) ? (searchUri.Host, searchUri.Port) : ("localhost", 9200);
         var mongo = ParseAddress(_settings.MongoEngineAddress, 27017);
         var server = Uri.TryCreate(_settings.ServerUrl, UriKind.Absolute, out var serverUri) ? (serverUri.Host, serverUri.Port) : ("localhost", 49165);
-        var fooocus = Path.Combine(ChatSettings.KaonomiHome, "fooocus");
-        var fooocusPython = Path.Combine(fooocus, "env", "bin", OperatingSystem.IsWindows() ? "python.exe" : "python");
+        var fooocus = _settings.FindFooocus();
         var fooocusApi = Path.Combine(ProjectsDirectory, "KAONOMI.Server", "Fooocus", "fooocus_api.py");
 
         yield return new ManagedProcess
@@ -158,10 +157,10 @@ public sealed partial class ProcessWindowViewModel : ViewModelBase, INoteContext
         yield return new ManagedProcess
         {
             Name = "Fooocus API", Group = "Images", Port = ("127.0.0.1", 8888),
-            Description = "fooocus_api.py in the Python of Fooocus (~/kaonomi/fooocus) · the images of /fooocus, 127.0.0.1:8888",
+            Description = $"fooocus_api.py in the Python of Fooocus ({fooocus?.Folder ?? "not found: fooocus.directory in config.yml"}) · the images of /fooocus, 127.0.0.1:8888",
             Pattern = @"fooocus_api\.py",
-            Start = () => File.Exists(fooocusPython) && File.Exists(fooocusApi)
-                ? Info(fooocusPython, fooocus, fooocusApi, "--fooocus", fooocus)
+            Start = () => fooocus is var (folder, python) && File.Exists(fooocusApi)
+                ? Info(python, folder, fooocusApi, "--fooocus", folder)
                 : null
         };
         yield return new ManagedProcess
@@ -305,7 +304,7 @@ public sealed partial class ProcessWindowViewModel : ViewModelBase, INoteContext
         var info = process.Start?.Invoke();
         if (info is null)
         {
-            SetStatus($"{process.Name} cannot be started from here" + (process.Name == "Fooocus API" ? ": Fooocus is not installed in ~/kaonomi/fooocus (see /setup)" : FindDotnet() is null ? ": dotnet not found" : string.Empty), true);
+            SetStatus($"{process.Name} cannot be started from here" + (process.Name == "Fooocus API" ? ": Fooocus not found (fooocus.directory in config.yml, see /setup)" : FindDotnet() is null ? ": dotnet not found" : string.Empty), true);
             return;
         }
         process.IsBusy = true;
