@@ -1,0 +1,82 @@
+﻿using MARI.Framework.Core;
+using MARI.Framework.Core.Abstractions;
+using KAONOMI.Core;
+using KAONOMI.Core.Helpers;
+using KAONOMI.Core.Models;
+using KAONOMI.Core.Models.LLM;
+
+
+
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace KAONOMI.Server
+{
+    internal class DialogInboundGuardRailVAgent : VGrainBase<IDialogInboundGuardRailVAgent>, IDialogInboundGuardRailVAgent
+    {
+   
+
+        public DialogInboundGuardRailVAgent(ILogger<IDialogInboundGuardRailVAgent> logger) : base(logger)
+        {
+
+        }
+
+        static private SessionManager _session;
+        static private Config _config;
+        static private string _defaultModel;
+        static private Dialog dialog;
+
+        public async Task<string> DoProcess( string c, IExecutionContext Context)
+        {
+            Config config = HelperConfigManager.GetFromFile<Config>("config.json");
+            _config = config;
+            string AppName = config.appName + "_InboundProcssorVAgent";
+
+
+            _session = new SessionManager(_config);
+            _session.LogSave("Agent Called", AppName, "INFO");
+
+            
+            try
+            {
+                dialog = _session.DialogGet(c);
+                
+                _session.LogSave("Dialog Loaded", AppName, "INFO");
+            }
+            catch (Exception ex)
+            {
+                _session.LogSave("Error " + ex.Message, AppName, "ERROR");
+            }
+            
+
+            Run();
+
+
+            try
+            {
+                c = _session.DialogSave(dialog);
+                _session.LogSave("Dialog Updated", AppName, "INFO");
+            }
+            catch (Exception ex)
+            {
+                _session.LogSave("Error " + ex.Message, AppName, "ERROR");
+            }
+
+
+
+            return c;
+
+        }
+
+        public void Run()
+        {
+
+
+        }
+    }
+}

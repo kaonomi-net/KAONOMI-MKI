@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "KAONOMI.EarlyWarningSystem": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+; KAONOMI Chat in Godot: the chat of Kaonomi with a gaming / science-fiction look (neon HUD, animated background,
+; a 3D hologram that speaks with the Piper voice). The services are the ones of KAONOMI.Chat (linked sources).
+
+config_version=5
+
+[application]
+
+config/name="KAONOMI"
+config/description="Kaonomi chat, EVE Online edition (Godot)"
+run/main_scene="res://Scenes/Main.tscn"
+config/icon="res://icon.png"
+config/features=PackedStringArray("4.7", "C#", "Forward Plus")
+
+[display]
+
+window/size/viewport_width=1440
+window/size/viewport_height=900
+window/size/resizable=true
+window/stretch/mode="disabled"
+
+[dotnet]
+
+project/assembly_name="KAONOMI.ChatGodot"
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.012, 0.02, 0.045, 1)
+anti_aliasing/quality/msaa_3d=2

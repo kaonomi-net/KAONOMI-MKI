@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "KAONOMI.Server": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:49165;http://localhost:49166"
+    }
+  }
+}

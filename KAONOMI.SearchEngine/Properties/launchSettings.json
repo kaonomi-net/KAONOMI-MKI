@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "KAONOMI.SearchEngine": {
+      "commandName": "Project",
+      "workingDirectory": "$(ProjectDir)",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

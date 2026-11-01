@@ -1,0 +1,36 @@
+{
+  "appName": "Adminconsole",
+
+  "projectName": "KAONOMI",
+  "language": "EN",
+  "category": "GUI",
+  "appDescription": "a console app",
+  "AppDocumentationUrl": "https://www.kaonomi.net",
+  "consoleTheme": "matrix",
+  "llmmodel": "mistral-small3.2",
+  "dataRepository": {
+    "Url": "http://localhost:9200",
+    "Layer": "Default",
+    "Prefix": "",
+    "Password": "",
+    "User": ""
+  },
+  "dialogRepository": {
+    "Url": "http://localhost:9200",
+    "Layer": "Default",
+    "Prefix": "",
+    "Password": "",
+    "User": ""
+  },
+  "adminRepository": {
+    "Url": "http://localhost:9200",
+    "Layer": "Default",
+    "Prefix": "",
+    "Password": "",
+    "User": ""
+  },
+  "latencyMs": 1,
+  "ollamaUrl": "http://localhost:11434"
+
+
+}

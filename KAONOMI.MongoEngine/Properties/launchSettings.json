@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "KAONOMI.MongoEngine": {
+      "commandName": "Project",
+      "workingDirectory": "$(ProjectDir)"
+    }
+  }
+}

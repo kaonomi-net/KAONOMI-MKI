@@ -1,0 +1,159 @@
+# KAONOMI.ChatGodot — the Kaonomi chat, EVE Online edition
+
+The Kaonomi chat made with **Godot 4.7 (.NET / C#)**, in the style of **EVE Online**, with **every function of the
+former default chat** (`KAONOMI.Chat`, Avalonia, removed since). Its view models, models and services are in `Shared/`
+(namespaces `KAONOMI.Chat.*`, as they were): only the views are written in Godot. Avalonia itself runs headless inside Godot
+(`Scripts/Eve/AvaloniaBridge.cs`) for the few view models that decode pictures or post on its dispatcher (its timers are
+pumped at every frame).
+
+## Run
+
+```bash
+cd KAONOMI.ChatGodot
+~/.dotnet/dotnet build                      # builds the C# (also built by "dotnet build KAONOMI.slnx")
+godot-mono --headless --path . --import     # the first time and after a new shader
+godot-mono --path .                         # runs the chat
+```
+
+Options after `--`: `--prompt="…"` sends a first prompt (it waits for the server), `--command=/ontology;/relation` runs
+commands, `--avatar=MARVIN` picks the 3D animation, `--voice` starts in the voice mode, `--back-after=2` sends the active
+window to the back after 2 s, `--theme=kaonomi` starts in that theme, `--themes` opens the screen of the themes, `--no-intro` starts without the intro. Close it with its window or `/bye`: a countdown from 10 to 1 over the whole screen (`ExitCountdown.cs`), the tick of a clock each second (a deeper one at 1), then the search engine is stopped (`POST /_shutdown` of KAONOMI.SearchEngine), then the Mongo engine (the `shutdown` command of MongoDB), then the chat closes (`searchEngineUrl`, `mongoEngineAddress` and `byeStopsEngines` in `config.yml`); Escape or a click cancels it.
+
+At the start an **intro** plays over the chat, in full screen: the 3D animation of Kaonomi, already close to the
+camera, comes a little closer and says "Let's go to think" in English with a deep robot voice (Piper with its English
+voice of a man, `en_GB-alan-medium` first, lowered and robotised), the words written under it. Its only sound before the voice is made by the code (`StartIntro.cs`, no file): a sliding
+door of science fiction that opens by itself (a latch, a pneumatic hiss, the slide, the stop against the frame), over the
+ambient sound of a lab of AI in a loop (the hum of the servers, the air of their fans, a soft drone, the chirps and
+relays of the machines at work), which fades out with the intro. A key or a click skips it.
+
+## Export: the chat alone, as a macOS disk image
+
+```bash
+cd KAONOMI.ChatGodot
+godot-mono --headless --path . --export-release "macOS" ../dist/KAONOMI.dmg
+```
+
+`dist/KAONOMI.dmg` holds `KAONOMI.app` (Godot, the .NET assemblies published by the export, the native libraries, the
+face images, the audio helpers, `config.yml` and `config.json` next to the assembly) and no source: `export_presets.cfg`
+(kept out of git) asks for no script content. What the export needs:
+
+- the export templates of Godot 4.7.2 .NET in `~/Library/Application Support/Godot/export_templates/4.7.2.stable.mono/`
+  (`Godot_v4.7.2-stable_mono_export_templates.tpz` of the releases of Godot, unzipped there);
+- `KAONOMI.ChatGodot.sln` next to the project (the .NET export builds through it);
+- the signing by the `codesign` tool of Xcode, ad hoc (`codesign/codesign=3` with no identity): the built-in signer of
+  Godot gives an app that macOS kills at launch on Apple Silicon (its entitlements cannot be validated).
+
+The app is not notarized: on another Mac, open it with a right click the first time. The Whisper model, Piper and its
+voices, and Ollama are not in the image: the first start installs them (see below).
+
+## The first start
+
+The first time the chat starts (and with `/setup` or `--setup`), a window checks its dependencies (`Shared/Services/SetupCheck.cs`,
+`Scripts/Eve/SetupScreen.cs`) and helps to install them:
+
+| Group | Checked | Installed from the chat |
+| --- | --- | --- |
+| Speech to text | The Whisper model (`speech.model`), the microphone (PortAudio) | DOWNLOAD: the model from huggingface.co |
+| Text to speech | Python 3.9+, Piper (`tts.piper`, run to see that its Python is still there), the voice of the language, an English voice for the intro | INSTALL / REBUILD: the venv of Piper with `piper-tts`; DOWNLOAD: the voices with `piper.download_voices` |
+| 3D animations | The face images next to the assembly, the shaders, the renderer | |
+| Services | Ollama, the chat model and the vision model, the Kaonomi server, the search engine, the Mongo engine, the data folder `~/kaonomi` | PULL: `ollama pull`; CREATE: the data folders |
+
+What cannot be installed from the chat shows the command to run (COPY) or the page to open (OPEN). The output of an
+installation goes to the log at the bottom, and the checks run again after it. DONE keeps the window from coming back at
+the next start (`preferences.json`); CHECK AGAIN runs the checks again.
+
+## The screen
+
+- **Left — the bar of commands** (the Neocom): a double-click on its **K** puts the chat in full screen (again: back to how it was); **›_** at the top unfolds to the right a text area with **Send** (a
+  command or a prompt, Enter sends, Shift+Enter is a new line, Esc closes); then one icon per tool, in colour, with a
+  black edge of 5 px around it under the pointer and a cyan line on its left while its window is open; ⏬ (every window to the back), ⏫ (every window to the front), 🎨 (themes) and ⚙ `/config` at the bottom. Under the
+  **K**, the **eyes** of the dock of the NeXT stations of the 1990s (a grey bevelled tile, after xeyes), whose pupils follow the pointer.
+- **Right — the chat**: the clock and the state of the server; the 3D animation of the preset (its mouth follows the
+  voice; a double-click gives the **voice mode**: the animation alone on the whole screen and a microphone in its lower
+  third (hold it, or hold the V key, to speak), an arc turning around it while the answer is awaited; it covers 100 % of the screen and is locked: no Cmd+Tab, Cmd+H, Ctrl+Tab nor Cmd+Q; double-click or Esc leaves it); the ticker; ⚙ model,
+  preset and history; system prompt; new chat; 📝 note; ⋯ export JSON / Word, save / load a prompt, prompt collection; under it SAVE PROMPT, LOAD PROMPT (`*.prompt.json`) and LOAD COLLECTION (a folder of prompts, its language from its -FR / -EN… ending and its name before it; counted, confirmed, run one after the other, each prompt and completion saved as JSON in its `<model>-<collection>` folder)
+  (Esc stops it); the conversation (Markdown, 👍 / 👎 evaluation, copy, code, stats); the input with the push-to-talk 🎤
+  and its language (FR / DE / EN, the voice follows), Send, Stop.
+- **Middle — the desktop**: every tool opens there as a window (a popup), in front of the others; several windows
+  can be in front at once, a click in one puts it above the others. A **double-click on the header** of a window
+  gives it the whole desktop (again: back to its size), like □; **◐** puts it behind the other windows, 25 % transparent
+  and 30 % smaller (a click on it brings it back); **▁** sends it **to the back**: in 3D, on a card lying in a row **at the bottom of the screen** in a perspective, still
+  showing its live content, a card under the pointer coming in front of the others, with its normal contrast, 56 % larger; **one click on a card** brings its window back to the front (it flies forward); a right click
+  on a card closes it; Ctrl+Tab goes from window to window (in front or at the back), and after the last one back to the first. **Ctrl+M** draws a target around the pointer for two seconds (a ring closing in with turning ticks, sonar rings, a crosshair), following the pointer, above everything (`Scripts/Eve/PointerTarget.cs`); Ctrl+M again starts it over. A window moves by its header and is resized by any
+  edge or corner; □ gives it the whole desktop (between the bar of commands and the chat), ❐ gives it back its size;
+  📝 adds a note about it, ✕ closes it. A window in full size stays so at the next start.
+- When the chat closes, its windows are kept in a text file of their own, `~/kaonomi/chatgodot-windows.txt`: the window
+  of the chat (`main`: its screen, position, size and state, windowed, maximised or full screen) and every tool window
+  open (`window /journal x=… y=… width=… height=… front|back`: its place and size in the desktop, in front or at the
+  back, in the order they were opened). At the next start the window of the chat goes back to its screen and place
+  (when that screen is still connected) and the same tools open again, at their place, in front or at the back. The
+  file can be changed by hand. The windows of one object (an image analysis, an entity, a note…) are not kept.
+- **Clone**: ❐ in the header of every window clones it: a tool opens again in a second window of its own (its own search, page, document…, under the key `/tool#2`, saved and restored with the desktop), a window of an object shows the same object in a second window; it is put a little lower and to the right, with the same size.
+- **Themes**: 🎨 at the bottom of the bar of commands opens the screen of the themes, one card per theme with a preview
+  of its colours: **EVE** (dark, deep space, the default) and **Kaonomi** (light, in the style of www.kaonomi.net: white
+  paper with a faint network of hexagons and nodes, black titles, the turquoise of its links and the gold of its logo,
+  the Rubik font when it is installed). **Apply** builds the interface again in that theme at once (the windows open
+  come back at their place; what is typed and not saved in them is lost, so it asks first; a wallpaper set by hand is removed, the theme showing its own background); `/theme:kaonomi`, `/theme:eve` or
+  `/theme:matrix` (the digital rain, phosphor green and monospace, `Shaders/matrix_rain.gdshader`) or `/theme:ghost` (the picture `Assets/ghost-city.jpg`, Niihama at night from a rooftop after Ghost in the Shell, behind the desk, with the rain, the breath of its cyan and magenta neons and thermoptic glitches drawn over it by `Shaders/ghost_city.gdshader`; a theme may have a picture, `Palette.Picture`) or `/theme:analyst` (the desk of an intelligence analyst, a low-contrast slate with steel blue and muted amber for long hours, a still operations wall behind, `Shaders/analyst_desk.gdshader`) or `/theme:minimal` (light and minimalist: white and light greys, anthracite text, a single black accent, a plain still background, `Shaders/minimal_paper.gdshader`) or `/theme:defense` (a command post: olive and khaki, sand text, tactical green and signal amber, DIN capitals, a tactical map behind with contour lines, map squares, unit symbols and a slow scan, `Shaders/defense_map.gdshader`) or `/theme:police` (a dispatch center at night: navy blue, police blue and badge gold, the city map behind with patrols driving, incidents pulsing and a soft blue and red light bar, `Shaders/police_dispatch.gdshader`) or `/theme:trading` (a trading floor of crypto and stocks: graphite, exchange yellow, bitcoin orange, green rises and red falls, the charts behind with candlesticks scrolling, a price line, the depth of the order book and a ticker, `Shaders/trading_floor.gdshader`) typed in the chat does the same. The choice is kept in `preferences.json` (data folder of Godot), apart
+  from the theme of the Avalonia chat.
+- There are **no red strings between windows** in this version (the link icons and the relation popup between two
+  windows are gone). The red string inside the relation graph, between its cards, is kept.
+
+## The tools
+
+| Command | Tool | Files |
+| --- | --- | --- |
+| `/work` | Document with ribbon (Home / Insert / View), rich editor with pictures and code, AI review, spelling, rewrite, calculator, graph, crop, Word / PDF / JSON | `Scripts/Tools/Work` |
+| `/pictures`, `/fooocus` | Picture library, Fooocus generation; image analysis (filters, annotations, AI, export, picture-only mode) | `Scripts/Tools/Images` |
+| `/ontology`, `/relation` | Ontology tree and Entity windows (with an optional start date and end date of the entity: typed yyyy-MM-dd or picked on 📅, ✕ empties them; saved as `startDate` and `endDate`); relation graph (filters, PNG, + entity: several entities of the ontology, every type but the classes, kept in the graph even without a relation; red string inside the graph, relation popup (a double-click on a link opens it; 🗑 DELETE removes the relation, after a confirmation; once it closes, saved or cancelled, the graph is refreshed); **3D** switches it to a 3D graph: a sphere per element, a simple human body instead for a PERSON, a CD-ROM for a SOFTWARE and a PCI card for a HARDWARE (`EntityShapes.cs`), in the colour of its entity type for an entity of the ontology (PERSON, ORG, GPE, LOC, PRODUCT… each its own colour; grey without a type) and of its window for another element, its name above it and its entity type (or window) under the name, the links coloured by probability; the depth is the time, the oldest elements (date of their first relation) at the back and the newest in front, a timeline with its dates under the graph; the height is the probability, from -100 to +100 (the mean of the probabilities of the relations of the element): the higher the probability, the lower the sphere, a scale +100 … -100 beside the timeline; under the date slider a **PROBABILITY HEIGHT** slider sets that vertical scale, from ×0 (flat) to ×3 (×1 by default, a double-click brings it back); an entity of the ontology with a start date or an end date has a 3D arrow along the time under its sphere: from its start date (its sphere there too) to its end date, or to the day the graph is built when it has no end; with an end date only, the arrow comes out of the past, its start hidden in a fade from 10% before the oldest start date of the graph; the dates are read from the ontology after each search; under the 3D graph a **double slider of dates**: its left handle starts at the oldest date, its right one at the newest (today when an entity has no end); moving them shows only the elements whose date (or period) meets the dates chosen, the time axis going from one to the other, the arrows cut at its ends; a double-click shows all the dates again; nothing moves until you do: drag: turn around, right drag: move, wheel: zoom, click: details, double-click: open; in 2D as in 3D the **+** and **−** buttons zoom, as do the mouse wheel and a pinch or two fingers on the trackpad, and **FIT** shows the whole graph of the view shown (in 3D from the angle where the camera is, all of it in the width and the height)) | `Scripts/Tools/Knowledge` |
+| `/journal`, `/idea`, `/project`, `/intel`, `/completion` | Journal (the rich editor and ribbon of `/work`, shared in `Scripts/Tools/Work/TapeRibbon.cs`, with its Entry group, its Feeling group of emoticons and a Security tab for the password, the mode of the entry in the title of the window; the entry stays Markdown, unchanged blocks written back as they were; encryption, history, feelings), ideas, project board and task editor, intel, completions with word cloud and pie | `Scripts/Tools/Writing` |
+| `/wiki` | The wiki of Kaonomi: each page a document of the `wiki` index of the search engine (`GET /wiki/{id}`, `GET /wiki/{id}/backlinks`, `PUT /wiki`, `POST /wiki/update`, `/wiki/search`, `/wiki/last`, `DELETE /wiki/{id}` marks it deleted), its id the slug of its title; the pages searched on the left with the pages linking to the one open, the page written with the editor and ribbon of the journal (formatting, pictures copied into `Pictures/kaonomi/wiki`, links, code), a link to another page `wiki:slug` (Insert › Wiki), following it opens the page or starts it; ◀ back, ⌂ home (`kaonomi`), SAVE (a new version each time), DELETE; the wiki is found by `/search` too | `Scripts/Tools/Writing/WikiView.cs`, `Shared/ViewModels/WikiWindowViewModel.cs`, `KAONOMI.Core/Models/Wiki.cs` |
+| `/system`, `/log`, `/token`, `/json`, `/config`, `/symbol` | Dashboards, HTTP JSON client, config.yml editor, symbolic patterns and regex assistant; code and evaluation windows | `Scripts/Tools/Dashboards` |
+| `/music`, `/youtube`, `/remote` | Music player, YouTube videos, remote (voice and avatar; with **5 s DELAY** ticked, Run script waits 5 seconds before the presentation starts (a countdown in the status, Stop ends it); in a script, a line `CHANGE:<preset>` switches the voice and the 3D animation, in the chat as in full screen; a line `FULLSCREEN:ON` puts the chat in full screen, its voice mode, and `FULLSCREEN:OFF` brings it back to the usual mode; a line `IMAGE:<file>` (a full path, `~/…`, or a file of `Pictures/kaonomi/presentation` (searched first), `~/kaonomi/script`, `~/kaonomi`, `Pictures/kaonomi` or `Pictures`) shows that picture in front of the 3D animation once the text before it has been read to the end (then a pause of 0.8 s), on the upper right two thirds of its place, in the chat as in full screen, while the animation comes forward and moves to the left; after 20 s the picture fades out and the animation goes back to its place in 3 s; the script goes on meanwhile, but a line `FULLSCREEN:ON` / `OFF` waits until the picture has gone and the animation is back) | `Scripts/Tools/Media` |
+| `/preset`, `/presets` | Presets of the avatar (voice and its effects, 3D animation, system prompt) stored in the search engine (`preset` index, `/preset` routes of the server): search, NEW, SAVE, DELETE (marked deleted), APPLY to the running chat (its system prompt becomes the system prompt of the chat), the 3D animation of the preset alive beside its fields and the picture of its face in the list; config.yml keeps only the default preset, and the first time the search engine has no preset the presets the chat knows are written to it | `Scripts/Tools/Dashboards/PresetView.cs`, `Shared/ViewModels/PresetWindowViewModel.cs`, `Shared/Models/PresetStore.cs` |
+| `/bpmnai` | AIMN (from BPMN): the editor of diagrams of AI processes in the BPMN 2.0 notation, with the basic elements of the notation: start events, plain, message (an envelope, `messageEventDefinition`), timer (a clock, `timerEventDefinition`) or EventCollector of Kaonomi (a funnel, `kaonomi:type="eventCollector"`), and end events (circles: thin, thick; the intermediate events of a file read are kept as tasks); task, user task, agent (🤖) and virtual agent (👾) of Kaonomi, and collapsed sub-process (rounded rectangles with their marker; the agents are written as a `serviceTask` with `kaonomi:type="agent"` / `"virtualAgent"`); exclusive, parallel and inclusive gateways (diamonds marked ✕, +, ○); data object, the stores of Kaonomi, SearchEngine (a database cylinder with a magnifying glass), Graphbase (a graph of nodes) and Database (a cylinder), written as a `dataStoreReference` with `kaonomi:type="searchEngine"` / `"graphbase"` / `"database"`, Vector Database (a cylinder with arrows, `kaonomi:type="vectorDatabase"`), and the services of Kaonomi, RAG (a page with a magnifying glass), LLM (a chip), MODEL (a cube), REST API (braces), MCP (a plug), written as a `dataObjectReference` with `kaonomi:type="rag"` / `"llm"` / `"model"` / `"restApi"` / `"mcp"`, and text annotation; sequence flows (arrows) and associations (dotted lines to the artifacts). An element dragged from the palette is placed where it is dropped (or the palette then a click; Shift kept: several), a drag moves it (snapped to a 10 px grid), the → handle of the selection dragged onto another element joins them (the connect tool, or the right-click menu, joins by clicks; an end event has no outgoing flow, a start event no incoming one), the ▪ handle resizes a task or an annotation, double-click or ⏎ renames, ⌫ deletes, the arrows nudge, ⌘Z / ⇧⌘Z undo and redo (100 steps), wheel or pinch zooms, FIT and 1:1. NEW, OPEN (any BPMN 2.0 file: the other kinds of elements mapped to the nearest basic one, the pools and lanes left out, the elements without diagram interchange laid out in a grid), SAVE / SAVE AS (BPMN 2.0 XML with `bpmndi` bounds and waypoints, as bpmn.io and Camunda read it; `~/kaonomi/bpmn` by default), PNG (the canvas as a picture, in `Pictures/kaonomi/bpmn`), COPY XML. On the right, a **comment** on the diagram and the **search engine**: ☁ SAVE puts the diagram (its XML, its comment) in the `bpmn` index through the server (`PUT /bpmn`, `POST /bpmn/update`: a new version each time, its id the slug of the name of the process; `GET /bpmn/{id}`, `POST /bpmn/search` on title, comment, summary and the names of the elements, `POST /bpmn/last`, `DELETE /bpmn/{id}` marks it deleted), the search field and the list of the diagrams found (a click opens one); the diagrams are found by `/search` too | `Scripts/Tools/Work/BpmnView.cs`, `Scripts/Tools/Work/BpmnCanvas.cs`, `Shared/ViewModels/BpmnWindowViewModel.cs`, `Shared/Models/BpmnModels.cs`, `Shared/Services/BpmnXml.cs`, `KAONOMI.Core/Models/Bpmn.cs` |
+| `/mindmap` | The mind mapping window, with the window of `/bpmnai` as its model: a central topic (a pill; its text is the title of the map) and its branches (rounded boxes in the colour of the branch, one of eight given in turn; the deeper topics as texts underlined in that colour), joined by curves. Tab or the + handle of the selection adds a child (placed beside its parent, on the side of its branch; the central topic has a + on each side, for a branch to the right or to the left), Enter a sibling, F2 or double-click renames, the properties edit the text and a note (a dot marks a topic with a note), a topic dragged onto another moves under it with its branch, LAYOUT lays the whole tree out again (the root in the middle, the branches right and left in turn, each subtree given the height of its leaves), ⌫ deletes the branch (never the central topic), the arrows nudge, ⌘Z / ⇧⌘Z undo and redo, wheel or pinch zooms, FIT and 1:1. NEW, OPEN (any FreeMind `.mm` file: a rich text kept as the text, a topic without a place laid out by the tree), SAVE / SAVE AS (FreeMind XML with the place of each topic in `X` and `Y` attributes, the colour of a branch as its `edge`, the note as a `richcontent` of type NOTE; `~/kaonomi/mindmap` by default), PNG (in `Pictures/kaonomi/mindmap`), COPY XML. On the right, a **comment** on the map and the **search engine**: ☁ SAVE puts the map (its XML, its comment) in the `mindmap` index through the server (`PUT /mindmap`, `POST /mindmap/update`, `GET /mindmap/{id}`, `POST /mindmap/search` on title, comment, summary and the texts of the topics, `POST /mindmap/last`, `DELETE /mindmap/{id}`), the search and the list of the maps (a click opens one); found by `/search` too | `Scripts/Tools/Work/MindmapView.cs`, `Scripts/Tools/Work/MindmapCanvas.cs`, `Shared/ViewModels/MindmapWindowViewModel.cs`, `Shared/Models/MindmapModels.cs`, `Shared/Services/MindmapXml.cs`, `KAONOMI.Core/Models/Mindmap.cs` |
+| `/process`, `/processes` | The processes of KAONOMI (the two engines, the server, the agents, the Fooocus API, Ollama): their state every 3 seconds (port open, or process found with pgrep), START (output in `~/kaonomi/logs`), STOP (the engines asked to stop as /bye does; the others interrupted, then killed after 10 s), RESTART, START CORE (engines, then server), STOP ALL (everything but Ollama); the projects are in the folder holding KAONOMI.Server, found from the folder of the chat | `Scripts/Tools/Dashboards/ProcessView.cs`, `Shared/ViewModels/ProcessWindowViewModel.cs` |
+| `/bnp` | The chatbot answers "Let's go" (voice and 3D animation) and the presentation `Pictures/kaonomi/presentation/Digitribe-AI.pptx` starts in full screen: on macOS Microsoft PowerPoint opens it (`open -a`) and AppleScript starts its slide show (Keynote when PowerPoint is not installed), on Windows PowerPoint `/s`; when the file is missing the chat says so | `KAONOMI.Chat/Services/SlideShow.cs` |
+| `/cache` | Cache of the completions; notes; annotations | `Scripts/Tools/Data` |
+| `/fullchat` | The chat as in its full screen, in a window of the desktop: the 3D animation of the preset (its own copy, following the voice and the words) and the microphone to hold while speaking; the window moves, resizes and closes like the others, and ⧉ in its header moves it into a window of the system to put on another screen (closing it brings it back) | `Scripts/Eve/FullChatWindow.cs` |
+| `/closeall` | Closes every window open on the desktop | `Scripts/Eve/WindowDeck.cs` (`CloseAll`) |
+| `/killall` | At once, no countdown, as fast as it can: stops every application of Kaonomi all together (the server, the agents and the Fooocus API killed; the two engines asked to stop, killed after 3 s; Ollama stays), then closes the chat | `Shared/ViewModels/MainViewModel.cs` (`KillAllAsync`), `Shared/ViewModels/ProcessWindowViewModel.cs` |
+| `/think` | The screen goes black, "think …" at the top, and the last hour appears: a cloud of the words of the logs and completions (the most frequent the largest, placed in a spiral, fading in), the pictures touched in the hour (the folders of the pictures and of the graphs) as thumbnails along the bottom; a key or a click brings the chat back | `Scripts/Eve/ThinkScreen.cs` |
+| `/relation` ✎ PEN | In the 2D graph of relations, the pen: a left drag draws around some elements; when it closes, the popup of the cluster opens (the elements inside, a name, a description, tags) and CREATE CLUSTER stores it, with the drawing simplified, in the `cluster` index of the server (`PUT /cluster`; never erased: `DELETE /cluster/{id}` marks it deleted); **Show clusters** draws the stored clusters around their elements (the drawing smoothed, or the hull of the elements when they moved out of it) with their name; a double-click on the name opens the popup of the cluster (SAVE the changes, DELETE marks it deleted); the cluster and each of its elements have a period (from, to) and a probability 0–100; in 3D a cluster is a translucent coloured blob around its elements, its name above it, a double-click on the blob opens the popup; ⏱ TIMELINE shows the elements as horizontal ribbons on a grid of time (oldest start date → most recent end date, a double slider for the dates shown; dragging the left or right end of a ribbon changes the start or end date of the entity, saved on the server; a CLUSTER list above puts a stored cluster on the timeline, its row and its members with the dates of the cluster, dragged then saved by 💾 UPDATE), `Scripts/Tools/Knowledge/RelationTimeline.cs` | `Scripts/Tools/Knowledge/ClusterDialog.cs` |
+| `/search` | A loose search of a few words in the indices of KAONOMI at once (cache, completion, dialog, diary, document, idea, imageanalysis, intel, ontology, relation, taskitem, youtubevideo; `POST /search` of the server): a typo or the start of a word is enough; the hits grouped by index, the selected one as JSON; a double-click (or OPEN) opens it in the window of its kind (cache, completions, ideas, intel, ontology, relations, Work, journal, projects, image analysis, YouTube) | `Scripts/Tools/Data` |
+
+**Annotations** (`Scripts/Tools/Data/AnnotationView.cs`): a right click → **📝 Annotate…** opens a popup to write an
+annotation of the object with its tags (typed `#SOFTWARE #IDEA`, or a click on a suggested tag: the kind of the object,
+its entity type, common ones), saved with the context of the window (as a note) by `PUT /annotation`. It is offered on
+a picture of the image analysis (the part drawn under the pointer, when there is one) and on the thumbnails of
+`/pictures`; on a text selected anywhere (text fields, text areas, selectable texts: **📝 Annotate selection…** in
+their menu; the editor of `/work` and `/journal` in its own menu); on a video of `/youtube`; on a track of `/music`; on
+an entity of the ontology tree, of the Entity window (a right click on its identity, or 📝 ANNOTATE) and of the relation
+graph, 2D or 3D (where an image analysis can be annotated too).
+
+A view is a plain C# class marked `[ToolView(typeof(SomeViewModel), "Title", "icon", width, height)]` implementing
+`IToolView.Build(viewModel, shell)`: it is found by reflection, there is no list to keep up to date.
+
+## Framework (`Scripts/Eve`)
+
+| File | Role |
+| --- | --- |
+| `Eve.cs` | Colours, fonts, boxes and the Godot theme of the EVE look |
+| `Bind.cs` | Bindings of the view models (properties, commands, collections) to Godot controls |
+| `Ui.cs` | Building blocks of the views (rows, fields, search bar, status bar, Markdown…) |
+| `WindowDeck.cs`, `EveFrame.cs` | The desktop: windows in front, cards in 3D at the back |
+| `Shell.cs` | Opens a view model in its window, runs commands |
+| `Neocom.cs`, `ChatPanel.cs`, `VoiceMode.cs` | The bar of commands, the chat, the voice mode |
+| `StartIntro.cs` | The intro at the start, in full screen: the 3D animation that comes close and speaks with a deep robot voice, the sound of a sliding door and the ambience of a lab of AI made by the code |
+| `Dialogs.cs` | File pickers of the system, confirmations, questions |
+| `AvaloniaBridge.cs` | Avalonia headless (pictures, dispatcher, timers) |
+| `PromptCollectionRunner.cs` | The prompt collections |
+
+## Differences with the default chat
+
+- One window, no systray, no full chat on a second screen, no workspace panes: the desktop and its 3D cards replace them.
+- No red strings between windows.
+- The drag and drop between two tool windows is not possible (each window has its own viewport); files dropped from the
+  Finder are taken by the window in front (pictures, journal, work).
+- The music player reads its helper script from `KAONOMI.Chat/Assets/Audio` (next to this project).

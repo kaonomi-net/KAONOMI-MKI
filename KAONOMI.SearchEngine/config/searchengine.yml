@@ -1,0 +1,60 @@
+# ======================== KAONOMI.SearchEngine configuration ========================
+#
+# The settings of the engine, in the style of elasticsearch.yml: the keys can be written dotted
+# (http.port: 9200) or nested (http: { port: 9200 }). Every key can be overridden on the command
+# line: -E http.port=9201. The relative paths are relative to the folder of this file.
+#
+# ---------------------------------- Cluster -----------------------------------
+#
+# One node only (no clustering): the name is shown by GET / and _cluster/health.
+cluster.name: kaonomi
+node.name: kaonomi-search-1
+#
+# ----------------------------------- Paths ------------------------------------
+#
+# Where the indices are stored (one Lucene index per Elasticsearch index), created on the first start.
+# ~ is the home folder of the user: C:/Users/<user>/kaonomi/data on Windows, /Users/<user>/kaonomi/data
+# on macOS, /home/<user>/kaonomi/data on Linux.
+path.data: ~/kaonomi/data
+#
+# Where the log file is written (comment it out: console only).
+#path.logs: ../logs
+#
+# ---------------------------------- Network -----------------------------------
+#
+# 127.0.0.1 / localhost: this machine only; 0.0.0.0: every network interface.
+network.host: 127.0.0.1
+# The port of the REST API (9200: the one of Elasticsearch, so that nothing changes for the clients).
+http.port: 9200
+#
+# ---------------------------------- Security ----------------------------------
+#
+# Basic authentication. The clients give the user and the password (in KAONOMI: "User" and
+# "Password" of dataRepository, dialogRepository and adminRepository in config.json).
+xpack.security.enabled: false
+xpack.security.users:
+  - username: elastic
+    password: changeme
+#
+# ---------------------------------- Indices -----------------------------------
+#
+# A write creates its index when it does not exist (as Elasticsearch).
+action.auto_create_index: true
+# How often the writes become searchable (-1: only on ?refresh or POST _refresh).
+index.refresh_interval: 1s
+# How often the indices are written to disk (a crash can lose the writes of this interval).
+index.translog.sync_interval: 5s
+# Largest from + size of a search.
+index.max_result_window: 10000
+# The replicas reported to the clients (there is never a replica: 1 makes the health "yellow",
+# as a single node Elasticsearch; 0 makes it "green").
+index.number_of_replicas: 1
+# Largest number of clauses of a bool query (fuzzy and wildcard expansions included).
+indices.query.bool.max_clause_count: 1024
+#
+# ---------------------------------- Engine ------------------------------------
+#
+# Memory used to buffer the writes before they are flushed to a segment, in megabytes.
+kaonomi.ram_buffer_mb: 64
+# Logs every request (method, path, status, time).
+kaonomi.log_requests: false

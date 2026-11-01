@@ -1,0 +1,23 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "KAONOMI.Server\\KAONOMI.Server.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "KAONOMI.ChatGodot\\KAONOMI.ChatGodot.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "KAONOMI.SearchEngine\\KAONOMI.SearchEngine.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "KAONOMI.MongoEngine\\KAONOMI.MongoEngine.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

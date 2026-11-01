@@ -1,0 +1,6 @@
+{
+  "ollamaUrl": "http://localhost:11434",
+  "llmmodel": "gpt-oss:latest",
+  "systemPrompt": "You are Kaonomi, a helpful assistant. Answer in the user's language.",
+  "consoleTheme": "matrix"
+}

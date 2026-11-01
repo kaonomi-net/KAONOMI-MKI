@@ -1,0 +1,34 @@
+{
+  "appName": "KaonomiACHEngine",
+  "projectName": "KAONOMI",
+  "language": "EN",
+  "category": "ACHENGINE",
+  "appDescription": "ACH engine context update",
+  "llmmodel": "gpt-oss:20b",
+  "AppDocumentationUrl": "https://www.kaonomi.net",
+  "consoleTheme": "matrix",
+
+  "dataRepository": {
+    "Url": "http://localhost:9200",
+    "Layer": "Default",
+    "Prefix": "",
+    "Password": "",
+    "User": ""
+  },
+  "dialogRepository": {
+    "Url": "http://localhost:9200",
+    "Layer": "Default",
+    "Prefix": "",
+    "Password": "",
+    "User": ""
+  },
+  "adminRepository": {
+    "Url": "http://localhost:9200",
+    "Layer": "Default",
+    "Prefix": "",
+    "Password": "",
+    "User": ""
+  },
+  "latencyMs": 1,
+  "ollamaUrl": "http://localhost:11434"
+}

@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "KAONOMI.Metacognition": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

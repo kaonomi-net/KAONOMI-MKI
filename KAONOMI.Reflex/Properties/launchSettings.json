@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "KAONOMI.Reflex": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

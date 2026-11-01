@@ -1,0 +1,42 @@
+<Project Sdk="Godot.NET.Sdk/4.7.2">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>KAONOMI.ChatGodot</RootNamespace>
+  </PropertyGroup>
+
+  <!-- Shared/: the models, view models and services of the chat (settings of config.yml, the Kaonomi server, Ollama,
+       Piper (text to speech), the activity log; namespaces KAONOMI.Chat.*), and the 3D animations (Shared/Views/SceneShaders.cs,
+       their shaders translated to Godot by SceneShaderTranslator). They came from the Avalonia chat KAONOMI.Chat, removed
+       since; the SDK compiles them with the other sources. -->
+
+  <!-- The face images of the 3D animations and the music helpers (Assets/Audio), next to the assembly. -->
+  <ItemGroup>
+    <None Include="Assets\*-face.png;Assets\hal-eye.png;Assets\Audio\*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- The configuration (config.yml and config.json), next to the assembly. -->
+  <ItemGroup>
+    <None Include="config.yml;config.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4314.35" />
+    <PackageReference Include="YamlDotNet" Version="16.3.0" />
+    <PackageReference Include="Avalonia" Version="12.1.3" />
+    <PackageReference Include="Avalonia.Skia" Version="12.1.3" />
+    <PackageReference Include="Avalonia.Headless" Version="12.1.3" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="QuestPDF" Version="2026.9.1" />
+    <PackageReference Include="TextMateSharp" Version="2.0.0" />
+    <PackageReference Include="TextMateSharp.Grammars" Version="2.0.0" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.5.1" />
+    <PackageReference Include="PortAudioSharp2" Version="1.0.6" />
+    <PackageReference Include="Whisper.net" Version="1.9.1" />
+    <PackageReference Include="Whisper.net.Runtime" Version="1.9.1" />
+    <PackageReference Include="Whisper.net.Runtime.Vulkan" Version="1.9.1" />
+    <PackageReference Include="Markdig" Version="0.40.0" />
+  </ItemGroup>
+</Project>

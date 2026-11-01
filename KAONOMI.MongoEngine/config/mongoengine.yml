@@ -1,0 +1,30 @@
+# ========================= KAONOMI.MongoEngine configuration =========================
+#
+# The settings of the engine, in the style of mongod.conf: nested (net: { port: 27017 }) or
+# dotted (net.port: 27017). Every key can be overridden on the command line: --set net.port=27018.
+# The relative paths are relative to the folder of this file.
+
+# ---------------------------------- Network -----------------------------------
+net:
+  # 27017: the port of MongoDB, so that the clients (MARI, Orleans) change nothing.
+  port: 27017
+  # 127.0.0.1: this machine only; 0.0.0.0: every network interface.
+  bindIp: 127.0.0.1
+  maxIncomingConnections: 10000
+
+# ---------------------------------- Storage -----------------------------------
+storage:
+  # One folder per database, one snapshot (.bson) and one journal (.journal) per collection.
+  dbPath: ../data
+  journal:
+    # How often the journal is forced to disk (each write is in the journal before it is answered).
+    commitIntervalMs: 100
+    # Journal records before the collection is rewritten as a snapshot and the journal emptied.
+    compactAfter: 10000
+
+# ---------------------------------- Logging -----------------------------------
+systemLog:
+  # The log file (comment it out: console only).
+  #path: ../logs/mongoengine.log
+  # 0: start, stop, errors; 1: every command too.
+  verbosity: 0
