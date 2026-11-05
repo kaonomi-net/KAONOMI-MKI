@@ -1135,7 +1135,7 @@ namespace KAONOMI.Server
                 return Task.FromResult(session.UserActivitiesSearch(p.term ?? "*", size));
             });
 
-            // PUT /gamescore: saves the score of a finished game of the chat (game1: the morpion solitaire); returns the new id, or "-1" with the error message.
+            // PUT /gamescore: saves the score of a finished game of the chat (game1: the morpion solitaire of /game:solitaire); returns the new id, or "-1" with the error message.
             app.MapPut("/gamescore", (GameScore p) =>
             {
                 ServiceReturn result = new ServiceReturn();

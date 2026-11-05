@@ -30,5 +30,5 @@
     "User": ""
   },
   "latencyMs": 1,
-  "ollamaUrl": "http://localhost:11434"
+  "ollamaUrl": "http://localhost:11435"
 }

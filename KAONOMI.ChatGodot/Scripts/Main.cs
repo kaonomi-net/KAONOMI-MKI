@@ -53,8 +53,9 @@ public partial class Main : Control
         Eve.Links.Hook(GetTree());
         // Each SAVE of a window goes to the journal of the activities (index useractivities).
         ActivityJournal.Hook(GetTree());
-        // The window of the chat where it was at the last close (screen, position, size, maximised…).
-        DeskLayout.RestoreMainWindow(window);
+        // The window of the chat where it was at the last close (screen, position, size, maximised…), once the scene is
+        // set up: switching to full screen during _Ready makes Godot add a child to the busy root ("Parent node is busy").
+        Callable.From(() => DeskLayout.RestoreMainWindow(window)).CallDeferred();
 
         AvaloniaBridge.Initialize();
         var settings = ChatSettings.Load();
@@ -295,13 +296,19 @@ public partial class Main : Control
         _vm.ConfigWindowRequested += (vm, _) => Open(vm, "/config");
         _vm.IntelWindowRequested += (vm, _) => Open(vm, "/intel");
         _vm.CollectionPlanWindowRequested += (vm, _) => Open(vm, "/collectionplan");
-        _vm.Game1WindowRequested += (vm, _) => Open(vm, "/game1");
+        _vm.Game1WindowRequested += (vm, _) => Open(vm, "/game:solitaire");
+        _vm.FractalWindowRequested += (vm, _) => Open(vm, "/fractal");
+        _vm.ChessWindowRequested += (vm, _) => Open(vm, "/game:chess");
+        _vm.GoWindowRequested += (vm, _) => Open(vm, "/game:go");
+        _vm.MarieWindowRequested += (vm, _) => Open(vm, "/game:marie");
+        _vm.ImmuneWindowRequested += (vm, _) => Open(vm, "/immune");
         _vm.ActivityWindowRequested += (vm, _) => Open(vm, ActivityJournal.Command);
         _vm.FoldersWindowRequested += (vm, _) => Open(vm, "/folders");
         _vm.ProjectWindowRequested += (vm, _) => Open(vm, "/project");
         _vm.RemoteWindowRequested += (vm, _) => Open(vm, "/remote");
         _vm.PresetWindowRequested += (vm, _) => Open(vm, "/preset");
         _vm.ProcessWindowRequested += (vm, _) => Open(vm, "/process");
+        _vm.GatewayWindowRequested += (vm, _) => Open(vm, "/gateway");
         _vm.WikiWindowRequested += (vm, _) => Open(vm, "/wiki");
         _vm.BpmnWindowRequested += (vm, _) => Open(vm, "/bpmnai");
         _vm.InfraWindowRequested += (vm, _) => Open(vm, "/infra");

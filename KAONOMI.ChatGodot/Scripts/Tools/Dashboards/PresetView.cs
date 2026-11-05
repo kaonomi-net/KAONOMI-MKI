@@ -106,7 +106,8 @@ public sealed class PresetView : IToolView
         Effect(effects, vm, "Vibrato", nameof(vm.Vibrato), 0, 1, "The vibrato, 0 to 1");
         Effect(effects, vm, "Assistant", nameof(vm.Assistant), 0, 1, "The AI assistant sheen (doubling, small-room reverb, presence), 0 to 1");
         Effect(effects, vm, "Horror", nameof(vm.Horror), 0, 1, "The horror-film treatment, 0 to 1");
-        var persona = Ui.Lines(vm, nameof(vm.Persona), 170, "The system prompt of the preset (its personality), added to every request; empty for none");
+        var persona = Ui.Lines(vm, nameof(vm.Persona), 170,
+            "The system prompt of the preset (its personality, its instructions): sent while this preset is in use, however it was chosen (the picker, APPLY, CHANGE:NAME in an answer), with the system prompt of the chat added after it; empty for none");
         var defaults = EveStyle.Text_(vm.DefaultInfo, EveStyle.Muted, 11, wrap: true);
         // The fields on the left, the animation alive on the right.
         var fields = Ui.Column(10,
@@ -117,7 +118,7 @@ public sealed class PresetView : IToolView
         var form = Ui.Column(10,
             title,
             Ui.Row(14, fields, stageColumn),
-            Ui.Field("System prompt (personality)", persona),
+            Ui.Field("System prompt of the preset", persona),
             defaults);
         var formPanel = Ui.Scroll(Ui.Margin(form, 12, 8, 12, 8));
         formPanel.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;

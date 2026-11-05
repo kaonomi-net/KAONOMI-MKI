@@ -97,13 +97,17 @@ public sealed partial class ProcessWindowViewModel : ViewModelBase, INoteContext
 
     // ── The list ──
 
-    private static string FindProjects()
+    internal static string FindProjects()
     {
-        // From the folder of the chat up: the first folder holding KAONOMI.Server.
-        var folder = new DirectoryInfo(AppContext.BaseDirectory);
-        for (var i = 0; i < 6 && folder is not null; i++, folder = folder.Parent)
-            if (Directory.Exists(Path.Combine(folder.FullName, "KAONOMI.Server")))
-                return folder.FullName;
+        // From the folder of the chat up (its binaries, or its project when run by the Godot editor): the first folder
+        // holding KAONOMI.Server.
+        foreach (var start in new[] { AppContext.BaseDirectory, Environment.CurrentDirectory })
+        {
+            var folder = new DirectoryInfo(start);
+            for (var i = 0; i < 6 && folder is not null; i++, folder = folder.Parent)
+                if (Directory.Exists(Path.Combine(folder.FullName, "KAONOMI.Server")))
+                    return folder.FullName;
+        }
         var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         return Path.Combine(home, "Projects", "kaonomi");
     }
@@ -163,6 +167,14 @@ public sealed partial class ProcessWindowViewModel : ViewModelBase, INoteContext
                 ? Info(python, folder, fooocusApi, "--fooocus", folder)
                 : null
         };
+        var gateway = Uri.TryCreate(_settings.LlmGatewayUrl, UriKind.Absolute, out var gatewayUri) ? (gatewayUri.Host, gatewayUri.Port) : ("localhost", 11435);
+        yield return new ManagedProcess
+        {
+            Name = "LLM Gateway", Group = "Models", Port = gateway,
+            Description = $"KAONOMI.LLMGateway · the gateway in front of Ollama (semantic cache, router of the models by entities), {gateway.Item1}:{gateway.Item2}; /gateway drives it",
+            Pattern = @"KAONOMI\.LLMGateway($|/bin/|\\bin\\)",
+            Start = () => Dotnet(ProjectsDirectory, "run", "--project", "KAONOMI.LLMGateway")
+        };
         yield return new ManagedProcess
         {
             Name = "Ollama", Group = "Models", Port = ("127.0.0.1", 11434),
@@ -182,7 +194,7 @@ public sealed partial class ProcessWindowViewModel : ViewModelBase, INoteContext
         return (text.Length == 0 ? "localhost" : text, defaultPort);
     }
 
-    private static ProcessStartInfo? Dotnet(string workingDirectory, params string[] arguments)
+    internal static ProcessStartInfo? Dotnet(string workingDirectory, params string[] arguments)
     {
         var dotnet = FindDotnet();
         return dotnet is null ? null : Info(dotnet, workingDirectory, arguments);

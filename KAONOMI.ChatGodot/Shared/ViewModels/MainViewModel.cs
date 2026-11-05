@@ -50,6 +50,8 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
             _choosingPreset = true;
             SelectedPreset = MatchingPreset();
             _choosingPreset = false;
+            ForgetCopiedPresetPrompt();
+            OnPropertyChanged(nameof(PresetPromptNote));
         };
         _ = PresetStore.LoadAsync(_assistant);
         foreach (var relocated in settings.RelocatedDirectories)
@@ -59,6 +61,7 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
         _choosingPreset = true;
         _selectedPreset = MatchingPreset();
         _choosingPreset = false;
+        ForgetCopiedPresetPrompt();
         // The voice reading the answers speaks the language of the voice input.
         _settings.Language = settings.SpeechLanguage.ToUpperInvariant();
         _speech = CreateSpeech();
@@ -126,12 +129,14 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
 
         RecreateSpeech();
         OnPropertyChanged(nameof(Animation));
+        OnPropertyChanged(nameof(PresetPromptNote));
         // A preset applied from /config or /remote shows in the picker of the chat too.
         if (!ReferenceEquals(SelectedPreset, preset))
         {
             _choosingPreset = true;
             SelectedPreset = ChatPreset.All.Contains(preset) ? preset : null;
             _choosingPreset = false;
+            OnPropertyChanged(nameof(PresetPromptNote));
         }
     }
 
@@ -184,6 +189,21 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
             Status = $"Preset {value.Name} applied, but config.yml was not saved: {ex.Message}";
         }
         ActivityLog.Info("Settings", $"Preset {value.Name} chosen in the chat ({value.Voice}, animation {value.Animation})");
+    }
+
+    /// <summary>
+    /// Switches to the preset asked by <c>CHANGE:NAME</c> in an answer (<see cref="PresetSwitch"/>), as when it is chosen
+    /// in the picker of the chat (applied, kept in config.yml); nothing when the answer asks none or the preset is in use.
+    /// </summary>
+    private void SwitchPresetFrom(string content)
+    {
+        if (PresetSwitch.Find(content, ChatPreset.All) is not { } preset)
+            return;
+        if (SelectedPreset is { } current && string.Equals(current.Name, preset.Name, StringComparison.OrdinalIgnoreCase)
+            && current.Animation == _settings.Animation)
+            return;
+        ActivityLog.Info("Settings", $"Preset {preset.Name} asked by the answer (CHANGE:{preset.Name})");
+        SelectedPreset = preset;
     }
 
     /// <summary>The preset matching the voice, the animation and the personality in use, or null.</summary>
@@ -546,16 +566,40 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     }
 
     /// <summary>
-    /// Makes <paramref name="text"/> the system prompt of the chat (the SYSTEM PROMPT box, kept in systemprompt.txt):
-    /// APPLY of /preset gives the system prompt stored in the preset. The personality of the preset, the same text,
-    /// is then not added a second time to the requests (<see cref="FullSystemPrompt"/>).
+    /// The system prompt of the chat holding the system prompt of a preset, as APPLY of /preset used to copy it there:
+    /// it is given back its usual text (systemPrompt of config.json), since the system prompt of the preset in use is
+    /// sent before it anyway (<see cref="FullSystemPrompt"/>), and another preset would otherwise get both.
     /// </summary>
-    public void ApplySystemPrompt(string text)
+    private void ForgetCopiedPresetPrompt()
     {
-        SystemPrompt = text.Trim();
+        var current = SystemPrompt?.Trim() ?? string.Empty;
+        if (current.Length == 0 || ChatPreset.All.FirstOrDefault(p => p.Persona.Trim().Length > 0 && p.Persona.Trim() == current) is not { } copied)
+            return;
+        var usual = _settings.SystemPrompt?.Trim() ?? string.Empty;
+        SystemPrompt = ChatPreset.All.Any(p => p.Persona.Trim() == usual) ? string.Empty : usual;
         SaveSystemPrompt();
-        ActivityLog.Info("Settings", $"System prompt replaced by the one of the preset ({SystemPrompt.Length} chars)");
+        ActivityLog.Info("Settings", $"System prompt of the chat given back its usual text: it held the system prompt of the preset {copied.Name}, sent with that preset only");
     }
+
+    /// <summary>What is sent before the system prompt of the chat: the system prompt of the preset in use (below the SYSTEM PROMPT box).</summary>
+    public string PresetPromptNote
+    {
+        get
+        {
+            var name = SelectedPreset?.Name ?? "in use";
+            var persona = ActivePersona;
+            if (persona.Length == 0)
+                return $"The preset {name} has no system prompt of its own (/preset to give it one): this one is sent alone.";
+            var line = persona.ReplaceLineEndings(" ");
+            return $"Sent before it, the system prompt of the preset {name}: {(line.Length > 220 ? line[..220] + "…" : line)}";
+        }
+    }
+
+    /// <summary>
+    /// The system prompt of the preset in use: the one of the preset chosen as it is now (an edit in /preset counts at
+    /// once), else the personality kept in config.yml (a voice and an animation set by hand in /remote).
+    /// </summary>
+    private string ActivePersona => (SelectedPreset?.Persona ?? _settings.Persona ?? string.Empty).Trim();
 
     [ObservableProperty]
     private bool _isSystemPromptVisible;
@@ -753,11 +797,17 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     private const string ConsoleCommand = "/cmd";
     private const string ProcessCommand = "/process";
     private const string ProcessesCommand = "/processes";
+    private const string GatewayCommand = "/gateway";
     private const string BnpCommand = "/bnp";
     private const string ProjectCommand = "/project";
     private const string IntelCommand = "/intel";
     private const string CollectionPlanCommand = "/collectionplan";
-    private const string Game1Command = "/game1";
+    private const string Game1Command = "/game:solitaire";
+    private const string FractalCommand = "/fractal";
+    private const string ChessCommand = "/game:chess";
+    private const string GoCommand = "/game:go";
+    private const string MarieCommand = "/game:marie";
+    private const string ImmuneCommand = "/immune";
     private const string ActivityCommand = "/activity";
     private const string GetThemesCommand = "/getthemes";
     private const string FullChatCommand = "/fullchat";
@@ -798,9 +848,9 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     private static bool IsToolCommand(string text) =>
         IsCommand(text, CacheCommand) || IsCommand(text, SearchCommand) || IsCommand(text, JsonCommand) || IsCommand(text, SymbolCommand)
         || IsCommand(text, OntologyCommand) || IsCommand(text, IdeaCommand) || IsCommand(text, CalculatorCommand) || IsCommand(text, PictureCommand) || IsCommand(text, PicturesCommand) || IsCommand(text, MusicCommand) || IsCommand(text, DiaryCommand) || IsCommand(text, JournalCommand) || IsCommand(text, YoutubeCommand) || IsCommand(text, FooocusCommand) || IsCommand(text, CompletionCommand) || IsCommand(text, SystemCommand) || IsCommand(text, LogCommand) || IsCommand(text, LogsCommand) || IsCommand(text, TokenCommand) || IsCommand(text, TokensCommand)
-        || IsCommand(text, ConfigCommand) || IsCommand(text, RemoteCommand) || IsCommand(text, ProjectCommand) || IsCommand(text, IntelCommand) || IsCommand(text, CollectionPlanCommand) || IsCommand(text, Game1Command) || IsCommand(text, ActivityCommand)
+        || IsCommand(text, ConfigCommand) || IsCommand(text, RemoteCommand) || IsCommand(text, ProjectCommand) || IsCommand(text, IntelCommand) || IsCommand(text, CollectionPlanCommand) || IsCommand(text, Game1Command) || IsCommand(text, FractalCommand) || IsCommand(text, ChessCommand) || IsCommand(text, GoCommand) || IsCommand(text, MarieCommand) || IsCommand(text, ImmuneCommand) || IsCommand(text, ActivityCommand)
         || IsCommand(text, RelationCommand) || IsCommand(text, FoldersCommand) || IsCommand(text, FolderCommand) || IsCommand(text, PresetCommand) || IsCommand(text, PresetsCommand)
-        || IsCommand(text, ProcessCommand) || IsCommand(text, ProcessesCommand) || IsCommand(text, WikiCommand) || IsCommand(text, BpmnCommand) || IsCommand(text, InfraCommand) || IsCommand(text, MindmapCommand) || IsCommand(text, WriteCommand) || IsCommand(text, ConsoleCommand);
+        || IsCommand(text, ProcessCommand) || IsCommand(text, ProcessesCommand) || IsCommand(text, GatewayCommand) || IsCommand(text, WikiCommand) || IsCommand(text, BpmnCommand) || IsCommand(text, InfraCommand) || IsCommand(text, MindmapCommand) || IsCommand(text, WriteCommand) || IsCommand(text, ConsoleCommand);
 
     /// <summary>Recognises <c>/n&lt;tool&gt;</c> (e.g. <c>/ncache</c>) and returns the tool command (<c>/cache</c>).</summary>
     private static bool TryParseDetachedCommand(string text, out string command)
@@ -990,9 +1040,13 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
             }
 
             var stats = FormatStats(response, model, stopwatch.Elapsed);
+            // CHANGE:MARI (or another preset or 3D animation) in the answer: the chat switches to it before reading it,
+            // so that the answer is said with the new voice; the marker itself is not read.
+            SwitchPresetFrom(content);
             // Read aloud while it is shown (not during a prompt collection).
-            if (!IsBatchRunning)
-                _ = SpeakAnswerAsync(content);
+            var spoken = PresetSwitch.Strip(content);
+            if (!IsBatchRunning && spoken.Length > 0)
+                _ = SpeakAnswerAsync(spoken);
             await RevealAsync(answer, content, cancellationToken);
             answer.Stats = stats;
             answer.CodeSnippets = CodeBlockExtractor.Extract(content);
@@ -1223,7 +1277,12 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
             + "- `/intel`: search (in all the fields), create, clone, edit and delete the intels\n"
             + "- `/collectionplan`: search (in all the fields), create, clone, edit, activate and delete the collection plans of the web scraper; `/ncollectionplan` opens it in its own window\n"
             + "- `/activity`: the journal of the activities (each SAVE done in a window), with a search; OPEN opens the window again\n"
-            + "- `/game1`: the morpion solitaire: add a point, draw a line of 4 cells through it (horizontal, vertical or diagonal), +1 per line, never over another line\n"
+            + "- `/game:solitaire`: the morpion solitaire: add a point, draw a line of 4 cells through it (horizontal, vertical or diagonal), +1 per line, never over another line\n"
+            + "- `/game:chess`: a game of chess against the LLM: you play White on the board (click a piece then its square, or drag it), the model of the chat (or the one chosen in the window) plays Black from the position and the list of its legal moves; every rule applies (castling, en passant, promotion, check, checkmate, stalemate, the fifty-move rule, threefold repetition, too little material); the list of every move in algebraic notation on the side, UNDO, RESIGN, PGN (copied); `/ngame:chess` opens it in its own window\n"
+            + "- `/game:go`: a game of go against the LLM: you play Black (click a point), the model of the chat (or the one chosen in the window) plays White from the board and the list of its legal points; 9×9, 13×13 or 19×19, Chinese rules (captures, no suicide, no repeated position, area scoring, komi 7.5); PASS, two passes end the play, then click the dead groups and COUNT; the list of every move on the side, UNDO, RESIGN, SGF (copied); `/ngame:go` opens it in its own window\n"
+            + "- `/game:marie`: a first-person game in a maze of 25×25 cells hunted by MarieKilleuse, who always knows the way to you and is a bit faster than you; find the exit at the far corner; green crosses give life points, yellow bolts make you twice as fast as her for 12 s, the pistol, the shotgun and the plasma gun knock her down for a while; click in the maze to play (ZQSD / WASD or arrows, the mouse to look, click or space to shoot, 1 2 3 or the wheel for the weapon, M for the map, Esc to pause); the 10 best escapes are kept; `/ngame:marie` opens it in its own window\n"
+            + "- `/immune`: the immune system: runs KAONOMI.ImmuneSystem, which looks on the machine (your home folder, the whole machine or one folder) for the images generated or edited by an AI (what they declare: Content Credentials, IPTC, the parameters of Stable Diffusion, ComfyUI, Midjourney…) and for the code in Office files (VBA and Excel 4.0 macros, DDE, OLE objects, Power Query, code written as text…), and reads the browser histories (Chrome, Edge, Brave, Arc, Firefox, Safari…) for the AI services visited (ChatGPT, Claude, Gemini, Midjourney, Suno… counted per month, no address kept) and the images and Office files downloaded; an immune cell shows the scan live, then the JSON report is shown with its key figures and charts, the AI images (thumbnails, clues, prompt) and the Office code; the reports are kept in ~/kaonomi/immune-system/reports; `/nimmune` opens it in its own window\n"
+            + "- `/fractal`: the fractal generator: the classic fractals as examples (Mandelbrot and its valleys, Julia sets, Burning Ship, Tricorn, Multibrot, Newton, Phoenix, Magnet, a sine Julia set; the Koch snowflake, Sierpinski, the dragon, Hilbert, Peano and Gosper curves, plants; the Barnsley fern, Sierpinski carpet, maple leaf…), drawn live (ZOOM + / ZOOM −, ⇧ + drag: zoom on the square drawn, wheel: zoom, drag: move, right click: the Julia set of a point); make your own: a formula of z and c (`z^3 + c`, `sin(z) + c`, `fold(z)^2 + c`…) drawn by the GPU, an L-system (axiom, rules, angle, depth) or affine maps (IFS), with palettes; SAVE keeps them in ~/kaonomi/fractals, PNG in Pictures/kaonomi/fractal; `/nfractal` opens it in its own window\n"
             + "- `/folders` or `/folder`: the folders made with 📁+ in the header of a window (name, description, security level), searched as you type; a double-click on a folder opens every window kept in it (its picture and its data)\n"
             + "- `/project`: kanban of the tasks: a column per status (todo, coding, test, check, deploy, archived; backlog first when there are some), each task in a card with its title and its type (bug, change, agent, infra)\n"
             + "- `/bnp`: the chatbot answers \"Let's go\" and the presentation Pictures/kaonomi/presentation/Digitribe-AI.pptx starts in full screen (PowerPoint, else Keynote)\n"
@@ -1234,6 +1293,7 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
             + "- `/write`: the ghost writer, opened at full size, in four tabs: GENERAL (title, author, style, description, goals, audience, and the writings of the search engine), ACTORS (name, description, how they speak and think, motivation, goal, secret, weakness, strength, IQ, EQ, main character, Asperger, dyslexic), LOCATIONS (name, geolocation, description, history, culture, picture and wiki URLs) and CHAPTERS (title, description, perception goal, ambiance, ▲ ▼ to order them) and PUBLISH (a summary of the writing generated by the model of the chat, and the exports: MS Word, PDF, HTML, Blogger); a double-click on a chapter (or ✍ WRITE) opens the text area where its text is written (Esc or ✓ DONE closes it); ☁ SAVE puts the writing in the search engine (the ghostwriter index, a new version each time), where the writings are searched and opened again; `/nwrite` opens it in its own window\n"
             + "- `/cmd`: a console in a window: the shell of the system (cmd.exe) started in the home folder; a line typed runs at its prompt (↑ ↓ the lines typed before), STOP or Ctrl+C kills what runs and starts a new shell, CLEAR empties the screen; the shell is killed when the window closes; the programs that need a terminal of their own (a full-screen editor, a password prompt) do not work there; `/ncmd` opens it in its own window\n"
             + "- `/killall`: at once, no countdown: stops every application of Kaonomi all together (the server, the agents and the Fooocus API killed; the two engines asked to stop, killed after 3 s; Ollama stays) and closes the chat\n"
+            + "- `/gateway`: KAONOMI.LLMGateway, the gateway in front of Ollama (llmGatewayUrl in config.yml, http://localhost:11435): its semantic cache (on, entity guard, embedding model, similarity, TTL; the cached answers, CLEAR CACHE), its router of the models by the entities of the prompt (the rules: entities any / all / none, model, priority), the last requests (model asked → chosen, HIT / MISS), and ANALYZE, what it would do with a prompt; it is started from `/process`\n"
             + "- `/process` or `/processes`: the processes of KAONOMI (the two engines, the server, the agents, the Fooocus API, Ollama): their state every 3 seconds, START, STOP and RESTART for each, START CORE (the engines then the server), STOP ALL; a process started there writes its output in ~/kaonomi/logs\n"
             + "- `/preset` or `/presets`: the editor of the presets of the avatar (voice and its effects, 3D animation, system prompt), stored in the search engine (config.yml keeps only the default preset): NEW, SAVE, DELETE, APPLY to the chat; `/npreset` opens it in its own window\n"
             + "- `/remote`: remote control of the chatbot: type a text that it says as its answer (voice and 3D animation), change the voice, its effects, the system prompt of the preset and the 3D animation live, save them as a new preset, and download, try or delete Piper voices\n"
@@ -1491,8 +1551,23 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     /// <summary>Raised when the user types the <c>/collectionplan</c> command.</summary>
     public event Action<CollectionPlanWindowViewModel, bool>? CollectionPlanWindowRequested;
 
-    /// <summary>Raised when the user types the <c>/game1</c> command: the morpion solitaire.</summary>
+    /// <summary>Raised when the user types the <c>/game:solitaire</c> command: the morpion solitaire.</summary>
     public event Action<Game1WindowViewModel, bool>? Game1WindowRequested;
+
+    /// <summary>Raised when the user types the <c>/fractal</c> command: the fractal generator.</summary>
+    public event Action<FractalWindowViewModel, bool>? FractalWindowRequested;
+
+    /// <summary>Raised when the user types the <c>/game:chess</c> command: a game of chess against the LLM.</summary>
+    public event Action<ChessWindowViewModel, bool>? ChessWindowRequested;
+
+    /// <summary>Raised when the user types the <c>/game:go</c> command: a game of go against the LLM.</summary>
+    public event Action<GoWindowViewModel, bool>? GoWindowRequested;
+
+    /// <summary>Raised when the user types the <c>/game:marie</c> command: the maze of MarieKilleuse.</summary>
+    public event Action<MarieWindowViewModel, bool>? MarieWindowRequested;
+
+    /// <summary>Raised when the user types the <c>/immune</c> command: the scan for AI images and Office code.</summary>
+    public event Action<ImmuneWindowViewModel, bool>? ImmuneWindowRequested;
 
     /// <summary>Raised when the user types the <c>/activity</c> command: the journal of the activities.</summary>
     public event Action<ActivityWindowViewModel, bool>? ActivityWindowRequested;
@@ -1526,6 +1601,9 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
 
     /// <summary>Raised by <c>/process</c> (<c>/processes</c>): the processes of KAONOMI, their state, START / STOP / RESTART.</summary>
     public event Action<ProcessWindowViewModel, bool>? ProcessWindowRequested;
+
+    /// <summary>Raised by <c>/gateway</c>: the window that drives KAONOMI.LLMGateway.</summary>
+    public event Action<GatewayWindowViewModel, bool>? GatewayWindowRequested;
 
     /// <summary>Raised when the user types <c>/log</c> or <c>/logs</c>.</summary>
     public event Action<LogDashboardViewModel, bool>? LogDashboardWindowRequested;
@@ -1715,13 +1793,46 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
 
         if (IsCommand(command, CollectionPlanCommand))
         {
-            CollectionPlanWindowRequested?.Invoke(new CollectionPlanWindowViewModel(_assistant), detached);
+            // RUN writes its analysis with the model selected in the chat.
+            CollectionPlanWindowRequested?.Invoke(new CollectionPlanWindowViewModel(_assistant, ollama: _ollama, model: () => SelectedModel ?? _settings.Model, language: _settings.Language, visionModel: _settings.VisionModel), detached);
             return true;
         }
 
         if (IsCommand(command, Game1Command))
         {
             Game1WindowRequested?.Invoke(new Game1WindowViewModel(_assistant), detached);
+            return true;
+        }
+
+        if (IsCommand(command, FractalCommand))
+        {
+            FractalWindowRequested?.Invoke(new FractalWindowViewModel(), detached);
+            return true;
+        }
+
+        if (IsCommand(command, ChessCommand))
+        {
+            // Black is played by the model selected in the chat (it can be changed in the window).
+            ChessWindowRequested?.Invoke(new ChessWindowViewModel(_ollama, Models, SelectedModel ?? _settings.Model, _settings.Language), detached);
+            return true;
+        }
+
+        if (IsCommand(command, GoCommand))
+        {
+            // White is played by the model selected in the chat (it can be changed in the window).
+            GoWindowRequested?.Invoke(new GoWindowViewModel(_ollama, Models, SelectedModel ?? _settings.Model, _settings.Language), detached);
+            return true;
+        }
+
+        if (IsCommand(command, MarieCommand))
+        {
+            MarieWindowRequested?.Invoke(new MarieWindowViewModel(), detached);
+            return true;
+        }
+
+        if (IsCommand(command, ImmuneCommand))
+        {
+            ImmuneWindowRequested?.Invoke(new ImmuneWindowViewModel(), detached);
             return true;
         }
 
@@ -1763,6 +1874,12 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
         if (IsCommand(command, ProcessCommand) || IsCommand(command, ProcessesCommand))
         {
             ProcessWindowRequested?.Invoke(new ProcessWindowViewModel(_settings), detached);
+            return true;
+        }
+
+        if (IsCommand(command, GatewayCommand))
+        {
+            GatewayWindowRequested?.Invoke(new GatewayWindowViewModel(_settings.LlmGatewayUrl), detached);
             return true;
         }
 
@@ -1817,17 +1934,19 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     private void ToggleSystemPrompt() => IsSystemPromptVisible = !IsSystemPromptVisible;
 
     /// <summary>
-    /// The system prompt sent: the one of the editor (systemprompt.txt), then the personality of the preset in use
-    /// (<c>persona</c> in config.yml); null when both are empty.
+    /// The system prompt sent: the system prompt of the preset in use (set in /preset, <see cref="ActivePersona"/>),
+    /// whichever way the preset was chosen (the picker, APPLY of /preset, /remote, /config, CHANGE:NAME in an answer),
+    /// then the system prompt of the chat added to it (the SYSTEM PROMPT box, systemprompt.txt: what every preset
+    /// shares); null when both are empty.
     /// </summary>
     private string? FullSystemPrompt()
     {
         var system = SystemPrompt?.Trim() ?? string.Empty;
-        var persona = _settings.Persona?.Trim() ?? string.Empty;
-        // The personality already in the system prompt (APPLY of /preset puts it there) is not repeated.
+        var persona = ActivePersona;
+        // The system prompt of the preset already in the one of the chat (an old APPLY of /preset put it there) is not repeated.
         if (persona.Length > 0 && system.Contains(persona, StringComparison.Ordinal))
             persona = string.Empty;
-        var parts = new[] { system, persona }.Where(p => p.Length > 0).ToList();
+        var parts = new[] { persona, system }.Where(p => p.Length > 0).ToList();
         return parts.Count == 0 ? null : string.Join("\n\n", parts);
     }
 
@@ -1846,9 +1965,17 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
         // exchanges. Otherwise every request would carry the whole run (360 messages after 180 prompts), making the
         // dialog documents heavier at each step on the server and exceeding the context of the model.
         var previous = IsBatchRunning ? new List<ChatMessageViewModel>() : LastExchanges(exchanges.Take(exchanges.LastIndexOf(prompt)).ToList());
-        history.Add(new AssistantMessage("user", WithPreviousDiscussions(previous, prompt.Content)));
+        history.Add(new AssistantMessage("user", WithPreviousDiscussions(previous, AddressedToPreset(prompt.Content))));
         return history;
     }
+
+    /// <summary>
+    /// The prompt addressed to the preset in use: its name and "please" before it ("JARVIS please …"), typed or said
+    /// (the speech recognised is sent the same way); the prompt alone when the voice and the animation in use match no
+    /// preset. The chat shows the prompt as it was typed.
+    /// </summary>
+    private string AddressedToPreset(string prompt) =>
+        SelectedPreset?.Name.Trim() is { Length: > 0 } name ? $"{name} please {prompt}" : prompt;
 
     /// <summary>Choices of the drop-down above the chat: 0 to 20 previous exchanges.</summary>
     public IReadOnlyList<int> HistoryExchangeChoices { get; } = Enumerable.Range(0, ChatSettings.MaxHistoryExchanges + 1).ToList();

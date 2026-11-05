@@ -443,7 +443,10 @@ public partial class ChatPanel : PanelContainer
             CustomMinimumSize = new Vector2(0, 90)
         };
         Bind.Edit(edit, _vm, nameof(MainViewModel.SystemPrompt));
-        margin.AddChild(edit);
+        edit.TooltipText = "The system prompt of the chat, shared by every preset: it is added after the system prompt of the preset in use";
+        // What the preset in use adds (its own system prompt, set in /preset).
+        var preset = Ui.Label(_vm, nameof(MainViewModel.PresetPromptNote), Eve.Muted, 11, wrap: true);
+        margin.AddChild(Ui.Column(4, edit, preset));
         Bind.Visible(margin, _vm, nameof(MainViewModel.IsSystemPromptVisible));
         return margin;
     }

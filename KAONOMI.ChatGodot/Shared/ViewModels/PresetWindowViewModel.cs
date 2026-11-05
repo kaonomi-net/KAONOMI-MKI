@@ -386,13 +386,8 @@ public partial class PresetWindowViewModel : ViewModelBase, INoteContextProvider
         }
         var preset = BuildChatPreset();
         _chat.ApplyPreset(preset);
-        // The system prompt stored in the preset becomes the system prompt of the chat (a preset without one leaves it).
-        var promptNote = string.Empty;
-        if (preset.Persona.Length > 0)
-        {
-            _chat.ApplySystemPrompt(preset.Persona);
-            promptNote = ", system prompt of the preset";
-        }
+        // The system prompt of the preset is sent after the one of the chat while the preset is in use.
+        var promptNote = preset.Persona.Length > 0 ? ", its system prompt sent with the one of the chat added after it" : ", no system prompt of its own";
         try
         {
             var path = Path.Combine(AppContext.BaseDirectory, "config.yml");

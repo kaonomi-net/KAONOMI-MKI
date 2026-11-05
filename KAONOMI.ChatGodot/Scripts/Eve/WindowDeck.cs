@@ -67,6 +67,9 @@ public sealed class DeckWindow
     internal EveFrame Frame { get; }
     internal SubViewportContainer Container { get; }
 
+    /// <summary>The shadow of the window on the desktop, drawn behind it (null until it is placed).</summary>
+    internal ColorRect? Shadow { get; set; }
+
     /// <summary>Where the window is in front, in the coordinates of the desktop.</summary>
     internal Rect2 Rect { get; set; }
 
@@ -134,6 +137,7 @@ public partial class WindowDeck : Control
         StretchMode = TextureRect.StretchModeEnum.KeepAspectCovered,
         MouseFilter = MouseFilterEnum.Ignore
     };
+    private SubViewportContainer _sceneContainer = null!;
     private SubViewport _scene = null!;
     private Camera3D _camera = null!;
     private Node3D _cards = null!;
@@ -172,12 +176,12 @@ public partial class WindowDeck : Control
         _wallpaper.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
         AddChild(_wallpaper);
         ShowWallpaper();
-        Wallpaper.Changed += ShowWallpaper;
 
         // The 3D scene of the cards, behind the window in front, its background transparent (space shows through).
         var container = new SubViewportContainer { Stretch = true, MouseFilter = MouseFilterEnum.Ignore };
         container.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
         AddChild(container);
+        _sceneContainer = container;
         _scene = new SubViewport { OwnWorld3D = true, TransparentBg = true, Msaa3D = Viewport.Msaa.Msaa4X, HandleInputLocally = false };
         container.AddChild(_scene);
         _camera = new Camera3D { Fov = FieldOfView, Current = true };
@@ -188,6 +192,7 @@ public partial class WindowDeck : Control
         _layer.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
         AddChild(_layer);
         AddChild(_holder);
+        BuildStageArrows();
         // The pointer leaves the desktop: the card it was on comes back to its size.
         MouseExited += () =>
         {
@@ -199,11 +204,24 @@ public partial class WindowDeck : Control
         };
         Resized += () =>
         {
+            if (_stage)
+            {
+                if (_shelf)
+                    BuildShelf(animate: false);
+                else if (_front is { } shown)
+                    Place(shown, StageRect);
+                PlaceStageArrows();
+                return;
+            }
             foreach (var window in _windows.Where(w => w.IsFront))
                 Place(window, window.IsMaximized ? FullRect : Clamp(window.Rect));
             Arrange(animate: false);
         };
     }
+
+    // Subscribed on entering the tree, not in _Ready: the voice mode takes the desktop and gives it back (out of the
+    // tree and in again, _Ready not called again).
+    public override void _EnterTree() => Wallpaper.Changed += ShowWallpaper;
 
     public override void _ExitTree() => Wallpaper.Changed -= ShowWallpaper;
 
@@ -265,11 +283,18 @@ public partial class WindowDeck : Control
         var wanted = size.Min(desktop - new Vector2(40, 40)).Max(new Vector2(360, 240));
         var offset = (_windows.Count - 1) % 6 * 28;
         var rect = new Rect2((desktop - wanted) / 2 + new Vector2(offset - 70, offset - 70), wanted);
+        Round(window);
         Place(window, Clamp(rect));
         window.IsFront = true;
         window.LastUsed = ++_clock;
         // The windows already in front stay there: only the double-click on a header (or ▁) sends one to the back.
         SetFront(window);
+        if (_stage)
+        {
+            // On the stage it is the one shown; its place on the desktop is the one it gets back after.
+            _beforeStage[window] = (window.Rect, true);
+            ShowOnStage(window);
+        }
         return window;
     }
 
@@ -292,10 +317,32 @@ public partial class WindowDeck : Control
         window.Card = null;
         window.CardLabel = null;
         window.CardMaterial = null;
-        window.Container.QueueFree();
-        window.Viewport.QueueFree();
+        if (_stage && !_shelf && window.Container.Visible)
+        {
+            // Shown on the stage: it stays a moment under the one that replaces it, so that the animation behind does
+            // not flash before that one is drawn.
+            var container = window.Container;
+            container.MouseFilter = Control.MouseFilterEnum.Ignore;
+            GetTree().CreateTimer(0.15).Timeout += () =>
+            {
+                if (IsInstanceValid(container))
+                    container.QueueFree();
+            };
+            if (window.Viewport.GetParent() != container)
+                window.Viewport.QueueFree();
+        }
+        else
+        {
+            window.Container.QueueFree();
+            window.Viewport.QueueFree();
+        }
         if (_front == window)
             SetFront(_windows.Where(w => w.IsFront).OrderByDescending(w => w.LastUsed).FirstOrDefault());
+        _beforeStage.Remove(window);
+        if (_stage && _shelf && _windows.Count > 0)
+            RemoveFromShelf(window);
+        else if (_stage)
+            ShowOnStage(_front);
         window.RaiseClosed();
         Arrange(animate: true);
     }
@@ -365,6 +412,11 @@ public partial class WindowDeck : Control
     /// <summary>Brings <paramref name="window"/> to the front: its card flies forward, the window in front goes back.</summary>
     public void BringToFront(DeckWindow window)
     {
+        if (_stage)
+        {
+            ShowOnStage(window);
+            return;
+        }
         window.LastUsed = ++_clock;
         if (window.IsFront)
         {
@@ -405,7 +457,8 @@ public partial class WindowDeck : Control
     /// <summary>Sends <paramref name="window"/> to the back: its card leaves its place in front for the row of cards.</summary>
     public void SendToBack(DeckWindow window, bool raise = true)
     {
-        if (!window.IsFront)
+        // On the stage there is no back: ◀ ▶ go from window to window.
+        if (!window.IsFront || _stage)
             return;
         window.IsFront = false;
         window.Motion?.Kill();
@@ -419,6 +472,7 @@ public partial class WindowDeck : Control
             CreateCard(window);
         // The card has the size of the window now (it may have been resized since).
         ((QuadMesh)window.Card!.Mesh).Size = window.Rect.Size * Scale;
+        window.CardMaterial?.SetShaderParameter("size", window.Rect.Size);
         window.GrowMotion?.Kill();
         window.Grow = 1;
         SetPose(window, FrontPose(window.Rect));
@@ -500,7 +554,7 @@ public partial class WindowDeck : Control
             Unfade(window, animate: true);
         _front = window;
         foreach (var w in _windows)
-            w.Frame.AddThemeStyleboxOverride("panel", Eve.WindowBox(w == window));
+            w.Frame.AddThemeStyleboxOverride("panel", FrameBox(w == window));
         if (window is not null)
             _layer.MoveChild(window.Container, -1);
         FrontChanged?.Invoke(window);
@@ -530,7 +584,7 @@ public partial class WindowDeck : Control
     /// </summary>
     public void Fade(DeckWindow window)
     {
-        if (!window.IsFront || window.IsFaded)
+        if (!window.IsFront || window.IsFaded || _stage)
             return;
         window.IsFaded = true;
         _layer.MoveChild(window.Container, 0);
@@ -540,7 +594,7 @@ public partial class WindowDeck : Control
         if (_front is null)
         {
             // No other window: none is active (the faded one stays behind, not lit).
-            window.Frame.AddThemeStyleboxOverride("panel", Eve.WindowBox(false));
+            window.Frame.AddThemeStyleboxOverride("panel", FrameBox(false));
             FrontChanged?.Invoke(null);
         }
     }
@@ -573,6 +627,498 @@ public partial class WindowDeck : Control
         window.FadeMotion = tween;
     }
 
+    // ── The stage (the voice mode) ──
+
+    /// <summary>True while the desktop is the stage of the voice mode.</summary>
+    private bool _stage;
+
+    /// <summary>Where each window was on the desktop, and whether it was in front, when the stage began.</summary>
+    private readonly Dictionary<DeckWindow, (Rect2 Rect, bool Front)> _beforeStage = [];
+
+    private Button _previous = null!;
+    private Button _next = null!;
+
+    /// <summary>True while every window of the stage is small at the bottom (the animation seen above them).</summary>
+    private bool _shelf;
+
+    /// <summary>The small windows at the bottom of the stage, one button each.</summary>
+    private readonly Control _shelfRow = new() { MouseFilter = MouseFilterEnum.Ignore, Visible = false };
+
+    /// <summary>The small window of each window in the row.</summary>
+    private readonly Dictionary<DeckWindow, Button> _shelfTiles = [];
+
+    /// <summary>True while the stage shows windows: one in the middle, or all small at the bottom.</summary>
+    public bool ShowsOnStage => _stage && (_shelf ? _windows.Count > 0 : _front is not null);
+
+    /// <summary>True while every window of the stage is small at the bottom.</summary>
+    public bool IsShelved => _stage && _shelf;
+
+    /// <summary>
+    /// The top of the stage, given by the voice mode: under its ⏬, when the camera of the screen has pushed it down
+    /// (0: the usual margin).
+    /// </summary>
+    public float StageTop { get; set; }
+
+    /// <summary>
+    /// The place of the window on the stage: in the middle, 90% of the width and of the height (from
+    /// <see cref="StageTop"/> when it is lower than the margin of the top).
+    /// </summary>
+    private Rect2 StageRect
+    {
+        get
+        {
+            var top = Math.Max(Size.Y * 0.05f, StageTop);
+            return new Rect2(Size.X * 0.05f, top, Size.X * 0.9f, Size.Y * 0.95f - top);
+        }
+    }
+
+    /// <summary>
+    /// The desktop becomes the stage of the voice mode: no wallpaper, no cards, the animation seen through it; one
+    /// window at a time, in the middle on 90% of the screen, ◀ ▶ on its sides to go to the others.
+    /// </summary>
+    public void EnterStage()
+    {
+        if (_stage)
+            return;
+        _stage = true;
+        _beforeStage.Clear();
+        foreach (var window in _windows)
+            _beforeStage[window] = (window.Rect, window.IsFront);
+        _wallpaper.Visible = false;
+        _sceneContainer.Visible = false;
+        // The empty stage lets the clicks through to the animation (a double-click on it leaves the voice mode).
+        MouseFilter = MouseFilterEnum.Ignore;
+        if (_hovered is not null)
+            GrowTo(_hovered, 1);
+        _hovered = null;
+        foreach (var window in _windows)
+            ToStage(window);
+        ShowOnStage(_front ?? _windows.OrderByDescending(w => w.LastUsed).FirstOrDefault());
+    }
+
+    /// <summary>The desktop as it was: each window back at its place, in front or at the back.</summary>
+    public void LeaveStage()
+    {
+        if (!_stage)
+            return;
+        _stage = false;
+        _stageMotion?.Kill();
+        _stageMotion = null;
+        ClearShelf();
+        _wallpaper.Visible = true;
+        _sceneContainer.Visible = true;
+        MouseFilter = MouseFilterEnum.Stop;
+        PlaceStageArrows();
+        var shown = _front;
+        foreach (var window in _windows.ToList())
+        {
+            var (rect, front) = _beforeStage.TryGetValue(window, out var before) ? before : (window.Rect, true);
+            window.Motion?.Kill();
+            window.Motion = null;
+            window.Container.Modulate = Colors.White;
+            // The corners of the desktop again.
+            Round(window);
+            window.Frame.AddThemeStyleboxOverride("panel", FrameBox(window == shown));
+            // Small at the bottom, its viewport rendered apart for its picture: back in its window.
+            if (window.Viewport.GetParent() != window.Container)
+                window.Viewport.Reparent(window.Container, false);
+            window.Container.Visible = true;
+            Place(window, window.IsMaximized ? FullRect : Clamp(rect));
+            if (!front && window != shown)
+                SendToBack(window, raise: false);
+        }
+        _beforeStage.Clear();
+        SetFront(shown is { IsFront: true } ? shown : _windows.Where(w => w.IsFront).OrderByDescending(w => w.LastUsed).FirstOrDefault());
+        Arrange(animate: false);
+    }
+
+    /// <summary><paramref name="window"/> flat, its card hidden (the stage shows no card).</summary>
+    private void ToStage(DeckWindow window)
+    {
+        window.Motion?.Kill();
+        window.Motion = null;
+        window.GrowMotion?.Kill();
+        window.GrowMotion = null;
+        window.Grow = 1;
+        Unfade(window, animate: false);
+        if (window.Card is not null)
+            window.Card.Visible = false;
+        window.CardLabel?.QueueFree();
+        window.CardLabel = null;
+        if (window.Viewport.GetParent() != window.Container)
+            window.Viewport.Reparent(window.Container, false);
+        window.Viewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
+        window.IsFront = true;
+        Round(window);
+        window.Frame.AddThemeStyleboxOverride("panel", FrameBox(window == _front));
+    }
+
+    /// <summary>The radius of the corners of the windows on the desktop, and on the stage (larger, as on a tablet).</summary>
+    private const int DeskRadius = 12, StageRadius = 18;
+
+    /// <summary>The radius of the corners of the windows now.</summary>
+    private int Radius => _stage ? StageRadius : DeskRadius;
+
+    private static Shader? _roundedWindow;
+    private static Shader RoundedWindow => _roundedWindow ??= GD.Load<Shader>("res://Shaders/rounded_window.gdshader");
+
+    /// <summary>
+    /// Rounded corners: the picture of the window cut by a shader (outside the corners, what is behind shows through),
+    /// at the radius of the desktop or of the stage; its panel draws its edge along the same curve (<see cref="FrameBox"/>).
+    /// </summary>
+    private void Round(DeckWindow window)
+    {
+        if (window.Container.Material is not ShaderMaterial material)
+            window.Container.Material = material = new ShaderMaterial { Shader = RoundedWindow };
+        material.SetShaderParameter("radius", (float)Radius);
+        material.SetShaderParameter("size", window.Container.Size);
+        CastShadow(window);
+    }
+
+    /// <summary>How far the shadow of a window goes past it, in pixels.</summary>
+    private const int ShadowMargin = 28;
+
+    private static Shader? _windowShadow;
+    private static Shader WindowShadow => _windowShadow ??= GD.Load<Shader>("res://Shaders/window_shadow.gdshader");
+
+    /// <summary>
+    /// The shadow under a window of the desktop: a child of its picture drawn behind it, larger by
+    /// <see cref="ShadowMargin"/>, so that it moves, grows, fades and comes in front with the window; none on the stage.
+    /// </summary>
+    private void CastShadow(DeckWindow window)
+    {
+        if (window.Shadow is not { } shadow)
+        {
+            var material = new ShaderMaterial { Shader = WindowShadow };
+            material.SetShaderParameter("margin", (float)ShadowMargin);
+            material.SetShaderParameter("offset", new Vector2(0, 7));
+            material.SetShaderParameter("shadow_color", new Color(0, 0, 0, Eve.IsLight ? 0.24f : 0.5f));
+            shadow = new ColorRect { Color = Colors.White, Material = material, MouseFilter = MouseFilterEnum.Ignore, ShowBehindParent = true };
+            window.Container.AddChild(shadow);
+            window.Shadow = shadow;
+        }
+        shadow.Visible = !_stage;
+        FitShadow(window);
+    }
+
+    /// <summary>The shadow at the size of its window.</summary>
+    private static void FitShadow(DeckWindow window)
+    {
+        if (window.Shadow is not { } shadow)
+            return;
+        shadow.Position = -new Vector2(ShadowMargin, ShadowMargin);
+        shadow.Size = window.Container.Size + new Vector2(ShadowMargin * 2, ShadowMargin * 2);
+        if (shadow.Material is ShaderMaterial material)
+        {
+            material.SetShaderParameter("size", shadow.Size);
+            material.SetShaderParameter("radius", (float)DeskRadius);
+        }
+    }
+
+    /// <summary>
+    /// The panel of a window, its corners rounded as the picture is cut: glass on the desktop, opaque on the stage (the
+    /// 3D animation behind does not show through the window).
+    /// </summary>
+    private StyleBoxFlat FrameBox(bool active)
+    {
+        var box = Eve.WindowBox(active);
+        if (_stage)
+            box.BgColor = Eve.PanelSolid with { A = 1 };
+        box.SetCornerRadiusAll(Radius);
+        box.AntiAliasing = true;
+        return box;
+    }
+
+    /// <summary>
+    /// Shows <paramref name="window"/> alone on the stage (null: none), sliding in from the side of <paramref name="from"/>
+    /// (-1: from the left, 1: from the right, 0: in place).
+    /// </summary>
+    private void ShowOnStage(DeckWindow? window, int from = 0)
+    {
+        ClearShelf();
+        // The window shown until now stays under the new one, opaque and in its place, until the new one covers it: the
+        // animation behind never shows between the two (it would flash for the time of the fade).
+        var previous = window is not null && _front is { } shown && shown != window && shown.Container.Visible ? shown : null;
+        _stageMotion?.Kill();
+        _stageMotion = null;
+        if (window is not null)
+            ToStage(window);
+        foreach (var w in _windows)
+            w.Container.Visible = w == window || w == previous;
+        if (window is not null)
+        {
+            window.LastUsed = ++_clock;
+            var rect = StageRect;
+            if (previous is not null)
+            {
+                // Stopped half-way (a quick ◀ ▶): whole again, under the new one.
+                Place(previous, rect);
+                previous.Container.Modulate = Colors.White;
+            }
+            Place(window, rect);
+            if (_front != window)
+                SetFront(window);
+            _layer.MoveChild(window.Container, -1);
+            var tween = CreateTween().SetParallel().SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
+            if (from != 0)
+            {
+                var container = window.Container;
+                container.Position = rect.Position.Round() + new Vector2(from * 90, 0);
+                container.Modulate = Colors.White with { A = 0 };
+                tween.TweenProperty(container, "position", rect.Position.Round(), 0.24);
+                tween.TweenProperty(container, "modulate:a", 1f, 0.2);
+            }
+            else
+            {
+                window.Container.Modulate = Colors.White;
+                // A moment for the picture of the window shown to be drawn (its viewport was hidden) before the other goes.
+                tween.TweenInterval(0.1);
+            }
+            // The new one covers the stage: the others are hidden behind it.
+            tween.Chain().TweenCallback(Callable.From(() =>
+            {
+                if (_stage && _front == window)
+                    foreach (var w in _windows)
+                        if (w != window)
+                            w.Container.Visible = false;
+                _stageMotion = null;
+            }));
+            _stageMotion = tween;
+        }
+        else if (_front is not null)
+            SetFront(null);
+        PlaceStageArrows();
+    }
+
+    /// <summary>The window coming on the stage, the one before still under it until the end.</summary>
+    private Tween? _stageMotion;
+
+    /// <summary>The next window on the stage (<paramref name="by"/> = 1) or the one before (-1), round the list.</summary>
+    private void StepStage(int by)
+    {
+        if (!_stage || _windows.Count < 2)
+            return;
+        var index = _front is null ? 0 : _windows.IndexOf(_front);
+        ShowOnStage(_windows[((index + by) % _windows.Count + _windows.Count) % _windows.Count], by);
+    }
+
+    /// <summary>
+    /// ⏬ of the voice mode: every window of the stage small in a row at the bottom of the screen, the animation seen
+    /// above them; a click on one shows it in the middle again; again: the window shown before comes back.
+    /// </summary>
+    public void ToggleShelf()
+    {
+        if (!_stage)
+            return;
+        if (_shelf)
+        {
+            ShowOnStage(_front ?? _windows.OrderByDescending(w => w.LastUsed).FirstOrDefault());
+            return;
+        }
+        if (_windows.Count == 0)
+            return;
+        _stageMotion?.Kill();
+        _stageMotion = null;
+        _shelf = true;
+        foreach (var window in _windows)
+        {
+            window.Motion?.Kill();
+            window.Motion = null;
+            window.Container.Visible = false;
+            // Out of its hidden container its viewport keeps rendering: the small picture stays alive.
+            if (window.Viewport.GetParent() != _holder)
+                window.Viewport.Reparent(_holder, false);
+            window.Viewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Always;
+        }
+        BuildShelf();
+        PlaceStageArrows();
+    }
+
+    /// <summary>The row of the small windows, in the middle of the bottom, above the margin of the line and the microphone.</summary>
+    private void BuildShelf(bool animate = true)
+    {
+        foreach (var child in _shelfRow.GetChildren())
+        {
+            _shelfRow.RemoveChild(child);
+            child.QueueFree();
+        }
+        _shelfTiles.Clear();
+        _shelfRow.Visible = _shelf;
+        if (!_shelf || _windows.Count == 0)
+            return;
+        if (_shelfRow.GetParent() is null)
+            AddChild(_shelfRow);
+        _shelfRow.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+        MoveChild(_shelfRow, -1);
+        const float gap = 16, caption = 26;
+        var count = _windows.Count;
+        var aspect = StageRect.Size.X / Math.Max(1, StageRect.Size.Y);
+        var width = Math.Min(Size.X * 0.15f, (Size.X * 0.9f - gap * (count - 1)) / count);
+        var height = width / aspect;
+        var total = count * width + (count - 1) * gap;
+        var y = Size.Y * 0.95f - height - caption - 10;
+        for (var i = 0; i < count; i++)
+        {
+            var window = _windows[i];
+            var tile = new Button
+            {
+                FocusMode = FocusModeEnum.None,
+                MouseDefaultCursorShape = CursorShape.PointingHand,
+                TooltipText = $"{window.Title} · click: in the middle again",
+                Position = new Vector2((Size.X - total) / 2 + i * (width + gap), y),
+                Size = new Vector2(width, height + caption)
+            };
+            StyleTile(tile, window == _front);
+            tile.AddThemeStyleboxOverride("hover", TileBox(Eve.Cyan, 2));
+            tile.AddThemeStyleboxOverride("pressed", TileBox(Eve.Cyan, 2));
+            var picture = new TextureRect
+            {
+                Texture = window.Viewport.GetTexture(),
+                ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
+                StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
+                MouseFilter = MouseFilterEnum.Ignore,
+                Position = new Vector2(6, 6),
+                Size = new Vector2(width - 12, height - 6)
+            };
+            tile.AddChild(picture);
+            var title = new Label
+            {
+                Text = $"{window.Icon}  {window.Title}",
+                ClipText = true,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                MouseFilter = MouseFilterEnum.Ignore,
+                Position = new Vector2(6, height + 2),
+                Size = new Vector2(width - 12, caption - 4)
+            };
+            title.AddThemeFontSizeOverride("font_size", 12);
+            title.AddThemeColorOverride("font_color", VoiceMode.Ink);
+            tile.AddChild(title);
+            tile.AddChild(ShelfClose(window, width));
+            tile.Pressed += () => ShowOnStage(window);
+            _shelfRow.AddChild(tile);
+            _shelfTiles[window] = tile;
+            if (!animate)
+                continue;
+            // Each one comes down into its place, a moment after the one before.
+            var place = tile.Position;
+            tile.Position = place - new Vector2(0, 60);
+            tile.Modulate = Colors.White with { A = 0 };
+            var tween = tile.CreateTween().SetParallel().SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
+            tween.TweenProperty(tile, "position", place, 0.28).SetDelay(i * 0.04);
+            tween.TweenProperty(tile, "modulate:a", 1f, 0.22).SetDelay(i * 0.04);
+        }
+    }
+
+    /// <summary>
+    /// ✕ in a disc on the upper right corner of a small window of the bottom: closes it (asked first when it has
+    /// changes not saved, as its own ✕); the row is made again without it.
+    /// </summary>
+    private Button ShelfClose(DeckWindow window, float tileWidth)
+    {
+        const int size = 28;
+        var close = new Button
+        {
+            Text = "✕",
+            FocusMode = FocusModeEnum.None,
+            MouseDefaultCursorShape = CursorShape.PointingHand,
+            TooltipText = $"Close {window.Title}",
+            Position = new Vector2(tileWidth - size + 8, -8),
+            Size = new Vector2(size, size),
+            CustomMinimumSize = new Vector2(size, size)
+        };
+        close.AddThemeStyleboxOverride("normal", VoiceMode.Glass(size / 2, VoiceMode.SurfaceHover, VoiceMode.Hairline, 1, 0.8f));
+        close.AddThemeStyleboxOverride("hover", VoiceMode.Glass(size / 2, Eve.Red, Eve.Red, 0, 1.2f));
+        close.AddThemeStyleboxOverride("pressed", VoiceMode.Glass(size / 2, Eve.Red.Darkened(0.15f), Eve.Red, 0, 0.5f));
+        close.AddThemeFontSizeOverride("font_size", 12);
+        close.AddThemeColorOverride("font_color", VoiceMode.Ink);
+        close.AddThemeColorOverride("font_hover_color", Colors.White);
+        close.AddThemeColorOverride("font_pressed_color", Colors.White);
+        close.Pressed += () => _ = RequestCloseAsync(window);
+        return close;
+    }
+
+    /// <summary>
+    /// The small window of <paramref name="window"/> (closed) gone from the row: the others stay where they are, at
+    /// their size (the row is laid out again only at the next ⏬).
+    /// </summary>
+    private void RemoveFromShelf(DeckWindow window)
+    {
+        if (_shelfTiles.Remove(window, out var tile) && IsInstanceValid(tile))
+        {
+            tile.Disabled = true;
+            var tween = tile.CreateTween().SetParallel().SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.In);
+            tile.PivotOffset = tile.Size / 2;
+            tween.TweenProperty(tile, "scale", new Vector2(0.6f, 0.6f), 0.18);
+            tween.TweenProperty(tile, "modulate:a", 0f, 0.18);
+            tween.Chain().TweenCallback(Callable.From(tile.QueueFree));
+        }
+        // The window shown before may have been the one closed: the edge goes to the one that replaces it.
+        foreach (var (shown, other) in _shelfTiles)
+            StyleTile(other, shown == _front);
+    }
+
+    private static StyleBoxFlat TileBox(Color edge, int border)
+    {
+        var box = VoiceMode.Glass(14, VoiceMode.Surface, edge, border, border > 1 ? 1.4f : 1f);
+        box.ContentMarginLeft = box.ContentMarginRight = box.ContentMarginTop = box.ContentMarginBottom = 0;
+        return box;
+    }
+
+    /// <summary>A small window at rest: its edge cyan when it is the window shown before.</summary>
+    private static void StyleTile(Button tile, bool front) =>
+        tile.AddThemeStyleboxOverride("normal", front ? TileBox(Eve.Cyan, 2) : TileBox(Eve.Edge, 1));
+
+    /// <summary>The small windows of the bottom gone (a window shown in the middle, the stage left).</summary>
+    private void ClearShelf()
+    {
+        _shelf = false;
+        foreach (var child in _shelfRow.GetChildren())
+        {
+            _shelfRow.RemoveChild(child);
+            child.QueueFree();
+        }
+        _shelfTiles.Clear();
+        _shelfRow.Visible = false;
+    }
+
+    private void BuildStageArrows()
+    {
+        _previous = StageArrow("◀", -1);
+        _next = StageArrow("▶", 1);
+        PlaceStageArrows();
+    }
+
+    private Button StageArrow(string text, int by)
+    {
+        var button = new Button { Text = text, Visible = false, FocusMode = FocusModeEnum.None, MouseDefaultCursorShape = CursorShape.PointingHand };
+        VoiceMode.MakeRound(button, 56, 22);
+        button.Pressed += () => StepStage(by);
+        AddChild(button);
+        return button;
+    }
+
+    /// <summary>◀ ▶ in the middle of the margins left and right of the window on the stage, when there are several.</summary>
+    private void PlaceStageArrows()
+    {
+        if (_previous is null || _next is null)
+            return;
+        var shown = _stage && !_shelf && _windows.Count > 1;
+        _previous.Visible = _next.Visible = shown;
+        if (!shown)
+            return;
+        var size = _previous.CustomMinimumSize;
+        var x = Math.Max(4, Size.X * 0.025f - size.X / 2);
+        var y = (Size.Y - size.Y) / 2;
+        _previous.Position = new Vector2(x, y);
+        _next.Position = new Vector2(Size.X - x - size.X, y);
+        _previous.Size = _next.Size = size;
+        var index = _front is null ? 0 : _windows.IndexOf(_front);
+        _previous.TooltipText = $"◀ {_windows[(index - 1 + _windows.Count) % _windows.Count].Title}  ·  {index + 1} / {_windows.Count}";
+        _next.TooltipText = $"▶ {_windows[(index + 1) % _windows.Count].Title}  ·  {index + 1} / {_windows.Count}";
+        MoveChild(_previous, -1);
+        MoveChild(_next, -1);
+    }
+
     // ── Layout ──
 
     /// <summary>The whole desktop: between the bar of commands and the chat.</summary>
@@ -584,6 +1130,9 @@ public partial class WindowDeck : Control
     /// </summary>
     public void ToggleMaximized(DeckWindow window)
     {
+        // On the stage the window keeps its place in the middle.
+        if (_stage)
+            return;
         if (window.IsMaximized)
         {
             var restore = window.Restore!.Value;
@@ -640,6 +1189,10 @@ public partial class WindowDeck : Control
         window.Container.Position = rect.Position.Round();
         window.Container.Size = rect.Size.Round();
         window.Container.PivotOffset = window.Container.Size / 2;
+        // The corners cut and the shadow follow the size.
+        if (window.Container.Material is ShaderMaterial rounded)
+            rounded.SetShaderParameter("size", window.Container.Size);
+        FitShadow(window);
     }
 
     /// <summary><paramref name="rect"/> kept inside the desktop (its header always reachable).</summary>
@@ -720,6 +1273,9 @@ public partial class WindowDeck : Control
         material.SetShaderParameter("picture", window.Viewport.GetTexture());
         material.SetShaderParameter("edge_color", Eve.Cyan);
         material.SetShaderParameter("light_theme", Eve.IsLight);
+        // The card has the rounded corners of the window.
+        material.SetShaderParameter("size", window.Rect.Size);
+        material.SetShaderParameter("radius", (float)DeskRadius);
         var card = new MeshInstance3D { Mesh = new QuadMesh { Size = window.Rect.Size * s }, MaterialOverride = material };
         _cards.AddChild(card);
         window.Card = card;

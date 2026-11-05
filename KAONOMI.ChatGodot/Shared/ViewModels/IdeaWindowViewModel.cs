@@ -175,6 +175,9 @@ public partial class IdeaWindowViewModel : ViewModelBase, INoteContextProvider
 
     private void OnSaved(IdeaEntryViewModel idea) => RefreshCategories();
 
+    /// <summary>A /project window on the same assistant, for an idea sent there as a new task.</summary>
+    public ProjectWindowViewModel CreateProjectWindow() => new(_assistant);
+
     /// <summary>Rebuilds the category suggestions from the listed ideas.</summary>
     private void RefreshCategories()
     {

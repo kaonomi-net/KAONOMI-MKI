@@ -14,7 +14,7 @@ namespace KAONOMI.ChatGodot.Eve;
 /// robotised; the words written under it), after the sound of a sliding door that opens by itself, as in the films and
 /// games of science fiction (a latch, a pneumatic hiss, the slide, the stop), over the ambient sound of a lab of AI (the
 /// hum of the servers, the air of their fans, a soft drone, the chirps and relays of the machines at work). The application goes to full screen with
-/// it. A key or a click skips it;
+/// it. It ends with a fade of the animation, its words and its sound (1.5 s; 1 s when a key or a click skips it);
 /// <c>--no-intro</c> on the command line too.
 /// </summary>
 public partial class StartIntro : Control
@@ -141,7 +141,7 @@ public partial class StartIntro : Control
         _words.Size = new Vector2(Size.X, Size.Y * 0.12f);
         _words.VisibleRatio = Smooth((t - SayAt - 0.2f) / 0.9f);
         if (!_leaving && t >= FadeAt && (_voice is not { IsActive: true } || t >= FadeAt + SpeechWait))
-            Leave(0.8);
+            Leave(1.5);
     }
 
     public override void _Input(InputEvent e)
@@ -151,7 +151,7 @@ public partial class StartIntro : Control
         {
             GetViewport().SetInputAsHandled();
             if (!_leaving)
-                Leave(0.5);
+                Leave(1);
         }
     }
 

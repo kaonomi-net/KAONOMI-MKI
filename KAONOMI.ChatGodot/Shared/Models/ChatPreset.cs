@@ -20,17 +20,22 @@ public sealed record ChatPreset(
 
     /// <summary>
     /// The presets offered by the picker of the chat, the drop-down of <c>/config</c>, <c>/remote</c> and <c>/preset</c>:
-    /// the default one(s) of config.yml (<see cref="BuiltIn"/>), then the ones stored in the search engine
+    /// the default one(s) of config.yml (<see cref="BuiltIn"/>) first, then the ones stored in the search engine
     /// (<see cref="PresetStore"/>; until the server has answered, the ones of the application and of presets.json), one
-    /// per name (config.yml first).
+    /// per name. A default preset also stored in the search engine is the stored one (edited with /preset: its system
+    /// prompt, its voice…); config.yml gives it until the server has answered.
     /// </summary>
     public static IReadOnlyList<ChatPreset> All
     {
         get
         {
-            var others = PresetStore.Loaded ? PresetStore.Presets : [.. Defaults, .. CustomPresetStore.Presets];
-            return [.. BuiltIn, .. others.Where(p => !BuiltIn.Any(b => string.Equals(b.Name, p.Name, StringComparison.OrdinalIgnoreCase)))
-                .GroupBy(p => p.Name, StringComparer.OrdinalIgnoreCase).Select(g => g.First())];
+            var others = (PresetStore.Loaded ? PresetStore.Presets : [.. Defaults, .. CustomPresetStore.Presets])
+                .GroupBy(p => p.Name, StringComparer.OrdinalIgnoreCase).Select(g => g.First()).ToList();
+            bool IsBuiltIn(ChatPreset p) => BuiltIn.Any(b => string.Equals(b.Name, p.Name, StringComparison.OrdinalIgnoreCase));
+            var first = BuiltIn.Select(b => PresetStore.Loaded
+                ? others.FirstOrDefault(p => string.Equals(p.Name, b.Name, StringComparison.OrdinalIgnoreCase)) ?? b
+                : b);
+            return [.. first, .. others.Where(p => !IsBuiltIn(p))];
         }
     }
 

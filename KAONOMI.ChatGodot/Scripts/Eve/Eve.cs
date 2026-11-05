@@ -256,6 +256,10 @@ public static class Eve
             theme.SetColor("font_color", type, Text);
             theme.SetColor("font_selected_color", type, Ink);
             theme.SetColor("font_hovered_color", type, TextBright);
+            // A selected item under the pointer: without these, Godot's own white text and box (invisible in a light theme).
+            theme.SetColor("font_hovered_selected_color", type, Ink);
+            theme.SetStylebox("hovered_selected", type, selected);
+            theme.SetStylebox("hovered_selected_focus", type, selected);
             theme.SetColor("guide_color", type, Edge with { A = 0.25f });
         }
         theme.SetColor("relationship_line_color", "Tree", Edge with { A = 0.4f });
@@ -365,9 +369,9 @@ public sealed record Palette(
         Field: new(0.0f, 0.0f, 0.0f, 0.35f),
         Edge: new(0.36f, 0.42f, 0.47f, 0.55f),
         EdgeBright: new(0.62f, 0.69f, 0.74f, 0.85f),
-        Text: new(0.80f, 0.83f, 0.85f),
+        Text: new(0.82f, 0.85f, 0.87f),
         TextBright: new(0.94f, 0.96f, 0.97f),
-        Muted: new(0.50f, 0.55f, 0.59f),
+        Muted: new(0.55f, 0.59f, 0.63f),
         Accent: new(0.36f, 0.76f, 0.88f),
         Warm: new(0.93f, 0.64f, 0.22f),
         Red: new(0.85f, 0.29f, 0.24f),
@@ -410,15 +414,15 @@ public sealed record Palette(
     public static readonly Palette Matrix = new(
         "Matrix", "Dark · the digital rain, phosphor green on black and the monospace of a terminal, in the style of the film", false,
         Space: new(0.0f, 0.016f, 0.004f),
-        Panel: new(0.0f, 0.04f, 0.012f, 0.84f),
+        Panel: new(0.0f, 0.04f, 0.012f, 0.92f),
         PanelSolid: new(0.004f, 0.05f, 0.016f, 0.97f),
         Header: new(0.01f, 0.09f, 0.03f, 0.95f),
         Field: new(0.0f, 0.0f, 0.0f, 0.45f),
         Edge: new(0.0f, 0.55f, 0.18f, 0.5f),
         EdgeBright: new(0.2f, 0.85f, 0.35f, 0.85f),
-        Text: new(0.62f, 0.9f, 0.66f),
+        Text: new(0.72f, 0.95f, 0.75f),
         TextBright: new(0.85f, 1.0f, 0.88f),
-        Muted: new(0.28f, 0.58f, 0.34f),
+        Muted: new(0.40f, 0.70f, 0.45f),
         Accent: new(0.0f, 1.0f, 0.25f),
         Warm: new(0.75f, 0.95f, 0.2f),
         Red: new(0.95f, 0.3f, 0.25f),
@@ -444,7 +448,7 @@ public sealed record Palette(
         EdgeBright: new(0.45f, 0.9f, 0.95f, 0.85f),
         Text: new(0.8f, 0.9f, 0.92f),
         TextBright: new(0.93f, 0.98f, 1.0f),
-        Muted: new(0.42f, 0.6f, 0.66f),
+        Muted: new(0.48f, 0.65f, 0.70f),
         Accent: new(0.18f, 0.88f, 0.85f),
         Warm: new(1.0f, 0.31f, 0.64f),
         Red: new(0.98f, 0.3f, 0.4f),
@@ -470,9 +474,9 @@ public sealed record Palette(
         Field: new(0.09f, 0.105f, 0.13f, 0.75f),
         Edge: new(0.3f, 0.35f, 0.41f, 0.6f),
         EdgeBright: new(0.48f, 0.55f, 0.63f, 0.85f),
-        Text: new(0.8f, 0.82f, 0.84f),
+        Text: new(0.87f, 0.88f, 0.90f),
         TextBright: new(0.9f, 0.91f, 0.92f),
-        Muted: new(0.54f, 0.58f, 0.63f),
+        Muted: new(0.68f, 0.71f, 0.75f),
         Accent: new(0.5f, 0.7f, 0.84f),
         Warm: new(0.85f, 0.64f, 0.28f),
         Red: new(0.82f, 0.43f, 0.39f),
@@ -521,9 +525,9 @@ public sealed record Palette(
         Field: new(0.04f, 0.045f, 0.03f, 0.6f),
         Edge: new(0.42f, 0.45f, 0.3f, 0.55f),
         EdgeBright: new(0.66f, 0.68f, 0.5f, 0.85f),
-        Text: new(0.84f, 0.82f, 0.7f),
+        Text: new(0.89f, 0.88f, 0.76f),
         TextBright: new(0.95f, 0.93f, 0.82f),
-        Muted: new(0.58f, 0.58f, 0.46f),
+        Muted: new(0.66f, 0.65f, 0.53f),
         Accent: new(0.58f, 0.78f, 0.38f),
         Warm: new(0.95f, 0.68f, 0.22f),
         Red: new(0.86f, 0.33f, 0.26f),
@@ -549,7 +553,7 @@ public sealed record Palette(
         EdgeBright: new(0.55f, 0.66f, 0.85f, 0.85f),
         Text: new(0.86f, 0.89f, 0.94f),
         TextBright: new(0.97f, 0.98f, 1.0f),
-        Muted: new(0.52f, 0.58f, 0.7f),
+        Muted: new(0.54f, 0.60f, 0.71f),
         Accent: new(0.32f, 0.58f, 1.0f),
         Warm: new(0.9f, 0.74f, 0.32f),
         Red: new(0.94f, 0.26f, 0.3f),
@@ -576,7 +580,7 @@ public sealed record Palette(
         EdgeBright: Color.FromHtml("#474D57"),
         Text: Color.FromHtml("#EAECEF"),
         TextBright: Color.FromHtml("#FFFFFF"),
-        Muted: Color.FromHtml("#848E9C"),
+        Muted: Color.FromHtml("#949CA8"),
         Accent: Color.FromHtml("#F0B90B"),
         Warm: Color.FromHtml("#F7931A"),
         Red: Color.FromHtml("#F6465D"),

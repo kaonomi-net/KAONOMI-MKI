@@ -13,4 +13,7 @@
   <Project Path="KAONOMI.SearchEngine.Tests/KAONOMI.SearchEngine.Tests.csproj" Id="b7f2d4e8-6a13-4c59-8e2f-91a3c5d7e064" />
   <Project Path="KAONOMI.MongoEngine/KAONOMI.MongoEngine.csproj" Id="3c8e1f5a-9d27-4b6e-a0f4-2e7b9c1d5a86" />
   <Project Path="KAONOMI.MongoEngine.Tests/KAONOMI.MongoEngine.Tests.csproj" Id="d1a6b3f9-4e82-4c07-9b5d-6f2e8a0c7b31" />
+  <Project Path="KAONOMI.LLMGateway/KAONOMI.LLMGateway.csproj" Id="d075aa17-3622-4b7f-b147-f8dd5b14f374" />
+  <Project Path="KAONOMI.LLMGateway.Tests/KAONOMI.LLMGateway.Tests.csproj" Id="2493eaa9-bd58-4b9e-9886-7cb84b8dc8c5" />
+  <Project Path="KAONOMI.ImmuneSystem/KAONOMI.ImmuneSystem.csproj" Id="32692db4-df8d-4d37-b1bc-f80c82c879b2" />
 </Solution>

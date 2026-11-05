@@ -30,7 +30,7 @@
     "User": ""
   },
   "latencyMs": 1,
-  "ollamaUrl": "http://localhost:11434",
+  "ollamaUrl": "http://localhost:11435",
   "fooocusUrl": "http://127.0.0.1:8888"
 
 

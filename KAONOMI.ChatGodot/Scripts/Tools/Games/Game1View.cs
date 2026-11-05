@@ -9,7 +9,7 @@ using KAONOMI.ChatGodot.Eve;
 namespace KAONOMI.ChatGodot.Tools.Games;
 
 /// <summary>
-/// /game1: the morpion solitaire. Header: the clock, the lines drawn, the score (weighted by the lines and the speed of
+/// /game:solitaire: the morpion solitaire. Header: the clock, the lines drawn, the score (weighted by the lines and the speed of
 /// the moves), the moves left and the best score of the session, HINTS (asked first: the score of the game is then not
 /// saved), UNDO (⌘/Ctrl Z), STOP (give up), BEST SCORES (the 10 best on the server) and NEW GAME. Middle: the board
 /// (<see cref="Game1Canvas"/>). At the end of a game (STOP or no move left), a popup asks for a comment and the score

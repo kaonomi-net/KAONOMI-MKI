@@ -19,7 +19,10 @@ public static class SceneShaderTranslator
         var vertex = Body(FaceShaders.VertexShader, "vec2 aUv = UV;",
                 "VERTEX = (clip.xy / clip.w * vec2(0.5, -0.5) + 0.5) * uSize;")
             .Replace("gl_Position =", "vec4 clip =");
-        var fragment = Body(FaceShaders.FragmentShader, "", "")
+        // The color written replaces COLOR, which holds the modulate of the node and of its parents: it is applied again
+        // at the end (in premultiplied alpha), so that a face fades with them (the intro of the start, for one).
+        var fragment = Body(FaceShaders.FragmentShader, "vec4 itemModulate = COLOR;",
+                "COLOR *= vec4(itemModulate.rgb * itemModulate.a, itemModulate.a);")
             .Replace("gl_FragCoord", "FRAGCOORD")
             .Replace("fragColor =", "COLOR =");
         return "shader_type canvas_item;\n"

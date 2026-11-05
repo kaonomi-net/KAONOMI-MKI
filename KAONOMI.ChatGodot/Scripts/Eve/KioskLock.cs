@@ -65,6 +65,10 @@ public static class KioskLock
     [DllImport("/usr/lib/libobjc.A.dylib", EntryPoint = "objc_msgSend")]
     private static extern void SendRectBool(IntPtr receiver, IntPtr selector, Rect rect, bool value);
 
+    [DllImport("/usr/lib/libobjc.A.dylib", EntryPoint = "objc_msgSend")]
+    [return: MarshalAs(UnmanagedType.I1)]
+    private static extern bool SendBool(IntPtr receiver, IntPtr selector, IntPtr argument);
+
     /// <summary>An NSRect (four doubles).</summary>
     [StructLayout(LayoutKind.Sequential)]
     private struct Rect
@@ -227,6 +231,23 @@ public static class KioskLock
             if (_mode != DisplayServer.WindowMode.Windowed)
                 DisplayServer.WindowSetMode(_mode);
         }
+    }
+
+    /// <summary>
+    /// The height of the camera of the screen of the chat (its notch), in points: the top of the safe area of the screen
+    /// (macOS 12 and later); 0 without a notch, or outside macOS. The locked full screen covers it.
+    /// </summary>
+    public static double CameraInset()
+    {
+        var window = Window();
+        if (window == IntPtr.Zero)
+            return 0;
+        var screen = SendPointer(window, sel_registerName("screen"));
+        var insets = sel_registerName("safeAreaInsets");
+        if (screen == IntPtr.Zero || !SendBool(screen, sel_registerName("respondsToSelector:"), insets))
+            return 0;
+        // NSEdgeInsets: top, left, bottom, right (four doubles, as an NSRect).
+        return Math.Max(0, SendRect(screen, insets).X);
     }
 
     private static IntPtr App() => SendPointer(objc_getClass("NSApplication"), sel_registerName("sharedApplication"));

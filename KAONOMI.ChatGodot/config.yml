@@ -11,6 +11,10 @@ serverUrl: https://localhost:49165
 # that is not running is left alone. byeStopsEngines: off keeps them running.
 searchEngineUrl: http://localhost:9200
 mongoEngineAddress: localhost:27017
+
+# KAONOMI.LLMGateway, the gateway in front of Ollama (semantic cache, router of the models by the entities of the
+# prompt): /gateway drives it, /process starts it. The server and the agents use it when their ollamaUrl points to it.
+llmGatewayUrl: http://localhost:11435
 byeStopsEngines: off
 
 # Language of the application (e.g. FR, EN).

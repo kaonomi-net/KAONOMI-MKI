@@ -183,6 +183,29 @@ public partial class ProjectWindowViewModel : ViewModelBase, INoteContextProvide
     [RelayCommand]
     private void CancelNew() => IsCreating = false;
 
+    /// <summary>
+    /// Shows the form for a new task filled from an idea: its title, description, and a comment that says where it comes
+    /// from (the idea id, category and tags, then the idea's comment). Status backlog; nothing is saved before CREATE.
+    /// </summary>
+    public void NewTaskFrom(IdeaEntry idea)
+    {
+        NewTask();
+        NewName = idea.IdeaTitle?.Trim() ?? string.Empty;
+        NewDescription = idea.IdeaDescription?.Trim() ?? string.Empty;
+        NewTaskStatus = Backlog;
+        var tags = idea.Tags is { Count: > 0 } list ? "tags: " + string.Join(", ", list) : null;
+        var origin = string.Join(" · ", new[]
+        {
+            idea.Id is null ? "From an unsaved idea" : $"From the idea {idea.Id}",
+            string.IsNullOrWhiteSpace(idea.Category) ? null : $"category: {idea.Category.Trim()}",
+            tags
+        }.Where(part => part is not null));
+        NewComment = string.IsNullOrWhiteSpace(idea.Comment) ? origin : origin + "\n" + idea.Comment.Trim();
+        IsError = false;
+        Status = $"New task from the idea \"{(NewName.Length == 0 ? "(untitled)" : NewName)}\": check it, then CREATE.";
+        ActivityLog.Info("Project", $"New task form filled from the idea {idea.Id ?? "(unsaved)"}");
+    }
+
     private bool CanSaveNew() => _assistant is not null && !string.IsNullOrWhiteSpace(NewName);
 
     /// <summary>Creates the task (<c>PUT /task</c>), closes the form and reloads the board.</summary>

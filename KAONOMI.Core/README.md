@@ -11,7 +11,7 @@ Shared class library for the Kaonomi platform: domain models, Elasticsearch pers
   - `CollectionPlan` (the plans of the web scraper: name, description, project, instructions, active, and its `websites`, each with its `urlProcesses`: url, mode fixed / explore / random, keywords)
   - `Cluster` (the groups drawn with the pen; `category`: where it was drawn, graphnode, bpmnai, infra, mindmap)
   - `Annotation` (its `AnnotationTargetTypes`, with `DiagramElement` and `MindmapTopic`)
-  - `GameScore` (the scores of `/game1`: score, lines, durationSeconds, end, comment)
+  - `GameScore` (the scores of `/game:solitaire`, game `game1`: score, lines, durationSeconds, end, comment)
   - `UserActivities` (the journal of the activities, index `useractivities`: action, windowName, link, description)
 - **Data** — `ElasticRepository` (save, load, field search with match + case-insensitive wildcard; `DeleteAll<T>` erases a whole index, used by `DELETE /log`); the index of a type is its name in lower case (`UserActivities` → `useractivities`)
 - **Helpers** — `HelperOllamaClient`, `HelperFooocusClient` (image generation through the Fooocus API), `HelperConfigManager`, parsers/tools, hashing

@@ -7,7 +7,7 @@ using KAONOMI.ChatGodot.Eve;
 namespace KAONOMI.ChatGodot.Tools.Games;
 
 /// <summary>
-/// The board of /game1: a square grid like the paper of a notebook, the black points on its crossings, the lines in
+/// The board of /game:solitaire: a square grid like the paper of a notebook, the black points on its crossings, the lines in
 /// green, the point being added ringed in the accent colour. Under the pointer, the crossing is lit; with a point to
 /// add, the line a click on a black point would draw is shown, green when it is allowed, red when it is not.
 /// A click adds a point or ends its line; a right click or Escape takes the point away; Cmd/Ctrl+Z undoes a move.

@@ -33,7 +33,7 @@ Every prerequisite and how to install it: [PREREQUISITES.md](PREREQUISITES.md) (
 | `KAONOMI.SearchEngine.Tests` | Tests of the engine through the repository of KAONOMI (NEST), compared with a real Elasticsearch when one is running |
 | [`KAONOMI.MongoEngine`](KAONOMI.MongoEngine/README.md) | Small MongoDB compatible server (wire protocol, standalone) for MARI and the Orleans cluster membership, YAML configuration |
 | `KAONOMI.MongoEngine.Tests` | Tests of the MongoDB engine with the official driver and real Orleans silos |
-| [`KAONOMI.ChatGodot`](KAONOMI.ChatGodot/README.md) | The Kaonomi chat (Godot 4.7 .NET, EVE Online look): the chat, its desktop of tool windows, the journal of the activities, `/think`, `/game1` |
+| [`KAONOMI.ChatGodot`](KAONOMI.ChatGodot/README.md) | The Kaonomi chat (Godot 4.7 .NET, EVE Online look): the chat, its desktop of tool windows, the journal of the activities, `/think`, `/game:solitaire` |
 
 Solution file: `KAONOMI.slnx`.
 
@@ -85,7 +85,7 @@ On a PC with several screens, the background hosts open on the smallest screen (
 | `GET` | `/log/last?size=N` | The N most recent logs of every application, newest first (default and maximum 10,000) |
 | `DELETE` | `/log` | Erases ALL the logs (the index of the logs, created again at the next log) |
 | `GET` / `POST` / `PUT` / `DELETE` | `/intel…`, `/collectionplan…` | Intels and collection plans of the web scraper: CRUD, search, last (a delete only marks them deleted) |
-| `PUT` / `POST` | `/gamescore`, `/gamescore/best` | The scores of `/game1`, and the best ones of a game |
+| `PUT` / `POST` | `/gamescore`, `/gamescore/best` | The scores of `/game:solitaire` (game `game1`), and the best ones of a game |
 | `PUT` / `POST` | `/useractivity`, `/useractivity/last`, `/useractivity/search` | The journal of the activities of the chat (index `useractivities`) |
 | `GET` | `/` | Redirects to Swagger |
 

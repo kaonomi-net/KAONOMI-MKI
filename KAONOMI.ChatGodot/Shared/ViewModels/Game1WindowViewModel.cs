@@ -29,7 +29,7 @@ public sealed record Game1Move((int X, int Y) Point, Game1Line Line, double Seco
 public enum Game1End { None, Stopped, Blocked }
 
 /// <summary>
-/// /game1: the morpion solitaire (lines of five) on a square grid. The game starts with a cross of 36 black points.
+/// /game:solitaire: the morpion solitaire (lines of five) on a square grid. The game starts with a cross of 36 black points.
 /// A move adds a point on an empty crossing and draws through it a line of 4 cells (5 points, all black once the
 /// point is added), horizontal, vertical or diagonal. A line never goes over a line or a piece of one (no cell of a
 /// line is drawn twice in the same direction); it may cross another line, and it may touch one at a point. Every

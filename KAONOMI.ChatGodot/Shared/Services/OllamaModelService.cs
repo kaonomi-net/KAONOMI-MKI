@@ -156,6 +156,48 @@ public sealed class OllamaModelService
             : throw new HttpRequestException("Ollama returned an empty answer.");
     }
 
+    /// <summary>
+    /// One answer of a vision model to <paramref name="userPrompt"/> with <paramref name="images"/>, held to
+    /// <paramref name="jsonSchema"/> (structured output); <paramref name="context"/> tokens of context (each picture
+    /// takes about 1 200 of them), <paramref name="maxTokens"/> at most in the answer. Returns the raw JSON text.
+    /// </summary>
+    public async Task<string> ChatJsonWithImagesAsync(string model, string systemPrompt, string userPrompt,
+        System.Collections.Generic.IReadOnlyList<byte[]> images, JsonNode jsonSchema, int context = 16384, CancellationToken cancellationToken = default,
+        double temperature = 0.1, int maxTokens = 6000, double repeatPenalty = 1.05)
+    {
+        var request = new JsonObject
+        {
+            ["model"] = model,
+            ["stream"] = false,
+            ["format"] = jsonSchema.DeepClone(),
+            // A cap on the answer and a light penalty on repeats: a page full of similar lines can make the model loop.
+            ["options"] = new JsonObject { ["temperature"] = temperature, ["num_ctx"] = context, ["num_predict"] = maxTokens, ["repeat_penalty"] = repeatPenalty },
+            ["messages"] = new JsonArray
+            {
+                new JsonObject { ["role"] = "system", ["content"] = systemPrompt },
+                new JsonObject
+                {
+                    ["role"] = "user",
+                    ["content"] = userPrompt,
+                    ["images"] = new JsonArray(images.Select(i => (JsonNode?)JsonValue.Create(Convert.ToBase64String(i))).ToArray())
+                }
+            }
+        };
+
+        using var response = await _httpClient.PostJsonAsync("api/chat", request, cancellationToken);
+        if (!response.IsSuccessStatusCode)
+        {
+            var body = await response.Content.ReadAsStringAsync(cancellationToken);
+            throw new HttpRequestException(
+                $"Ollama responded {(int)response.StatusCode} ({response.ReasonPhrase}): {body}", null, response.StatusCode);
+        }
+
+        var chat = await response.Content.ReadJsonAsync<OllamaChatAnswer>(cancellationToken);
+        return chat?.Message?.Content is { Length: > 0 } content
+            ? content
+            : throw new HttpRequestException("Ollama returned an empty answer.");
+    }
+
     private sealed class OllamaChatAnswer
     {
         [JsonPropertyName("message")]

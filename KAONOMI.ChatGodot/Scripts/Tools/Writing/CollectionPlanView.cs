@@ -1,4 +1,7 @@
+using System;
+using System.Threading.Tasks;
 using Godot;
+using KAONOMI.Chat.Models;
 using KAONOMI.Chat.ViewModels;
 using KAONOMI.ChatGodot.Eve;
 
@@ -9,8 +12,10 @@ namespace KAONOMI.ChatGodot.Tools.Writing;
 /// fields (Enter or Search; and, or, parentheses; empty: the latest ones), New (⌘/Ctrl N), the plans on the left (date,
 /// project, websites, badges active / new / modified, title, description), the selected one editable on the right
 /// (name, active, project, description, instructions, the websites with their URLs (address, mode fixed / explore /
-/// random, keywords), comment; the application, user and machine are kept but never shown) with its id, date, status, Delete
-/// (confirmed; only marked deleted), Clone, Discard changes and Save (⌘/Ctrl S).
+/// random, keywords), comment; the application, user and machine are kept but never shown) with its id, date, status, 🕷 RUN
+/// (the web scraper reads the websites, the model of the chat carries out the instructions, the result opens as a new
+/// document of /work; its log under the header, CANCEL), Delete (confirmed; only marked deleted), Clone, Discard changes
+/// and Save (⌘/Ctrl S).
 /// </summary>
 [ToolView(typeof(CollectionPlanWindowViewModel), "Collection plans", "🕷", 1100, 750)]
 public sealed class CollectionPlanView : IToolView
@@ -49,7 +54,52 @@ public sealed class CollectionPlanView : IToolView
             if (GodotObject.IsInstanceValid(searchBox))
                 searchBox.GrabFocus();
         }).CallDeferred();
+
+        // RUN done: its document opens in /work.
+        Action<DocumentEntry> created = document => Bind.OnMain(() => _ = OpenInWorkAsync(shell, vm, document));
+        vm.DocumentCreated += created;
+        Bind.OnGone(page, () => vm.DocumentCreated -= created);
         return page;
+    }
+
+
+
+
+
+    /// <summary>
+    /// Opens <paramref name="document"/> in /work. As NEW of /work does, the tape being worked on is put away first
+    /// (saved as a document, or a new version of its document), so that nothing of it is lost.
+    /// </summary>
+    private static async Task OpenInWorkAsync(Shell shell, CollectionPlanWindowViewModel vm, DocumentEntry document)
+    {
+        shell.Chat.OpenTool("/work", false);
+        var tree = shell.Root.GetTree();
+        CalculatorViewModel? work = null;
+        for (var i = 0; i < 40 && work is null; i++)
+        {
+            await tree.ToSignal(tree, SceneTree.SignalName.ProcessFrame);
+            work = shell.Deck.Find("/work")?.ViewModel as CalculatorViewModel;
+        }
+        if (work is null)
+        {
+            vm.Status = $"The document \"{document.Title}\" is saved: open it in /work (📂 Open)";
+            return;
+        }
+        if (!string.IsNullOrWhiteSpace(work.Tape) && work.CurrentDocument?.Id != document.Id)
+        {
+            try
+            {
+                var done = await work.NewDocumentAsync();
+                vm.RunLog += "\n📄 /work: " + done;
+            }
+            catch (Exception ex) when (ex is InvalidOperationException or System.Net.Http.HttpRequestException or TaskCanceledException)
+            {
+                vm.Status = $"The document \"{document.Title}\" is saved, but the tape of /work could not be put away first ({ex.Message}): open it with 📂 Open";
+                return;
+            }
+        }
+        work.Tape = work.OpenDocument(document);
+        vm.RunLog += $"\n📄 Opened in /work: {document.Title}";
     }
 
     /// <summary>A collection plan of the list: its summary, badges active / new / modified, title and description.</summary>
@@ -86,6 +136,8 @@ public sealed class CollectionPlanView : IToolView
         var header = WritingUi.Flow(8, 6,
             Ui.Fill(Ui.Column(0, idLabel, Ui.Label(entry, nameof(entry.DateLabel), Eve.Eve.Muted, 10))),
             statusRow,
+            Ui.Command("🕷 RUN", vm.RunCommand, tooltip: "Read the websites of this plan (by the mode and the keywords of each URL), let the model of the chat carry out the instructions on them, and open the result as a new document of /work"),
+            Bind.Visible(Ui.Command("■ CANCEL", vm.CancelRunCommand, tooltip: "Stop the run"), vm, nameof(vm.IsRunning)),
             Ui.Command("DELETE", vm.DeleteCommand, tooltip: "Delete this collection plan (only marked deleted on the server: isDeleted = true)"),
             Ui.Command("CLONE", vm.CloneCommand, tooltip: "Create a copy of this collection plan (new id on save)"),
             Ui.Command("DISCARD CHANGES", entry.RevertCommand),
@@ -102,7 +154,30 @@ public sealed class CollectionPlanView : IToolView
             Ui.Field("Instructions", Ui.Lines(entry, nameof(entry.Instructions), 160)),
             Websites(entry),
             Ui.Field("Comment", Ui.Lines(entry, nameof(entry.Comment), 44)));
-        return Ui.Column(8, Ui.Margin(header, 8, 4, 8, 0), Eve.Eve.Separator(), Ui.FillHeight(Ui.Scroll(Ui.Margin(fields, 8, 0, 12, 12))));
+        return Ui.Column(8, Ui.Margin(header, 8, 4, 8, 0), Ui.Margin(RunLog(vm), 8, 0, 8, 0), Eve.Eve.Separator(), Ui.FillHeight(Ui.Scroll(Ui.Margin(fields, 8, 0, 12, 12))));
+    }
+
+    /// <summary>What RUN does, one line per page read and per step, the last one in view (shown once a run started).</summary>
+    private static Control RunLog(CollectionPlanWindowViewModel vm)
+    {
+        var log = new TextEdit
+        {
+            Editable = false,
+            WrapMode = TextEdit.LineWrappingMode.Boundary,
+            CustomMinimumSize = new Vector2(0, 130),
+            SizeFlagsHorizontal = Control.SizeFlags.ExpandFill,
+            ContextMenuEnabled = true
+        };
+        log.AddThemeFontOverride("font", Eve.Eve.Mono);
+        log.AddThemeFontSizeOverride("font_size", 11);
+        Bind.When(log, vm, () =>
+        {
+            log.Text = vm.RunLog;
+            log.ScrollVertical = log.GetLineCount();
+        }, nameof(vm.RunLog));
+        var progress = Bind.Visible(new ProgressBar { Indeterminate = true, ShowPercentage = false, CustomMinimumSize = new Vector2(0, 4) }, vm, nameof(vm.IsRunning));
+        var box = Ui.Column(4, Eve.Eve.Caption("RUN", Eve.Eve.Amber, 11), progress, log);
+        return Bind.Visible(box, vm, nameof(vm.HasRunLog));
     }
 
     /// <summary>The websites of the plan, each with its URLs, and ADD WEBSITE.</summary>

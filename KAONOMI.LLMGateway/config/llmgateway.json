@@ -1,0 +1,52 @@
+{
+  "// port": "The port of the gateway: point an Ollama client (ollamaUrl of the server, of the agents) to http://localhost:11435.",
+  "port": 11435,
+  "// upstream": "Ollama, where every request goes in the end.",
+  "upstream": "http://localhost:11434",
+  "// dataDirectory": "The cache, the settings and the rules changed at run time (~ is the home folder).",
+  "dataDirectory": "~/kaonomi/llmgateway",
+
+  "cache": {
+    "enabled": true,
+    "// embeddingModel": "An embedding model of Ollama (ollama pull nomic-embed-text); when it is missing, a local embedding of the words is used.",
+    "embeddingModel": "nomic-embed-text",
+    "// threshold": "The cosine similarity of the prompts from which a cached answer is given back (with the embedding model).",
+    "threshold": 0.92,
+    "// lexicalThreshold": "The same with the local embedding of the words (closer to the words, so stricter).",
+    "lexicalThreshold": 0.9,
+    "ttlHours": 72,
+    "maxEntries": 5000,
+    "// entityGuard": "A cached answer is given back only when the prompts hold the same numbers, dates, amounts, URLs, names…",
+    "entityGuard": true,
+    "// minAnswers": "The answers of the model kept for a prompt before the cache answers it, with one of them drawn at random, so that its answers vary (1: the first answer is given back each time).",
+    "minAnswers": 3
+  },
+
+  "routing": {
+    "enabled": true,
+    "// overrideRequested": "true: a rule that matches replaces the model asked by the client; false: only the model auto is routed.",
+    "overrideRequested": true,
+    "// defaultModel": "The model of a request for auto when no rule matches.",
+    "defaultModel": "mistral-small3.2:latest",
+    "rules": [
+      { "name": "images", "any": [ "IMAGE" ], "model": "mistral-small3.2:latest", "priority": 100,
+        "description": "A picture in the request: the model that sees." },
+      { "name": "code", "any": [ "CODE", "PROGRAMMING_LANGUAGE" ], "model": "gpt-oss:20b", "priority": 80,
+        "description": "Code, a stack trace, a language of programming: the reasoning model." },
+      { "name": "math", "any": [ "MATH" ], "model": "gpt-oss:20b", "priority": 70,
+        "description": "Formulas and calculations: the reasoning model." },
+      { "name": "french-people-and-places", "all": [ "LANGUAGE:fr" ], "any": [ "PERSON", "ORG", "PLACE", "PROPER_NOUN" ],
+        "model": "mistral-small3.2:latest", "priority": 20, "enabled": false,
+        "description": "A question in French about people, organisations or places: the multilingual model (off by default)." }
+    ]
+  },
+
+  "// gazetteers": "Lists of names recognised as entities of the type given (any type, used by the rules as the others).",
+  "gazetteers": {
+    "ORG": [ "KAONOMI", "Anthropic", "OpenAI", "Mistral", "Google", "Microsoft", "Apple", "Ollama" ],
+    "PRODUCT": [ "Godot", "Orleans", "Elasticsearch", "MongoDB", "Fooocus", "Piper", "Whisper" ]
+  },
+
+  "// logSize": "The requests kept for /gateway/log.",
+  "logSize": 500
+}

@@ -8,7 +8,8 @@ namespace KAONOMI.ChatGodot.Tools.Writing;
 /// /idea: the latest ideas listed when it opens, a search (Enter, F5 or Search; empty: the latest ones), New idea
 /// (⌘/Ctrl N, the cursor in its title), the ideas on the left (date, category, badges new / modified, title, description,
 /// tags), the selected one editable on the right (title, category with the known ones, description, tags, comment) with
-/// its id, date, author, status, Delete (confirmed), Discard changes and Save (⌘/Ctrl S).
+/// its id, date, author, status, Delete (confirmed), → Task (a new task in /project filled from the idea), Discard
+/// changes and Save (⌘/Ctrl S).
 /// </summary>
 [ToolView(typeof(IdeaWindowViewModel), "Ideas", "💡", 1000, 680)]
 public sealed class IdeaView : IToolView
@@ -46,7 +47,7 @@ public sealed class IdeaView : IToolView
         {
             if (value is not IdeaEntryViewModel entry)
                 return null;
-            var built = Editor(vm, entry, out var title);
+            var built = Editor(vm, entry, shell, out var title);
             titleBox = title;
             return built;
         });
@@ -94,7 +95,7 @@ public sealed class IdeaView : IToolView
     }
 
     /// <summary>The editor of the selected idea: its header (id, date, author, status, Delete, Discard changes, Save) and fields.</summary>
-    private static Control Editor(IdeaWindowViewModel vm, IdeaEntryViewModel entry, out LineEdit titleBox)
+    private static Control Editor(IdeaWindowViewModel vm, IdeaEntryViewModel entry, Shell shell, out LineEdit titleBox)
     {
         var dot = Bind.Visible(Eve.Eve.Text_("●", Eve.Eve.Red, 10), entry, nameof(entry.IsError));
         var status = Ui.Label(entry, nameof(entry.Status), Eve.Eve.Text, 12);
@@ -111,6 +112,7 @@ public sealed class IdeaView : IToolView
             Ui.Fill(Ui.Column(0, idLabel, Ui.Label(entry, nameof(entry.DateLabel), Eve.Eve.Muted, 10))),
             Ui.Row(6, dot, status),
             Ui.Command("🗑", vm.DeleteCommand, tooltip: "Delete this idea"),
+            Ui.Action("→ TASK", () => SendToProject(vm, entry, shell), tooltip: "Opens /project with a new task filled from this idea (title, description, comment), to check and create"),
             Ui.Command("DISCARD CHANGES", entry.RevertCommand),
             Ui.Command("SAVE", entry.SaveCommand, primary: true, tooltip: "Save the idea (Ctrl+S / ⌘S)"));
         header.GetChild<HBoxContainer>(1).SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
@@ -124,5 +126,22 @@ public sealed class IdeaView : IToolView
             Ui.Field("Tags (one per line)", Ui.Lines(entry, nameof(entry.Tags), 70)),
             Ui.Field("Comment", Ui.Lines(entry, nameof(entry.Comment), 60)));
         return Ui.Column(8, Ui.Margin(header, 8, 4, 8, 0), Eve.Eve.Separator(), Ui.FillHeight(Ui.Scroll(Ui.Margin(fields, 8, 0, 12, 12))));
+    }
+
+    /// <summary>
+    /// Opens /project (or brings back the one already open) with its new-task form filled from the idea, as it is in the
+    /// editor (saved or not): nothing is created before CREATE there.
+    /// </summary>
+    private static void SendToProject(IdeaWindowViewModel vm, IdeaEntryViewModel entry, Shell shell)
+    {
+        const string key = "/project";
+        var open = shell.Deck.Find(key);
+        var project = open?.ViewModel as ProjectWindowViewModel ?? vm.CreateProjectWindow();
+        project.NewTaskFrom(entry.ToEntry());
+        if (open?.ViewModel is ProjectWindowViewModel)
+            shell.Deck.BringToFront(open);
+        else
+            shell.Open(project, key);
+        entry.Status = "Sent to /project as a new task";
     }
 }

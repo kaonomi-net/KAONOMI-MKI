@@ -119,6 +119,10 @@ public sealed class ChatSettings
     /// <summary>Address of KAONOMI.SearchEngine (<c>searchEngineUrl</c> in config.yml), stopped by <c>/bye</c> before the chat closes.</summary>
     public string SearchEngineUrl { get; set; } = "http://localhost:9200";
 
+    [JsonPropertyName("llmGatewayUrl")]
+    /// <summary>Address of KAONOMI.LLMGateway (<c>llmGatewayUrl</c> in config.yml), driven by <c>/gateway</c> and started from <c>/process</c>.</summary>
+    public string LlmGatewayUrl { get; set; } = "http://localhost:11435";
+
     [JsonPropertyName("mongoEngineAddress")]
     /// <summary>Address of KAONOMI.MongoEngine (<c>mongoEngineAddress</c> in config.yml), stopped by <c>/bye</c> after the search engine.</summary>
     public string MongoEngineAddress { get; set; } = "localhost:27017";
@@ -129,7 +133,7 @@ public sealed class ChatSettings
 
     [JsonPropertyName("llmmodel")]
     /// <summary>Default LLM model name from configuration.</summary>
-    public string Model { get; set; } = "gpt-oss:latest";
+    public string Model { get; set; } = "mistral-small3.2:latest";
 
     [JsonPropertyName("systemPrompt")]
     /// <summary>Optional system message prepended to each chat request.</summary>
@@ -555,6 +559,9 @@ public sealed class ChatSettings
             if (!string.IsNullOrWhiteSpace(document.MongoEngineAddress))
                 settings.MongoEngineAddress = document.MongoEngineAddress.Trim();
 
+            if (!string.IsNullOrWhiteSpace(document.LlmGatewayUrl) && Uri.TryCreate(document.LlmGatewayUrl.Trim(), UriKind.Absolute, out _))
+                settings.LlmGatewayUrl = document.LlmGatewayUrl.Trim();
+
             if (!string.IsNullOrWhiteSpace(document.ByeStopsEngines))
                 settings.ByeStopsEngines = document.ByeStopsEngines.Trim().ToLowerInvariant() is not ("false" or "off" or "no" or "0");
 
@@ -947,6 +954,8 @@ public sealed class ChatSettings
         public string? SearchEngineUrl { get; set; }
 
         public string? MongoEngineAddress { get; set; }
+
+        public string? LlmGatewayUrl { get; set; }
 
         /// <summary>Read as text so that on / off work as well as true / false.</summary>
         public string? ByeStopsEngines { get; set; }
