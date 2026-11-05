@@ -12,9 +12,8 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["KAONOMI.Vision/KAONOMI.Vision.csproj", "KAONOMI.Vision/"]
 COPY ["KAONOMI.Core/KAONOMI.Core.csproj", "KAONOMI.Core/"]
-# nuget.config and the local MARI feed (MARI.* packages) are needed by the restore.
+# nuget.config (nuget.org only, the MARI.* packages included) is needed by the restore.
 COPY ["nuget.config", "."]
-COPY ["mari-nupkgs/", "mari-nupkgs/"]
 RUN dotnet restore "./KAONOMI.Vision/KAONOMI.Vision.csproj"
 COPY . .
 WORKDIR "/src/KAONOMI.Vision"

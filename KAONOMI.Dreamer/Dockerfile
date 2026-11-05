@@ -12,9 +12,8 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["KAONOMI.Dreamer/KAONOMI.Dreamer.csproj", "KAONOMI.Dreamer/"]
 COPY ["KAONOMI.Core/KAONOMI.Core.csproj", "KAONOMI.Core/"]
-# nuget.config and the local MARI feed (MARI.* packages) are needed by the restore.
+# nuget.config (nuget.org only, the MARI.* packages included) is needed by the restore.
 COPY ["nuget.config", "."]
-COPY ["mari-nupkgs/", "mari-nupkgs/"]
 RUN dotnet restore "./KAONOMI.Dreamer/KAONOMI.Dreamer.csproj"
 COPY . .
 WORKDIR "/src/KAONOMI.Dreamer"

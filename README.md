@@ -15,7 +15,7 @@ Every prerequisite and how to install it: [PREREQUISITES.md](PREREQUISITES.md) (
 - Elasticsearch 7.14 running locally (`http://localhost:9200`), or [`KAONOMI.SearchEngine`](KAONOMI.SearchEngine/README.md) in its place (its data in `~/kaonomi/data`)
 - MongoDB 8 running locally (`mongodb://localhost:27017`, the Orleans cluster membership of MARI), or [`KAONOMI.MongoEngine`](KAONOMI.MongoEngine/README.md) in its place
 - For the chat: Godot 4.7.2 .NET; optional: Fooocus (images), Whisper (speech to text), Python and Piper (text to speech)
-- The MARI packages (`MARI.*` 1.0.0) in `mari-nupkgs/`, the local NuGet source of `nuget.config` (relative to it): see [mari-nupkgs/README.md](mari-nupkgs/README.md)
+- The MARI packages (`MARI.*` 1.0.0, [kaonomi-net/mari](https://github.com/kaonomi-net/mari)) come from nuget.org, like every other package: `nuget.config` has no other source
 - Optional, for the semantic cache of the LLM gateway: `ollama pull nomic-embed-text` (without it the gateway uses a local embedding of the words)
 
 ## Solution
