@@ -311,6 +311,13 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     /// the chat, called directly) gives a short spoken summary in the configured language, followed by "the code is
     /// attached" when there is code. When Ollama fails, the answer is read without its code blocks.
     /// </summary>
+    /// <summary>Says <paramref name="text"/> with the voice of the avatar, as it is (the label of an alarm ringing).</summary>
+    public void Say(string text)
+    {
+        if (_speech.IsAvailable)
+            _speech.Speak(text);
+    }
+
     private async Task SpeakAnswerAsync(string content)
     {
         _speechPreparation?.Cancel();
@@ -808,6 +815,10 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     private const string GoCommand = "/game:go";
     private const string MarieCommand = "/game:marie";
     private const string ImmuneCommand = "/immune";
+    private const string AlarmCommand = "/alarm";
+    private const string AlarmsCommand = "/alarms";
+    private const string CalendarCommand = "/calendar";
+    private const string IqCommand = "/iq";
     private const string ActivityCommand = "/activity";
     private const string GetThemesCommand = "/getthemes";
     private const string FullChatCommand = "/fullchat";
@@ -848,7 +859,7 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     private static bool IsToolCommand(string text) =>
         IsCommand(text, CacheCommand) || IsCommand(text, SearchCommand) || IsCommand(text, JsonCommand) || IsCommand(text, SymbolCommand)
         || IsCommand(text, OntologyCommand) || IsCommand(text, IdeaCommand) || IsCommand(text, CalculatorCommand) || IsCommand(text, PictureCommand) || IsCommand(text, PicturesCommand) || IsCommand(text, MusicCommand) || IsCommand(text, DiaryCommand) || IsCommand(text, JournalCommand) || IsCommand(text, YoutubeCommand) || IsCommand(text, FooocusCommand) || IsCommand(text, CompletionCommand) || IsCommand(text, SystemCommand) || IsCommand(text, LogCommand) || IsCommand(text, LogsCommand) || IsCommand(text, TokenCommand) || IsCommand(text, TokensCommand)
-        || IsCommand(text, ConfigCommand) || IsCommand(text, RemoteCommand) || IsCommand(text, ProjectCommand) || IsCommand(text, IntelCommand) || IsCommand(text, CollectionPlanCommand) || IsCommand(text, Game1Command) || IsCommand(text, FractalCommand) || IsCommand(text, ChessCommand) || IsCommand(text, GoCommand) || IsCommand(text, MarieCommand) || IsCommand(text, ImmuneCommand) || IsCommand(text, ActivityCommand)
+        || IsCommand(text, ConfigCommand) || IsCommand(text, RemoteCommand) || IsCommand(text, ProjectCommand) || IsCommand(text, IntelCommand) || IsCommand(text, CollectionPlanCommand) || IsCommand(text, Game1Command) || IsCommand(text, FractalCommand) || IsCommand(text, ChessCommand) || IsCommand(text, GoCommand) || IsCommand(text, MarieCommand) || IsCommand(text, ImmuneCommand) || IsCommand(text, AlarmCommand) || IsCommand(text, AlarmsCommand) || IsCommand(text, CalendarCommand) || IsCommand(text, IqCommand) || IsCommand(text, ActivityCommand)
         || IsCommand(text, RelationCommand) || IsCommand(text, FoldersCommand) || IsCommand(text, FolderCommand) || IsCommand(text, PresetCommand) || IsCommand(text, PresetsCommand)
         || IsCommand(text, ProcessCommand) || IsCommand(text, ProcessesCommand) || IsCommand(text, GatewayCommand) || IsCommand(text, WikiCommand) || IsCommand(text, BpmnCommand) || IsCommand(text, InfraCommand) || IsCommand(text, MindmapCommand) || IsCommand(text, WriteCommand) || IsCommand(text, ConsoleCommand);
 
@@ -1281,7 +1292,10 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
             + "- `/game:chess`: a game of chess against the LLM: you play White on the board (click a piece then its square, or drag it), the model of the chat (or the one chosen in the window) plays Black from the position and the list of its legal moves; every rule applies (castling, en passant, promotion, check, checkmate, stalemate, the fifty-move rule, threefold repetition, too little material); the list of every move in algebraic notation on the side, UNDO, RESIGN, PGN (copied); `/ngame:chess` opens it in its own window\n"
             + "- `/game:go`: a game of go against the LLM: you play Black (click a point), the model of the chat (or the one chosen in the window) plays White from the board and the list of its legal points; 9×9, 13×13 or 19×19, Chinese rules (captures, no suicide, no repeated position, area scoring, komi 7.5); PASS, two passes end the play, then click the dead groups and COUNT; the list of every move on the side, UNDO, RESIGN, SGF (copied); `/ngame:go` opens it in its own window\n"
             + "- `/game:marie`: a first-person game in a maze of 25×25 cells hunted by MarieKilleuse, who always knows the way to you and is a bit faster than you; find the exit at the far corner; green crosses give life points, yellow bolts make you twice as fast as her for 12 s, the pistol, the shotgun and the plasma gun knock her down for a while; click in the maze to play (ZQSD / WASD or arrows, the mouse to look, click or space to shoot, 1 2 3 or the wheel for the weapon, M for the map, Esc to pause); the 10 best escapes are kept; `/ngame:marie` opens it in its own window\n"
-            + "- `/immune`: the immune system: runs KAONOMI.ImmuneSystem, which looks on the machine (your home folder, the whole machine or one folder) for the images generated or edited by an AI (what they declare: Content Credentials, IPTC, the parameters of Stable Diffusion, ComfyUI, Midjourney…) and for the code in Office files (VBA and Excel 4.0 macros, DDE, OLE objects, Power Query, code written as text…), and reads the browser histories (Chrome, Edge, Brave, Arc, Firefox, Safari…) for the AI services visited (ChatGPT, Claude, Gemini, Midjourney, Suno… counted per month, no address kept) and the images and Office files downloaded; an immune cell shows the scan live, then the JSON report is shown with its key figures and charts, the AI images (thumbnails, clues, prompt) and the Office code; the reports are kept in ~/kaonomi/immune-system/reports; `/nimmune` opens it in its own window\n"
+            + "- `/iq`: IQ tests: number series, matrices of shapes, words (analogies, odd one out, in the language of the chat), memory of digits, each of 10 questions harder and harder with 60 s each, or the full test (24 questions); at the end the score by test, an indicative IQ (not a measured one) and the review of every question with its explanation; the results are kept\n"
+            + "- `/calendar`: the calendar: the month (◀ ▶, TODAY), each day with its events and the alarms of /alarm; a click selects a day, a double-click adds an event; each event with its title, day, start and end (or the whole day), repeat (daily, weekly, monthly, yearly), reminder (rung by the chat as the alarms, with the title said by the avatar), colour and notes\n"
+            + "- `/alarm` (or `/alarms`): the alarm clock: several alarms, each with its time, its label, once on a day or weekly on the days ticked (every day, Mon–Fri, weekend; one week in 1 to 4), its ringtone (Bell, Digital, Chime, Rising; ▶ TEST), its snooze and its label said by the avatar; they ring even with the window closed: STOP (Enter) or SNOOZE (S)\n"
+            + "- `/immune`: the immune system: runs KAONOMI.ImmuneSystem, which lookson the machine (your home folder, the whole machine or one folder) for the images generated or edited by an AI (what they declare: Content Credentials, IPTC, the parameters of Stable Diffusion, ComfyUI, Midjourney…) and for the code in Office files (VBA and Excel 4.0 macros, DDE, OLE objects, Power Query, code written as text…), and reads the browser histories (Chrome, Edge, Brave, Arc, Firefox, Safari…) for the AI services visited (ChatGPT, Claude, Gemini, Midjourney, Suno… counted per month, no address kept) and the images and Office files downloaded; an immune cell shows the scan live, then the JSON report is shown with its key figures and charts, the AI images (thumbnails, clues, prompt) and the Office code; the reports are kept in ~/kaonomi/immune-system/reports; `/nimmune` opens it in its own window\n"
             + "- `/fractal`: the fractal generator: the classic fractals as examples (Mandelbrot and its valleys, Julia sets, Burning Ship, Tricorn, Multibrot, Newton, Phoenix, Magnet, a sine Julia set; the Koch snowflake, Sierpinski, the dragon, Hilbert, Peano and Gosper curves, plants; the Barnsley fern, Sierpinski carpet, maple leaf…), drawn live (ZOOM + / ZOOM −, ⇧ + drag: zoom on the square drawn, wheel: zoom, drag: move, right click: the Julia set of a point); make your own: a formula of z and c (`z^3 + c`, `sin(z) + c`, `fold(z)^2 + c`…) drawn by the GPU, an L-system (axiom, rules, angle, depth) or affine maps (IFS), with palettes; SAVE keeps them in ~/kaonomi/fractals, PNG in Pictures/kaonomi/fractal; `/nfractal` opens it in its own window\n"
             + "- `/folders` or `/folder`: the folders made with 📁+ in the header of a window (name, description, security level), searched as you type; a double-click on a folder opens every window kept in it (its picture and its data)\n"
             + "- `/project`: kanban of the tasks: a column per status (todo, coding, test, check, deploy, archived; backlog first when there are some), each task in a card with its title and its type (bug, change, agent, infra)\n"
@@ -1569,6 +1583,15 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     /// <summary>Raised when the user types the <c>/immune</c> command: the scan for AI images and Office code.</summary>
     public event Action<ImmuneWindowViewModel, bool>? ImmuneWindowRequested;
 
+    /// <summary>Raised when the user types the <c>/alarm</c> command: the alarm clock.</summary>
+    public event Action<AlarmWindowViewModel, bool>? AlarmWindowRequested;
+
+    /// <summary>Raised when the user types the <c>/calendar</c> command: the calendar.</summary>
+    public event Action<CalendarWindowViewModel, bool>? CalendarWindowRequested;
+
+    /// <summary>Raised when the user types the <c>/iq</c> command: the IQ tests.</summary>
+    public event Action<IqWindowViewModel, bool>? IqWindowRequested;
+
     /// <summary>Raised when the user types the <c>/activity</c> command: the journal of the activities.</summary>
     public event Action<ActivityWindowViewModel, bool>? ActivityWindowRequested;
 
@@ -1833,6 +1856,25 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
         if (IsCommand(command, ImmuneCommand))
         {
             ImmuneWindowRequested?.Invoke(new ImmuneWindowViewModel(), detached);
+            return true;
+        }
+
+        if (IsCommand(command, AlarmCommand) || IsCommand(command, AlarmsCommand))
+        {
+            AlarmWindowRequested?.Invoke(new AlarmWindowViewModel(), detached);
+            return true;
+        }
+
+        if (IsCommand(command, CalendarCommand))
+        {
+            CalendarWindowRequested?.Invoke(new CalendarWindowViewModel(), detached);
+            return true;
+        }
+
+        if (IsCommand(command, IqCommand))
+        {
+            // The questions of words in the language of the chat.
+            IqWindowRequested?.Invoke(new IqWindowViewModel(VoiceLanguage), detached);
             return true;
         }
 

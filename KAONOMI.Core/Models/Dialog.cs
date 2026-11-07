@@ -33,6 +33,9 @@ namespace KAONOMI.Core.Models
         /// <summary>Earlier prompts and completions in the same session.</summary>
         public List<PreviousInteraction> PreviousInteractions { get; set; }
 
+        /// <summary>The entities of the user prompt, found by the NER of the server (the agent of the entities of the sequence).</summary>
+        public List<NerEntity> Entities { get; set; } = new List<NerEntity>();
+
         /// <summary>Initializes empty request, response, and interaction collections.</summary>
         public Dialog()
         { 

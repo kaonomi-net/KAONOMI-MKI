@@ -89,8 +89,18 @@ namespace KAONOMI.Server
         {
             session.LogSave("Running Entity Processing", appName, "INFO");
 
-            // TODO: Implement entity logic (NER extraction, resolution, normalization, linking, etc.)
-            await Task.CompletedTask;
+            // The NER of the server (POST /ner): the model, the rules and the names of the ontology, kept with the dialog.
+            // The prompt of the user is read from the request: PromptUserText is only filled by the processor, which comes
+            // after this agent in the sequence.
+            var prompt = string.IsNullOrWhiteSpace(dialog.PromptUserText) && dialog.request is not null
+                ? HelperLlmParsersAndTools.GetUserPromptFromRequest(dialog.request)
+                : dialog.PromptUserText;
+            var result = await Task.Run(() => Ner.NerService.Get(config).Extract(prompt));
+            dialog.Entities = result.entities;
+            foreach (var warning in result.warnings)
+                session.LogSave(warning, appName, "WARNING");
+            session.LogSave($"{result.entities.Count} entities in {result.durationMs} ms: " +
+                string.Join(", ", result.entities.Take(20).Select(e => $"{e.type}:{e.text}")), appName, "INFO");
         }
     }
 }

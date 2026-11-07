@@ -123,6 +123,7 @@ Every prerequisite and how to install it: [PREREQUISITES.md](PREREQUISITES.md) (
 - MongoDB 8 running locally (`mongodb://localhost:27017`, the Orleans cluster membership of MARI), or [`KAONOMI.MongoEngine`](KAONOMI.MongoEngine/README.md) in its place
 - For the chat: Godot 4.7.2 .NET; optional: Fooocus (images), Whisper (speech to text), Python and Piper (text to speech)
 - The MARI packages (`MARI.*` 1.0.0, [kaonomi-net/mari](https://github.com/kaonomi-net/mari)) come from nuget.org, like every other package: `nuget.config` has no other source
+- Optional, for the NER of the server (`POST /ner`): the XLM-RoBERTa int8 model in `~/kaonomi/models/ner/xlm-roberta-base-ner-hrl-int8`, made once by `KAONOMI.Server/Ner/export/ner_export.py` (see [`KAONOMI.Server/README.md`](KAONOMI.Server/README.md)); without it, the rules and the ontology still answer
 - Optional, for the semantic cache of the LLM gateway: `ollama pull nomic-embed-text` (without it the gateway uses a local embedding of the words)
 
 ## Solution
@@ -130,7 +131,7 @@ Every prerequisite and how to install it: [PREREQUISITES.md](PREREQUISITES.md) (
 | Project | Role |
 | --- | --- |
 | [`KAONOMI.Core`](KAONOMI.Core/README.md) | Shared models (incl. `MessageFlow`), Ollama helpers, Elasticsearch access (`NEST`), session manager |
-| [`KAONOMI.Server`](KAONOMI.Server/README.md) | ASP.NET Core API, M-A-R-I dialog sequence, Swagger, message-flow, cache & symbolic-pattern APIs |
+| [`KAONOMI.Server`](KAONOMI.Server/README.md) | ASP.NET Core API, M-A-R-I dialog sequence, Swagger, message-flow, cache & symbolic-pattern APIs, NER (`POST /ner`: XLM-RoBERTa int8, rules, ontology) |
 | [`KAONOMI.Admin`](KAONOMI.Admin/README.md) | Interactive console REPL for Ollama |
 | [`KAONOMI.Dreamer`](KAONOMI.Dreamer/README.md) | Background dreamer / context-update agent host (every 15 min, 22:00–06:00) |
 | [`KAONOMI.Vision`](KAONOMI.Vision/README.md) | Background vision analysis agent host (every second) |
@@ -220,6 +221,9 @@ Every tool is described in [`KAONOMI.ChatGodot/README.md`](KAONOMI.ChatGodot/REA
 | `/game:marie` | A first-person maze of 25×25 cells where MarieKilleuse hunts you: life, speed bonuses, three weapons, a map, the 10 best escapes kept |
 | `/fractal` | Fractal generator on the GPU: escape time (Mandelbrot, Julia, Burning Ship, Newton…, or your own formula of z and c), L-systems, IFS; palettes, zoom box, Julia of a point, SAVE as JSON, PNG |
 | `/immune` | Runs `KAONOMI.ImmuneSystem` from the chat: the scan animated as an immune cell, live counters and findings, then the report (overview charts, AI images, Office code, browsing) and the reports kept |
+| `/alarm` | Alarm clock: several alarms, once on a day or weekly on the days ticked (every day, Mon–Fri, weekend; one week in 1 to 4), 4 ringtones made by the code, snooze, the label said by the avatar; they ring even with the window closed (STOP / SNOOZE) |
+| `/iq` | IQ tests drawn at random from a bank of 1000 questions in JSON (`KAONOMI.ChatGodot/Data/iq-questions.json`): number series, matrices of shapes (in the manner of Raven's), words (FR / EN), memory of digits, 10 questions each harder and harder or a full test of 24, 60 s a question; a **training** mode where the time stops at each answer and the right one is shown and explained; an indicative score (not a measured IQ) and the review of every answer |
+| `/calendar` | Calendar: the month with each day's events and alarms, events once or repeated (daily, weekly, monthly, yearly), all day or with a time, colours, notes, and reminders rung like the alarms, the title said by the avatar |
 | `/gateway` | Drives `KAONOMI.LLMGateway`: cache and routing settings, the rules, the last requests (model asked → chosen, HIT / MISS), the cached answers and phrases (export, import, search), ANALYZE |
 | `/collectionplan` 🕷 RUN | Carries out a collection plan: the web scraper reads the sites (fixed, explore, random; robots.txt followed), pictures each page, the vision model reads the pictures, the chat model applies the instructions with the sources cited; the result opens as a `/work` document |
 | Voice mode | A command line above the microphone (prompts and `/tools` typed there), the windows shown one at a time at 90 % of the screen (◀ ▶ between them, ⏬ puts them in a row at the bottom), the desktop back as it was afterwards |
@@ -231,6 +235,7 @@ Every tool is described in [`KAONOMI.ChatGodot/README.md`](KAONOMI.ChatGodot/REA
 | Method | Route | Description |
 | --- | --- | --- |
 | `POST` | `/aiassistant` | Saves the dialog, runs the M-A-R-I sequence, returns the completion |
+| `POST` | `/ner` | The entities of a text: persons, organizations, places, dates (XLM-RoBERTa int8 in ONNX), URLs, e-mails, amounts, code… (rules) and the names of the ontology with their id; `GET /ner/types` lists the types |
 | `GET` | `/version` | Current version string |
 | `GET` / `POST` / `PUT` | `/messageflow…` | Ticker message CRUD and search (shown in the Chat ticker band) |
 | `GET` / `POST` / `PUT` | `/cache…` | Cache document CRUD and search |

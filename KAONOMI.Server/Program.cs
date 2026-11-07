@@ -142,6 +142,14 @@ namespace KAONOMI.Server
             });
 
             app.MapApiEndpoints(_session);
+            // The NER (POST /ner) loaded in the background at the start: its model (about a second) and the ontology read,
+            // so that the first request does not wait for them.
+            _ = Task.Run(() =>
+            {
+                var ner = Ner.NerService.Get(_config);
+                ner.Types();
+                _session.LogSave($"NER ready: {ner.ModelName}", AppName, "Info");
+            });
 
 
             app.UseSwaggerUI();

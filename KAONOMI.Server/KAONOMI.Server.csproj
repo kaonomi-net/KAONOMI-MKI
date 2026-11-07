@@ -15,6 +15,14 @@
     <PackageReference Include="MARI.Framework.Extensions.Mongo" Version="1.0.0" />
     <PackageReference Include="OrleansDashboard" Version="8.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <!-- The NER: XLM-RoBERTa int8 in ONNX, on the CPU (Ner/XlmrNer.cs). -->
+    <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.31.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The rules of the NER: the extractor of KAONOMI.LLMGateway, its source shared (the gateway stays on its own). -->
+    <Compile Include="..\KAONOMI.LLMGateway\Entities\Entity.cs" Link="Ner\Shared\Entity.cs" />
+    <Compile Include="..\KAONOMI.LLMGateway\Entities\EntityExtractor.cs" Link="Ner\Shared\EntityExtractor.cs" />
   </ItemGroup>
 
   <ItemGroup>

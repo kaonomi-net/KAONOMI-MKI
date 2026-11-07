@@ -39,6 +39,12 @@ namespace KAONOMI.Core.Models
         /// <summary>Target latency or threshold in milliseconds.</summary>
         public int latencyInms { get; set; } = 100;
 
+        /// <summary>
+        /// Folder of the NER model of the server (XLM-RoBERTa int8 in ONNX: model_quantized.onnx, tokenizer.json,
+        /// config.json); null: <c>~/kaonomi/models/ner/xlm-roberta-base-ner-hrl-int8</c>.
+        /// </summary>
+        public string? nerModelFolder { get; set; }
+
         /// <summary>Look of the console applications: "matrix", "jarvis" or "ubuntu" applies that theme (HelperConsoleTheme), any other value keeps the classic console.</summary>
         public string consoleTheme { get; set; } = "matrix";
     }

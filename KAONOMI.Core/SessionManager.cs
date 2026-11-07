@@ -31,6 +31,9 @@ using System.Threading.Tasks;
 
 
         /// <summary>Builds the manager and Elasticsearch clients from <see cref="Config"/>.</summary>
+        /// <summary>The configuration the session was made with (config.json of the application).</summary>
+        public Config Config => _config;
+
         public SessionManager(Config config)
         {
             _config = config;
@@ -483,6 +486,9 @@ using System.Threading.Tasks;
         }
 
         /// <summary>Searches ontology entries by prompt text with a maximum result count.</summary>
+        /// <summary>Every entity of the ontology not marked deleted (up to <paramref name="size"/>), for the dictionary of the NER.</summary>
+        public List<Ontology> OntologiesAll(int size = 10000) => ElasticSearchDialog.Last<Ontology>(size, nameof(Ontology.isDeleted)).ToList();
+
         public List<Ontology> OntologiesSearch(string term, int size)
         {
             List<Ontology> results = new List<Ontology>();

@@ -45,6 +45,66 @@ On start, the app may open Swagger, the M-A-R-I (Orleans) dashboard (`http://loc
 
 Flow: persist dialog → run M-A-R-I sequence `jfo` with the dialog id → return `DialogGenericResponse` (chat-completion style).
 
+## NER: the entities of a text
+
+```http
+POST /ner
+{ "text": "Jérôme Fortias présente Kaonomi à Paris le 12/11/2026, voir https://www.kaonomi.net.", "types": [] }
+```
+
+```json
+{ "entities": [
+    { "text": "Jérôme Fortias", "type": "PERSON",   "start": 0,  "end": 14, "score": 0.95, "source": "xlmr+ontology", "ontologyId": "…", "ontologyName": "Jerome Fortias" },
+    { "text": "Kaonomi",        "type": "SOFTWARE", "start": 24, "end": 31, "score": 0.92, "source": "xlmr+ontology", "ontologyId": "…", "ontologyName": "Kaonomi" },
+    { "text": "Paris",          "type": "CITY",     "start": 34, "end": 39, "score": 0.64, "source": "xlmr+ontology", "ontologyId": "…", "ontologyName": "Paris" },
+    { "text": "12/11/2026",     "type": "DATE",     "start": 43, "end": 53, "score": 1,    "source": "rule" },
+    { "text": "https://www.kaonomi.net", "type": "URL", "start": 60, "end": 83, "score": 1, "source": "rule" } ],
+  "durationMs": 8.2, "model": "Davlan/xlm-roberta-base-ner-hrl int8 (model_quantized.onnx)", "warnings": [] }
+```
+
+`types` (optional) keeps only those types. `start` / `end` are positions of characters in `text` (end excluded).
+`GET /ner/types` lists the types of each layer, the number of entities of the ontology read, and the state of the model.
+
+Three layers (`Ner/`):
+
+| Layer | What | Types |
+| --- | --- | --- |
+| Model | [`Davlan/xlm-roberta-base-ner-hrl`](https://huggingface.co/Davlan/xlm-roberta-base-ner-hrl) (XLM-RoBERTa base fine-tuned on 10 languages, French and English among them; license AFL-3.0), exported to ONNX and quantized in **int8** (278 MB), run on the CPU by ONNX Runtime: about 5 ms a sentence, 0.6 s to load | `PERSON`, `ORG`, `LOC`, `DATE` |
+| Rules | the extractor of `KAONOMI.LLMGateway` (its source compiled here too, the gateway stays on its own) | `URL`, `EMAIL`, `IP`, `DATE`, `TIME`, `MONEY`, `PERCENT`, `PHONE`, `NUMBER`, `FILE`, `HASHTAG`, `MENTION`, `CODE`, `PROGRAMMING_LANGUAGE`, `MATH` |
+| Ontology | every entity of the ontology (not a class, not deleted), by its name and its synonyms, whatever the case and the accents, the longest name first, on whole words; read again every 10 minutes | the types of the ontology (`SOFTWARE`, `HARDWARE`, `COUNTRY`, `CITY`, `EVENT`…) |
+
+How they combine: a URL, an e-mail, a file, code, an IP, a hashtag or a mention is kept whole (no name looked for
+inside it); a name of the model that a name of the ontology covers whole (the same, or a longer one) takes the type
+and the id of the ontology (`xlmr+ontology`), but a name of the ontology inside a longer name of the model is not that
+name ("Olaf", the OLAF of the ontology, in "Olaf Scholz" leaves Olaf Scholz a person); a name of the ontology the model
+did not see is added (`ontology`); the other rules (dates,
+amounts…) fill where no name is. The model's own output is made whole: a word it cut in two ("J" + "érôme") is one
+entity, a lone punctuation ("'" of "l'ESA") is dropped. Without the model folder, the rules and the ontology still
+answer, with a warning.
+
+The tokenizer (`Ner/XlmrTokenizer.cs`, SentencePiece Unigram read from `tokenizer.json`) gives the same pieces and
+positions as the one of Hugging Face, and the entities before they are made whole are those of the pipeline of
+Transformers on the same int8 model (checked on 30 French, English, German and Spanish sentences; the int8 model finds
+the same entities as the original fp32 one in 28 of them).
+
+The agent of the entities of the dialog sequence (`DialogEntityVAgent`) runs the same NER on the prompt of the user
+and keeps the entities with the dialog (`Dialog.Entities`). The model and the ontology are loaded in the background
+when the server starts.
+
+**The model** is not in git. It is in `~/kaonomi/models/ner/xlm-roberta-base-ner-hrl-int8` (`nerModelFolder` in
+config.json to put it elsewhere). To make it again, with Python 3.10 or later:
+
+```bash
+python -m venv ~/kaonomi/tools/ner-export
+~/kaonomi/tools/ner-export/Scripts/python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+~/kaonomi/tools/ner-export/Scripts/python -m pip install "optimum[onnxruntime]" transformers sentencepiece
+~/kaonomi/tools/ner-export/Scripts/python KAONOMI.Server/Ner/export/ner_export.py ~/kaonomi/models/ner/xlm-roberta-base-ner-hrl-int8
+```
+
+(on macOS and Linux: `bin/python` instead of `Scripts/python`). On Windows, keep the environment on a short path: the
+files of PyTorch go beyond 260 characters in a deep folder. The script also writes `reference.json`, the pieces and the
+entities of Python for 30 sentences, to compare with.
+
 ## Other routes
 
 | Method | Route | Description |

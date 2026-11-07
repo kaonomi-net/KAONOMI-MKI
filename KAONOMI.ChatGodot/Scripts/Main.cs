@@ -45,6 +45,8 @@ public partial class Main : Control
         GetTree().AutoAcceptQuit = false;
         // Every view model asks with a dialog before a change it cannot undo, even one shown without a window of its own.
         Confirmations.Ask = KAONOMI.ChatGodot.Tools.Writing.WritingUi.Confirm;
+        // The bank of the 1000 questions of /iq, shipped with the chat.
+        IqWindowViewModel.BankPath = ProjectSettings.GlobalizePath("res://Data/iq-questions.json");
         // The web pages of the tools (Show on map…) open in the browser of the chat.
         PictureLibrary.WebOpener = url => Bind.OnMain(() => WebWindow.Open(url));
         // A right click on a text selected anywhere offers to annotate it.
@@ -72,6 +74,19 @@ public partial class Main : Control
         Eve.Eve.Use(Eve.Eve.Find(Argument("--theme=") ?? Preferences.Theme));
         BuildUi();
         WireTools();
+        // The alarms of /alarm ring even when its window is closed (built once: a new theme keeps it).
+        AddChild(new AlarmRinger(_vm.Say, () => _vm.VoiceLanguage,
+            enterFullScreen: () =>
+            {
+                _chat.EnterVoiceMode();
+                // The windows small at the bottom: the 3D animation in view, not a window in the middle.
+                GetTree().CreateTimer(0.4).Timeout += () =>
+                {
+                    if (_deck.ShowsOnStage && !_deck.IsShelved)
+                        _deck.ToggleShelf();
+                };
+            },
+            leaveFullScreen: () => _chat.LeaveVoiceMode()));
         // /theme:kaonomi or /theme:eve typed in the chat changes the theme too.
         KAONOMI.Chat.Themes.AppTheme.Applied += kind => Bind.OnMain(() => ApplyTheme(Eve.Eve.Find(kind.ToString())));
 
@@ -302,6 +317,9 @@ public partial class Main : Control
         _vm.GoWindowRequested += (vm, _) => Open(vm, "/game:go");
         _vm.MarieWindowRequested += (vm, _) => Open(vm, "/game:marie");
         _vm.ImmuneWindowRequested += (vm, _) => Open(vm, "/immune");
+        _vm.AlarmWindowRequested += (vm, _) => Open(vm, "/alarm");
+        _vm.CalendarWindowRequested += (vm, _) => Open(vm, "/calendar");
+        _vm.IqWindowRequested += (vm, _) => Open(vm, "/iq");
         _vm.ActivityWindowRequested += (vm, _) => Open(vm, ActivityJournal.Command);
         _vm.FoldersWindowRequested += (vm, _) => Open(vm, "/folders");
         _vm.ProjectWindowRequested += (vm, _) => Open(vm, "/project");

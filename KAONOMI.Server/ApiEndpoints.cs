@@ -20,6 +20,13 @@ namespace KAONOMI.Server
         /// <returns>The same <paramref name="app"/> instance for chaining.</returns>
         public static IEndpointRouteBuilder MapApiEndpoints(this IEndpointRouteBuilder app, SessionManager session)
         {
+            // POST /ner {text, types?}: the entities of the text (XLM-RoBERTa int8: PERSON, ORG, LOC; the rules: URL, EMAIL,
+            // DATE, MONEY, CODE…; the names of the ontology, with their id), each with its type, position, score and source.
+            app.MapPost("/ner", (Ner.NerRequest p) => Task.FromResult(Ner.NerService.Get(session.Config).Extract(p.text, p.types)));
+
+            // GET /ner/types: the types the NER finds (of the model, of the rules, of the ontology) and the state of the model.
+            app.MapGet("/ner/types", () => Task.FromResult(Ner.NerService.Get(session.Config).Types()));
+
             // GET /version: returns the server version string.
             app.MapGet("/version", () =>
             {

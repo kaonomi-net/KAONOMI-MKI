@@ -21,4 +21,24 @@ public static class SpeechLanguage
         "NL" => "U vindt de code in de bijlage.",
         _ => "You will find the code attached."
     };
+
+    /// <summary>What the avatar says when the reminder of an event of /calendar rings (<paramref name="time"/>: null for a whole day).</summary>
+    public static string Reminder(string language, string title, string? time) => language.Trim().ToUpperInvariant() switch
+    {
+        "FR" => time is null ? $"Rappel : {title}, aujourd'hui." : $"Rappel : {title} à {time}.",
+        "DE" => time is null ? $"Erinnerung: {title}, heute." : $"Erinnerung: {title} um {time}.",
+        "NL" => time is null ? $"Herinnering: {title}, vandaag." : $"Herinnering: {title} om {time}.",
+        "JA" => time is null ? $"リマインダー：今日、{title}。" : $"リマインダー：{time}、{title}。",
+        _ => time is null ? $"Reminder: {title}, today." : $"Reminder: {title} at {time}."
+    };
+
+    /// <summary>What the avatar says when an alarm of /alarm rings.</summary>
+    public static string WakeUp(string language) => language.Trim().ToUpperInvariant() switch
+    {
+        "FR" => "Bouge ton cul, gros !",
+        "DE" => "Beweg deinen Hintern, Alter!",
+        "NL" => "Kom van je luie kont, makker!",
+        "JA" => "ケツを上げろ、相棒！",
+        _ => "Move your butt, buddy!"
+    };
 }

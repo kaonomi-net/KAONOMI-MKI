@@ -127,6 +127,9 @@ public partial class ChatPanel : PanelContainer
         var now = DateTime.Now;
         _clock.Text = now.ToString("HH:mm:ss");
         _date.Text = now.ToString("ddd d MMM yyyy").ToUpperInvariant();
+        // The next alarm of /alarm within a day, beside the date.
+        if (KAONOMI.Chat.Services.AlarmClock.Shared.Upcoming(now).FirstOrDefault() is { Alarm: not null } next && next.Ring - now < TimeSpan.FromDays(1))
+            _date.Text += $"  ·  ⏰ {next.Ring:HH:mm}";
         // The ticker scrolls from right to left.
         if (_ticker.Visible && _ticker.Text.Length > 0)
         {
@@ -167,6 +170,18 @@ public partial class ChatPanel : PanelContainer
         _date.HorizontalAlignment = HorizontalAlignment.Right;
         time.AddChild(_clock);
         time.AddChild(_date);
+        // A double-click on the clock opens the alarm clock.
+        time.MouseFilter = MouseFilterEnum.Stop;
+        time.MouseDefaultCursorShape = CursorShape.PointingHand;
+        time.TooltipText = "Double-click: the alarm clock (/alarm)";
+        time.GuiInput += e =>
+        {
+            if (e is InputEventMouseButton { DoubleClick: true, ButtonIndex: MouseButton.Left })
+            {
+                time.AcceptEvent();
+                _vm.OpenTool("/alarm", false);
+            }
+        };
         row.AddChild(time);
         Bind.When(_server, _vm, () =>
         {
