@@ -40,7 +40,46 @@ public partial class SymbolicPatternWindowViewModel : ViewModelBase, INoteContex
     {
         _assistant = assistant;
         RegexAssistant = new RegexAssistantViewModel(ollama, model, () => SelectedResult, regexDirectory);
+        _transfer = new DocumentTransfer<SymbolicPatternEntry>
+        {
+            Plural = "symbolic patterns",
+            LogArea = "Symbol",
+            LoadAll = (size, ct) => _assistant.GetLastSymbolicPatternsAsync(size, ct),
+            Id = e => e.Id,
+            Create = (e, ct) => _assistant.CreateSymbolicPatternAsync(e, ct),
+            Save = (e, ct) => _assistant.UpdateSymbolicPatternAsync(e, ct),
+            Confirm = (message, label) => ConfirmAsync(message, label),
+            OpenTextFile = () => OpenTextFileAsync(),
+            PickFolder = title => PickFolderAsync(title),
+            Report = (status, isError) => { Status = status; IsError = isError; }
+        };
     }
+
+    private readonly DocumentTransfer<SymbolicPatternEntry> _transfer;
+
+    /// <summary>Asks the user to confirm (message, confirm label); set by the view.</summary>
+    public Func<string, string, Task<bool>> ConfirmAsync { get; set; } = (message, label) => Confirmations.Ask(message, label);
+
+    /// <summary>Asks for a JSON file to import and returns its text, or null when cancelled; set by the view.</summary>
+    public Func<Task<string?>> OpenTextFileAsync { get; set; } = () => Task.FromResult<string?>(null);
+
+    /// <summary>Asks for a folder (argument: the dialog title), or null when cancelled; set by the view.</summary>
+    public Func<string, Task<string?>> PickFolderAsync { get; set; } = _ => Task.FromResult<string?>(null);
+
+    /// <summary>Exports every symbolic pattern of the server (deleted ones included) to a folder: one JSON file per pattern.</summary>
+    [RelayCommand]
+    private Task ExportAllAsync(CancellationToken cancellationToken) => _transfer.ExportAllAsync(cancellationToken);
+
+    /// <summary>
+    /// Imports the symbolic patterns of a JSON file (one pattern or an array, as the seed files). The server reloads its
+    /// patterns within five minutes.
+    /// </summary>
+    [RelayCommand]
+    private Task ImportAsync(CancellationToken cancellationToken) => _transfer.ImportFileAsync(cancellationToken);
+
+    /// <summary>Imports the symbolic patterns of a folder (an "Export all", one file per pattern).</summary>
+    [RelayCommand]
+    private Task ImportFolderAsync(CancellationToken cancellationToken) => _transfer.ImportFolderAsync(cancellationToken);
 
     /// <summary>Regex generation assistant (examples + goal → regex added to the selected document).</summary>
     public RegexAssistantViewModel RegexAssistant { get; }

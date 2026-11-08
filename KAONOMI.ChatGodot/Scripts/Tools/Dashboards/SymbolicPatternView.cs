@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 using Godot;
+using KAONOMI.Chat.Services;
 using KAONOMI.Chat.ViewModels;
 using KAONOMI.ChatGodot.Eve;
 using EveStyle = KAONOMI.ChatGodot.Eve.Eve;
@@ -27,8 +28,14 @@ public sealed class SymbolicPatternView : IToolView
     public Control Build(object viewModel, Shell shell)
     {
         var vm = (SymbolicPatternWindowViewModel)viewModel;
+        vm.ConfirmAsync = (message, confirm) => Dialogs.Confirm("Symbolic patterns", message, confirm);
+        vm.OpenTextFileAsync = async () => await Dialogs.OpenFile("Import symbolic patterns", ["*.json ; JSON"]) is { Length: > 0 } path ? await System.IO.File.ReadAllTextAsync(path) : null;
+        vm.PickFolderAsync = title => Dialogs.OpenFolder(title);
         var toolbar = Ui.Toolbar(Ui.SearchBar(vm, nameof(vm.Term), vm.SearchCommand, "Search symbolic patterns…",
-            Ui.Command("NEW", vm.NewCommand, tooltip: "Create a new symbolic pattern")));
+            Ui.Command("NEW", vm.NewCommand, tooltip: "Create a new symbolic pattern"),
+            Ui.Command("IMPORT…", vm.ImportCommand, tooltip: "Import symbolic patterns from a JSON file (one or an array, as the seed files); same id: overwritten"),
+            Ui.Command("IMPORT FOLDER…", vm.ImportFolderCommand, tooltip: "Import a folder exported with Export all (one JSON file each); same id: overwritten"),
+            Ui.Command("EXPORT ALL…", vm.ExportAllCommand, tooltip: "Export every symbolic pattern of the server to a folder: one JSON file each")));
 
         var list = new VBoxContainer();
         list.AddThemeConstantOverride("separation", 2);
@@ -146,8 +153,10 @@ public sealed class SymbolicPatternView : IToolView
             if (child is Button button)
                 button.SizeFlagsVertical = Control.SizeFlags.ShrinkCenter;
 
-        var grid = Ui.Grid(2, 12, 6);
+        var grid = Ui.Grid(3, 12, 6);
+        grid.AddChild(Field("Title", Ui.Line(entry, nameof(entry.Title), "Title of the pattern")));
         grid.AddChild(Field("Event", Ui.Line(entry, nameof(entry.Event))));
+        grid.AddChild(Field("Language", Ui.Line(entry, nameof(entry.Language), "FR, EN, DE…")));
 
         // The regex patterns.
         var patterns = Ui.Column(6);
@@ -156,7 +165,9 @@ public sealed class SymbolicPatternView : IToolView
         var fields = Ui.Column(8,
             grid,
             Ui.Field("Comment", Ui.Lines(entry, nameof(entry.Comment), 50)),
-            Ui.Field("Tags (one per line)", Ui.Lines(entry, nameof(entry.Tags), 60)),
+            Ui.Field("Tags (one per line)", Ui.Lines(entry, nameof(entry.Tags), 60, MetaTags.TagsHint)),
+            Ui.Field("Events (one per line)", Ui.Lines(entry, nameof(entry.Events), 50, MetaTags.EventsHint)),
+            Ui.Field("Signals (one per line)", Ui.Lines(entry, nameof(entry.Signals), 50, MetaTags.SignalsHint)),
             Ui.Check("Deleted", entry, nameof(entry.IsDeleted)),
             Ui.Field("Symbol", Ui.Line(entry, nameof(entry.Symbol))),
             Ui.Row(8, Ui.Fill(EveStyle.Caption("Regex patterns")), Ui.Command("+ ADD PATTERN", entry.AddPatternCommand, tooltip: "Add a regular expression")),

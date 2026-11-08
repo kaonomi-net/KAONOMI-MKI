@@ -19,7 +19,7 @@ namespace KAONOMI.Server
     internal class DialogContextUpdateVAgent : VGrainBase<IDialogContextUpdateVAgent>, IDialogContextUpdateVAgent
     {
         /// <summary>Creates the agent with MARI logging support.</summary>
-        /// <param name="logger">Logger for this grain type.</param>
+        /// <param title="logger">Logger for this grain type.</param>
         public DialogContextUpdateVAgent(ILogger<IDialogContextUpdateVAgent> logger) : base(logger)
         {
         }

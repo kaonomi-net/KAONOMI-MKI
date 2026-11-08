@@ -1,0 +1,5553 @@
+[
+  {
+    "id": "fr-disgust-degout",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Dégoût",
+    "symbol": "dégoût",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]go[ûu]t(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]go[ûu]t(er|[ée]|[ée]e|[ée]s|[ée]es|e|ent|ant|ante|ants|antes)|d[ée]go[ûu]t[ée](e|s|es)?\\s+de)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[çc]a\\s+me\\s+d[ée]go[ûu]te)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:quel\\s+d[ée]go[ûu]t)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST"
+    ],
+    "language": "FR",
+    "comment": "Une vive répugnance.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-ecurement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Écœurement",
+    "symbol": "écœurement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:[ée]c(œ|oe)urement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]c(œ|oe)ur(er|[ée]|[ée]e|[ée]s|[ée]es|e|ent|ant|ante|ants|antes)|[çc]a\\s+m['’][ée]c(œ|oe)ure)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[àa]\\s+vomir)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[àa]\\s+gerber)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST"
+    ],
+    "language": "FR",
+    "comment": "Un dégoût qui soulève le cœur.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-repugnance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Répugnance",
+    "symbol": "répugnance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:r[ée]pugnance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]pugn(er|e|ent|ait|ant|ante|ants|antes)|me\\s+r[ée]pugne)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]pulsion(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]vulsion(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST"
+    ],
+    "language": "FR",
+    "comment": "Une forte aversion physique ou morale.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-nausee",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Nausée",
+    "symbol": "nausée",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:naus[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:naus[ée]eu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mal\\s+au\\s+c(œ|oe)ur)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:envie\\s+de\\s+vomir)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:c(œ|oe)ur\\s+au\\s+bord\\s+des\\s+l[èe]vres)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "L'envie de vomir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-haut-le-cur",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Haut-le-cœur",
+    "symbol": "haut-le-cœur",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:haut(s)?-le-c(œ|oe)ur)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]flexe\\s+naus[ée]eux)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:spasme(s)?\\s+de\\s+d[ée]go[ûu]t)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:soul[èe]ve\\s+le\\s+c(œ|oe)ur)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:retourne\\s+l['’]estomac)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Un spasme de dégoût.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-beurk",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Beurk",
+    "symbol": "beurk",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:beurk)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:berk)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pouah)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:yuck)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:b[êe][êe]h)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST"
+    ],
+    "language": "FR",
+    "comment": "L'interjection du dégoût.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-degueulasse",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Dégueulasse",
+    "symbol": "dégueulasse",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]gueulasse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]gueu)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]gueulasserie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:crade(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cradingue(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST"
+    ],
+    "language": "FR",
+    "comment": "Très sale ou répugnant (familier).",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-immonde",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Immonde",
+    "symbol": "immonde",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:immonde(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:immondice(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:innommable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:atroce(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:effroyable(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST"
+    ],
+    "language": "FR",
+    "comment": "D'une laideur ou d'une saleté repoussante.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-repugnant",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Répugnant",
+    "symbol": "répugnant",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:r[ée]pugnant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]go[ûu]tant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]c(œ|oe)urant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rebutant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]dhibitoire(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST"
+    ],
+    "language": "FR",
+    "comment": "Qui provoque le dégoût.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-repoussant",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Repoussant",
+    "symbol": "repoussant",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:repoussant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hideu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:laid(e|s|es)?\\s+[àa]\\s+faire\\s+peur)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:monstrueu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:difforme(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST"
+    ],
+    "language": "FR",
+    "comment": "Qui fait reculer de dégoût.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-ignoble",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Ignoble",
+    "symbol": "ignoble",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:ignoble(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ignominieu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vil(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:m[ée]prisable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:indigne(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "D'une bassesse qui écœure.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-infame",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Infâme",
+    "symbol": "infâme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:inf[âa]me(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:infamie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sc[ée]l[ée]rat(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:crapuleu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:odieu(x|se|ses))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Qui inspire le dégoût moral.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-abject",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Abject",
+    "symbol": "abject",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:abject(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:abjection(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]voltant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:inqualifiable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:honteu(x|se|ses))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "D'une bassesse révoltante.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-aversion",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Aversion",
+    "symbol": "aversion",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:aversion(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:allergie\\s+[àa])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:phobie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:horreur\\s+de)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ne\\s+pas\\s+supporter)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST"
+    ],
+    "language": "FR",
+    "comment": "Un rejet profond.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-execrable",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Exécrable",
+    "symbol": "exécrable",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:ex[ée]crable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ex[ée]cr(er|[ée]|[ée]e|ation)|d[ée]testable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:abominable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:insupportable(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST"
+    ],
+    "language": "FR",
+    "comment": "Extrêmement mauvais.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-vomitif",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Vomitif",
+    "symbol": "vomitif",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:vomiti(f|fs|ve|ves))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gerbant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vomitoire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[àa]\\s+vomir)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[àa]\\s+d[ée]gueuler)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Qui donne envie de vomir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-gerbe",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Gerbe",
+    "symbol": "gerbe",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:la\\s+gerbe)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ger(ber|be|b[ée]|bait)|d[ée]gueul(er|[ée]|ait)|refouler\\s+du\\s+goulot)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[çc]a\\s+donne\\s+la\\s+gerbe)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "L'envie de vomir (familier).",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-indigeste",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Indigeste",
+    "symbol": "indigeste",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:trop\\s+sucr[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:trop\\s+gras)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:indigeste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lourd\\s+sur\\s+l['’]estomac)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bourratif(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]c(œ|oe)urant\\s+[àa]\\s+force)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#NOURRITURE"
+    ],
+    "language": "FR",
+    "comment": "Qui écœure par l'excès.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-horreur",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Horreur",
+    "symbol": "horreur",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:horreur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:quelle\\s+horreur)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:horrible(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:affreu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]pouvantable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cauchemardesque(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST"
+    ],
+    "language": "FR",
+    "comment": "Ce qui inspire une vive répulsion.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-degenere",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Dégénéré",
+    "symbol": "dégénéré",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]g[ée]n[ée]r[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]g[ée]n[ée]rescence(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tar[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]bile(s)?\\s+profond(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tordu(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Qui a perdu toute qualité.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-vulgarite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Vulgarité",
+    "symbol": "vulgarité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:vulgarit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vulgaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:grossi[èe]ret[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:grossi(er|[èe]re|ers|[èe]res))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:trivial(e|es|aux)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Le manque de délicatesse.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-obscenite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Obscénité",
+    "symbol": "obscénité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:obsc[ée]nit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:obsc[èe]ne(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ind[ée]cence(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ind[ée]cent(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:impudique(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Ce qui blesse la pudeur.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-glauque",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Glauque",
+    "symbol": "glauque",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:glauque(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sordide(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sinistre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lugubre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:morbide(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST"
+    ],
+    "language": "FR",
+    "comment": "Lugubre et malsain.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-malsain",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Malsain",
+    "symbol": "malsain",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:malsain(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:toxique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nocif(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nocive(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]l[ée]t[èe]re(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Qui est mauvais pour le corps ou l'esprit.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-sale",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sale",
+    "symbol": "sale",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:sale(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sali(r|e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:souill[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:crasseu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pas\\s+propre)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#SALETE"
+    ],
+    "language": "FR",
+    "comment": "Qui n'est pas propre.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-salete",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Saleté",
+    "symbol": "saleté",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:salet[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:malpropret[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:manque\\s+d['’]hygi[èe]ne)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:n[ée]glig[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]go[ûu]tant\\s+de\\s+salet[ée])(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#SALETE"
+    ],
+    "language": "FR",
+    "comment": "Ce qui rend sale.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-crasse",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Crasse",
+    "symbol": "crasse",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:crasse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:encrass[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:encrassement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:couche\\s+de\\s+crasse)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:noir\\s+de\\s+crasse)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#SALETE"
+    ],
+    "language": "FR",
+    "comment": "Une saleté épaisse.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-ordure",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Ordure",
+    "symbol": "ordure",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:ordure(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ordures\\s+m[ée]nag[èe]res)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tas\\s+d['’]ordures)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:raclure(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pourriture(s)?\\s+humaine(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#SALETE"
+    ],
+    "language": "FR",
+    "comment": "Ce qui est jeté ; une personne méprisable.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-poubelle",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Poubelle",
+    "symbol": "poubelle",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:poubelle(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:poubelle(s)?\\s+qui\\s+d[ée]borde(nt)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:benne(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vide-ordures)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bac(s)?\\s+[àa]\\s+ordures)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#SALETE"
+    ],
+    "language": "FR",
+    "comment": "Le récipient des déchets.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-dechet",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Déchet",
+    "symbol": "déchet",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]chet(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]tritus)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rebut(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]sidu(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]bris)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#SALETE"
+    ],
+    "language": "FR",
+    "comment": "Ce qui reste et que l'on jette.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-boue",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Boue",
+    "symbol": "boue",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:boue(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:boueu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fange(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bourbier(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vase(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#SALETE"
+    ],
+    "language": "FR",
+    "comment": "La terre détrempée.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-souillure",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Souillure",
+    "symbol": "souillure",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:souillure(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:souill(er|[ée]|[ée]e|[ée]s|[ée]es)|macul[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tach([ée]|[ée]e|[ée]s|[ée]es)|[ée]clabouss[ée](e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#SALETE"
+    ],
+    "language": "FR",
+    "comment": "Une tache qui salit.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-graisse",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Graisse",
+    "symbol": "graisse",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:graisse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:graisseu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:huileu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]goulinant(e|s|es)?\\s+de\\s+graisse)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cambouis)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#SALETE"
+    ],
+    "language": "FR",
+    "comment": "Une matière grasse qui colle.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-gluant",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Gluant",
+    "symbol": "gluant",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:gluant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:visqueu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:poisseu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:collant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:g[ée]latineu(x|se|ses))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#SALETE"
+    ],
+    "language": "FR",
+    "comment": "Qui colle comme de la glu.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-moisissure",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Moisissure",
+    "symbol": "moisissure",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:moisissure(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:moisi(e|s|es|r)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:moisissant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:champignon(s)?\\s+noir(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:salp[êe]tre)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#SALETE"
+    ],
+    "language": "FR",
+    "comment": "Le champignon qui se forme sur ce qui pourrit.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-pourri",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Pourri",
+    "symbol": "pourri",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:pourri(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pourri(r|t|ssent|ssait|ssant|ssante)|pourriture(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:g[âa]t[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:blet(te|s|tes)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#SALETE"
+    ],
+    "language": "FR",
+    "comment": "En décomposition.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-putrefaction",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Putréfaction",
+    "symbol": "putréfaction",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:putr[ée]faction(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:putr[ée]fi([ée]|[ée]e|[ée]s|[ée]es|er)|putride(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]composition(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:en\\s+d[ée]composition)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#SALETE"
+    ],
+    "language": "FR",
+    "comment": "La décomposition des matières organiques.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-fumier",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Fumier",
+    "symbol": "fumier",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:fumier(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:purin(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lisier(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bouse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:crottin(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#SALETE"
+    ],
+    "language": "FR",
+    "comment": "Les excréments d'animaux mêlés de paille.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-egout",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Égout",
+    "symbol": "égout",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:[ée]gout(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bouche(s)?\\s+d['’][ée]gout)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fosse(s)?\\s+septique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cloaque(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:caniveau(x)?\\s+puant(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#SALETE"
+    ],
+    "language": "FR",
+    "comment": "La canalisation des eaux sales.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-degoulinant",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Dégoulinant",
+    "symbol": "dégoulinant",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]goulinant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]goulin(er|e|ent|ait)|suintant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:suint(er|e|ent)|ruisselant(e|s|es)?\\s+de\\s+crasse)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#SALETE"
+    ],
+    "language": "FR",
+    "comment": "Qui coule de façon répugnante.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-insalubre",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Insalubre",
+    "symbol": "insalubre",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:insalubre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:insalubrit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:logement(s)?\\s+indigne(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:inhabitable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]labr[ée](e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#INSALUBRITE"
+    ],
+    "language": "FR",
+    "comment": "Malsain, contraire à l'hygiène.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-taudis",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Taudis",
+    "symbol": "taudis",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:taudis)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gourbi(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bouge(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:porcherie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]curie(s)?\\s+(immonde|crasseuse)(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#INSALUBRITE"
+    ],
+    "language": "FR",
+    "comment": "Un logement misérable et sale.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-depotoir",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Dépotoir",
+    "symbol": "dépotoir",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]charge(s)?\\s+sauvage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]charge(s)?\\s+publique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]p[ôo]t(s)?\\s+d['’]ordures)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]potoir(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:montagne(s)?\\s+de\\s+d[ée]chets)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#INSALUBRITE"
+    ],
+    "language": "FR",
+    "comment": "Le lieu où l'on dépose les ordures.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-latrines",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Latrines",
+    "symbol": "latrines",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:latrine(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:toilettes\\s+bouch[ée]es)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:toilettes\\s+immondes)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chiottes)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:wc\\s+bouch[ée]s)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#INSALUBRITE"
+    ],
+    "language": "FR",
+    "comment": "Des toilettes sommaires et sales.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-pollution",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Pollution",
+    "symbol": "pollution",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:pollution(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pollu([ée]|[ée]e|[ée]s|[ée]es|ant|ants|er)|mar[ée]e(s)?\\s+noire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:eaux\\s+us[ée]es)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:smog)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#INSALUBRITE"
+    ],
+    "language": "FR",
+    "comment": "La contamination de l'environnement.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-contamine",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Contaminé",
+    "symbol": "contaminé",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:contamin[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:contamination(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:infect[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:souill[ée](e|s|es)?\\s+par)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:impropre(s)?\\s+[àa]\\s+la\\s+consommation)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#INSALUBRITE"
+    ],
+    "language": "FR",
+    "comment": "Souillé par un agent nocif.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-infeste",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Infesté",
+    "symbol": "infesté",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:infest[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:infestation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:grouillant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:grouill(er|e|ent|ait)|envahi(e|s|es)?\\s+de\\s+(rats|cafards|vermine))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#INSALUBRITE"
+    ],
+    "language": "FR",
+    "comment": "Envahi par des bêtes nuisibles.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-puanteur",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Puanteur",
+    "symbol": "puanteur",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:puanteur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pestilence(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pestilentiel(le|s|les)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:infection(s)?\\s+(olfactive|totale))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[çc]a\\s+sent\\s+mauvais)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#ODEUR"
+    ],
+    "language": "FR",
+    "comment": "Une odeur très désagréable.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-puer",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Puer",
+    "symbol": "puer",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:pu(er|e|ent|ait|aient|[ée])|puant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:empest(er|e|ent|ait)|schlingu(er|e|ent)|refoul(er|e)\\s+du\\s+goulot)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#ODEUR"
+    ],
+    "language": "FR",
+    "comment": "Sentir très mauvais.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-relent",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Relent",
+    "symbol": "relent",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:relent(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:remugle(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:odeur(s)?\\s+de\\s+renferm[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:odeur(s)?\\s+naus[ée]abonde(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mauvaise(s)?\\s+odeur(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#ODEUR"
+    ],
+    "language": "FR",
+    "comment": "Une mauvaise odeur qui persiste.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-fetide",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Fétide",
+    "symbol": "fétide",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:f[ée]tide(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:naus[ée]abond(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:m[ée]phitique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[âa]cre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:suffocant(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#ODEUR"
+    ],
+    "language": "FR",
+    "comment": "Qui sent très mauvais.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-infect",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Infect",
+    "symbol": "infect",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:infect(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:innommable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:imbuvable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:immangeable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[çc]a\\s+pue)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#ODEUR"
+    ],
+    "language": "FR",
+    "comment": "Qui sent ou a un goût répugnant.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-transpiration",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Transpiration",
+    "symbol": "transpiration",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:transpiration(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sueur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:odeur(s)?\\s+de\\s+transpiration)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:aisselle(s)?\\s+qui\\s+sent(ent)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dessous\\s+de\\s+bras)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#ODEUR",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "La sueur et son odeur.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-halitose",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Halitose",
+    "symbol": "halitose",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:halitose(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mauvaise\\s+haleine)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:haleine\\s+f[ée]tide)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:haleine\\s+de\\s+chacal)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:haleine\\s+charg[ée]e)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sent\\s+de\\s+la\\s+bouche)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#ODEUR",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "L'odeur du souffle.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-pet",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Pet",
+    "symbol": "pet",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:pet(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:p[ée]t(er|[ée]|ait)|flatulence(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vent(s)?\\s+(l[âa]ch[ée]|bruyant)(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:prout(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#ODEUR",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Un gaz intestinal.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-rot",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Rot",
+    "symbol": "rot",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:rot(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rot(er|[ée]|ait)|[ée]ructation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:renvoi(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:roter\\s+[àa]\\s+table)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Un renvoi d'air bruyant.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-vomi",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Vomi",
+    "symbol": "vomi",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:vomi(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vomissure(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]gueulis)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:flaque(s)?\\s+de\\s+vomi)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]gurgitation(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Ce qui a été vomi.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-vomir",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Vomir",
+    "symbol": "vomir",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:vomi(r|t|ssent|ssait|ssement|ssements)|rend(re|u)\\s+(son|tout\\s+son)\\s+repas)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]gurgit(er|[ée]|[ée]e)|d[ée]gobill(er|[ée])|rendre\\s+tripes\\s+et\\s+boyaux)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Rejeter par la bouche le contenu de l'estomac.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-crachat",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Crachat",
+    "symbol": "crachat",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:crachat(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:crach(er|e|ent|[ée]|ait|oter)|glaviot(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mollard(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:postillon(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "De la salive rejetée.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-morve",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Morve",
+    "symbol": "morve",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:morve(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:morveu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mucus)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mucosit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nez\\s+qui\\s+coule)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Le mucus du nez.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-pus",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Pus",
+    "symbol": "pus",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:pus)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:purulent(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:suppur(er|ant|ante|ation)|abc[èe]s)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:plaie(s)?\\s+infect[ée]e(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Le liquide d'une plaie infectée.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-bave",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Bave",
+    "symbol": "bave",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:bave(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bav(er|e|ent|eu|euse|eux)|salive(s)?\\s+qui\\s+coule)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]cume(s)?\\s+aux\\s+l[èe]vres)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:filet(s)?\\s+de\\s+bave)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "La salive qui coule.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-excrement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Excrément",
+    "symbol": "excrément",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:excr[ée]ment(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mati[èe]re(s)?\\s+f[ée]cale(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:f[èe]ces)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]jection(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]tron(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Les matières fécales.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-merde",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Merde",
+    "symbol": "merde",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:merde(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:merdique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:emmerd(ant|ante|ement)|crotte(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:caca(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Les excréments (vulgaire).",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-urine",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Urine",
+    "symbol": "urine",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:urine(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:urin(er|[ée]|ait)|pisse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:odeur(s)?\\s+d['’]urine)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pipi(s)?\\s+partout)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Le liquide évacué par la vessie.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-diarrhee",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Diarrhée",
+    "symbol": "diarrhée",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:diarrh[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chiasse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:courante(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gastro(-ent[ée]rite)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:turista)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Des selles liquides et fréquentes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-furoncle",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Furoncle",
+    "symbol": "furoncle",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:furoncle(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:anthrax\\s+cutan[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:kyste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bubon(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pustule(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Une inflammation purulente de la peau.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-verrue",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Verrue",
+    "symbol": "verrue",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:verrue(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:excroissance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:verruqueu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chancre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:l[ée]sion(s)?\\s+cutan[ée]e(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Une petite excroissance de la peau.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-acne",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Acné",
+    "symbol": "acné",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:acn[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:acn[ée]ique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:point(s)?\\s+noir(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bouton(s)?\\s+d['’]acn[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:peau\\s+grasse)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Les boutons sur la peau.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-desquamation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Desquamation",
+    "symbol": "desquamation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cro[ûu]te(s)?\\s+(de\\s+sang|purulente)(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cro[ûu]teu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:desquamation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:peau\\s+morte)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:squame(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "La couche sèche sur une plaie.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-pellicules",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Pellicules",
+    "symbol": "pellicules",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:pellicule(s)?\\s+(sur|dans)\\s+(les\\s+cheveux|le\\s+col)|pellicules)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cheveux\\s+gras)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cheveu(x)?\\s+dans\\s+la\\s+soupe)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tignasse\\s+sale)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Les petites peaux mortes du cuir chevelu.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-cerumen",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cérumen",
+    "symbol": "cérumen",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:c[ée]rumen)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cire\\s+d['’]oreille)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bouchon(s)?\\s+de\\s+c[ée]rumen)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:crotte(s)?\\s+de\\s+nez)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ongles\\s+noirs)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "La cire des oreilles.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-gangrene",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Gangrène",
+    "symbol": "gangrène",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:infection(s)?\\s+(purulente|nosocomiale|cutan[ée]e)(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gangr[èe]ne(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gangren([ée]|[ée]e|eux)|n[ée]crose(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:septic[ée]mie(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "L'invasion de microbes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-rat",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Rat",
+    "symbol": "rat",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:rat(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:surmulot(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rongeur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:souris\\s+crev[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]ratisation(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#VERMINE"
+    ],
+    "language": "FR",
+    "comment": "Un rongeur porteur de maladies.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-cafard",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cafard",
+    "symbol": "cafard",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cafard(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:blatte(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cancrelat(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cafards\\s+dans\\s+la\\s+cuisine)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]sinsectisation(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#VERMINE"
+    ],
+    "language": "FR",
+    "comment": "Un insecte qui vit dans la saleté.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-asticot",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Asticot",
+    "symbol": "asticot",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:asticot(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:larve(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ver(s)?\\s+de\\s+terre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ver(s)?\\s+blanc(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:grouillant(e|s|es)?\\s+de\\s+vers)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#VERMINE"
+    ],
+    "language": "FR",
+    "comment": "La larve de la mouche.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-vermine",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Vermine",
+    "symbol": "vermine",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:vermine(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nuisible(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:parasite(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bestiole(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sale(s)?\\s+b[êe]te(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#VERMINE"
+    ],
+    "language": "FR",
+    "comment": "Les bêtes nuisibles et sales.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-punaise",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Punaise",
+    "symbol": "punaise",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:punaise(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:punaise(s)?\\s+de\\s+lit)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:piq[ûu]re(s)?\\s+de\\s+punaise(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:matelas\\s+infest[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lit\\s+infest[ée])(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#VERMINE"
+    ],
+    "language": "FR",
+    "comment": "Un insecte suceur de sang.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-pou",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Pou",
+    "symbol": "pou",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:poux)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pou)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lente(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pouilleu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:shampoing\\s+anti-poux)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#VERMINE"
+    ],
+    "language": "FR",
+    "comment": "Un parasite des cheveux.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-limace",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Limace",
+    "symbol": "limace",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:limace(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bave\\s+de\\s+limace)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:escargot(s)?\\s+[ée]cras[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gast[ée]ropode(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:trace(s)?\\s+gluante(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#VERMINE"
+    ],
+    "language": "FR",
+    "comment": "Un mollusque gluant.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-sangsue",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sangsue",
+    "symbol": "sangsue",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:sangsue(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:parasite(s)?\\s+suceur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:suceur(s)?\\s+de\\s+sang)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vampire(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#VERMINE"
+    ],
+    "language": "FR",
+    "comment": "Un ver qui suce le sang.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-mille-pattes",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Mille-pattes",
+    "symbol": "mille-pattes",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:mille-pattes)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:scolopendre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cloporte(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:perce-oreille(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:insecte(s)?\\s+rampant(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#VERMINE"
+    ],
+    "language": "FR",
+    "comment": "Un animal aux nombreuses pattes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-charogne",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Charogne",
+    "symbol": "charogne",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:charogne(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cadavre(s)?\\s+d['’]animal)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:b[êe]te(s)?\\s+crev[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:crev[ée](e|s|es)?\\s+au\\s+bord\\s+de\\s+la\\s+route)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:charognard(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#VERMINE"
+    ],
+    "language": "FR",
+    "comment": "Un cadavre d'animal en décomposition.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-mouche",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Mouche",
+    "symbol": "mouche",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:mouche(s)?\\s+([àa]\\s+merde|verte|bleue)(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:essaim(s)?\\s+de\\s+mouches)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nu[ée]e(s)?\\s+de\\s+mouches)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mouche(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:grouillement\\s+de\\s+mouches)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#VERMINE"
+    ],
+    "language": "FR",
+    "comment": "Un insecte attiré par les ordures.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-perime",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Périmé",
+    "symbol": "périmé",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:p[ée]rim[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:date\\s+d[ée]pass[ée]e)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dlc\\s+d[ée]pass[ée]e)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:plus\\s+consommable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hors\\s+date)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#NOURRITURE"
+    ],
+    "language": "FR",
+    "comment": "Dont la date de consommation est passée.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-avarie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Avarié",
+    "symbol": "avarié",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:avari[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:viande\\s+avari[ée]e)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tourn[ée](e|s|es)?\\s+(le\\s+lait|la\\s+cr[èe]me))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:aliment(s)?\\s+g[âa]t[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:denr[ée]e(s)?\\s+avari[ée]e(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#NOURRITURE"
+    ],
+    "language": "FR",
+    "comment": "Gâté, impropre à la consommation.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-rance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Rance",
+    "symbol": "rance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:rance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rancir)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ranci(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:aigre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tourn[ée](e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#NOURRITURE"
+    ],
+    "language": "FR",
+    "comment": "Qui a pris une odeur et un goût âcres.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-immangeable",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Immangeable",
+    "symbol": "immangeable",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:immangeable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:inmangeable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:infect(e|s|es)?\\s+au\\s+go[ûu]t)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]gueu\\s+[àa]\\s+manger)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:on\\s+ne\\s+peut\\s+pas\\s+avaler\\s+[çc]a)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#NOURRITURE"
+    ],
+    "language": "FR",
+    "comment": "Qu'on ne peut pas manger.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-frelate",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Frelaté",
+    "symbol": "frelaté",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:frelat[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:falsifi[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:trafiqu[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:alcool\\s+frelat[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:produit(s)?\\s+frelat[ée](s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#NOURRITURE"
+    ],
+    "language": "FR",
+    "comment": "Altéré, falsifié.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-malbouffe",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Malbouffe",
+    "symbol": "malbouffe",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:malbouffe)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:junk\\s+food)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nourriture\\s+industrielle)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:plat(s)?\\s+ultra-transform[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bouffe\\s+d[ée]gueulasse)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#NOURRITURE"
+    ],
+    "language": "FR",
+    "comment": "La mauvaise alimentation.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-salmonelle",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Salmonelle",
+    "symbol": "salmonelle",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:intoxication(s)?\\s+alimentaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:salmonelle(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:listeria)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:empoisonnement(s)?\\s+alimentaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:botulisme)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#NOURRITURE"
+    ],
+    "language": "FR",
+    "comment": "Un empoisonnement par un aliment.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-croupi",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Croupi",
+    "symbol": "croupi",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:croupi(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:croupissant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:crouppir)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:eau(x)?\\s+stagnante(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:eau(x)?\\s+croupie(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#NOURRITURE"
+    ],
+    "language": "FR",
+    "comment": "Corrompu par la stagnation.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-pourrissement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Pourrissement",
+    "symbol": "pourrissement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:pourrissement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cheveu(x)?\\s+dans\\s+(mon|le|ton|ce)\\s+(plat|assiette|soupe))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:poil(s)?\\s+dans\\s+(mon|le|la)\\s+(plat|assiette|soupe)|insecte(s)?\\s+dans\\s+(mon|le|la)\\s+(plat|assiette|salade)|ver(s)?\\s+dans\\s+(le|la|mon|ma)\\s+(fruit|pomme|salade))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#NOURRITURE"
+    ],
+    "language": "FR",
+    "comment": "Un cheveu trouvé dans un plat.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-graillon",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Graillon",
+    "symbol": "graillon",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:graillon(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:odeur(s)?\\s+de\\s+friture)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:huile\\s+rance)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:huile\\s+de\\s+friture\\s+usag[ée]e)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:friture\\s+graisseuse)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#NOURRITURE"
+    ],
+    "language": "FR",
+    "comment": "L'odeur de graisse brûlée.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-abats",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Abats",
+    "symbol": "abats",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:abats)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tripes)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:boyaux)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:entrailles)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:visc[èe]res)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#NOURRITURE"
+    ],
+    "language": "FR",
+    "comment": "Les parties internes des animaux.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-gelatine",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Gélatine",
+    "symbol": "gélatine",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:g[ée]latine(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:g[ée]latineu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:flasque(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:spongieu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mollasson(ne|s|nes)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#NOURRITURE"
+    ],
+    "language": "FR",
+    "comment": "Une substance molle et tremblante.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-corruption",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Corruption",
+    "symbol": "corruption",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:corruption(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:corrompu(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:corrompre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pot(s)?-de-vin)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dessous-de-table)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'acheter ou de vendre des faveurs.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-hypocrisie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Hypocrisie",
+    "symbol": "hypocrisie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:hypocrisie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hypocrite(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:faux-cul(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:double\\s+discours)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tartuferie(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Le fait de feindre des sentiments.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-lachete",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Lâcheté",
+    "symbol": "lâcheté",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:l[âa]chet[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:l[âa]che(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:couard(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]gonfl[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:poltron(ne|s|nes)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Le manque de courage.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-perversion",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Perversion",
+    "symbol": "perversion",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:perversion(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pervers(e|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:perversit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vicieu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]traqu[ée](e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "La déviation vers le mal.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-abus",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Abus",
+    "symbol": "abus",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:abus)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:abus\\s+de\\s+pouvoir)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:abus\\s+de\\s+faiblesse)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:abus(er|[ée]|[ée]e)\\s+de)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:emprise(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "L'usage injuste de son pouvoir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-injustice",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Injustice",
+    "symbol": "injustice",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:injustice(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:injuste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:iniquit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:deux\\s+poids\\s+deux\\s+mesures)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:passe-droit(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Le manque de justice.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-cruaute",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cruauté",
+    "symbol": "cruauté",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cruaut[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cruel(le|s|les)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sadisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sadique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:maltraitance(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Le plaisir de faire souffrir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-bassesse",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Bassesse",
+    "symbol": "bassesse",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:bassesse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mesquinerie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mesquin(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:petitesse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:coup(s)?\\s+bas)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Un manque de noblesse morale.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-cupidite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cupidité",
+    "symbol": "cupidité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cupidit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cupide(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:avidit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rapace(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:v[ée]nal(e|es|aux|it[ée])?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Le désir excessif de richesse.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-magouille",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Magouille",
+    "symbol": "magouille",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:magouille(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:magouill(er|eur|eurs|euse)|combine(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tripatouillage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:manigance(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Une manœuvre malhonnête.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-fraude",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Fraude",
+    "symbol": "fraude",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:fraude(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fraud(er|eur|eurs|euse|uleux|uleuse)|triche(r|rie|ur|use)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:malversation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]tournement(s)?\\s+de\\s+fonds)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Une tromperie pour obtenir un avantage.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-nepotisme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Népotisme",
+    "symbol": "népotisme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:n[ée]potisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:favoritisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:copinage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:piston(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:emploi(s)?\\s+fictif(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Le favoritisme envers ses proches.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-racisme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Racisme",
+    "symbol": "racisme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:racisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:raciste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:x[ée]nophobie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:x[ée]nophobe(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:propos\\s+racistes)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "La haine fondée sur l'origine.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-sexisme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sexisme",
+    "symbol": "sexisme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:sexisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sexiste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:misogynie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:misogyne(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:machisme(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "La discrimination selon le sexe.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-homophobie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Homophobie",
+    "symbol": "homophobie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:homophobie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:homophobe(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:transphobie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:transphobe(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lgbtphobie(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "L'hostilité envers les personnes homosexuelles.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-antisemitisme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Antisémitisme",
+    "symbol": "antisémitisme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:antis[ée]mitisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:antis[ée]mite(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:haine\\s+antis[ée]mite)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:n[ée]gationnisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:n[ée]gationniste(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "La haine des Juifs.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-discrimination",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Discrimination",
+    "symbol": "discrimination",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:discrimination(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:discriminatoire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:discrimin(er|[ée]|[ée]e|[ée]s)|s[ée]gr[ée]gation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:exclusion(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Le traitement inégal et injuste.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-intolerance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Intolérance",
+    "symbol": "intolérance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:intol[ée]rance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:intol[ée]rant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sectarisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bigoterie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]troitesse\\s+d['’]esprit)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Le refus des différences.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-mepris",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Mépris",
+    "symbol": "mépris",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:m[ée]pris)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:m[ée]prisant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]dain(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]daigneu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:condescendance(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Le sentiment qu'autrui ne vaut rien.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-arrogance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Arrogance",
+    "symbol": "arrogance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:arrogance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:arrogant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:suffisance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pr[ée]tentieu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:morgue)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Une fierté hautaine et blessante.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-cynisme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cynisme",
+    "symbol": "cynisme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cynisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cynique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sans\\s+scrupule(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sans\\s+vergogne)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sans\\s+foi\\s+ni\\s+loi)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Le mépris des valeurs morales.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-scandale",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Scandale",
+    "symbol": "scandale",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:scandale(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:scandaleu(x|se|ses|sement))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:scandalis([ée]|[ée]e|[ée]s|er)|honte\\s+nationale)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:affaire(s)?\\s+sordide(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Un fait qui choque la conscience.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-deshonneur",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Déshonneur",
+    "symbol": "déshonneur",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]shonneur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]shonor([ée]|[ée]e|ant|ante|er)|opprobre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fl[ée]tri(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:avili(e|s|es|ssant|ssante)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "La perte de l'honneur.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-ignominie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Ignominie",
+    "symbol": "ignominie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:ignominie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:turpitude(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vilenie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:indignit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:forfaiture(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Un déshonneur extrême.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-depravation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Dépravation",
+    "symbol": "dépravation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]pravation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]prav[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]bauche(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:luxure(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:stupre(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "La corruption des mœurs.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-vice",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Vice",
+    "symbol": "vice",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:vice(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:immoralit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:immoral(e|es|aux)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:amoral(e|es|aux)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:corrompu(e|s|es)?\\s+jusqu['’][àa]\\s+l['’]os)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Un penchant pour le mal.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-mensonge",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Mensonge",
+    "symbol": "mensonge",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:menteu(r|rs|se|ses)\\s+(patent[ée]|inv[ée]t[ée]r[ée])(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mensonge(s)?\\s+[ée]hont[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mytho(mane|manes)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mensonge(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:baratin(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "La parole contraire à la vérité.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-trahison",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Trahison",
+    "symbol": "trahison",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:trahison(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tra[îi]tre(s|sse|sses)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:coup\\s+de\\s+poignard\\s+dans\\s+le\\s+dos)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:f[ée]lon(ne|s|nes)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:judas)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Le fait de trahir la confiance.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-exploiteur",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Exploiteur",
+    "symbol": "exploiteur",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:exploitation(s)?\\s+(des|de\\s+la)\\s+(travailleurs|mis[èe]re|enfants)|esclavage(s)?\\s+moderne(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:travail\\s+des\\s+enfants)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:exploiteur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:n[ée]grier(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "L'usage abusif du travail d'autrui.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-pedophilie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Pédophilie",
+    "symbol": "pédophilie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:p[ée]dophilie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:p[ée]dophile(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:p[ée]docriminalit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:p[ée]docriminel(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:abus\\s+sexuel(s)?\\s+sur\\s+mineur(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL",
+      "#CRIME"
+    ],
+    "language": "FR",
+    "comment": "Les abus sexuels sur enfants.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-inceste",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Inceste",
+    "symbol": "inceste",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:inceste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:incestueu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:violence(s)?\\s+intrafamiliale(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL",
+      "#CRIME"
+    ],
+    "language": "FR",
+    "comment": "Les relations sexuelles entre proches parents.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-harceleur",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Harceleur",
+    "symbol": "harceleur",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:harc[èe]lement(s)?\\s+sexuel(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:harceleur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:main(s)?\\s+aux\\s+fesses)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gros\\s+lourd)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:comportement(s)?\\s+d[ée]plac[ée](s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Des agissements répétés qui humilient.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-maltraitance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Maltraitance",
+    "symbol": "maltraitance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:maltraitance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:maltrait(er|[ée]|[ée]e|[ée]s|[ée]es)|enfant(s)?\\s+battu(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:animaux\\s+maltrait[ée]s)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:violence(s)?\\s+conjugale(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Les mauvais traitements.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-torture",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Torture",
+    "symbol": "torture",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:torture(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tortionnaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:s[ée]vices)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:barbarie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:supplice(s)?\\s+inflig[ée](s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Les souffrances infligées à dessein.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-sadisme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sadisme",
+    "symbol": "sadisme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:sadisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sadisme(s)?\\s+pur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sadique(s)?\\s+en\\s+puissance)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:jouissance\\s+de\\s+la\\s+souffrance)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:plaisir\\s+de\\s+faire\\s+souffrir)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cruaut[ée]\\s+gratuite)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Le plaisir de faire souffrir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-fourbe",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Fourbe",
+    "symbol": "fourbe",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:hypocrite(s)?\\s+de\\s+premi[èe]re)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:faux\\s+jeton(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:langue\\s+de\\s+vip[èe]re)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sainte\\s+nitouche)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fourbe(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Qui feint ce qu'il n'est pas.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-escroc",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Escroc",
+    "symbol": "escroc",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:escroc(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:escroquerie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:arnaqueu(r|rs|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:filou(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:truand(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Une personne qui trompe pour voler.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-voyou",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Voyou",
+    "symbol": "voyou",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:voyou(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:crapule(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:racaille(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:canaille(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:malfrat(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Une personne malhonnête et sans morale.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-ordurier",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Ordurier",
+    "symbol": "ordurier",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:ordurier(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:orduri[èe]re(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:propos\\s+orduriers)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:insulte(s)?\\s+orduri[èe]re(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:langage\\s+de\\s+charretier)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Grossier jusqu'à l'obscénité.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-salaud",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Salaud",
+    "symbol": "salaud",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:salaud(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:salope(rie|ries)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fumier)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pourriture)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:enfoir[ée](e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Une personne méprisable (familier).",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-rebut",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Rebut",
+    "symbol": "rebut",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:rebut(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rebut\\s+de\\s+l['’]humanit[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ordure(s)?\\s+humaine(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vermine\\s+humaine)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:moins\\s+que\\s+rien)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sous-homme(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Une personne traitée comme un déchet (injure).",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-leche-bottes",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Lèche-bottes",
+    "symbol": "lèche-bottes",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:l[èe]che-bottes)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:l[èe]che-cul(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fayot(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:flagorneur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:carpette(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Une personne servile et flatteuse.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-sournois",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sournois",
+    "symbol": "sournois",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:sournois(e|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hypocritement)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:perfide(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:faux(-)?jeton(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mielleu(x|se|ses))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Qui cache ses mauvaises intentions.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-gaspillage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Gaspillage",
+    "symbol": "gaspillage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:gaspillage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:g[âa]chis)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gaspill(er|[ée]|[ée]e)|gabegie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dilapid(er|[ée]|[ée]e|ation))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "La dépense inutile, le gâchis.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-pollueur",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Pollueur",
+    "symbol": "pollueur",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:pollueur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]cocide(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:greenwashing)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]versement(s)?\\s+toxique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]gazage(s)?\\s+sauvage(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL",
+      "#INSALUBRITE"
+    ],
+    "language": "FR",
+    "comment": "Celui qui salit l'environnement.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-degradant",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Dégradant",
+    "symbol": "dégradant",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]gradant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:avilissant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:humiliant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rabaissant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]shumanisant(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Qui avilit, humilie.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-honteux",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Honteux",
+    "symbol": "honteux",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:honteu(x|se|ses|sement))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:c['’]est\\s+une\\s+honte)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:quelle\\s+honte)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:honte\\s+[àa]\\s+(lui|elle|eux|vous))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:inadmissible(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Qui devrait faire honte.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-inadmissible",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Inadmissible",
+    "symbol": "inadmissible",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:inadmissible(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:inacceptable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:intol[ée]rable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:impardonnable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ind[ée]fendable(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Qu'on ne peut accepter.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-indignation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Indignation",
+    "symbol": "indignation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:indignation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:indign([ée]|[ée]e|[ée]s|[ée]es|er|ant|ante)|outr([ée]|[ée]e|age|ageant)|choqu[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]volt[ée](e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "La colère devant l'injustice.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-ecure",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Écœuré",
+    "symbol": "écœuré",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:[ée]c(œ|oe)ur[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]c(œ|oe)ur[ée](e|s|es)?\\s+par)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ras-le-bol)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]go[ûu]t[ée](e|s|es)?\\s+de\\s+tout)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:j['’]en\\s+ai\\s+marre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:la\\s+naus[ée]e\\s+de\\s+tout)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Dégoûté au point d'abandonner.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-ecurant",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Écœurant",
+    "symbol": "écœurant",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:[ée]c(œ|oe)urant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:moralement\\s+[ée]c(œ|oe)urant)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:c['’]est\\s+[ée]c(œ|oe)urant)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:comportement(s)?\\s+[ée]c(œ|oe)urant(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attitude\\s+[ée]c(œ|oe)urante)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:spectacle\\s+[ée]c(œ|oe)urant)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Moralement révoltant.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-venalite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Vénalité",
+    "symbol": "vénalité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:v[ée]nalit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vendu(e|s|es)?\\s+(au\\s+plus\\s+offrant|aux\\s+lobbies)|mercantile(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[âa]pret[ée]\\s+au\\s+gain)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tout\\s+pour\\s+le\\s+fric)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Le fait de se vendre pour de l'argent.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-lobbying",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Lobbying",
+    "symbol": "lobbying",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:lobbying)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lobby(s|ies)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:conflit(s)?\\s+d['’]int[ée]r[êe]ts)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pantouflage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:trafic\\s+d['’]influence)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "L'influence d'intérêts privés sur les décisions.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-demagogie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Démagogie",
+    "symbol": "démagogie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]magogie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]magogique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]mago(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:populisme(s)?\\s+(de\\s+bas\\s+[ée]tage|crasse))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:racolage(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "La démagogie qui flatte les instincts.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-intox",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Intox",
+    "symbol": "intox",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:propagande(s)?\\s+(abjecte|naus[ée]abonde)(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bourrage\\s+de\\s+cr[âa]ne)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:intox)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:discours\\s+naus[ée]abond(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:relent(s)?\\s+(raciste|fasciste)(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "La manipulation de l'opinion.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-fascisme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Fascisme",
+    "symbol": "fascisme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:fascisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fasciste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nazi(e|s|es|sme)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:n[ée]onazi(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:supr[ée]maciste(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Une idéologie totalitaire et violente.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-barbare",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Barbare",
+    "symbol": "barbare",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:barbare(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bestial(e|es|aux|it[ée])?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sauvage(s)?\\s+et\\s+cruel(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:inhumanit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:monstre(s)?\\s+humain(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "D'une cruauté sauvage.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-exhibitionniste",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Exhibitionniste",
+    "symbol": "exhibitionniste",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:pervers\\s+narcissique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:manipulateur(s)?\\s+pervers)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pr[ée]dateur(s)?\\s+sexuel(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:exhibitionniste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:voyeur(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Qui fait le mal par plaisir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-viol",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Viol",
+    "symbol": "viol",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:viol(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:violeur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:agression(s)?\\s+sexuelle(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attouchement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:culture\\s+du\\s+viol)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL",
+      "#CRIME"
+    ],
+    "language": "FR",
+    "comment": "Une agression sexuelle.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-souiller",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Souiller",
+    "symbol": "souiller",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:souiller)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:souill(e|ent|ait|ure\\s+morale)|salir\\s+(la|sa|leur)\\s+m[ée]moire)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:entacher)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]clabouss[ée](e|s|es)?\\s+par\\s+le\\s+scandale)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Salir moralement.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-trahir",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Trahir",
+    "symbol": "trahir",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:trah(ir|i|ie|is|ies|it|issent|issait)|poignard(er|[ée]|[ée]e)\\s+dans\\s+le\\s+dos|vendre\\s+(ses|son)\\s+ami(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:retourner\\s+sa\\s+veste)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:double\\s+jeu)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Manquer à la confiance.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-glaire",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Glaire",
+    "symbol": "glaire",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:glaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:glaireu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mucosit[ée](s)?\\s+[ée]paisse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:s[ée]cr[ée]tion(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:expectoration(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Un mucus épais.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-moite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Moite",
+    "symbol": "moite",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:moite(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mains\\s+moites)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:moiteur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:suant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]goulinant(e|s|es)?\\s+de\\s+sueur)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Humide de sueur.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-fiente",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Fiente",
+    "symbol": "fiente",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:fiente(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fiente(s)?\\s+de\\s+pigeon)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:guano)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chiure(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:crotte(s)?\\s+de\\s+chien)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#SALETE"
+    ],
+    "language": "FR",
+    "comment": "Les excréments d'oiseaux.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-lepre",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Lèpre",
+    "symbol": "lèpre",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:l[èe]pre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:l[ée]preu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gale(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:galeu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:teigne(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Une maladie qui ronge la peau.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-mycose",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Mycose",
+    "symbol": "mycose",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:mycose(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:champignon(s)?\\s+(aux\\s+pieds|des\\s+ongles))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pied(s)?\\s+d['’]athl[èe]te)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ongle(s)?\\s+jaune(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:odeur(s)?\\s+de\\s+pieds)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Une infection par des champignons.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-araignee",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Araignée",
+    "symbol": "araignée",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:araign[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:toile(s)?\\s+d['’]araign[ée]e)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tarentule(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mygale(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:arachnide(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#VERMINE"
+    ],
+    "language": "FR",
+    "comment": "Un animal à huit pattes qui tisse des toiles.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-lombric",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Lombric",
+    "symbol": "lombric",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:lombric(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ann[ée]lide(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ver(s)?\\s+gluant(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ver(s)?\\s+de\\s+vase)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tortillant(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#VERMINE"
+    ],
+    "language": "FR",
+    "comment": "Le ver de terre.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-moustique",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Moustique",
+    "symbol": "moustique",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:moustique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:piq[ûu]re(s)?\\s+de\\s+moustique)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nu[ée]e(s)?\\s+de\\s+moustiques)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:moucheron(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:taon(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#VERMINE"
+    ],
+    "language": "FR",
+    "comment": "Un insecte piqueur.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-crapaud",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Crapaud",
+    "symbol": "crapaud",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:crapaud(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pustuleu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bave\\s+de\\s+crapaud)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:batracien(s)?\\s+gluant(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:peau\\s+verruqueuse)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#VERMINE"
+    ],
+    "language": "FR",
+    "comment": "Un batracien à la peau pustuleuse.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-caille",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Caillé",
+    "symbol": "caillé",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:caill[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lait\\s+caill[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:grumeleu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:grumeau(x)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]p[ôo]t(s)?\\s+douteu(x|se))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#NOURRITURE"
+    ],
+    "language": "FR",
+    "comment": "Coagulé, tourné.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-douteux",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Douteux",
+    "symbol": "douteux",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:douteu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pas\\s+frais)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pas\\s+fra[îi]che)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:suspect(e|s|es)?\\s+(au\\s+go[ûu]t|[àa]\\s+l['’]odeur))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:louche(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#NOURRITURE"
+    ],
+    "language": "FR",
+    "comment": "D'une fraîcheur incertaine.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-servile",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Servile",
+    "symbol": "servile",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:servile(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:servilit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:obs[ée]quieu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:courbette(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rampant(e|s|es)?\\s+devant)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Qui rampe devant les puissants.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-delation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Délation",
+    "symbol": "délation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]lation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]lateur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]latrice(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mouchard(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]nonciation(s)?\\s+calomnieuse(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "La dénonciation intéressée.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-calomnie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Calomnie",
+    "symbol": "calomnie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:calomnie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:calomni(er|[ée]|[ée]e|ateur|atrice|eux|euse)|diffamation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:diffam(er|[ée]|[ée]e|atoire)|ragot(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Une accusation mensongère.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-ingratitude",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Ingratitude",
+    "symbol": "ingratitude",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:ingratitude(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ingrat(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cracher\\s+dans\\s+la\\s+soupe)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mordre\\s+la\\s+main\\s+qui\\s+(te|vous|le|la)\\s+nourrit)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sans\\s+un\\s+merci)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Le manque de reconnaissance.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-egoisme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Égoïsme",
+    "symbol": "égoïsme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:[ée]go[ïi]sme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]go[ïi]ste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]gocentrique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nombriliste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:individualisme(s)?\\s+forcen[ée](s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Le fait de ne penser qu'à soi.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-goinfre",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Goinfre",
+    "symbol": "goinfre",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:goinfre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:goinfrerie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:s['’]empiffr(er|e|ent)|b[âa]fr(er|e|ent)|glouton(ne|s|nes)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST"
+    ],
+    "language": "FR",
+    "comment": "Qui mange avec avidité et sans manières.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-ivrogne",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Ivrogne",
+    "symbol": "ivrogne",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:ivrogne(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ivrognerie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:so[ûu]lard(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:poivrot(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ivre\\s+mort(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST"
+    ],
+    "language": "FR",
+    "comment": "Une personne souvent ivre.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-obsede",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Obsédé",
+    "symbol": "obsédé",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:obs[ée]d[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:obs[ée]d[ée](e|s|es)?\\s+sexuel(le|s|les)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lubrique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:libidineu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vieux\\s+cochon(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Une personne aux pensées sexuelles envahissantes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-proxenetisme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Proxénétisme",
+    "symbol": "proxénétisme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:prox[ée]n[ée]tisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:prox[ée]n[èe]te(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:exploitation\\s+sexuelle)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:traite\\s+des\\s+femmes)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]seau(x)?\\s+de\\s+prostitution)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL",
+      "#CRIME"
+    ],
+    "language": "FR",
+    "comment": "L'exploitation de la prostitution d'autrui.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-trafiquant",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Trafiquant",
+    "symbol": "trafiquant",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:trafiquant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:trafic(s)?\\s+d['’]organes)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:trafic(s)?\\s+d['’][êe]tres\\s+humains)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:traite\\s+humaine)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:passeur(s)?\\s+sans\\s+scrupules)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL",
+      "#CRIME"
+    ],
+    "language": "FR",
+    "comment": "Celui qui fait un commerce illégal.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-braconnage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Braconnage",
+    "symbol": "braconnage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:braconnage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:braconnier(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:massacre\\s+d['’]animaux)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chasse\\s+au\\s+troph[ée]e)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ivoire\\s+ill[ée]gal)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "La chasse illégale.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-corrida",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Corrida",
+    "symbol": "corrida",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:corrida(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tauromachie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mise\\s+[àa]\\s+mort\\s+du\\s+taureau)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:combat(s)?\\s+de\\s+coqs)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:souffrance\\s+animale)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "La mise à mort d'un taureau en spectacle.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-abattoir",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Abattoir",
+    "symbol": "abattoir",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:abattoir(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]levage(s)?\\s+intensif(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:poules\\s+en\\s+batterie)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:usine(s)?\\s+[àa]\\s+viande)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:souffrance\\s+des\\s+animaux)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Le lieu où l'on tue les animaux.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-complaisance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Complaisance",
+    "symbol": "complaisance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:complaisance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:complaisant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:laxisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:laxiste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fermer\\s+les\\s+yeux)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Une indulgence coupable.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-impunite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Impunité",
+    "symbol": "impunité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:impunit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:impuni(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:s['’]en\\s+tirer\\s+sans\\s+rien)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:au-dessus\\s+des\\s+lois)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:justice\\s+[àa]\\s+deux\\s+vitesses)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Le fait de ne pas être puni.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-indecent",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Indécent",
+    "symbol": "indécent",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:ind[ée]cent(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:salaire(s)?\\s+ind[ée]cent(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:richesse(s)?\\s+ind[ée]cente(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]talage\\s+de\\s+luxe)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ostentatoire(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Qui choque par son excès.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-profiteur",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Profiteur",
+    "symbol": "profiteur",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:profiteu(r|rs|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:parasite(s)?\\s+sociaux)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:resquilleu(r|rs|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pique-assiette(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sangsue(s)?\\s+(de\\s+la\\s+soci[ée]t[ée]|du\\s+syst[èe]me))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Celui qui profite des autres.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-tricheur",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Tricheur",
+    "symbol": "tricheur",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:tricheu(r|rs|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tricherie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dopage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dop[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:match(s|es)?\\s+truqu[ée](s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Celui qui triche.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-plaie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Plaie",
+    "symbol": "plaie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:plaie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:plaie(s)?\\s+b[ée]ante(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chair\\s+[àa]\\s+vif)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:blessure(s)?\\s+suintante(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sanguinolent(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Une blessure ouverte.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-bacterie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Bactérie",
+    "symbol": "bactérie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:bact[ée]rie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:microbe(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:germe(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nid(s)?\\s+[àa]\\s+microbes)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bouillon\\s+de\\s+culture)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#INSALUBRITE"
+    ],
+    "language": "FR",
+    "comment": "Un micro-organisme, souvent porteur de maladie.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-crasseux",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Crasseux",
+    "symbol": "crasseux",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:crasseu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mal\\s+lav[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:jamais\\s+lav[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sent\\s+le\\s+fauve)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pue\\s+des\\s+pieds)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#SALETE"
+    ],
+    "language": "FR",
+    "comment": "Couvert de crasse.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-souillon",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Souillon",
+    "symbol": "souillon",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:souillon(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:salit\\s+tout)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mange\\s+comme\\s+un\\s+porc)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vit\\s+dans\\s+une\\s+porcherie)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mal\\s+tenu(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#SALETE"
+    ],
+    "language": "FR",
+    "comment": "Une personne malpropre.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-vermoulu",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Vermoulu",
+    "symbol": "vermoulu",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:vermoulu(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rong[ée](e|s|es)?\\s+par\\s+les\\s+vers)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:miteu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mit[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]cr[ée]pit(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#SALETE"
+    ],
+    "language": "FR",
+    "comment": "Rongé, abîmé par le temps.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-scatologique",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Scatologique",
+    "symbol": "scatologique",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:scatologique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:scato)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:humour\\s+pipi-caca)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:blague(s)?\\s+scatologique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:scatologie(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#CORPS"
+    ],
+    "language": "FR",
+    "comment": "Qui parle des excréments.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-bourreau",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Bourreau",
+    "symbol": "bourreau",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:bourreau(x)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tortionnaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pers[ée]cuteur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tyran(s)?\\s+domestique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:harceleur(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Celui qui fait souffrir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-chantage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Chantage",
+    "symbol": "chantage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:chantage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ma[îi]tre(s)?-chanteur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:extorsion(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:racket(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ran[çc]onn(er|[ée]|[ée]e))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "La menace pour obtenir quelque chose.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-delinquant",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Délinquant",
+    "symbol": "délinquant",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]linquant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]linquance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:malfaiteur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:voleur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cambrioleur(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Celui qui commet des délits.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-mazout",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Mazout",
+    "symbol": "mazout",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:mazout(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mazout[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:galette(s)?\\s+de\\s+goudron)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nappe(s)?\\s+de\\s+p[ée]trole)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:p[ée]trole\\s+sur\\s+la\\s+plage)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#INSALUBRITE"
+    ],
+    "language": "FR",
+    "comment": "Le pétrole qui souille les côtes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-fosse",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Fosse",
+    "symbol": "fosse",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:fosse(s)?\\s+septique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fosse(s)?\\s+[àa]\\s+purin)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fosse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vidange(s)?\\s+de\\s+fosse)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:boues\\s+d['’][ée]puration)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#INSALUBRITE"
+    ],
+    "language": "FR",
+    "comment": "Une cavité où s'accumulent les matières sales.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-machiavelique",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Machiavélique",
+    "symbol": "machiavélique",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:machiav[ée]lique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:manipulat(eur|rice|eurs|rices))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:intrigant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:comploteu(r|rs|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:calculateu(r|rs|se|ses))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "D'une ruse perfide.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-vautour",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Vautour",
+    "symbol": "vautour",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:vautour(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fonds\\s+vautour(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:charognard(s)?\\s+de\\s+la\\s+finance)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:profiter\\s+du\\s+malheur)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rapace(s)?\\s+sans\\s+piti[ée])(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Celui qui profite du malheur des autres.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-disgust-sanguinaire",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:10:32.092145Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sanguinaire",
+    "symbol": "sanguinaire",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:sanguinaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:assoiff[ée](e|s|es)?\\s+de\\s+sang)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:impitoyable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:f[ée]roce(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:boucher(s)?\\s+sanguinaire(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!DISGUST"
+    ],
+    "tags": [
+      "#DISGUST",
+      "#MORAL"
+    ],
+    "language": "FR",
+    "comment": "Qui aime faire couler le sang.",
+    "isDeleted": false
+  }
+]

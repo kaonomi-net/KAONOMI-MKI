@@ -11,7 +11,7 @@ namespace KAONOMI.Metacognition
     internal class MetaCognitionAnalysisVAgent : VGrainBase<iMetaCognitionAnalysisVAgent>, iMetaCognitionAnalysisVAgent
     {
         /// <summary>Creates the agent with the given logger.</summary>
-        /// <param name="logger">Logger for analysis operations.</param>
+        /// <param title="logger">Logger for analysis operations.</param>
         public MetaCognitionAnalysisVAgent(ILogger<iMetaCognitionAnalysisVAgent> logger) : base(logger)
         {
         }

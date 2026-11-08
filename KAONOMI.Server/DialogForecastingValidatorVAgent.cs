@@ -19,7 +19,7 @@ namespace KAONOMI.Server
     internal class DialogForecastingValidatorVAgent : VGrainBase<IDialogForecastingValidatorVAgent>, IDialogForecastingValidatorVAgent
     {
         /// <summary>Creates the agent with MARI logging support.</summary>
-        /// <param name="logger">Logger for this grain type.</param>
+        /// <param title="logger">Logger for this grain type.</param>
         public DialogForecastingValidatorVAgent(ILogger<IDialogForecastingValidatorVAgent> logger) : base(logger)
         {
         }

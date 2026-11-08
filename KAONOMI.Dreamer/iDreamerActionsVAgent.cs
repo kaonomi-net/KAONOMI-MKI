@@ -8,8 +8,8 @@ namespace KAONOMI.Dreamer
     public interface iDreamerActionsVAgent : IVGrain
     {
         /// <summary>Applies follow-up actions and returns the sequence input.</summary>
-        /// <param name="input">Current sequence input.</param>
-        /// <param name="context">MARI execution context.</param>
+        /// <param title="input">Current sequence input.</param>
+        /// <param title="context">MARI execution context.</param>
         /// <returns>The input string after actions complete.</returns>
         Task<string> DoProcess(string input, IExecutionContext context);
     }

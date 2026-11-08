@@ -1,0 +1,5068 @@
+[
+  {
+    "id": "fr-ia-lancement-d-un-nouveau-modele-d-openai",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Lancement d'un nouveau modèle d'OpenAI",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "OpenAI",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "GPT",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "lancement",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les annonces de nouveaux modèles GPT et leurs capacités annoncées.",
+    "locations": [
+      "San Francisco"
+    ],
+    "times": [
+      "jour de l'annonce",
+      "semaine suivante"
+    ],
+    "relatedEntities": [
+      "ChatGPT",
+      "Sam Altman",
+      "Microsoft"
+    ],
+    "questions": [
+      "Quelles capacités nouvelles ?",
+      "Quel prix pour l'API ?",
+      "Quels résultats aux benchmarks ?"
+    ],
+    "tags": [
+      "#IA",
+      "#LLM",
+      "#OPENAI"
+    ],
+    "events": [
+      "@LANCEMENT-MODELE"
+    ],
+    "signals": [
+      "!NOUVEAUTE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-sortie-d-un-modele-claude-d-anthropic",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sortie d'un modèle Claude d'Anthropic",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Anthropic",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "Claude",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "modèle",
+        "entityWeight": "10"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": false,
+    "instructions": "Repérer les nouvelles versions de Claude et les changements de politique d'usage.",
+    "locations": [
+      "San Francisco"
+    ],
+    "times": [
+      "jour de l'annonce"
+    ],
+    "relatedEntities": [
+      "Dario Amodei",
+      "Amazon",
+      "Google"
+    ],
+    "questions": [
+      "Quelle fenêtre de contexte ?",
+      "Quelles nouveautés en sécurité ?",
+      "Quel accès pour l'Europe ?"
+    ],
+    "tags": [
+      "#IA",
+      "#LLM",
+      "#ANTHROPIC"
+    ],
+    "events": [
+      "@LANCEMENT-MODELE"
+    ],
+    "signals": [
+      "!NOUVEAUTE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-nouveau-modele-gemini-de-google",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Nouveau modèle Gemini de Google",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Gemini",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "Google",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "DeepMind",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": false,
+    "instructions": "Suivre l'évolution de la famille Gemini et son intégration aux produits Google.",
+    "locations": [
+      "Mountain View",
+      "Londres"
+    ],
+    "times": [
+      "conférence Google I/O"
+    ],
+    "relatedEntities": [
+      "Demis Hassabis",
+      "Sundar Pichai",
+      "Android"
+    ],
+    "questions": [
+      "Quels produits intègrent Gemini ?",
+      "Est-il multimodal ?",
+      "Quelle disponibilité en France ?"
+    ],
+    "tags": [
+      "#IA",
+      "#LLM",
+      "#GOOGLE"
+    ],
+    "events": [
+      "@LANCEMENT-MODELE"
+    ],
+    "signals": [
+      "!NOUVEAUTE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-modele-ouvert-de-mistral-ai",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Modèle ouvert de Mistral AI",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Mistral AI",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "modèle",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "open source",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 55,
+    "isFuzzy": true,
+    "instructions": "Surveiller les modèles publiés par Mistral AI et leur licence.",
+    "locations": [
+      "Paris"
+    ],
+    "times": [
+      "jour de publication"
+    ],
+    "relatedEntities": [
+      "Arthur Mensch",
+      "Le Chat",
+      "Hugging Face"
+    ],
+    "questions": [
+      "Quelle licence ?",
+      "Quelle taille de modèle ?",
+      "Quels poids sont publiés ?"
+    ],
+    "tags": [
+      "#IA",
+      "#LLM",
+      "#MISTRAL",
+      "#SOUVERAINETE"
+    ],
+    "events": [
+      "@LANCEMENT-MODELE"
+    ],
+    "signals": [
+      "!NOUVEAUTE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-publication-d-un-modele-llama-de-meta",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Publication d'un modèle Llama de Meta",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Llama",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "Meta",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": false,
+    "instructions": "Suivre les versions de Llama et les conditions de leur licence.",
+    "locations": [
+      "Menlo Park"
+    ],
+    "times": [
+      "jour de publication"
+    ],
+    "relatedEntities": [
+      "Mark Zuckerberg",
+      "Yann LeCun",
+      "Hugging Face"
+    ],
+    "questions": [
+      "Les poids sont-ils ouverts ?",
+      "Quelles restrictions d'usage ?",
+      "Quelle taille ?"
+    ],
+    "tags": [
+      "#IA",
+      "#LLM",
+      "#META",
+      "#OPEN-SOURCE"
+    ],
+    "events": [
+      "@LANCEMENT-MODELE"
+    ],
+    "signals": [
+      "!NOUVEAUTE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-modele-chinois-concurrent",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Modèle chinois concurrent",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "DeepSeek",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "Qwen",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "Chine",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 40,
+    "isFuzzy": true,
+    "instructions": "Repérer les modèles chinois qui rivalisent avec les modèles américains.",
+    "locations": [
+      "Pékin",
+      "Hangzhou"
+    ],
+    "times": [
+      "jour de publication"
+    ],
+    "relatedEntities": [
+      "Alibaba",
+      "Baidu",
+      "Moonshot"
+    ],
+    "questions": [
+      "Quel coût d'entraînement ?",
+      "Quelles performances ?",
+      "Quelle censure intégrée ?"
+    ],
+    "tags": [
+      "#IA",
+      "#LLM",
+      "#CHINE",
+      "#GEOPOLITIQUE"
+    ],
+    "events": [
+      "@LANCEMENT-MODELE"
+    ],
+    "signals": [
+      "!CONCURRENCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-nouveau-generateur-d-images",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Nouveau générateur d'images",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Midjourney",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "DALL-E",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "Stable Diffusion",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 30,
+    "isFuzzy": true,
+    "instructions": "Suivre les outils de génération d'images et la qualité de leurs rendus.",
+    "locations": [],
+    "times": [
+      "jour de sortie"
+    ],
+    "relatedEntities": [
+      "Stability AI",
+      "Flux",
+      "Adobe Firefly"
+    ],
+    "questions": [
+      "Quels droits sur les images ?",
+      "Les visages sont-ils réalistes ?",
+      "Y a-t-il un filigrane ?"
+    ],
+    "tags": [
+      "#IA",
+      "#GENERATION-IMAGE"
+    ],
+    "events": [
+      "@LANCEMENT-OUTIL"
+    ],
+    "signals": [
+      "!NOUVEAUTE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-generation-de-video-par-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Génération de vidéo par IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Sora",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "vidéo",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "Veo",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Surveiller les outils qui génèrent des vidéos réalistes.",
+    "locations": [],
+    "times": [
+      "jour de sortie"
+    ],
+    "relatedEntities": [
+      "OpenAI",
+      "Google",
+      "Runway"
+    ],
+    "questions": [
+      "Quelle durée maximale ?",
+      "Quels garde-fous contre les deepfakes ?",
+      "Quel accès public ?"
+    ],
+    "tags": [
+      "#IA",
+      "#GENERATION-VIDEO"
+    ],
+    "events": [
+      "@LANCEMENT-OUTIL"
+    ],
+    "signals": [
+      "!NOUVEAUTE",
+      "!VIGILANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-assistant-de-code-par-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Assistant de code par IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Copilot",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "Cursor",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "assistant de code",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 35,
+    "isFuzzy": true,
+    "instructions": "Suivre les assistants qui écrivent du code et leur adoption par les développeurs.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "GitHub",
+      "Claude Code",
+      "Codex"
+    ],
+    "questions": [
+      "Quelle part du code est générée ?",
+      "Quels risques de sécurité ?",
+      "Quel gain de productivité ?"
+    ],
+    "tags": [
+      "#IA",
+      "#DEVELOPPEMENT",
+      "#AGENTS"
+    ],
+    "events": [
+      "@LANCEMENT-OUTIL"
+    ],
+    "signals": [
+      "!PRODUCTIVITE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-modele-de-raisonnement",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Modèle de raisonnement",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "raisonnement",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "chaîne de pensée",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "modèle",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Repérer les modèles qui raisonnent par étapes avant de répondre.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "OpenAI o3",
+      "DeepSeek R1",
+      "Claude"
+    ],
+    "questions": [
+      "Quels progrès en mathématiques ?",
+      "Quel coût de calcul ?",
+      "Le raisonnement est-il fiable ?"
+    ],
+    "tags": [
+      "#IA",
+      "#RAISONNEMENT",
+      "#LLM"
+    ],
+    "events": [
+      "@LANCEMENT-MODELE"
+    ],
+    "signals": [
+      "!NOUVEAUTE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-levee-de-fonds-d-une-startup-d-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Levée de fonds d'une startup d'IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "levée de fonds",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "startup",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Suivre les levées de fonds des startups d'intelligence artificielle.",
+    "locations": [
+      "Paris",
+      "San Francisco"
+    ],
+    "times": [
+      "jour de l'annonce"
+    ],
+    "relatedEntities": [
+      "Bpifrance",
+      "Sequoia",
+      "a16z"
+    ],
+    "questions": [
+      "Quel montant ?",
+      "Quelle valorisation ?",
+      "Quels investisseurs ?"
+    ],
+    "tags": [
+      "#IA",
+      "#FINANCEMENT",
+      "#STARTUP"
+    ],
+    "events": [
+      "@LEVEE-DE-FONDS"
+    ],
+    "signals": [
+      "!INVESTISSEMENT"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-valorisation-record-d-openai",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Valorisation record d'OpenAI",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "OpenAI",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "valorisation",
+        "entityWeight": "50"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 80,
+    "isFuzzy": false,
+    "instructions": "Surveiller la valorisation d'OpenAI et ses tours de financement.",
+    "locations": [
+      "San Francisco"
+    ],
+    "times": [
+      "jour de l'annonce"
+    ],
+    "relatedEntities": [
+      "Microsoft",
+      "SoftBank",
+      "Sam Altman"
+    ],
+    "questions": [
+      "Quelle valorisation ?",
+      "Qui investit ?",
+      "Quel changement de statut ?"
+    ],
+    "tags": [
+      "#IA",
+      "#FINANCEMENT",
+      "#OPENAI"
+    ],
+    "events": [
+      "@LEVEE-DE-FONDS"
+    ],
+    "signals": [
+      "!BULLE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-partenariat-microsoft-et-openai",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Partenariat Microsoft et OpenAI",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Microsoft",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "OpenAI",
+        "entityWeight": "50"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 90,
+    "isFuzzy": false,
+    "instructions": "Suivre l'évolution de l'alliance entre Microsoft et OpenAI.",
+    "locations": [
+      "Redmond",
+      "San Francisco"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Azure",
+      "Satya Nadella",
+      "Copilot"
+    ],
+    "questions": [
+      "Quelle part détient Microsoft ?",
+      "Le partenariat évolue-t-il ?",
+      "Quelle exclusivité sur Azure ?"
+    ],
+    "tags": [
+      "#IA",
+      "#PARTENARIAT",
+      "#OPENAI",
+      "#MICROSOFT"
+    ],
+    "events": [
+      "@PARTENARIAT"
+    ],
+    "signals": [
+      "!STRATEGIE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-rachat-d-une-entreprise-d-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Rachat d'une entreprise d'IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "rachat",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "acquisition",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Repérer les rachats d'entreprises d'intelligence artificielle.",
+    "locations": [],
+    "times": [
+      "jour de l'annonce"
+    ],
+    "relatedEntities": [
+      "Google",
+      "Microsoft",
+      "Nvidia"
+    ],
+    "questions": [
+      "Quel montant ?",
+      "Quelles équipes rejoignent l'acheteur ?",
+      "Les autorités enquêtent-elles ?"
+    ],
+    "tags": [
+      "#IA",
+      "#ACQUISITION",
+      "#CONCURRENCE"
+    ],
+    "events": [
+      "@RACHAT"
+    ],
+    "signals": [
+      "!CONSOLIDATION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-bulle-financiere-de-l-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Bulle financière de l'IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "bulle",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "valorisation",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Surveiller les signes d'une bulle spéculative autour de l'IA.",
+    "locations": [
+      "Wall Street"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Nvidia",
+      "OpenAI",
+      "Nasdaq"
+    ],
+    "questions": [
+      "Les revenus suivent-ils les investissements ?",
+      "Quels analystes alertent ?",
+      "Quelles corrections boursières ?"
+    ],
+    "tags": [
+      "#IA",
+      "#FINANCE",
+      "#BULLE"
+    ],
+    "events": [
+      "@ALERTE-MARCHE"
+    ],
+    "signals": [
+      "!BULLE",
+      "!RISQUE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-resultats-financiers-de-nvidia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Résultats financiers de Nvidia",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Nvidia",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "résultats",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 80,
+    "isFuzzy": false,
+    "instructions": "Suivre les résultats trimestriels de Nvidia, baromètre de l'IA.",
+    "locations": [
+      "Santa Clara"
+    ],
+    "times": [
+      "publication trimestrielle"
+    ],
+    "relatedEntities": [
+      "Jensen Huang",
+      "GPU",
+      "data centers"
+    ],
+    "questions": [
+      "Quel chiffre d'affaires ?",
+      "Quelle demande pour les GPU ?",
+      "Quelles prévisions ?"
+    ],
+    "tags": [
+      "#IA",
+      "#NVIDIA",
+      "#FINANCE"
+    ],
+    "events": [
+      "@RESULTATS-TRIMESTRIELS"
+    ],
+    "signals": [
+      "!INDICATEUR"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-champion-francais-de-l-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Champion français de l'IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Mistral AI",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "France",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "souveraineté",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [
+      {
+        "entityName": "Meta",
+        "entityWeight": ""
+      }
+    ],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre les acteurs français de l'IA et la souveraineté numérique.",
+    "locations": [
+      "Paris"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Arthur Mensch",
+      "Bpifrance",
+      "H Company"
+    ],
+    "questions": [
+      "Quels contrats publics ?",
+      "Quel soutien de l'État ?",
+      "Quelle place face aux Américains ?"
+    ],
+    "tags": [
+      "#IA",
+      "#FRANCE",
+      "#SOUVERAINETE"
+    ],
+    "events": [
+      "@ACTEUR-NATIONAL"
+    ],
+    "signals": [
+      "!SOUVERAINETE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-licenciements-lies-a-l-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Licenciements liés à l'IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "licenciements",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "automatisation",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Repérer les suppressions d'emplois attribuées à l'IA.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "entreprises",
+      "syndicats",
+      "ressources humaines"
+    ],
+    "questions": [
+      "Combien de postes ?",
+      "Quels métiers touchés ?",
+      "Quelles reconversions ?"
+    ],
+    "tags": [
+      "#IA",
+      "#EMPLOI",
+      "#AUTOMATISATION"
+    ],
+    "events": [
+      "@SUPPRESSION-EMPLOIS"
+    ],
+    "signals": [
+      "!RISQUE-SOCIAL"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-cout-de-l-entrainement-des-modeles",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Coût de l'entraînement des modèles",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "entraînement",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "coût",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "GPU",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre le coût d'entraînement des grands modèles.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Nvidia",
+      "data centers",
+      "électricité"
+    ],
+    "questions": [
+      "Quel coût annoncé ?",
+      "Combien de GPU ?",
+      "Quelle consommation électrique ?"
+    ],
+    "tags": [
+      "#IA",
+      "#COUT",
+      "#INFRASTRUCTURE"
+    ],
+    "events": [],
+    "signals": [
+      "!INDICATEUR"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-introduction-en-bourse-d-une-entreprise-d-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Introduction en bourse d'une entreprise d'IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "introduction en bourse",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Surveiller les entrées en bourse des entreprises d'IA.",
+    "locations": [
+      "New York"
+    ],
+    "times": [
+      "jour de cotation"
+    ],
+    "relatedEntities": [
+      "Nasdaq",
+      "investisseurs",
+      "banques"
+    ],
+    "questions": [
+      "Quel prix d'introduction ?",
+      "Quelle évolution du cours ?",
+      "Quelle valorisation ?"
+    ],
+    "tags": [
+      "#IA",
+      "#BOURSE",
+      "#FINANCEMENT"
+    ],
+    "events": [
+      "@INTRODUCTION-BOURSE"
+    ],
+    "signals": [
+      "!INVESTISSEMENT"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-application-de-l-ai-act-europeen",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Application de l'AI Act européen",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "AI Act",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "Union européenne",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "conformité",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre l'entrée en application du règlement européen sur l'IA.",
+    "locations": [
+      "Bruxelles"
+    ],
+    "times": [
+      "calendrier d'application"
+    ],
+    "relatedEntities": [
+      "Commission européenne",
+      "Parlement européen",
+      "Bureau de l'IA"
+    ],
+    "questions": [
+      "Quelles obligations entrent en vigueur ?",
+      "Quelles sanctions ?",
+      "Quels systèmes interdits ?"
+    ],
+    "tags": [
+      "#IA",
+      "#REGULATION",
+      "#EUROPE"
+    ],
+    "events": [
+      "@ECHEANCE-REGLEMENTAIRE"
+    ],
+    "signals": [
+      "!CONFORMITE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-systeme-d-ia-a-haut-risque",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Système d'IA à haut risque",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "haut risque",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "AI Act",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "conformité",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Identifier les systèmes classés à haut risque par le règlement européen.",
+    "locations": [
+      "Europe"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "santé",
+      "recrutement",
+      "justice"
+    ],
+    "questions": [
+      "Le système est-il à haut risque ?",
+      "Quelle documentation fournir ?",
+      "Quel contrôle humain ?"
+    ],
+    "tags": [
+      "#IA",
+      "#REGULATION",
+      "#HAUT-RISQUE"
+    ],
+    "events": [],
+    "signals": [
+      "!CONFORMITE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-controle-de-la-cnil-sur-l-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Contrôle de la CNIL sur l'IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "CNIL",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "données personnelles",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les décisions de la CNIL sur les systèmes d'IA.",
+    "locations": [
+      "Paris"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "RGPD",
+      "sanction",
+      "mise en demeure"
+    ],
+    "questions": [
+      "Quelle entreprise est visée ?",
+      "Quelle sanction ?",
+      "Quelles données en cause ?"
+    ],
+    "tags": [
+      "#IA",
+      "#CNIL",
+      "#RGPD",
+      "#DONNEES"
+    ],
+    "events": [
+      "@DECISION-AUTORITE"
+    ],
+    "signals": [
+      "!CONFORMITE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-droit-d-auteur-et-entrainement-des-modeles",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Droit d'auteur et entraînement des modèles",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "droit d'auteur",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "entraînement",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "procès",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Surveiller les litiges sur l'usage d'œuvres protégées pour entraîner les IA.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "éditeurs",
+      "artistes",
+      "New York Times"
+    ],
+    "questions": [
+      "Quelles œuvres sont en cause ?",
+      "Quelle décision du tribunal ?",
+      "Quelle compensation ?"
+    ],
+    "tags": [
+      "#IA",
+      "#DROIT-AUTEUR",
+      "#JUSTICE"
+    ],
+    "events": [
+      "@PROCES"
+    ],
+    "signals": [
+      "!RISQUE-JURIDIQUE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-decret-presidentiel-americain-sur-l-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Décret présidentiel américain sur l'IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Maison Blanche",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "décret",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre la politique américaine en matière d'IA.",
+    "locations": [
+      "Washington"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Congrès",
+      "NIST",
+      "président"
+    ],
+    "questions": [
+      "Quelles mesures ?",
+      "Quelles obligations pour les entreprises ?",
+      "Quel impact sur l'export ?"
+    ],
+    "tags": [
+      "#IA",
+      "#REGULATION",
+      "#ETATS-UNIS"
+    ],
+    "events": [
+      "@DECISION-POLITIQUE"
+    ],
+    "signals": [
+      "!GEOPOLITIQUE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-controle-des-exportations-de-puces",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Contrôle des exportations de puces",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "exportations",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "puces",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "Chine",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller les restrictions d'export de semi-conducteurs vers la Chine.",
+    "locations": [
+      "Washington",
+      "Pékin"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Nvidia",
+      "TSMC",
+      "département du Commerce"
+    ],
+    "questions": [
+      "Quelles puces sont visées ?",
+      "Quelle réaction chinoise ?",
+      "Quel impact sur Nvidia ?"
+    ],
+    "tags": [
+      "#IA",
+      "#SEMI-CONDUCTEURS",
+      "#GEOPOLITIQUE"
+    ],
+    "events": [
+      "@SANCTION"
+    ],
+    "signals": [
+      "!GEOPOLITIQUE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-sommet-international-sur-l-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sommet international sur l'IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "sommet",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "chefs d'État",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les sommets internationaux consacrés à l'IA.",
+    "locations": [
+      "Paris",
+      "Londres",
+      "Séoul"
+    ],
+    "times": [
+      "dates du sommet"
+    ],
+    "relatedEntities": [
+      "Nations unies",
+      "G7",
+      "OCDE"
+    ],
+    "questions": [
+      "Quels engagements ?",
+      "Quels pays signent ?",
+      "Quelles absences notables ?"
+    ],
+    "tags": [
+      "#IA",
+      "#DIPLOMATIE",
+      "#GOUVERNANCE"
+    ],
+    "events": [
+      "@SOMMET"
+    ],
+    "signals": [
+      "!GOUVERNANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-reconnaissance-faciale-et-libertes",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Reconnaissance faciale et libertés",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "reconnaissance faciale",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "libertés",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Surveiller l'usage de la reconnaissance faciale dans l'espace public.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "police",
+      "Jeux olympiques",
+      "Quadrature du Net"
+    ],
+    "questions": [
+      "Quel usage autorisé ?",
+      "Quelle base légale ?",
+      "Quels recours ?"
+    ],
+    "tags": [
+      "#IA",
+      "#SURVEILLANCE",
+      "#LIBERTES"
+    ],
+    "events": [],
+    "signals": [
+      "!VIGILANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-responsabilite-en-cas-d-accident-cause-par-une-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Responsabilité en cas d'accident causé par une IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "responsabilité",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "accident",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre la jurisprudence sur la responsabilité des systèmes d'IA.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "assureurs",
+      "fabricants",
+      "tribunaux"
+    ],
+    "questions": [
+      "Qui est responsable ?",
+      "Quelle indemnisation ?",
+      "Quelle loi s'applique ?"
+    ],
+    "tags": [
+      "#IA",
+      "#RESPONSABILITE",
+      "#JUSTICE"
+    ],
+    "events": [
+      "@DECISION-JUSTICE"
+    ],
+    "signals": [
+      "!RISQUE-JURIDIQUE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-fuite-de-donnees-par-un-chatbot",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Fuite de données par un chatbot",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "fuite de données",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "chatbot",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "confidentiel",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Repérer les fuites d'informations confidentielles via des assistants d'IA.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Samsung",
+      "ChatGPT",
+      "entreprise"
+    ],
+    "questions": [
+      "Quelles données ont fuité ?",
+      "Comment ?",
+      "Quelles mesures prises ?"
+    ],
+    "tags": [
+      "#IA",
+      "#CYBERSECURITE",
+      "#DONNEES"
+    ],
+    "events": [
+      "@INCIDENT-SECURITE"
+    ],
+    "signals": [
+      "!ALERTE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-injection-de-prompt",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Injection de prompt",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "injection de prompt",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "LLM",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "attaque",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Surveiller les attaques qui détournent les modèles de langage.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "agents",
+      "navigateur",
+      "RAG"
+    ],
+    "questions": [
+      "Quel système est touché ?",
+      "Quelles données exposées ?",
+      "Quel correctif ?"
+    ],
+    "tags": [
+      "#IA",
+      "#CYBERSECURITE",
+      "#LLM"
+    ],
+    "events": [
+      "@INCIDENT-SECURITE"
+    ],
+    "signals": [
+      "!ALERTE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-contournement-des-garde-fous-d-un-modele",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Contournement des garde-fous d'un modèle",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "jailbreak",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "garde-fous",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Repérer les techniques de contournement des protections des modèles.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "red teaming",
+      "sécurité",
+      "modèle"
+    ],
+    "questions": [
+      "Quel modèle est concerné ?",
+      "Quel contenu interdit obtenu ?",
+      "Le fournisseur a-t-il corrigé ?"
+    ],
+    "tags": [
+      "#IA",
+      "#SECURITE-IA",
+      "#ALIGNEMENT"
+    ],
+    "events": [
+      "@INCIDENT-SECURITE"
+    ],
+    "signals": [
+      "!VIGILANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-deepfake-d-une-personnalite",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Deepfake d'une personnalité",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "deepfake",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "personnalité",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "vidéo",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Détecter les fausses vidéos ou voix de personnalités.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "élection",
+      "réseaux sociaux",
+      "arnaque"
+    ],
+    "questions": [
+      "Qui est imité ?",
+      "Où circule le contenu ?",
+      "A-t-il été démenti ?"
+    ],
+    "tags": [
+      "#IA",
+      "#DEEPFAKE",
+      "#DESINFORMATION"
+    ],
+    "events": [
+      "@DEEPFAKE-DETECTE"
+    ],
+    "signals": [
+      "!ALERTE",
+      "!DESINFORMATION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-arnaque-au-clonage-de-voix",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Arnaque au clonage de voix",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "clonage de voix",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "arnaque",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Repérer les escroqueries utilisant une voix clonée par IA.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "banque",
+      "famille",
+      "police"
+    ],
+    "questions": [
+      "Quelle somme demandée ?",
+      "Qui est imité ?",
+      "Comment l'arnaque a-t-elle été déjouée ?"
+    ],
+    "tags": [
+      "#IA",
+      "#FRAUDE",
+      "#DEEPFAKE"
+    ],
+    "events": [
+      "@FRAUDE"
+    ],
+    "signals": [
+      "!ALERTE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-cyberattaque-assistee-par-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cyberattaque assistée par IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "cyberattaque",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "hackers",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller l'usage de l'IA par les attaquants informatiques.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "ANSSI",
+      "rançongiciel",
+      "phishing"
+    ],
+    "questions": [
+      "Quelle cible ?",
+      "Quel rôle a joué l'IA ?",
+      "Quel groupe est soupçonné ?"
+    ],
+    "tags": [
+      "#IA",
+      "#CYBERSECURITE",
+      "#MENACE"
+    ],
+    "events": [
+      "@INCIDENT-SECURITE"
+    ],
+    "signals": [
+      "!MENACE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-risque-existentiel-de-l-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Risque existentiel de l'IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "risque existentiel",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "superintelligence",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre le débat sur les risques extrêmes liés à une IA très puissante.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Geoffrey Hinton",
+      "Yoshua Bengio",
+      "moratoire"
+    ],
+    "questions": [
+      "Qui alerte ?",
+      "Quelles mesures proposées ?",
+      "Quel consensus scientifique ?"
+    ],
+    "tags": [
+      "#IA",
+      "#RISQUE",
+      "#ALIGNEMENT"
+    ],
+    "events": [
+      "@ALERTE-EXPERTS"
+    ],
+    "signals": [
+      "!RISQUE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-hallucination-d-un-modele-aux-consequences-graves",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Hallucination d'un modèle aux conséquences graves",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "hallucination",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "conséquences",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "erreur",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Repérer les erreurs inventées par une IA ayant causé un préjudice.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "avocat",
+      "médecin",
+      "journaliste"
+    ],
+    "questions": [
+      "Quelle erreur ?",
+      "Quel préjudice ?",
+      "Qui l'a repérée ?"
+    ],
+    "tags": [
+      "#IA",
+      "#FIABILITE",
+      "#HALLUCINATION"
+    ],
+    "events": [
+      "@INCIDENT-IA"
+    ],
+    "signals": [
+      "!VIGILANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-empoisonnement-des-donnees-d-entrainement",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Empoisonnement des données d'entraînement",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "empoisonnement",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "données d'entraînement",
+        "entityWeight": "50"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller les attaques qui corrompent les données d'entraînement.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "dataset",
+      "open source",
+      "sécurité"
+    ],
+    "questions": [
+      "Quelles données sont corrompues ?",
+      "Quel modèle est touché ?",
+      "Comment le détecter ?"
+    ],
+    "tags": [
+      "#IA",
+      "#CYBERSECURITE",
+      "#DONNEES"
+    ],
+    "events": [
+      "@INCIDENT-SECURITE"
+    ],
+    "signals": [
+      "!ALERTE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-armes-autonomes",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Armes autonomes",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "armes autonomes",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "drones",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "militaire",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre le développement des systèmes d'armes létales autonomes.",
+    "locations": [
+      "Ukraine",
+      "Genève"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "armée",
+      "ONU",
+      "drones tueurs"
+    ],
+    "questions": [
+      "Quel pays les utilise ?",
+      "Quel contrôle humain ?",
+      "Quelles négociations internationales ?"
+    ],
+    "tags": [
+      "#IA",
+      "#DEFENSE",
+      "#ETHIQUE"
+    ],
+    "events": [
+      "@USAGE-MILITAIRE"
+    ],
+    "signals": [
+      "!RISQUE",
+      "!FEAR"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-alignement-et-securite-des-modeles",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Alignement et sécurité des modèles",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "alignement",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "sécurité",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "modèle",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre les travaux sur l'alignement des IA avec les valeurs humaines.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Anthropic",
+      "OpenAI",
+      "interprétabilité"
+    ],
+    "questions": [
+      "Quelles méthodes ?",
+      "Quels résultats publiés ?",
+      "Quelles limites ?"
+    ],
+    "tags": [
+      "#IA",
+      "#ALIGNEMENT",
+      "#SECURITE-IA"
+    ],
+    "events": [],
+    "signals": [
+      "!RECHERCHE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-publication-majeure-en-apprentissage-profond",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Publication majeure en apprentissage profond",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "apprentissage profond",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "publication",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "article",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Repérer les articles de recherche marquants en deep learning.",
+    "locations": [],
+    "times": [
+      "conférence NeurIPS",
+      "conférence ICML"
+    ],
+    "relatedEntities": [
+      "arXiv",
+      "NeurIPS",
+      "ICML"
+    ],
+    "questions": [
+      "Quelle contribution ?",
+      "Quelle équipe ?",
+      "Le code est-il publié ?"
+    ],
+    "tags": [
+      "#IA",
+      "#RECHERCHE",
+      "#DEEP-LEARNING"
+    ],
+    "events": [
+      "@PUBLICATION"
+    ],
+    "signals": [
+      "!RECHERCHE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-architecture-transformer",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Architecture Transformer",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Transformer",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "attention",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les évolutions de l'architecture Transformer et ses alternatives.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Google",
+      "Mamba",
+      "modèles de langage"
+    ],
+    "questions": [
+      "Quelle amélioration ?",
+      "Quel gain d'efficacité ?",
+      "Quelle alternative émerge ?"
+    ],
+    "tags": [
+      "#IA",
+      "#RECHERCHE",
+      "#ARCHITECTURE"
+    ],
+    "events": [],
+    "signals": [
+      "!RECHERCHE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-alphafold-et-la-biologie",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "AlphaFold et la biologie",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "AlphaFold",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "protéines",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre l'usage de l'IA pour prédire la structure des protéines.",
+    "locations": [
+      "Londres"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "DeepMind",
+      "biologie",
+      "médicaments"
+    ],
+    "questions": [
+      "Quelle découverte ?",
+      "Quel impact sur la recherche médicale ?",
+      "Quel accès aux données ?"
+    ],
+    "tags": [
+      "#IA",
+      "#SCIENCE",
+      "#BIOLOGIE"
+    ],
+    "events": [
+      "@DECOUVERTE"
+    ],
+    "signals": [
+      "!PERCEE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-ia-et-decouverte-scientifique",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "IA et découverte scientifique",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "découverte",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "science",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Repérer les découvertes scientifiques rendues possibles par l'IA.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "mathématiques",
+      "chimie",
+      "physique"
+    ],
+    "questions": [
+      "Quelle découverte ?",
+      "Quel rôle a joué l'IA ?",
+      "A-t-elle été validée ?"
+    ],
+    "tags": [
+      "#IA",
+      "#SCIENCE",
+      "#RECHERCHE"
+    ],
+    "events": [
+      "@DECOUVERTE"
+    ],
+    "signals": [
+      "!PERCEE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-benchmark-battu-par-un-modele",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Benchmark battu par un modèle",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "benchmark",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "record",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "modèle",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les records sur les bancs d'essai de l'IA.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "MMLU",
+      "ARC",
+      "SWE-bench"
+    ],
+    "questions": [
+      "Quel score ?",
+      "Le test est-il contaminé ?",
+      "Quel modèle détient le record ?"
+    ],
+    "tags": [
+      "#IA",
+      "#BENCHMARK",
+      "#PERFORMANCE"
+    ],
+    "events": [
+      "@RECORD"
+    ],
+    "signals": [
+      "!PERFORMANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-intelligence-artificielle-generale",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Intelligence artificielle générale",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "AGI",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "intelligence artificielle générale",
+        "entityWeight": "50"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 40,
+    "isFuzzy": true,
+    "instructions": "Suivre le débat et les annonces sur l'arrivée d'une IA générale.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "OpenAI",
+      "DeepMind",
+      "Sam Altman"
+    ],
+    "questions": [
+      "Qui annonce une date ?",
+      "Quelle définition retenue ?",
+      "Quels experts sont sceptiques ?"
+    ],
+    "tags": [
+      "#IA",
+      "#AGI",
+      "#PROSPECTIVE"
+    ],
+    "events": [],
+    "signals": [
+      "!SPECULATION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-interpretabilite-des-reseaux-de-neurones",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Interprétabilité des réseaux de neurones",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "interprétabilité",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "réseaux de neurones",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre la recherche pour comprendre le fonctionnement interne des modèles.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Anthropic",
+      "explicabilité",
+      "neurones"
+    ],
+    "questions": [
+      "Quelle méthode ?",
+      "Qu'a-t-on découvert ?",
+      "Peut-on contrôler le modèle ?"
+    ],
+    "tags": [
+      "#IA",
+      "#RECHERCHE",
+      "#INTERPRETABILITE"
+    ],
+    "events": [
+      "@PUBLICATION"
+    ],
+    "signals": [
+      "!RECHERCHE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-laboratoire-de-recherche-en-ia-en-france",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Laboratoire de recherche en IA en France",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "laboratoire",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "Inria",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "recherche",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre les laboratoires français de recherche en IA.",
+    "locations": [
+      "Paris",
+      "Grenoble",
+      "Saclay"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "CNRS",
+      "PRAIRIE",
+      "Kyutai"
+    ],
+    "questions": [
+      "Quels travaux ?",
+      "Quels financements ?",
+      "Quels départs vers le privé ?"
+    ],
+    "tags": [
+      "#IA",
+      "#RECHERCHE",
+      "#FRANCE"
+    ],
+    "events": [],
+    "signals": [
+      "!RECHERCHE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-apprentissage-par-renforcement",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Apprentissage par renforcement",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "apprentissage par renforcement",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "agent",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "récompense",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les progrès de l'apprentissage par renforcement.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "DeepMind",
+      "robotique",
+      "jeux"
+    ],
+    "questions": [
+      "Quelle tâche est résolue ?",
+      "Quelle méthode ?",
+      "Quel transfert au monde réel ?"
+    ],
+    "tags": [
+      "#IA",
+      "#RECHERCHE",
+      "#RENFORCEMENT"
+    ],
+    "events": [],
+    "signals": [
+      "!RECHERCHE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-petits-modeles-efficaces",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Petits modèles efficaces",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "petit modèle",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "efficacité",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "embarqué",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Repérer les modèles compacts capables de tourner sur un téléphone ou un ordinateur.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Phi",
+      "Gemma",
+      "smartphone"
+    ],
+    "questions": [
+      "Quelle taille ?",
+      "Quelles performances ?",
+      "Fonctionne-t-il hors ligne ?"
+    ],
+    "tags": [
+      "#IA",
+      "#EFFICACITE",
+      "#EDGE"
+    ],
+    "events": [
+      "@LANCEMENT-MODELE"
+    ],
+    "signals": [
+      "!NOUVEAUTE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-penurie-de-gpu",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Pénurie de GPU",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "pénurie",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "GPU",
+        "entityWeight": "50"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Surveiller la disponibilité des processeurs graphiques pour l'IA.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Nvidia",
+      "H100",
+      "cloud"
+    ],
+    "questions": [
+      "Quels délais de livraison ?",
+      "Quels prix ?",
+      "Quelles alternatives ?"
+    ],
+    "tags": [
+      "#IA",
+      "#GPU",
+      "#INFRASTRUCTURE"
+    ],
+    "events": [
+      "@TENSION-APPROVISIONNEMENT"
+    ],
+    "signals": [
+      "!PENURIE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-construction-d-un-data-center-geant",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Construction d'un data center géant",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "data center",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "construction",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "gigawatt",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre la construction des grands centres de données pour l'IA.",
+    "locations": [
+      "Texas",
+      "France",
+      "Émirats arabes unis"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Stargate",
+      "électricité",
+      "refroidissement"
+    ],
+    "questions": [
+      "Quelle puissance ?",
+      "Quel coût ?",
+      "Quel impact local ?"
+    ],
+    "tags": [
+      "#IA",
+      "#DATA-CENTER",
+      "#INFRASTRUCTURE"
+    ],
+    "events": [
+      "@PROJET-INFRASTRUCTURE"
+    ],
+    "signals": [
+      "!INVESTISSEMENT"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-consommation-energetique-de-l-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Consommation énergétique de l'IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "consommation",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "énergie",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Surveiller l'empreinte énergétique et climatique de l'IA.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "électricité",
+      "nucléaire",
+      "eau"
+    ],
+    "questions": [
+      "Quelle consommation ?",
+      "Quelle source d'énergie ?",
+      "Quelles émissions de CO2 ?"
+    ],
+    "tags": [
+      "#IA",
+      "#ENERGIE",
+      "#CLIMAT"
+    ],
+    "events": [],
+    "signals": [
+      "!RISQUE-ENVIRONNEMENTAL"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-tsmc-et-la-fabrication-de-puces",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "TSMC et la fabrication de puces",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "TSMC",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "puces",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": false,
+    "instructions": "Suivre le premier fondeur mondial de semi-conducteurs.",
+    "locations": [
+      "Taïwan",
+      "Arizona"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Nvidia",
+      "Apple",
+      "Taïwan"
+    ],
+    "questions": [
+      "Quelles capacités ?",
+      "Quel risque géopolitique ?",
+      "Quelles nouvelles usines ?"
+    ],
+    "tags": [
+      "#IA",
+      "#SEMI-CONDUCTEURS",
+      "#GEOPOLITIQUE"
+    ],
+    "events": [],
+    "signals": [
+      "!RISQUE-GEOPOLITIQUE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-puce-ia-concurrente-de-nvidia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Puce IA concurrente de Nvidia",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "AMD",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "TPU",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "puce",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 40,
+    "isFuzzy": true,
+    "instructions": "Repérer les alternatives aux GPU Nvidia pour l'IA.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Google",
+      "Intel",
+      "Groq"
+    ],
+    "questions": [
+      "Quelles performances ?",
+      "Quel prix ?",
+      "Quels clients ?"
+    ],
+    "tags": [
+      "#IA",
+      "#SEMI-CONDUCTEURS",
+      "#CONCURRENCE"
+    ],
+    "events": [
+      "@LANCEMENT-MATERIEL"
+    ],
+    "signals": [
+      "!CONCURRENCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-supercalculateur-pour-l-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Supercalculateur pour l'IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "supercalculateur",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les supercalculateurs dédiés à l'IA.",
+    "locations": [
+      "Saclay",
+      "Jülich"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Jean Zay",
+      "GENCI",
+      "EuroHPC"
+    ],
+    "questions": [
+      "Quelle puissance ?",
+      "Qui y a accès ?",
+      "Quel financement public ?"
+    ],
+    "tags": [
+      "#IA",
+      "#CALCUL",
+      "#INFRASTRUCTURE"
+    ],
+    "events": [
+      "@PROJET-INFRASTRUCTURE"
+    ],
+    "signals": [
+      "!SOUVERAINETE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-cloud-souverain-pour-l-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cloud souverain pour l'IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "cloud souverain",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre les offres de cloud souverain pour héberger l'IA.",
+    "locations": [
+      "France",
+      "Europe"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "OVHcloud",
+      "Scaleway",
+      "Outscale"
+    ],
+    "questions": [
+      "Quelle certification ?",
+      "Quels clients publics ?",
+      "Quelle capacité GPU ?"
+    ],
+    "tags": [
+      "#IA",
+      "#CLOUD",
+      "#SOUVERAINETE"
+    ],
+    "events": [],
+    "signals": [
+      "!SOUVERAINETE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-informatique-quantique-et-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Informatique quantique et IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "quantique",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller les promesses de l'informatique quantique pour l'IA.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "IBM",
+      "Google",
+      "Pasqal"
+    ],
+    "questions": [
+      "Quel avantage réel ?",
+      "Combien de qubits ?",
+      "Quelle échéance ?"
+    ],
+    "tags": [
+      "#IA",
+      "#QUANTIQUE",
+      "#PROSPECTIVE"
+    ],
+    "events": [],
+    "signals": [
+      "!SPECULATION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-puces-neuromorphiques",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Puces neuromorphiques",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "neuromorphique",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "puce",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les puces inspirées du cerveau.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Intel Loihi",
+      "IBM",
+      "efficacité énergétique"
+    ],
+    "questions": [
+      "Quelle efficacité ?",
+      "Quelles applications ?",
+      "Quand une commercialisation ?"
+    ],
+    "tags": [
+      "#IA",
+      "#MATERIEL",
+      "#RECHERCHE"
+    ],
+    "events": [],
+    "signals": [
+      "!RECHERCHE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-declaration-de-sam-altman",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Déclaration de Sam Altman",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Sam Altman",
+        "entityWeight": "70"
+      },
+      {
+        "entityName": "OpenAI",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les déclarations publiques du dirigeant d'OpenAI.",
+    "locations": [
+      "San Francisco"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "OpenAI",
+      "ChatGPT",
+      "AGI"
+    ],
+    "questions": [
+      "Quelle annonce ?",
+      "Quelle stratégie ?",
+      "Quelles réactions ?"
+    ],
+    "tags": [
+      "#IA",
+      "#PERSONNALITE",
+      "#OPENAI"
+    ],
+    "events": [
+      "@DECLARATION"
+    ],
+    "signals": [
+      "!STRATEGIE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-prise-de-parole-de-yann-lecun",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Prise de parole de Yann LeCun",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Yann LeCun",
+        "entityWeight": "70"
+      },
+      {
+        "entityName": "Meta",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les positions de Yann LeCun sur l'avenir de l'IA.",
+    "locations": [
+      "Paris",
+      "New York"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Meta",
+      "open source",
+      "AMI"
+    ],
+    "questions": [
+      "Quelle position ?",
+      "Quel débat ?",
+      "Quel projet ?"
+    ],
+    "tags": [
+      "#IA",
+      "#PERSONNALITE",
+      "#RECHERCHE"
+    ],
+    "events": [
+      "@DECLARATION"
+    ],
+    "signals": [
+      "!DEBAT"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-alerte-de-geoffrey-hinton",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Alerte de Geoffrey Hinton",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Geoffrey Hinton",
+        "entityWeight": "70"
+      },
+      {
+        "entityName": "risques",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les avertissements de Geoffrey Hinton sur les risques de l'IA.",
+    "locations": [
+      "Toronto"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "prix Nobel",
+      "Google",
+      "sécurité"
+    ],
+    "questions": [
+      "Quel risque évoque-t-il ?",
+      "Quelles mesures propose-t-il ?",
+      "Quelles réactions ?"
+    ],
+    "tags": [
+      "#IA",
+      "#PERSONNALITE",
+      "#RISQUE"
+    ],
+    "events": [
+      "@ALERTE-EXPERTS"
+    ],
+    "signals": [
+      "!RISQUE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-travaux-de-yoshua-bengio",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Travaux de Yoshua Bengio",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Yoshua Bengio",
+        "entityWeight": "70"
+      },
+      {
+        "entityName": "sécurité",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les travaux et prises de position de Yoshua Bengio.",
+    "locations": [
+      "Montréal"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Mila",
+      "rapport international",
+      "LawZero"
+    ],
+    "questions": [
+      "Quel rapport ?",
+      "Quelle recommandation ?",
+      "Quel écho politique ?"
+    ],
+    "tags": [
+      "#IA",
+      "#PERSONNALITE",
+      "#SECURITE-IA"
+    ],
+    "events": [
+      "@PUBLICATION"
+    ],
+    "signals": [
+      "!RECHERCHE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-annonce-de-demis-hassabis",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Annonce de Demis Hassabis",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Demis Hassabis",
+        "entityWeight": "70"
+      },
+      {
+        "entityName": "DeepMind",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les annonces du dirigeant de Google DeepMind.",
+    "locations": [
+      "Londres"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Google",
+      "AlphaFold",
+      "Gemini"
+    ],
+    "questions": [
+      "Quelle annonce ?",
+      "Quelle découverte ?",
+      "Quelle vision de l'AGI ?"
+    ],
+    "tags": [
+      "#IA",
+      "#PERSONNALITE",
+      "#DEEPMIND"
+    ],
+    "events": [
+      "@DECLARATION"
+    ],
+    "signals": [
+      "!STRATEGIE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-position-de-dario-amodei",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Position de Dario Amodei",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Dario Amodei",
+        "entityWeight": "70"
+      },
+      {
+        "entityName": "Anthropic",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les positions du dirigeant d'Anthropic.",
+    "locations": [
+      "San Francisco"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Claude",
+      "sécurité",
+      "régulation"
+    ],
+    "questions": [
+      "Quelle position ?",
+      "Quelle prévision ?",
+      "Quelle annonce ?"
+    ],
+    "tags": [
+      "#IA",
+      "#PERSONNALITE",
+      "#ANTHROPIC"
+    ],
+    "events": [
+      "@DECLARATION"
+    ],
+    "signals": [
+      "!STRATEGIE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-declaration-d-arthur-mensch",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Déclaration d'Arthur Mensch",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Arthur Mensch",
+        "entityWeight": "70"
+      },
+      {
+        "entityName": "Mistral AI",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les prises de parole du dirigeant de Mistral AI.",
+    "locations": [
+      "Paris"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "souveraineté",
+      "Europe",
+      "open source"
+    ],
+    "questions": [
+      "Quelle annonce ?",
+      "Quelle position sur la régulation ?",
+      "Quels partenariats ?"
+    ],
+    "tags": [
+      "#IA",
+      "#PERSONNALITE",
+      "#MISTRAL"
+    ],
+    "events": [
+      "@DECLARATION"
+    ],
+    "signals": [
+      "!SOUVERAINETE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-annonce-de-jensen-huang",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Annonce de Jensen Huang",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Jensen Huang",
+        "entityWeight": "70"
+      },
+      {
+        "entityName": "Nvidia",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les annonces du dirigeant de Nvidia.",
+    "locations": [
+      "Santa Clara"
+    ],
+    "times": [
+      "conférence GTC"
+    ],
+    "relatedEntities": [
+      "GPU",
+      "Blackwell",
+      "robotique"
+    ],
+    "questions": [
+      "Quelle nouvelle puce ?",
+      "Quelle feuille de route ?",
+      "Quels partenaires ?"
+    ],
+    "tags": [
+      "#IA",
+      "#PERSONNALITE",
+      "#NVIDIA"
+    ],
+    "events": [
+      "@DECLARATION"
+    ],
+    "signals": [
+      "!STRATEGIE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-prise-de-position-d-elon-musk-sur-l-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Prise de position d'Elon Musk sur l'IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Elon Musk",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "xAI",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "Grok",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre les déclarations et projets d'Elon Musk en IA.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "xAI",
+      "Grok",
+      "OpenAI"
+    ],
+    "questions": [
+      "Quelle déclaration ?",
+      "Quel procès ?",
+      "Quel nouveau modèle ?"
+    ],
+    "tags": [
+      "#IA",
+      "#PERSONNALITE",
+      "#XAI"
+    ],
+    "events": [
+      "@DECLARATION"
+    ],
+    "signals": [
+      "!DEBAT"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-heritage-de-claude-shannon",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Héritage de Claude Shannon",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "Claude Shannon",
+        "entityWeight": "70"
+      },
+      {
+        "entityName": "théorie de l'information",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Repérer les références aux fondements de la théorie de l'information.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Bell Labs",
+      "entropie",
+      "information"
+    ],
+    "questions": [
+      "Quel concept est cité ?",
+      "Dans quel contexte ?",
+      "Quel lien avec l'IA actuelle ?"
+    ],
+    "tags": [
+      "#IA",
+      "#HISTOIRE",
+      "#THEORIE-INFORMATION"
+    ],
+    "events": [],
+    "signals": [
+      "!CULTURE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-ia-et-diagnostic-medical",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "IA et diagnostic médical",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "diagnostic",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "médecine",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre l'usage de l'IA pour aider au diagnostic médical.",
+    "locations": [
+      "hôpitaux"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "radiologie",
+      "HAS",
+      "dispositif médical"
+    ],
+    "questions": [
+      "Quelle fiabilité ?",
+      "Quelle autorisation ?",
+      "Quel rôle pour le médecin ?"
+    ],
+    "tags": [
+      "#IA",
+      "#SANTE",
+      "#DIAGNOSTIC"
+    ],
+    "events": [],
+    "signals": [
+      "!OPPORTUNITE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-ia-a-l-ecole",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "IA à l'école",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "école",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "élèves",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre l'arrivée de l'IA dans l'éducation.",
+    "locations": [
+      "écoles",
+      "universités"
+    ],
+    "times": [
+      "rentrée scolaire"
+    ],
+    "relatedEntities": [
+      "Éducation nationale",
+      "enseignants",
+      "triche"
+    ],
+    "questions": [
+      "Quel usage autorisé ?",
+      "Quels risques de triche ?",
+      "Quelle formation des enseignants ?"
+    ],
+    "tags": [
+      "#IA",
+      "#EDUCATION"
+    ],
+    "events": [],
+    "signals": [
+      "!DEBAT"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-ia-dans-la-justice",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "IA dans la justice",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "justice",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "tribunal",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller l'usage de l'IA par les juridictions et les avocats.",
+    "locations": [
+      "tribunaux"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "avocats",
+      "magistrats",
+      "justice prédictive"
+    ],
+    "questions": [
+      "Quel usage ?",
+      "Quels risques de biais ?",
+      "Quel encadrement ?"
+    ],
+    "tags": [
+      "#IA",
+      "#JUSTICE",
+      "#ETHIQUE"
+    ],
+    "events": [],
+    "signals": [
+      "!VIGILANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-ia-dans-la-banque-et-la-finance",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "IA dans la banque et la finance",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "banque",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "finance",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre l'usage de l'IA dans les services financiers.",
+    "locations": [
+      "La Défense",
+      "City de Londres"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "trading",
+      "fraude",
+      "crédit"
+    ],
+    "questions": [
+      "Quel usage ?",
+      "Quels risques ?",
+      "Quel contrôle des régulateurs ?"
+    ],
+    "tags": [
+      "#IA",
+      "#FINANCE",
+      "#BANQUE"
+    ],
+    "events": [],
+    "signals": [
+      "!OPPORTUNITE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-ia-dans-l-industrie",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "IA dans l'industrie",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "industrie",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "usine",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre l'usage de l'IA dans la production industrielle.",
+    "locations": [
+      "usines"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "maintenance prédictive",
+      "robots",
+      "jumeau numérique"
+    ],
+    "questions": [
+      "Quel gain de productivité ?",
+      "Quels emplois touchés ?",
+      "Quel investissement ?"
+    ],
+    "tags": [
+      "#IA",
+      "#INDUSTRIE",
+      "#AUTOMATISATION"
+    ],
+    "events": [],
+    "signals": [
+      "!PRODUCTIVITE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-ia-dans-l-agriculture",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "IA dans l'agriculture",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "agriculture",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "exploitation",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre l'usage de l'IA dans l'agriculture.",
+    "locations": [
+      "champs",
+      "exploitations"
+    ],
+    "times": [
+      "saisons agricoles"
+    ],
+    "relatedEntities": [
+      "drones",
+      "capteurs",
+      "rendement"
+    ],
+    "questions": [
+      "Quel gain de rendement ?",
+      "Quel coût pour l'agriculteur ?",
+      "Quel impact environnemental ?"
+    ],
+    "tags": [
+      "#IA",
+      "#AGRICULTURE"
+    ],
+    "events": [],
+    "signals": [
+      "!OPPORTUNITE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-ia-dans-le-service-client",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "IA dans le service client",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "service client",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "chatbot",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre l'automatisation de la relation client par l'IA.",
+    "locations": [
+      "centres d'appels"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "agents conversationnels",
+      "satisfaction",
+      "emplois"
+    ],
+    "questions": [
+      "Quelle satisfaction des clients ?",
+      "Quels emplois supprimés ?",
+      "Quelles erreurs ?"
+    ],
+    "tags": [
+      "#IA",
+      "#RELATION-CLIENT",
+      "#AUTOMATISATION"
+    ],
+    "events": [],
+    "signals": [
+      "!PRODUCTIVITE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-ia-et-ressources-humaines",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "IA et ressources humaines",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "recrutement",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "CV",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller l'usage de l'IA pour trier les candidatures.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "biais",
+      "discrimination",
+      "AI Act"
+    ],
+    "questions": [
+      "Quels critères ?",
+      "Quels biais ?",
+      "Quelle transparence pour les candidats ?"
+    ],
+    "tags": [
+      "#IA",
+      "#RESSOURCES-HUMAINES",
+      "#BIAIS"
+    ],
+    "events": [],
+    "signals": [
+      "!VIGILANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-ia-et-creation-artistique",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "IA et création artistique",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "art",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "artistes",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre les débats entre artistes et IA générative.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "droit d'auteur",
+      "illustrateurs",
+      "musique"
+    ],
+    "questions": [
+      "Quelles œuvres concernées ?",
+      "Quelle rémunération ?",
+      "Quels procès ?"
+    ],
+    "tags": [
+      "#IA",
+      "#CULTURE",
+      "#DROIT-AUTEUR"
+    ],
+    "events": [],
+    "signals": [
+      "!DEBAT"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-ia-et-journalisme",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "IA et journalisme",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "journalisme",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "médias",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre l'usage de l'IA par les rédactions et les accords avec les éditeurs.",
+    "locations": [
+      "rédactions"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "presse",
+      "accords de licence",
+      "désinformation"
+    ],
+    "questions": [
+      "Quel usage ?",
+      "Quel accord signé ?",
+      "Quelles erreurs publiées ?"
+    ],
+    "tags": [
+      "#IA",
+      "#MEDIAS",
+      "#JOURNALISME"
+    ],
+    "events": [],
+    "signals": [
+      "!DEBAT"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-desinformation-generee-par-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Désinformation générée par IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "désinformation",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "réseaux sociaux",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Détecter les campagnes de fausses informations produites par IA.",
+    "locations": [],
+    "times": [
+      "période électorale"
+    ],
+    "relatedEntities": [
+      "bots",
+      "Viginum",
+      "plateformes"
+    ],
+    "questions": [
+      "Quelle campagne ?",
+      "Quel pays soupçonné ?",
+      "Quelle audience ?"
+    ],
+    "tags": [
+      "#IA",
+      "#DESINFORMATION",
+      "#ELECTIONS"
+    ],
+    "events": [
+      "@CAMPAGNE-DESINFORMATION"
+    ],
+    "signals": [
+      "!ALERTE",
+      "!DESINFORMATION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-ingerence-electorale-par-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Ingérence électorale par IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "élection",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "ingérence",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller les tentatives de manipulation électorale par l'IA.",
+    "locations": [],
+    "times": [
+      "période électorale"
+    ],
+    "relatedEntities": [
+      "deepfake",
+      "bots",
+      "Viginum"
+    ],
+    "questions": [
+      "Quelle élection ?",
+      "Quel acteur ?",
+      "Quelle réponse des autorités ?"
+    ],
+    "tags": [
+      "#IA",
+      "#ELECTIONS",
+      "#INGERENCE"
+    ],
+    "events": [
+      "@INGERENCE"
+    ],
+    "signals": [
+      "!ALERTE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-biais-et-discrimination-algorithmique",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Biais et discrimination algorithmique",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "biais",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "discrimination",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "algorithme",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Repérer les décisions algorithmiques discriminatoires.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Défenseur des droits",
+      "recrutement",
+      "crédit"
+    ],
+    "questions": [
+      "Quel groupe est désavantagé ?",
+      "Quel système ?",
+      "Quelle correction ?"
+    ],
+    "tags": [
+      "#IA",
+      "#BIAIS",
+      "#ETHIQUE"
+    ],
+    "events": [
+      "@SIGNALEMENT"
+    ],
+    "signals": [
+      "!VIGILANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-ia-et-sante-mentale",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "IA et santé mentale",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "santé mentale",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "chatbot",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Surveiller les effets des compagnons IA sur la santé mentale.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "adolescents",
+      "dépendance",
+      "psychologues"
+    ],
+    "questions": [
+      "Quel cas signalé ?",
+      "Quelle dépendance ?",
+      "Quelles protections ?"
+    ],
+    "tags": [
+      "#IA",
+      "#SANTE-MENTALE",
+      "#ETHIQUE"
+    ],
+    "events": [
+      "@SIGNALEMENT"
+    ],
+    "signals": [
+      "!VIGILANCE",
+      "!SAD"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-remplacement-des-emplois-par-l-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Remplacement des emplois par l'IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "emplois",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "remplacement",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre les études sur l'impact de l'IA sur l'emploi.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "OCDE",
+      "FMI",
+      "métiers"
+    ],
+    "questions": [
+      "Quels métiers menacés ?",
+      "Quels métiers créés ?",
+      "Quelle formation ?"
+    ],
+    "tags": [
+      "#IA",
+      "#EMPLOI",
+      "#SOCIETE"
+    ],
+    "events": [],
+    "signals": [
+      "!RISQUE-SOCIAL",
+      "!FEAR"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-surveillance-de-masse-par-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Surveillance de masse par IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "surveillance",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "caméras",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Surveiller le déploiement de la surveillance automatisée.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "reconnaissance faciale",
+      "libertés",
+      "police"
+    ],
+    "questions": [
+      "Quel pays ?",
+      "Quelle technologie ?",
+      "Quel encadrement ?"
+    ],
+    "tags": [
+      "#IA",
+      "#SURVEILLANCE",
+      "#LIBERTES"
+    ],
+    "events": [],
+    "signals": [
+      "!VIGILANCE",
+      "!FEAR"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-fracture-numerique-et-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Fracture numérique et IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "fracture numérique",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les inégalités d'accès à l'IA.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "zones rurales",
+      "seniors",
+      "pays du Sud"
+    ],
+    "questions": [
+      "Qui est exclu ?",
+      "Quelles initiatives ?",
+      "Quel coût d'accès ?"
+    ],
+    "tags": [
+      "#IA",
+      "#INCLUSION",
+      "#SOCIETE"
+    ],
+    "events": [],
+    "signals": [
+      "!RISQUE-SOCIAL"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-ethique-de-l-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Éthique de l'IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "éthique",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "responsable",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre les chartes et débats sur l'IA responsable.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "UNESCO",
+      "comités d'éthique",
+      "entreprises"
+    ],
+    "questions": [
+      "Quelle charte ?",
+      "Qui s'engage ?",
+      "Quels manquements ?"
+    ],
+    "tags": [
+      "#IA",
+      "#ETHIQUE",
+      "#GOUVERNANCE"
+    ],
+    "events": [],
+    "signals": [
+      "!DEBAT"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-contenu-ia-non-signale",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Contenu IA non signalé",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "contenu généré",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "filigrane",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "transparence",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Repérer les contenus générés par IA présentés comme authentiques.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "réseaux sociaux",
+      "C2PA",
+      "étiquetage"
+    ],
+    "questions": [
+      "Où circule le contenu ?",
+      "Est-il étiqueté ?",
+      "Quelle plateforme ?"
+    ],
+    "tags": [
+      "#IA",
+      "#TRANSPARENCE",
+      "#DESINFORMATION"
+    ],
+    "events": [
+      "@SIGNALEMENT"
+    ],
+    "signals": [
+      "!VIGILANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-agents-ia-autonomes",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Agents IA autonomes",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "agent",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "autonome",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les agents capables d'agir seuls (navigation, achats, code).",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Operator",
+      "Claude",
+      "navigateur"
+    ],
+    "questions": [
+      "Quelles actions peut-il faire ?",
+      "Quels garde-fous ?",
+      "Quelles erreurs ?"
+    ],
+    "tags": [
+      "#IA",
+      "#AGENTS",
+      "#AUTOMATISATION"
+    ],
+    "events": [
+      "@LANCEMENT-OUTIL"
+    ],
+    "signals": [
+      "!NOUVEAUTE",
+      "!VIGILANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-generation-augmentee-par-recherche",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Génération augmentée par recherche",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "RAG",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "recherche",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "documents",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre les systèmes qui combinent recherche documentaire et modèles de langage.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "base vectorielle",
+      "embeddings",
+      "entreprise"
+    ],
+    "questions": [
+      "Quelles sources ?",
+      "Quelle fiabilité ?",
+      "Quelle confidentialité ?"
+    ],
+    "tags": [
+      "#IA",
+      "#RAG",
+      "#ARCHITECTURE"
+    ],
+    "events": [],
+    "signals": [
+      "!OPPORTUNITE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-modeles-open-source-contre-modeles-fermes",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Modèles open source contre modèles fermés",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "open source",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "modèle fermé",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "poids",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre le débat entre modèles ouverts et propriétaires.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Hugging Face",
+      "Meta",
+      "Mistral AI"
+    ],
+    "questions": [
+      "Quelle licence ?",
+      "Quels risques ?",
+      "Quel modèle domine ?"
+    ],
+    "tags": [
+      "#IA",
+      "#OPEN-SOURCE",
+      "#DEBAT"
+    ],
+    "events": [],
+    "signals": [
+      "!DEBAT"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-robots-humanoides",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Robots humanoïdes",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "robot humanoïde",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "robotique",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre les robots humanoïdes dotés d'IA.",
+    "locations": [
+      "usines",
+      "entrepôts"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Tesla Optimus",
+      "Figure",
+      "Boston Dynamics"
+    ],
+    "questions": [
+      "Quelle tâche ?",
+      "Quel prix ?",
+      "Quels premiers clients ?"
+    ],
+    "tags": [
+      "#IA",
+      "#ROBOTIQUE"
+    ],
+    "events": [
+      "@LANCEMENT-MATERIEL"
+    ],
+    "signals": [
+      "!NOUVEAUTE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-voiture-autonome",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Voiture autonome",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "voiture autonome",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "conduite",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre les véhicules sans conducteur et leurs incidents.",
+    "locations": [
+      "San Francisco",
+      "Pékin"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Waymo",
+      "Tesla",
+      "robotaxi"
+    ],
+    "questions": [
+      "Quel incident ?",
+      "Quelle autorisation ?",
+      "Quelle ville ?"
+    ],
+    "tags": [
+      "#IA",
+      "#MOBILITE",
+      "#AUTONOMIE"
+    ],
+    "events": [],
+    "signals": [
+      "!OPPORTUNITE",
+      "!VIGILANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-modele-multimodal",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Modèle multimodal",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "multimodal",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "image",
+        "entityWeight": "25"
+      },
+      {
+        "entityName": "voix",
+        "entityWeight": "25"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre les modèles qui comprennent texte, image, son et vidéo.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "GPT",
+      "Gemini",
+      "Claude"
+    ],
+    "questions": [
+      "Quelles modalités ?",
+      "Quelle latence ?",
+      "Quels usages ?"
+    ],
+    "tags": [
+      "#IA",
+      "#MULTIMODAL",
+      "#LLM"
+    ],
+    "events": [
+      "@LANCEMENT-MODELE"
+    ],
+    "signals": [
+      "!NOUVEAUTE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-fine-tuning-d-un-modele",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Fine-tuning d'un modèle",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "fine-tuning",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "modèle",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "données",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre l'adaptation de modèles à des usages spécifiques.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "LoRA",
+      "données métier",
+      "entreprise"
+    ],
+    "questions": [
+      "Quelles données ?",
+      "Quel gain ?",
+      "Quel coût ?"
+    ],
+    "tags": [
+      "#IA",
+      "#FINE-TUNING",
+      "#TECHNIQUE"
+    ],
+    "events": [],
+    "signals": [
+      "!OPPORTUNITE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-donnees-synthetiques",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Données synthétiques",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "données synthétiques",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "entraînement",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre l'usage de données générées pour entraîner les modèles.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "qualité",
+      "effondrement des modèles",
+      "vie privée"
+    ],
+    "questions": [
+      "Quelle qualité ?",
+      "Quel risque de dégradation ?",
+      "Quel gain pour la vie privée ?"
+    ],
+    "tags": [
+      "#IA",
+      "#DONNEES",
+      "#TECHNIQUE"
+    ],
+    "events": [],
+    "signals": [
+      "!RECHERCHE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-traduction-automatique-par-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Traduction automatique par IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "traduction",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "IA",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "langues",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre les progrès de la traduction automatique.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "DeepL",
+      "Google Traduction",
+      "interprètes"
+    ],
+    "questions": [
+      "Quelle qualité ?",
+      "Quelles langues ?",
+      "Quel impact sur les traducteurs ?"
+    ],
+    "tags": [
+      "#IA",
+      "#TRADUCTION",
+      "#LANGUES"
+    ],
+    "events": [],
+    "signals": [
+      "!OPPORTUNITE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-ia-embarquee-sur-smartphone",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "IA embarquée sur smartphone",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "smartphone",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "IA embarquée",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "puce",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre l'IA qui fonctionne directement sur les téléphones.",
+    "locations": [],
+    "times": [
+      "lancement des nouveaux téléphones"
+    ],
+    "relatedEntities": [
+      "Apple Intelligence",
+      "Galaxy AI",
+      "NPU"
+    ],
+    "questions": [
+      "Quelles fonctions ?",
+      "Fonctionne-t-elle hors ligne ?",
+      "Quelles données partent dans le cloud ?"
+    ],
+    "tags": [
+      "#IA",
+      "#SMARTPHONE",
+      "#EDGE"
+    ],
+    "events": [
+      "@LANCEMENT-MATERIEL"
+    ],
+    "signals": [
+      "!NOUVEAUTE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-panne-d-un-service-d-ia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Panne d'un service d'IA",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "panne",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "ChatGPT",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "indisponible",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Repérer les pannes des grands services d'IA et leurs conséquences pour les utilisateurs.",
+    "locations": [],
+    "times": [
+      "durée de la panne"
+    ],
+    "relatedEntities": [
+      "OpenAI",
+      "Anthropic",
+      "cloud"
+    ],
+    "questions": [
+      "Combien de temps ?",
+      "Quelle cause ?",
+      "Quels services dépendants touchés ?"
+    ],
+    "tags": [
+      "#IA",
+      "#DISPONIBILITE",
+      "#INCIDENT"
+    ],
+    "events": [
+      "@PANNE"
+    ],
+    "signals": [
+      "!ALERTE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-ia-reconnaissance-vocale",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:55:03.329278Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Reconnaissance vocale",
+    "comment": "Intel généré : domaine de l'intelligence artificielle",
+    "includedEntities": [
+      {
+        "entityName": "reconnaissance vocale",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "transcription",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre les systèmes qui transcrivent la parole.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Whisper",
+      "assistants vocaux",
+      "sous-titres"
+    ],
+    "questions": [
+      "Quelle précision ?",
+      "Quelles langues ?",
+      "Quelle confidentialité ?"
+    ],
+    "tags": [
+      "#IA",
+      "#VOIX",
+      "#TECHNIQUE"
+    ],
+    "events": [],
+    "signals": [
+      "!OPPORTUNITE"
+    ],
+    "isDeleted": false
+  }
+]

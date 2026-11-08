@@ -11,7 +11,7 @@ namespace KAONOMI.Vision
     internal class VisionCollecVAgent : VGrainBase<iVisionCollecVAgent>, iVisionCollecVAgent
     {
         /// <summary>Creates the agent with the given logger.</summary>
-        /// <param name="logger">Logger for collection operations.</param>
+        /// <param title="logger">Logger for collection operations.</param>
         public VisionCollecVAgent(ILogger<iVisionCollecVAgent> logger) : base(logger)
         {
         }

@@ -5,7 +5,9 @@ using System.Text.Json.Serialization;
 namespace KAONOMI.Chat.Models;
 
 /// <summary>
-/// Document of the <c>/intel</c> APIs (<c>Intel</c> on the server side).
+/// Document of the <c>/intel</c> APIs (<c>Intel</c> on the server side): a rule "if … then …". If: the entities that
+/// must be there (each with a weight) and those that must not, the level (0 to 100 %) at which it triggers, whether
+/// the match is fuzzy, and the instructions. Then: the places, the times, the related entities and the questions.
 /// </summary>
 public sealed class IntelEntry
 {
@@ -31,61 +33,70 @@ public sealed class IntelEntry
     [JsonPropertyName("comment")]
     public string? Comment { get; set; }
 
-    [JsonPropertyName("name")]
-    public string? Name { get; set; }
+    /// <summary>The title of the intel.</summary>
+    [JsonPropertyName("title")]
+    public string? Title { get; set; }
 
-    [JsonPropertyName("description")]
-    public string? Description { get; set; }
+    // ── If ──
 
-    /// <summary>One of <see cref="Categories"/> (empty: none).</summary>
-    [JsonPropertyName("categories")]
-    public string? Category { get; set; }
+    /// <summary>The entities that must be there, each with its weight.</summary>
+    [JsonPropertyName("includedEntities")]
+    public List<IntelEntityWeight>? IncludedEntities { get; set; }
 
-    /// <summary>The categories offered for an intel.</summary>
-    public static readonly string[] Categories =
-    [
-        "what", "who", "when", "where", "why", "how", "with whom", "what else", "what next", "what if", "what then",
-        "what now", "question", "observation", "insight", "idea", "suggestion", "recommendation", "warning", "alert",
-        "signal", "action", "event", "opportunity", "threat", "risk", "challenge", "problem", "solution"
-    ];
+    /// <summary>The entities that must not be there, each with its weight.</summary>
+    [JsonPropertyName("excludedEntities")]
+    public List<IntelEntityWeight>? ExcludedEntities { get; set; }
 
-    [JsonPropertyName("triggers")]
-    public List<string>? Triggers { get; set; }
+    /// <summary>The level at which the intel triggers, 0 to 100 %.</summary>
+    [JsonPropertyName("triggerLevel")]
+    public int TriggerLevel { get; set; }
+
+    [JsonPropertyName("instructions")]
+    public string? Instructions { get; set; }
+
+    /// <summary>True when the entities may match loosely (a typo, a close form).</summary>
+    [JsonPropertyName("isFuzzy")]
+    public bool IsFuzzy { get; set; }
+
+    // ── Then ──
+
+    [JsonPropertyName("locations")]
+    public List<string>? Locations { get; set; }
+
+    [JsonPropertyName("times")]
+    public List<string>? Times { get; set; }
 
     [JsonPropertyName("relatedEntities")]
     public List<string>? RelatedEntities { get; set; }
 
-    [JsonPropertyName("excludedEntities")]
-    public List<string>? ExcludedEntities { get; set; }
+    [JsonPropertyName("questions")]
+    public List<string>? Questions { get; set; }
 
-    [JsonPropertyName("events")]
-    public List<string>? Events { get; set; }
+    // ── The metadata of every document ──
 
-    [JsonPropertyName("signal")]
-    public string? Signal { get; set; }
-
-    /// <summary>#TOPIC, !ALERT, ?QUESTION, &amp;LINK (normalised by the server on save).</summary>
+    /// <summary>The tags: #TOPIC, upper case, '-' for the spaces (normalised by the server on save).</summary>
     [JsonPropertyName("tags")]
     public List<string>? Tags { get; set; }
 
-    [JsonPropertyName("instruction")]
-    public string? Instruction { get; set; }
+    /// <summary>The events: @EVENT, upper case, '-' for the spaces.</summary>
+    [JsonPropertyName("events")]
+    public List<string>? Events { get; set; }
 
-    [JsonPropertyName("actions")]
-    public List<string>? Actions { get; set; }
+    /// <summary>The signals: !SIGNAL, upper case, '-' for the spaces.</summary>
+    [JsonPropertyName("signals")]
+    public List<string>? Signals { get; set; }
 
     [JsonPropertyName("isDeleted")]
     public bool IsDeleted { get; set; }
+}
 
-    /// <summary>
-    /// Left out of the body when null (the server then sets now). A DateTime, not a DateTimeOffset: a date without
-    /// offset sent by the server (<c>0001-01-01T00:00:00</c>) cannot be held by a DateTimeOffset east of UTC.
-    /// </summary>
-    [JsonPropertyName("startDate")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public DateTime? StartDate { get; set; }
+/// <summary>An entity of an intel and its weight (<c>EntityWithWeight</c> on the server side).</summary>
+public sealed class IntelEntityWeight
+{
+    [JsonPropertyName("entityName")]
+    public string EntityName { get; set; } = string.Empty;
 
-    [JsonPropertyName("endDate")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public DateTime? EndDate { get; set; }
+    /// <summary>The weight as typed (the server keeps it as text).</summary>
+    [JsonPropertyName("entityWeight")]
+    public string? EntityWeight { get; set; }
 }

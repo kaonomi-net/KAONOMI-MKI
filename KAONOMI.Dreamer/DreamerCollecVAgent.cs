@@ -11,7 +11,7 @@ namespace KAONOMI.Dreamer
     internal class DreamerCollecVAgent : VGrainBase<iDreamerCollecVAgent>, iDreamerCollecVAgent
     {
         /// <summary>Creates the agent with the given logger.</summary>
-        /// <param name="logger">Logger for collection operations.</param>
+        /// <param title="logger">Logger for collection operations.</param>
         public DreamerCollecVAgent(ILogger<iDreamerCollecVAgent> logger) : base(logger)
         {
         }

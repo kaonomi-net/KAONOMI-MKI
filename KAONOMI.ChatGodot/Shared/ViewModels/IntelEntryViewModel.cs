@@ -17,9 +17,10 @@ public partial class IntelEntryViewModel : ViewModelBase
 {
     private static readonly HashSet<string> EditableProperties =
     [
-        nameof(AppName), nameof(MachineName), nameof(UserName), nameof(Comment), nameof(Name), nameof(Description),
-        nameof(Category), nameof(Triggers), nameof(RelatedEntities), nameof(ExcludedEntities), nameof(Events), nameof(Signal), nameof(Tags),
-        nameof(Instruction), nameof(Actions), nameof(StartDate), nameof(EndDate)
+        nameof(AppName), nameof(MachineName), nameof(UserName), nameof(Comment), nameof(IntelTitle),
+        nameof(IncludedEntities), nameof(ExcludedEntities), nameof(TriggerLevel), nameof(Instructions), nameof(IsFuzzy),
+        nameof(Locations), nameof(Times), nameof(RelatedEntities), nameof(Questions),
+        nameof(Tags), nameof(Events), nameof(Signals)
     ];
 
     private readonly KaonomiAssistantService _assistant;
@@ -47,7 +48,7 @@ public partial class IntelEntryViewModel : ViewModelBase
         AppName = "KAONOMI.Chat",
         MachineName = Environment.MachineName,
         UserName = Environment.UserName,
-        StartDate = DateTime.Today
+        TriggerLevel = 50
     }, assistant);
 
     /// <summary>Copy of the values currently displayed, without id, created on the server (<c>PUT /intel</c>) on first save.</summary>
@@ -56,7 +57,7 @@ public partial class IntelEntryViewModel : ViewModelBase
         var copy = ToEntry();
         copy.Id = null;
         copy.Date = DateTimeOffset.Now;
-        copy.Name = string.IsNullOrWhiteSpace(copy.Name) ? copy.Name : copy.Name + " (copy)";
+        copy.Title = string.IsNullOrWhiteSpace(copy.Title) ? copy.Title : copy.Title + " (copy)";
         return new IntelEntryViewModel(copy, _assistant);
     }
 
@@ -73,18 +74,15 @@ public partial class IntelEntryViewModel : ViewModelBase
     public string DateLabel => _entry.Date?.ToLocalTime().ToString("g") ?? "Unknown date";
 
     /// <summary>Title of the list row.</summary>
-    public string Title => string.IsNullOrWhiteSpace(Name) ? "(untitled)" : Name;
+    public string Title => string.IsNullOrWhiteSpace(IntelTitle) ? "(untitled)" : IntelTitle;
 
-    /// <summary>Compact summary line for list rows: date, category and period.</summary>
-    public string Summary => Join(" · ", DateLabel, Category, Period);
+    /// <summary>Compact summary line for list rows: date, trigger level, fuzzy.</summary>
+    public string Summary => Join(" · ", DateLabel, $"triggers at {TriggerLevel:0} %", IsFuzzy ? "fuzzy" : null);
 
-    /// <summary>The choices of the category drop-down: none (empty) first, then <see cref="IntelEntry.Categories"/>.</summary>
-    public static string[] CategoryChoices { get; } = ["", .. IntelEntry.Categories];
+    /// <summary>The entities the intel looks for, in one line, for the list rows.</summary>
+    public string Description => string.Join(", ", ParseEntities(IncludedEntities).Select(e => e.EntityName));
 
-    /// <summary>Start and end days, when set.</summary>
-    private string? Period => StartDate is null && EndDate is null ? null : $"{StartDate:d} → {EndDate:d}";
-
-    /// <summary>True when a non-empty description is set.</summary>
+    /// <summary>True when the intel looks for at least one entity.</summary>
     public bool HasDescription => !string.IsNullOrWhiteSpace(Description);
 
     /// <summary>True when at least one tag line is present.</summary>
@@ -106,57 +104,67 @@ public partial class IntelEntryViewModel : ViewModelBase
     [ObservableProperty]
     private string _comment = string.Empty;
 
+    /// <summary>The title of the intel.</summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(Title))]
-    private string _name = string.Empty;
+    private string _intelTitle = string.Empty;
 
+    // ── If ──
+
+    /// <summary>The entities that must be there, one per line: "Entity = weight" (the weight may be left out).</summary>
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(HasDescription))]
-    private string _description = string.Empty;
+    [NotifyPropertyChangedFor(nameof(Description), nameof(HasDescription))]
+    private string _includedEntities = string.Empty;
 
-    /// <summary>One of <see cref="CategoryChoices"/> (empty: none).</summary>
+    /// <summary>The entities that must not be there, one per line: "Entity = weight".</summary>
+    [ObservableProperty]
+    private string _excludedEntities = string.Empty;
+
+    /// <summary>The level at which the intel triggers, 0 to 100 %.</summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(Summary))]
-    private string _category = string.Empty;
+    private double _triggerLevel;
 
-    /// <summary>One trigger per line.</summary>
     [ObservableProperty]
-    private string _triggers = string.Empty;
+    private string _instructions = string.Empty;
+
+    /// <summary>True when the entities may match loosely.</summary>
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Summary))]
+    private bool _isFuzzy;
+
+    // ── Then ──
+
+    /// <summary>One place per line.</summary>
+    [ObservableProperty]
+    private string _locations = string.Empty;
+
+    /// <summary>One time per line.</summary>
+    [ObservableProperty]
+    private string _times = string.Empty;
 
     /// <summary>One entity per line.</summary>
     [ObservableProperty]
     private string _relatedEntities = string.Empty;
 
-    /// <summary>One entity per line.</summary>
+    /// <summary>One question per line.</summary>
     [ObservableProperty]
-    private string _excludedEntities = string.Empty;
+    private string _questions = string.Empty;
 
-    /// <summary>One event per line.</summary>
-    [ObservableProperty]
-    private string _events = string.Empty;
+    // ── Metadata ──
 
-    [ObservableProperty]
-    private string _signal = string.Empty;
-
-    /// <summary>One tag per line (#TOPIC, !ALERT, ?QUESTION, &amp;LINK).</summary>
+    /// <summary>One tag per line (#TOPIC; the spaces of a line become '-', see <see cref="MetaTags"/>).</summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasTags), nameof(TagsPreview))]
     private string _tags = string.Empty;
 
+    /// <summary>One event per line (@EVENT).</summary>
     [ObservableProperty]
-    private string _instruction = string.Empty;
+    private string _events = string.Empty;
 
-    /// <summary>One action per line.</summary>
+    /// <summary>One signal per line (!SIGNAL).</summary>
     [ObservableProperty]
-    private string _actions = string.Empty;
-
-    [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(Summary))]
-    private DateTime? _startDate;
-
-    [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(Summary))]
-    private DateTime? _endDate;
+    private string _signals = string.Empty;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(SaveCommand), nameof(RevertCommand))]
@@ -187,13 +195,6 @@ public partial class IntelEntryViewModel : ViewModelBase
     [RelayCommand(CanExecute = nameof(CanSave))]
     private async Task SaveAsync(CancellationToken cancellationToken)
     {
-        if (EndDate is { } end && StartDate is { } start && end < start)
-        {
-            IsError = true;
-            Status = "The end date is before the start date.";
-            return;
-        }
-
         var updated = ToEntry();
         var isNew = IsNew;
         IsError = false;
@@ -227,7 +228,7 @@ public partial class IntelEntryViewModel : ViewModelBase
             if (IsNew)
                 ActivityLog.Error("Intel", "Intel created, but the server did not return an id");
             else
-                ActivityLog.Info("Intel", $"Intel {(isNew ? "created" : "updated")}: {_entry.Id} ({Name})");
+                ActivityLog.Info("Intel", $"Intel {(isNew ? "created" : "updated")}: {_entry.Id} ({IntelTitle})");
         }
         catch (OperationCanceledException)
         {
@@ -265,19 +266,19 @@ public partial class IntelEntryViewModel : ViewModelBase
             MachineName = entry.MachineName ?? string.Empty;
             UserName = entry.UserName ?? string.Empty;
             Comment = entry.Comment ?? string.Empty;
-            Name = entry.Name ?? string.Empty;
-            Description = entry.Description ?? string.Empty;
-            Category = entry.Category ?? string.Empty;
-            Triggers = Lines(entry.Triggers);
+            IntelTitle = entry.Title ?? string.Empty;
+            IncludedEntities = FormatEntities(entry.IncludedEntities);
+            ExcludedEntities = FormatEntities(entry.ExcludedEntities);
+            TriggerLevel = Math.Clamp(entry.TriggerLevel, 0, 100);
+            Instructions = entry.Instructions ?? string.Empty;
+            IsFuzzy = entry.IsFuzzy;
+            Locations = Lines(entry.Locations);
+            Times = Lines(entry.Times);
             RelatedEntities = Lines(entry.RelatedEntities);
-            ExcludedEntities = Lines(entry.ExcludedEntities);
-            Events = Lines(entry.Events);
-            Signal = entry.Signal ?? string.Empty;
+            Questions = Lines(entry.Questions);
             Tags = Lines(entry.Tags);
-            Instruction = entry.Instruction ?? string.Empty;
-            Actions = Lines(entry.Actions);
-            StartDate = DayOf(entry.StartDate);
-            EndDate = DayOf(entry.EndDate);
+            Events = Lines(entry.Events);
+            Signals = Lines(entry.Signals);
             IsDirty = false;
             IsError = false;
         }
@@ -297,37 +298,40 @@ public partial class IntelEntryViewModel : ViewModelBase
         MachineName = MachineName,
         UserName = UserName,
         Comment = Comment,
-        Name = Name.Trim(),
-        Description = Description,
-        Category = Category,
-        Triggers = SplitLines(Triggers),
+        Title = IntelTitle.Trim(),
+        IncludedEntities = ParseEntities(IncludedEntities),
+        ExcludedEntities = ParseEntities(ExcludedEntities),
+        TriggerLevel = (int)Math.Round(Math.Clamp(TriggerLevel, 0, 100)),
+        Instructions = Instructions,
+        IsFuzzy = IsFuzzy,
+        Locations = SplitLines(Locations),
+        Times = SplitLines(Times),
         RelatedEntities = SplitLines(RelatedEntities),
-        ExcludedEntities = SplitLines(ExcludedEntities),
-        Events = SplitLines(Events),
-        Signal = Signal,
-        Tags = SplitLines(Tags),
-        Instruction = Instruction,
-        Actions = SplitLines(Actions),
-        StartDate = Utc(StartDate),
-        EndDate = Utc(EndDate)
+        Questions = SplitLines(Questions),
+        Tags = MetaTags.Normalize(SplitLines(Tags), MetaTags.Tag),
+        Events = MetaTags.Normalize(SplitLines(Events), MetaTags.Event),
+        Signals = MetaTags.Normalize(SplitLines(Signals), MetaTags.Signal)
     };
+
+    /// <summary>The entities, one per line: "Entity = weight", or "Entity" alone when it has no weight.</summary>
+    private static string FormatEntities(List<IntelEntityWeight>? entities) =>
+        string.Join(Environment.NewLine, (entities ?? []).Where(e => !string.IsNullOrWhiteSpace(e.EntityName))
+            .Select(e => string.IsNullOrWhiteSpace(e.EntityWeight) ? e.EntityName : $"{e.EntityName} = {e.EntityWeight}"));
+
+    /// <summary>The entities of the lines "Entity = weight" (the weight after the last '='; none when there is no '=').</summary>
+    private static List<IntelEntityWeight> ParseEntities(string text) =>
+        SplitLines(text).Select(line =>
+        {
+            var at = line.LastIndexOf('=');
+            return at < 0
+                ? new IntelEntityWeight { EntityName = line }
+                : new IntelEntityWeight { EntityName = line[..at].Trim(), EntityWeight = line[(at + 1)..].Trim() };
+        }).Where(e => e.EntityName.Length > 0).ToList();
 
     private static string Lines(List<string>? values) => string.Join(Environment.NewLine, values ?? []);
 
     private static List<string> SplitLines(string text) =>
         text.Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
-
-    /// <summary>The day of <paramref name="value"/> in local time; null for none (or the default date of the server).</summary>
-    private static DateTime? DayOf(DateTime? value) =>
-        value is { } date && date.Year > 1
-            // A day stored at midnight UTC (how the days are saved) is that day everywhere; a date with a time is a
-            // moment, read in local time.
-            ? (date.Kind == DateTimeKind.Utc && date.TimeOfDay == TimeSpan.Zero ? date.Date : (date.Kind == DateTimeKind.Utc ? date.ToLocalTime() : date).Date)
-            : null;
-
-    /// <summary>The day, as midnight UTC.</summary>
-    private static DateTime? Utc(DateTime? day) =>
-        day is { } d ? DateTime.SpecifyKind(d.Date, DateTimeKind.Utc) : null;
 
     private static string Join(string separator, params string?[] parts) =>
         string.Join(separator, parts.Where(p => !string.IsNullOrWhiteSpace(p)));

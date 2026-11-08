@@ -21,11 +21,11 @@ namespace KAONOMI.Core.Data
 
         private static readonly Regex Tokens = new("\"(?<quoted>[^\"]*)\"?|(?<paren>[()])|(?<word>[^\\s()\"]+)", RegexOptions.Compiled);
 
-        /// <summary>True when <paramref name="text"/> uses an operator or a parenthesis (otherwise it is one plain term).</summary>
+        /// <summary>True when <paramref title="text"/> uses an operator or a parenthesis (otherwise it is one plain term).</summary>
         public static bool HasOperators(string? text) =>
             !string.IsNullOrWhiteSpace(text) && Tokens.Matches(text).Any(m => m.Groups["paren"].Success || IsOperator(m.Groups["word"].Value));
 
-        /// <summary>The expression of <paramref name="text"/> (null when it has no term at all).</summary>
+        /// <summary>The expression of <paramref title="text"/> (null when it has no term at all).</summary>
         public static BooleanSearch? Parse(string? text)
         {
             var tokens = Tokens.Matches(text ?? string.Empty).Select(m =>

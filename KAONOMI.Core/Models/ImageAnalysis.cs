@@ -13,8 +13,6 @@ using System.Text;
 /// </summary>
 public class ImageAnalysis : EntityBase, ISoftDeletable, ITagged
 {
-    /// <summary>The tags: #TOPIC, !ALERT, ?QUESTION, &amp;LINK, in upper case, no space (<see cref="TagRules"/>).</summary>
-    public List<string> Tags { get; set; } = new List<string>();
 
     /// <summary>Path of the picture on the machine of the chat.</summary>
     public string imagePath { get; set; } = string.Empty;
@@ -22,11 +20,9 @@ public class ImageAnalysis : EntityBase, ISoftDeletable, ITagged
     /// <summary>Link to the picture (file:// URL of <see cref="imagePath"/>).</summary>
     public string? imageUrl { get; set; }
 
-    /// <summary>File name of the picture.</summary>
+    /// <summary>File title of the picture.</summary>
     public string? fileName { get; set; }
 
-    /// <summary>Title of the picture, typed in the image analysis window (by default its file name).</summary>
-    public string? title { get; set; }
 
     /// <summary>
     /// "image" for a picture analysed in the window, "subimage" for the part of a picture cut out by an annotation
@@ -88,7 +84,7 @@ public class ImageAnalysis : EntityBase, ISoftDeletable, ITagged
     /// <summary>Date of <see cref="aiAnalysis"/>.</summary>
     public DateTime? aiDate { get; set; }
 
-    /// <summary>Where the picture was taken: latitude and longitude in degrees, and the name of the place.</summary>
+    /// <summary>Where the picture was taken: latitude and longitude in degrees, and the title of the place.</summary>
     public double? latitude { get; set; }
     public double? longitude { get; set; }
     public string? locationName { get; set; }
@@ -97,7 +93,7 @@ public class ImageAnalysis : EntityBase, ISoftDeletable, ITagged
     public bool isDeleted { get; set; }
 
     /// <summary>
-    /// The id of the analysis of the picture at <paramref name="imagePath"/>: the SHA-256 of its full path (case kept on
+    /// The id of the analysis of the picture at <paramref title="imagePath"/>: the SHA-256 of its full path (case kept on
     /// Linux, ignored on macOS and Windows), so that one picture has one analysis.
     /// </summary>
     public static string IdFor(string imagePath)

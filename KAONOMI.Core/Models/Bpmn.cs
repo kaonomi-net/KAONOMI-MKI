@@ -7,7 +7,7 @@ namespace KAONOMI.Core.Models;
 
 /// <summary>
 /// A BPMN 2.0 diagram of the chat (<c>/bpmn</c>), one document of the <c>bpmn</c> index. Its id is the slug of its
-/// title (the name of the process), given at its creation and kept when the title changes. It holds the diagram as
+/// title (the title of the process), given at its creation and kept when the title changes. It holds the diagram as
 /// BPMN 2.0 XML (with its diagram interchange) and a free comment; the server keeps its version (one more at each
 /// save), its date of creation, the names of its elements (read from the XML, for the search) and a summary.
 /// Never erased (<see cref="ISoftDeletable"/>); the tags follow <see cref="TagRules"/>.
@@ -17,8 +17,6 @@ public partial class Bpmn : EntityBase, ISoftDeletable, ITagged
     /// <summary>Never erased: marked deleted instead (<see cref="ISoftDeletable"/>).</summary>
     public bool isDeleted { get; set; } = false;
 
-    /// <summary>The title of the diagram: the name of its process.</summary>
-    public string title { get; set; } = string.Empty;
     /// <summary>The comment written with the diagram (free text).</summary>
     public string description { get; set; } = string.Empty;
     /// <summary>The diagram, as BPMN 2.0 XML.</summary>
@@ -33,8 +31,6 @@ public partial class Bpmn : EntityBase, ISoftDeletable, ITagged
     public DateTime? created { get; set; }
     /// <summary>The version of the diagram: 1 at its creation, one more at each save.</summary>
     public int version { get; set; }
-    /// <summary>The tags: #TOPIC, !ALERT, ?QUESTION, &amp;LINK, in upper case, no space (<see cref="TagRules"/>).</summary>
-    public List<string> Tags { get; set; } = new List<string>();
 
     /// <summary>The slug of a title, as for the pages of the wiki ("diagram" when nothing is left).</summary>
     public static string Slug(string? text)
@@ -61,7 +57,7 @@ public partial class Bpmn : EntityBase, ISoftDeletable, ITagged
         summary = text.Length > 240 ? text[..240].TrimEnd() + "…" : text;
     }
 
-    /// <summary>The names of the elements of the BPMN XML (<c>name="…"</c> of every element but the process and the definitions), without duplicates.</summary>
+    /// <summary>The names of the elements of the BPMN XML (<c>title="…"</c> of every element but the process and the definitions), without duplicates.</summary>
     public static List<string> ElementNames(string? xml)
     {
         var names = new List<string>();

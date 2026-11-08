@@ -63,6 +63,12 @@ public sealed partial class WikiPageEntry
     [JsonPropertyName("tags")]
     public List<string> Tags { get; set; } = [];
 
+    [JsonPropertyName("events")]
+    public List<string> Events { get; set; } = [];
+
+    [JsonPropertyName("signals")]
+    public List<string> Signals { get; set; } = [];
+
     [JsonPropertyName("isDeleted")]
     public bool IsDeleted { get; set; }
 

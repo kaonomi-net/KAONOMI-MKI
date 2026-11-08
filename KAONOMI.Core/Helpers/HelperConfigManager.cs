@@ -14,8 +14,8 @@ namespace KAONOMI.Core.Helpers
     /// </summary>
     public static class HelperConfigManager
     {
-        /// <summary>Reads the JSON file and deserializes to <typeparamref name="T"/>; creates an empty instance if JSON is null.</summary>
-        /// <param name="fullName">Full path of the file.</param>
+        /// <summary>Reads the JSON file and deserializes to <typeparamref title="T"/>; creates an empty instance if JSON is null.</summary>
+        /// <param title="fullName">Full path of the file.</param>
         public static T? GetFromFile<T>(string fullName) where T : new()
         {
             try

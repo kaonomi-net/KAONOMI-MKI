@@ -1,5 +1,8 @@
-"""Exports Davlan/xlm-roberta-base-ner-hrl to ONNX, quantizes it to int8, and writes a reference for the C# side.
+"""Exports a token classification model of Hugging Face (argv[2], by default
+FacebookAI/xlm-roberta-large-finetuned-conll03-english; the model before was Davlan/xlm-roberta-base-ner-hrl) to ONNX,
+quantizes it to int8, and writes a reference for the C# side.
 
+Usage: python ner_export.py <output folder> [model]
 Output folder (argv[1]): model_quantized.onnx, tokenizer.json, sentencepiece.bpe.model, config.json, reference.json.
 reference.json: for each sentence, the token ids and character offsets of the tokenizer, and the entities found by the
 original model (PyTorch, fp32) and by the int8 ONNX model (both with the pipeline, aggregation "simple").
@@ -14,7 +17,7 @@ from optimum.onnxruntime import ORTModelForTokenClassification, ORTQuantizer
 from optimum.onnxruntime.configuration import AutoQuantizationConfig
 from transformers import AutoModelForTokenClassification, AutoTokenizer, pipeline
 
-MODEL = "Davlan/xlm-roberta-base-ner-hrl"
+MODEL = sys.argv[2] if len(sys.argv) > 2 else "FacebookAI/xlm-roberta-large-finetuned-conll03-english"
 out = sys.argv[1]
 work = out + "-work"
 os.makedirs(out, exist_ok=True)

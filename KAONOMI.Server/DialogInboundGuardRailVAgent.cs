@@ -19,7 +19,7 @@
     internal class DialogInboundGuardRailVAgent : VGrainBase<IDialogInboundGuardRailVAgent>, IDialogInboundGuardRailVAgent
     {
         /// <summary>Creates the agent with MARI logging support.</summary>
-        /// <param name="logger">Logger for this grain type.</param>
+        /// <param title="logger">Logger for this grain type.</param>
         public DialogInboundGuardRailVAgent(ILogger<IDialogInboundGuardRailVAgent> logger) : base(logger)
         {
         }

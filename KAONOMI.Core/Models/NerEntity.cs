@@ -16,7 +16,7 @@ namespace KAONOMI.Core.Models
 
         public int end { get; set; }
 
-        /// <summary>0 to 1: the mean probability of the model, 1 for a rule or a name of the ontology.</summary>
+        /// <summary>0 to 1: the mean probability of the model, 1 for a rule or a title of the ontology.</summary>
         public double score { get; set; }
 
         /// <summary>"xlmr" (the model), "rule", "ontology", or "xlmr+ontology" (found by the model and known in the ontology).</summary>
@@ -25,7 +25,7 @@ namespace KAONOMI.Core.Models
         /// <summary>The id of the entity of the ontology it is, or null.</summary>
         public string? ontologyId { get; set; }
 
-        /// <summary>The name of that entity of the ontology (the one written may be a synonym), or null.</summary>
+        /// <summary>The title of that entity of the ontology (the one written may be a synonym), or null.</summary>
         public string? ontologyName { get; set; }
     }
 }

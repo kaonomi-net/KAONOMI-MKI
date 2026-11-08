@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using KAONOMI.Chat.Services;
 using KAONOMI.Chat.ViewModels;
 using KAONOMI.ChatGodot.Eve;
 
@@ -231,7 +232,10 @@ public sealed class ProjectView : IToolView
             Ui.Field("Security constraints", Ui.Lines(vm, nameof(vm.NewSecurity), 44)),
             Ui.Field("Legal constraints", Ui.Lines(vm, nameof(vm.NewLegal), 44)),
             Ui.Field("Data constraints", Ui.Lines(vm, nameof(vm.NewData), 44)),
-            Ui.Field("Comment", Ui.Lines(vm, nameof(vm.NewComment), 44)));
+            Ui.Field("Comment", Ui.Lines(vm, nameof(vm.NewComment), 44)),
+            Ui.Field("Tags", Ui.Line(vm, nameof(vm.NewTags), MetaTags.TagsHint)),
+            Ui.Field("Events", Ui.Line(vm, nameof(vm.NewEvents), MetaTags.EventsHint)),
+            Ui.Field("Signals", Ui.Line(vm, nameof(vm.NewSignals), MetaTags.SignalsHint)));
         var buttons = Ui.Row(8, Ui.Spring(),
             Ui.Command("CANCEL", vm.CancelNewCommand),
             Ui.Command("CREATE", vm.SaveNewCommand, primary: true, tooltip: "Saves the task (PUT /task) and reloads the board"));

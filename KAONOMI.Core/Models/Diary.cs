@@ -3,8 +3,6 @@ namespace KAONOMI.Core.Models;
 
 public class Diary : EntityBase, ISoftDeletable, ITagged
 {
-    /// <summary>The tags: #TOPIC, !ALERT, ?QUESTION, &amp;LINK, in upper case, no space (<see cref="TagRules"/>).</summary>
-    public List<string> Tags { get; set; } = new List<string>();
 
     public string text { get; set; }    
     public string feeling { get; set; } 

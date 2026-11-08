@@ -23,7 +23,41 @@ public partial class SearchWindowViewModel : ViewModelBase
 
     /// <summary>The indices the search can look into (the ones of the server).</summary>
     public static readonly string[] AllIndices =
-        ["cache", "completion", "dialog", "diary", "document", "idea", "imageanalysis", "intel", "ontology", "relation", "taskitem", "youtubevideo", "cluster", "wiki", "bpmn", "infra", "mindmap", "ghostwriter"];
+        ["cache", "completion", "dialog", "diary", "document", "idea", "imageanalysis", "intel", "ontology", "relation", "taskitem", "youtubevideo", "cluster", "wiki", "bpmn", "infra", "mindmap", "ghostwriter", "webpage"];
+
+    /// <summary>
+    /// Opens a hit of the index <c>webpage</c> (a page saved by the web scraper agent): its screenshot with the viewer
+    /// of the system when the file is there, else the page itself in the browser of the chat. The status to show.
+    /// </summary>
+    public static string OpenWebPage(SearchHit hit)
+    {
+        string? screenshot = null, url = null;
+        try
+        {
+            using var doc = System.Text.Json.JsonDocument.Parse(string.IsNullOrWhiteSpace(hit.Source) ? "{}" : hit.Source);
+            var root = doc.RootElement;
+            if (root.TryGetProperty("screenshotPath", out var s) && s.ValueKind == System.Text.Json.JsonValueKind.String)
+                screenshot = s.GetString();
+            foreach (var name in new[] { "finalUrl", "url" })
+                if (url is null && root.TryGetProperty(name, out var u) && u.ValueKind == System.Text.Json.JsonValueKind.String && !string.IsNullOrWhiteSpace(u.GetString()))
+                    url = u.GetString();
+        }
+        catch (System.Text.Json.JsonException)
+        {
+        }
+
+        if (!string.IsNullOrWhiteSpace(screenshot) && System.IO.File.Exists(screenshot))
+        {
+            PictureLibrary.OpenWithSystem(screenshot);
+            return $"Screenshot of {url ?? hit.Title} opened ({screenshot})";
+        }
+        if (url is not null)
+        {
+            PictureLibrary.OpenWeb(url);
+            return $"No screenshot on this machine: the page {url} is opened";
+        }
+        return "This web page has neither a screenshot nor an address";
+    }
 
     private readonly KaonomiAssistantService _assistant;
 

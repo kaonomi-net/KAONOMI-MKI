@@ -2,7 +2,7 @@ namespace KAONOMI.LLMGateway.Entities;
 
 /// <summary>
 /// An entity found in a prompt: its type (CODE, MATH, URL, DATE, MONEY, PERSON… or a type of a gazetteer), its value
-/// (the language of a code, the canonical name of a gazetteer, the text otherwise), the text as written and where.
+/// (the language of a code, the canonical title of a gazetteer, the text otherwise), the text as written and where.
 /// </summary>
 public sealed record Entity(string Type, string Value, string Text, int Start, int Length)
 {

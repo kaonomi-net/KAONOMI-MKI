@@ -28,8 +28,14 @@ public sealed class AnnotationView : IToolView
         excerptCard.AddChild(Ui.Margin(excerpt, 8));
         var text = Ui.Lines(vm, nameof(vm.Text), 120, "Type your annotation…");
         Bind.Enabled(text, vm, nameof(vm.IsSent), invert: true);
-        var tags = Ui.Line(vm, nameof(vm.TagsText), "#SOFTWARE #IDEA … (separated by spaces)");
+        var title = Ui.Line(vm, nameof(vm.AnnotationTitle), "The title of the annotation");
+        Bind.Enabled(title, vm, nameof(vm.IsSent), invert: true);
+        var tags = Ui.Line(vm, nameof(vm.TagsText), "#SOFTWARE #IDEA … (separated by spaces, '-' inside one)");
         Bind.Enabled(tags, vm, nameof(vm.IsSent), invert: true);
+        var events = Ui.Line(vm, nameof(vm.EventsText), MetaTags.EventsHint);
+        Bind.Enabled(events, vm, nameof(vm.IsSent), invert: true);
+        var signals = Ui.Line(vm, nameof(vm.SignalsText), MetaTags.SignalsHint);
+        Bind.Enabled(signals, vm, nameof(vm.IsSent), invert: true);
         // The tags suggested: a click adds one (or removes it when it is there).
         var chips = new HFlowContainer();
         chips.AddThemeConstantOverride("h_separation", 6);
@@ -52,9 +58,11 @@ public sealed class AnnotationView : IToolView
         return Ui.Column(8,
             target,
             excerptCard,
+            Ui.Field("Title", title),
             Ui.FillHeight(Ui.Field("Annotation", Ui.FillHeight(text))),
             Ui.Field("Tags", tags),
             chips,
+            Ui.Row(8, Ui.Fill(Ui.Field("Events", events)), Ui.Fill(Ui.Field("Signals", signals))),
             show,
             context,
             Ui.Row(8, Ui.Fill(Ui.Label(vm, nameof(vm.Status), Eve.Eve.Muted, 12, wrap: true)), cancel, save));

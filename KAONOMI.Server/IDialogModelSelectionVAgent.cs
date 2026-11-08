@@ -21,8 +21,8 @@ namespace KAONOMI.Server
     public interface IDialogModelSelectionVAgent : IVGrain
     {
         /// <summary>Applies model selection logic and persists the dialog.</summary>
-        /// <param name="d">Dialog identifier.</param>
-        /// <param name="Context">MARI execution context.</param>
+        /// <param title="d">Dialog identifier.</param>
+        /// <param title="Context">MARI execution context.</param>
         /// <returns>The dialog identifier for the next pipeline step.</returns>
         Task<string> DoProcess(string d,  IExecutionContext Context);
 

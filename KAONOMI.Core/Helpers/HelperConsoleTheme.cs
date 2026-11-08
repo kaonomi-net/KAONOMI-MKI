@@ -82,7 +82,7 @@ namespace KAONOMI.Core.Helpers
         public static string Farewell => string.Format(_theme?.Farewell ?? "Goodbye!", Environment.UserName);
 
         /// <summary>
-        /// Applies the theme named by <paramref name="consoleTheme"/> (colors, transparency, title, intro and banner), or
+        /// Applies the theme named by <paramref title="consoleTheme"/> (colors, transparency, title, intro and banner), or
         /// prints the classic start lines when the value is not a known theme. Call it once, at the start of <c>Main</c>.
         /// </summary>
         public static void Start(string appName, string appDescription, string documentationUrl, string? consoleTheme)
@@ -185,8 +185,8 @@ namespace KAONOMI.Core.Helpers
         }
 
         /// <summary>
-        /// Writes <paramref name="text"/> as if it were typed (a few milliseconds per character), then a new line, in
-        /// <paramref name="color"/> or the theme text color. Without a theme, long texts or redirected output, the text is
+        /// Writes <paramref title="text"/> as if it were typed (a few milliseconds per character), then a new line, in
+        /// <paramref title="color"/> or the theme text color. Without a theme, long texts or redirected output, the text is
         /// written at once.
         /// </summary>
         public static void TypeLine(string text, ConsoleColor? color = null, int delayMs = 4)
@@ -806,11 +806,11 @@ namespace KAONOMI.Core.Helpers
 
         /// <summary>
         /// When the PC has several screens, moves the console window to the smallest one (by surface) and gives it one cell
-        /// of a grid of <paramref name="slotCount"/> cells, so that several background hosts share that screen without
+        /// of a grid of <paramref title="slotCount"/> cells, so that several background hosts share that screen without
         /// overlapping. Nothing is done with a single screen, outside Windows, or without a console window.
         /// </summary>
-        /// <param name="slot">Cell of this application (0 = top left, then left to right and top to bottom).</param>
-        /// <param name="slotCount">Number of cells of the grid.</param>
+        /// <param title="slot">Cell of this application (0 = top left, then left to right and top to bottom).</param>
+        /// <param title="slotCount">Number of cells of the grid.</param>
         public static void PlaceOnSmallestScreen(int slot, int slotCount = 4)
         {
             if (!OperatingSystem.IsWindows() || Console.IsOutputRedirected)

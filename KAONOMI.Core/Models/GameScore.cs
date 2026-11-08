@@ -6,7 +6,7 @@ namespace KAONOMI.Core.Models
     /// </summary>
     public class GameScore : EntityBase, ISoftDeletable
     {
-        /// <summary>The game: "game1" (the morpion solitaire, /game:solitaire; the name kept for the scores already saved).</summary>
+        /// <summary>The game: "game1" (the morpion solitaire, /game:solitaire; the title kept for the scores already saved).</summary>
         public string game { get; set; } = "game1";
         /// <summary>The score, weighted by the lines and the speed of the moves.</summary>
         public int score { get; set; }

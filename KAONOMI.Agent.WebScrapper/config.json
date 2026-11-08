@@ -1,0 +1,33 @@
+{
+  "appName": "KaonomiWebScrapper",
+  "projectName": "KAONOMI",
+  "language": "FR",
+  "category": "WEBSCRAPPER",
+  "appDescription": "Web scraper of the collection plans",
+  "llmmodel": "gpt-oss:20b",
+  "AppDocumentationUrl": "https://www.kaonomi.net",
+  "consoleTheme": "jarvis",
+  "dialogServerUrl": "http://localhost:49166",
+
+  "dataRepository": { "Url": "http://localhost:9200", "Layer": "Default", "Prefix": "", "Password": "", "User": "" },
+  "dialogRepository": { "Url": "http://localhost:9200", "Layer": "Default", "Prefix": "", "Password": "", "User": "" },
+  "adminRepository": { "Url": "http://localhost:9200", "Layer": "Default", "Prefix": "", "Password": "", "User": "" },
+  "latencyMs": 1,
+  "ollamaUrl": "http://localhost:11435",
+
+  "scrapeIntervalMinutes": 60,
+  "runBudgetMinutes": 8,
+  "revisitHours": 24,
+  "maxPagesPerUrl": 20,
+  "maxDepth": 2,
+  "randomPages": 5,
+  "maxImagesPerPage": 40,
+  "minImageBytes": 2048,
+  "minParagraphLength": 40,
+  "pageTimeoutSeconds": 45,
+  "delayBetweenPagesMs": 1500,
+  "respectRobotsTxt": true,
+  "browserChannel": "msedge",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36 KaonomiWebScrapper/1.0",
+  "outputFolder": ""
+}

@@ -24,7 +24,7 @@ namespace KAONOMI.Core.Models
         public double score { get; set; }
         public DateTime? date { get; set; }
         public string appName { get; set; } = string.Empty;
-        /// <summary>The title, name, prompt or question of the document, whichever it has.</summary>
+        /// <summary>The title, title, prompt or question of the document, whichever it has.</summary>
         public string title { get; set; } = string.Empty;
         /// <summary>A piece of its text around the first word found.</summary>
         public string snippet { get; set; } = string.Empty;

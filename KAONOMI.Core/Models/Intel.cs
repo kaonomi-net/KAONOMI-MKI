@@ -3,21 +3,28 @@ namespace KAONOMI.Core.Models;
 
 public class Intel : EntityBase, ISoftDeletable, ITagged
 {
-    /// <summary>The tags: #TOPIC, !ALERT, ?QUESTION, &amp;LINK, in upper case, no space (<see cref="TagRules"/>).</summary>
-    
-    public string name { get; set; } = "";
-    public string description { get; set; } = ""; 
-    public string categories { get; set; } = ""; // possible values : where, what, who, when, where, why, how, with whom, what else, what next, what if, what then, what now, question, observation, insight, idea, suggestion, recommendation, warning, alert, signal, action, event, opportunity, threat, risk, challenge, problem, solution 
-    public List<string> triggers { get; set; } = new List<string>();
-    public List<string> relatedEntities { get; set; } = new List<string>();
-    public List<string> excludedEntities { get; set; } = new List<string>();
-    public List<string> events { get; set; } = new List<string>();
-    public string signal { get; set; } = "";
-    public List<string> Tags { get; set; } = new List<string>();
-    public string instruction { get; set; } = "";
-    public List<string> actions { get; set; } = new List<string>();
+    #region "if"
+  
+    public List<EntityWithWeight> IncludedEntities { get; set; } = new List<EntityWithWeight>();
+    public List<EntityWithWeight> ExcludedEntities { get; set; } = new List<EntityWithWeight>();
+    public int TriggerLevel { get; set; } = 0; // 0 to 100 pourcent
+    public string? Instructions { get; set; }
+    public bool isFuzzy { get; set; } = false;
     public bool isDeleted { get; set; } = false;
-    public DateTime startDate { get; set; } = DateTime.Now;
-    public DateTime endDate { get; set; } = DateTime.Now;
+    #endregion
+    #region "then"
+    public List<string> Locations { get; set; } = new List<string>();
+    public List<string> Times { get; set; } = new List<string>();
+    public List<string> RelatedEntities { get; set; } = new List<string>();
+
+    public List<string> Questions { get; set; } = new List<string>();
+    #endregion
+
+}
+
+public class EntityWithWeight
+{ 
+    public string EntityName { get; set; }
+    public string EntityWeight { get; set; }
 
 }

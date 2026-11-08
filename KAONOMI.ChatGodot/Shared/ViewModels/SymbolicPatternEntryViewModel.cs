@@ -20,7 +20,7 @@ public partial class SymbolicPatternEntryViewModel : ViewModelBase
     private static readonly HashSet<string> EditableProperties =
     [
         nameof(AppName), nameof(MachineName), nameof(UserName), nameof(Comment),
-        nameof(Symbol), nameof(Event), nameof(Tags), nameof(IsDeleted)
+        nameof(Title), nameof(Symbol), nameof(Event), nameof(Language), nameof(Tags), nameof(Events), nameof(Signals), nameof(IsDeleted)
     ];
 
     private readonly KaonomiAssistantService _assistant;
@@ -109,6 +109,10 @@ public partial class SymbolicPatternEntryViewModel : ViewModelBase
     [NotifyPropertyChangedFor(nameof(HasComment))]
     private string _comment = string.Empty;
 
+    /// <summary>Title of the pattern.</summary>
+    [ObservableProperty]
+    private string _title = string.Empty;
+
     [ObservableProperty]
     private string _symbol = string.Empty;
 
@@ -116,10 +120,22 @@ public partial class SymbolicPatternEntryViewModel : ViewModelBase
     [NotifyPropertyChangedFor(nameof(HasEvent))]
     private string _event = string.Empty;
 
-    /// <summary>One tag per line.</summary>
+    /// <summary>The language of the words matched (FR, EN, DE…), in upper case on save; empty: none.</summary>
+    [ObservableProperty]
+    private string _language = string.Empty;
+
+    /// <summary>One tag per line (#TOPIC, '-' inside one; normalized on save).</summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasTags), nameof(TagsPreview))]
     private string _tags = string.Empty;
+
+    /// <summary>One event per line (@EVENT; not the single <see cref="Event"/> the pattern triggers).</summary>
+    [ObservableProperty]
+    private string _events = string.Empty;
+
+    /// <summary>One signal per line (!SIGNAL).</summary>
+    [ObservableProperty]
+    private string _signals = string.Empty;
 
     [ObservableProperty]
     private bool _isDeleted;
@@ -286,9 +302,13 @@ public partial class SymbolicPatternEntryViewModel : ViewModelBase
                 RegexPatterns.Add(new RegexPatternItemViewModel());
             OnPropertyChanged(nameof(RegexPreview));
             OnPropertyChanged(nameof(HasInvalidPattern));
+            Title = entry.Title ?? string.Empty;
             Symbol = entry.Symbol ?? string.Empty;
             Event = entry.Event ?? string.Empty;
+            Language = entry.Language ?? string.Empty;
             Tags = string.Join(Environment.NewLine, entry.Tags ?? []);
+            Events = string.Join(Environment.NewLine, entry.Events ?? []);
+            Signals = string.Join(Environment.NewLine, entry.Signals ?? []);
             IsDeleted = entry.IsDeleted;
             IsDirty = false;
             IsError = false;
@@ -309,9 +329,13 @@ public partial class SymbolicPatternEntryViewModel : ViewModelBase
         UserName = UserName,
         Comment = Comment,
         RegexPatterns = NonEmptyPatterns().ToList(),
+        Title = Title.Trim(),
         Symbol = Symbol,
         Event = string.IsNullOrWhiteSpace(Event) ? null : Event,
-        Tags = SplitLines(Tags),
+        Language = string.IsNullOrWhiteSpace(Language) ? null : Language.Trim().ToUpperInvariant(),
+        Tags = MetaTags.Parse(Tags, MetaTags.Tag),
+        Events = MetaTags.Parse(Events, MetaTags.Event),
+        Signals = MetaTags.Parse(Signals, MetaTags.Signal),
         IsDeleted = IsDeleted
     };
 

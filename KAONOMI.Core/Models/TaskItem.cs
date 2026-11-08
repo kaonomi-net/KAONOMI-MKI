@@ -3,8 +3,6 @@ namespace KAONOMI.Core.Models;
 
 public class TaskItem : EntityBase, ISoftDeletable, ITagged
 {
-    /// <summary>The tags: #TOPIC, !ALERT, ?QUESTION, &amp;LINK, in upper case, no space (<see cref="TagRules"/>).</summary>
-    public List<string> Tags { get; set; } = new List<string>();
 
     public string name { get; set; }    
     public string description { get; set; }

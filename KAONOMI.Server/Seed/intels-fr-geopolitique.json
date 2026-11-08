@@ -1,0 +1,5199 @@
+[
+  {
+    "id": "fr-geo-evolution-du-front-en-ukraine",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Évolution du front en Ukraine",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Ukraine",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "front",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "offensive",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les mouvements militaires sur la ligne de front en Ukraine.",
+    "locations": [
+      "Donbass",
+      "Zaporijia",
+      "Kharkiv"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Russie",
+      "armée ukrainienne",
+      "drones"
+    ],
+    "questions": [
+      "Quelles localités ont changé de main ?",
+      "Quelle intensité des combats ?",
+      "Quelles pertes civiles ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#UKRAINE",
+      "#RUSSIE",
+      "#GUERRE"
+    ],
+    "events": [
+      "@EVOLUTION-FRONT"
+    ],
+    "signals": [
+      "!CONFLIT"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-negociations-de-paix-entre-la-russie-et-l-ukraine",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Négociations de paix entre la Russie et l'Ukraine",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "négociations",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "Ukraine",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "Russie",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Suivre les pourparlers et propositions de cessez-le-feu entre la Russie et l'Ukraine.",
+    "locations": [
+      "Istanbul",
+      "Genève",
+      "Riyad"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "médiateurs",
+      "États-Unis",
+      "Turquie"
+    ],
+    "questions": [
+      "Qui participe ?",
+      "Quelles conditions sont posées ?",
+      "Un cessez-le-feu est-il annoncé ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#UKRAINE",
+      "#RUSSIE",
+      "#DIPLOMATIE"
+    ],
+    "events": [
+      "@NEGOCIATIONS"
+    ],
+    "signals": [
+      "!DESESCALADE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-sanctions-occidentales-contre-la-russie",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sanctions occidentales contre la Russie",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "sanctions",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "Russie",
+        "entityWeight": "50"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 80,
+    "isFuzzy": true,
+    "instructions": "Suivre les nouveaux paquets de sanctions et leur contournement.",
+    "locations": [
+      "Bruxelles",
+      "Washington"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Union européenne",
+      "oligarques",
+      "avoirs gelés"
+    ],
+    "questions": [
+      "Quel nouveau paquet ?",
+      "Quels secteurs visés ?",
+      "Quels contournements ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#RUSSIE",
+      "#SANCTIONS"
+    ],
+    "events": [
+      "@SANCTION"
+    ],
+    "signals": [
+      "!PRESSION-ECONOMIQUE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-approvisionnement-en-gaz-russe",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Approvisionnement en gaz russe",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "gaz",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "Russie",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "gazoduc",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Surveiller les flux de gaz russe vers l'Europe et les ruptures d'approvisionnement.",
+    "locations": [
+      "Europe",
+      "mer Baltique"
+    ],
+    "times": [
+      "hiver"
+    ],
+    "relatedEntities": [
+      "Gazprom",
+      "Nord Stream",
+      "GNL"
+    ],
+    "questions": [
+      "Quels volumes ?",
+      "Quelles ruptures ?",
+      "Quels prix ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#ENERGIE",
+      "#RUSSIE"
+    ],
+    "events": [
+      "@RUPTURE-APPROVISIONNEMENT"
+    ],
+    "signals": [
+      "!TENSION-ENERGETIQUE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-bielorussie-et-presence-militaire-russe",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Biélorussie et présence militaire russe",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Biélorussie",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "armée russe",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "Minsk",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre le rôle de la Biélorussie aux côtés de la Russie.",
+    "locations": [
+      "Minsk",
+      "frontière polonaise"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Loukachenko",
+      "armes nucléaires tactiques",
+      "Pologne"
+    ],
+    "questions": [
+      "Quels déploiements ?",
+      "Quelles manœuvres ?",
+      "Quelle réaction de l'OTAN ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#BIELORUSSIE",
+      "#RUSSIE"
+    ],
+    "events": [],
+    "signals": [
+      "!TENSION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-moldavie-et-transnistrie",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Moldavie et Transnistrie",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Moldavie",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "Transnistrie",
+        "entityWeight": "50"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Surveiller les tensions autour de la Moldavie et de la région séparatiste de Transnistrie.",
+    "locations": [
+      "Chișinău",
+      "Tiraspol"
+    ],
+    "times": [
+      "élections"
+    ],
+    "relatedEntities": [
+      "Russie",
+      "Union européenne",
+      "Roumanie"
+    ],
+    "questions": [
+      "Quelles pressions ?",
+      "Quelle stabilité ?",
+      "Quel rapprochement européen ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#MOLDAVIE",
+      "#RUSSIE"
+    ],
+    "events": [],
+    "signals": [
+      "!TENSION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-securite-en-mer-noire",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sécurité en mer Noire",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "mer Noire",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "navires",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "port",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre la navigation et les incidents en mer Noire.",
+    "locations": [
+      "Odessa",
+      "Crimée",
+      "Bosphore"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Turquie",
+      "exportations de céréales",
+      "flotte russe"
+    ],
+    "questions": [
+      "Quels incidents ?",
+      "Les corridors maritimes fonctionnent-ils ?",
+      "Quels navires touchés ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#MER-NOIRE",
+      "#MARITIME"
+    ],
+    "events": [
+      "@INCIDENT-MARITIME"
+    ],
+    "signals": [
+      "!TENSION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-tensions-dans-les-pays-baltes",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Tensions dans les pays baltes",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "pays baltes",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "Kaliningrad",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "OTAN",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller les tensions entre la Russie et les États baltes.",
+    "locations": [
+      "Lituanie",
+      "Lettonie",
+      "Estonie",
+      "Kaliningrad"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "OTAN",
+      "sabotage",
+      "câbles sous-marins"
+    ],
+    "questions": [
+      "Quelles provocations ?",
+      "Quels renforts de l'OTAN ?",
+      "Quels sabotages ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#BALTES",
+      "#OTAN",
+      "#RUSSIE"
+    ],
+    "events": [],
+    "signals": [
+      "!TENSION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-centrale-nucleaire-de-zaporijia",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Centrale nucléaire de Zaporijia",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Zaporijia",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "centrale nucléaire",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller la sûreté de la centrale nucléaire de Zaporijia.",
+    "locations": [
+      "Zaporijia",
+      "Enerhodar"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "AIEA",
+      "Rosatom",
+      "bombardements"
+    ],
+    "questions": [
+      "Quel état de la centrale ?",
+      "Quels rapports de l'AIEA ?",
+      "Quel risque radiologique ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#NUCLEAIRE",
+      "#UKRAINE"
+    ],
+    "events": [
+      "@ALERTE-NUCLEAIRE"
+    ],
+    "signals": [
+      "!RISQUE",
+      "!FEAR"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-aide-militaire-a-l-ukraine",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Aide militaire à l'Ukraine",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "aide militaire",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "Ukraine",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "livraison",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Suivre les livraisons d'armes et l'aide financière à l'Ukraine.",
+    "locations": [
+      "Washington",
+      "Berlin",
+      "Paris"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "États-Unis",
+      "Union européenne",
+      "missiles"
+    ],
+    "questions": [
+      "Quels équipements ?",
+      "Quel montant ?",
+      "Quelles conditions d'usage ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#UKRAINE",
+      "#DEFENSE"
+    ],
+    "events": [
+      "@ANNONCE-AIDE"
+    ],
+    "signals": [
+      "!SOUTIEN"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-tensions-autour-de-taiwan",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Tensions autour de Taïwan",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Taïwan",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "Chine",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "détroit",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller les tensions militaires et diplomatiques autour de Taïwan.",
+    "locations": [
+      "détroit de Taïwan",
+      "Taipei"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Armée populaire de libération",
+      "États-Unis",
+      "Japon"
+    ],
+    "questions": [
+      "Quelles manœuvres chinoises ?",
+      "Quelles incursions aériennes ?",
+      "Quelle réaction américaine ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#TAIWAN",
+      "#CHINE"
+    ],
+    "events": [
+      "@MANOEUVRES-MILITAIRES"
+    ],
+    "signals": [
+      "!TENSION",
+      "!RISQUE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-mer-de-chine-meridionale",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Mer de Chine méridionale",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "mer de Chine méridionale",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "îlots",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "garde-côtes",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les incidents et revendications en mer de Chine méridionale.",
+    "locations": [
+      "îles Spratleys",
+      "Scarborough"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Philippines",
+      "Vietnam",
+      "Chine"
+    ],
+    "questions": [
+      "Quel incident ?",
+      "Quels navires impliqués ?",
+      "Quelle réaction diplomatique ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#MER-DE-CHINE",
+      "#MARITIME"
+    ],
+    "events": [
+      "@INCIDENT-MARITIME"
+    ],
+    "signals": [
+      "!TENSION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-tirs-de-missiles-nord-coreens",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Tirs de missiles nord-coréens",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Corée du Nord",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "missile",
+        "entityWeight": "50"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Surveiller les essais et tirs de missiles de la Corée du Nord.",
+    "locations": [
+      "Pyongyang",
+      "mer du Japon"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Kim Jong-un",
+      "Corée du Sud",
+      "Japon"
+    ],
+    "questions": [
+      "Quel type de missile ?",
+      "Quelle portée ?",
+      "Quelle réaction internationale ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#COREE-DU-NORD",
+      "#MISSILES"
+    ],
+    "events": [
+      "@TIR-MISSILE"
+    ],
+    "signals": [
+      "!MENACE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-rearmement-du-japon",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Réarmement du Japon",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Japon",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "défense",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "budget",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre l'évolution de la politique de défense japonaise.",
+    "locations": [
+      "Tokyo"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Chine",
+      "États-Unis",
+      "Constitution"
+    ],
+    "questions": [
+      "Quelle hausse du budget ?",
+      "Quelles capacités nouvelles ?",
+      "Quelle réaction régionale ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#JAPON",
+      "#DEFENSE"
+    ],
+    "events": [],
+    "signals": [
+      "!REARMEMENT"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-frontiere-entre-l-inde-et-la-chine",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Frontière entre l'Inde et la Chine",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Inde",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "Chine",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "frontière",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Surveiller les tensions à la frontière himalayenne entre l'Inde et la Chine.",
+    "locations": [
+      "Ladakh",
+      "Arunachal Pradesh"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "armée indienne",
+      "Armée populaire de libération",
+      "Himalaya"
+    ],
+    "questions": [
+      "Quel incident ?",
+      "Quelles négociations ?",
+      "Quels déploiements ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#INDE",
+      "#CHINE"
+    ],
+    "events": [
+      "@INCIDENT-FRONTALIER"
+    ],
+    "signals": [
+      "!TENSION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-conflit-entre-l-inde-et-le-pakistan",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Conflit entre l'Inde et le Pakistan",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Inde",
+        "entityWeight": "35"
+      },
+      {
+        "entityName": "Pakistan",
+        "entityWeight": "35"
+      },
+      {
+        "entityName": "Cachemire",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Suivre les tensions entre deux puissances nucléaires autour du Cachemire.",
+    "locations": [
+      "Cachemire",
+      "ligne de contrôle"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "attentat",
+      "frappes",
+      "armes nucléaires"
+    ],
+    "questions": [
+      "Quel incident ?",
+      "Quelle riposte ?",
+      "Quelle médiation ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#INDE",
+      "#PAKISTAN",
+      "#NUCLEAIRE"
+    ],
+    "events": [
+      "@INCIDENT-FRONTALIER"
+    ],
+    "signals": [
+      "!RISQUE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-alliance-aukus",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Alliance AUKUS",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "AUKUS",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "sous-marins",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre l'alliance entre l'Australie, le Royaume-Uni et les États-Unis.",
+    "locations": [
+      "Canberra",
+      "Londres",
+      "Washington"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Australie",
+      "sous-marins nucléaires",
+      "France"
+    ],
+    "questions": [
+      "Quelle avancée du programme ?",
+      "Quel calendrier ?",
+      "Quelle réaction chinoise ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#INDO-PACIFIQUE",
+      "#DEFENSE"
+    ],
+    "events": [],
+    "signals": [
+      "!ALLIANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-philippines-et-chine",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Philippines et Chine",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Philippines",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "Chine",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "garde-côtes",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller les confrontations entre les Philippines et la Chine.",
+    "locations": [
+      "Second Thomas Shoal",
+      "Manille"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "États-Unis",
+      "traité de défense",
+      "canons à eau"
+    ],
+    "questions": [
+      "Quel incident ?",
+      "Quel soutien américain ?",
+      "Quelle escalade ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#PHILIPPINES",
+      "#CHINE",
+      "#MARITIME"
+    ],
+    "events": [
+      "@INCIDENT-MARITIME"
+    ],
+    "signals": [
+      "!TENSION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-libertes-a-hong-kong",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Libertés à Hong Kong",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Hong Kong",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "sécurité nationale",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre la situation des libertés publiques à Hong Kong.",
+    "locations": [
+      "Hong Kong"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Pékin",
+      "opposants",
+      "presse"
+    ],
+    "questions": [
+      "Quels procès ?",
+      "Quelles arrestations ?",
+      "Quelle réaction internationale ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#HONG-KONG",
+      "#LIBERTES"
+    ],
+    "events": [],
+    "signals": [
+      "!VIGILANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-guerre-civile-en-birmanie",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Guerre civile en Birmanie",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Birmanie",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "junte",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "résistance",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre le conflit entre la junte birmane et les groupes armés.",
+    "locations": [
+      "Rangoun",
+      "Naypyidaw",
+      "États shan"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "ASEAN",
+      "Rohingyas",
+      "Chine"
+    ],
+    "questions": [
+      "Quels territoires perdus par la junte ?",
+      "Quelle situation humanitaire ?",
+      "Quelles négociations ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#BIRMANIE",
+      "#CONFLIT"
+    ],
+    "events": [],
+    "signals": [
+      "!CONFLIT"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-conflit-a-gaza",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Conflit à Gaza",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Gaza",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "Israël",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "Hamas",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre l'évolution du conflit à Gaza et la situation humanitaire.",
+    "locations": [
+      "Gaza",
+      "Rafah"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "otages",
+      "aide humanitaire",
+      "Égypte"
+    ],
+    "questions": [
+      "Un cessez-le-feu est-il en vigueur ?",
+      "Quelle aide humanitaire entre ?",
+      "Quelles négociations sur les otages ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#MOYEN-ORIENT",
+      "#GAZA",
+      "#CONFLIT"
+    ],
+    "events": [
+      "@EVOLUTION-CONFLIT"
+    ],
+    "signals": [
+      "!CONFLIT",
+      "!HUMANITAIRE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-confrontation-entre-israel-et-l-iran",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Confrontation entre Israël et l'Iran",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Israël",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "Iran",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "frappes",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Surveiller les échanges militaires directs entre Israël et l'Iran.",
+    "locations": [
+      "Téhéran",
+      "Israël"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Gardiens de la révolution",
+      "missiles",
+      "États-Unis"
+    ],
+    "questions": [
+      "Quelles cibles ?",
+      "Quelle riposte ?",
+      "Quel risque d'embrasement régional ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#IRAN",
+      "#ISRAEL",
+      "#MOYEN-ORIENT"
+    ],
+    "events": [
+      "@FRAPPES"
+    ],
+    "signals": [
+      "!ESCALADE",
+      "!RISQUE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-programme-nucleaire-iranien",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Programme nucléaire iranien",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Iran",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "nucléaire",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "enrichissement",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Suivre le programme nucléaire iranien et les inspections.",
+    "locations": [
+      "Natanz",
+      "Fordo",
+      "Vienne"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "AIEA",
+      "uranium",
+      "accord de Vienne"
+    ],
+    "questions": [
+      "Quel niveau d'enrichissement ?",
+      "Les inspections sont-elles possibles ?",
+      "Quelles négociations ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#IRAN",
+      "#NUCLEAIRE"
+    ],
+    "events": [
+      "@RAPPORT-AIEA"
+    ],
+    "signals": [
+      "!RISQUE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-liban-et-hezbollah",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Liban et Hezbollah",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Liban",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "Hezbollah",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "frontière",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller la situation au Liban et le long de la frontière avec Israël.",
+    "locations": [
+      "Beyrouth",
+      "Sud-Liban"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Israël",
+      "FINUL",
+      "armée libanaise"
+    ],
+    "questions": [
+      "Quels affrontements ?",
+      "Le cessez-le-feu tient-il ?",
+      "Quelle situation politique ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#LIBAN",
+      "#MOYEN-ORIENT"
+    ],
+    "events": [],
+    "signals": [
+      "!TENSION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-transition-en-syrie",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Transition en Syrie",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Syrie",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "Damas",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "transition",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre la situation politique et sécuritaire en Syrie.",
+    "locations": [
+      "Damas",
+      "Alep",
+      "nord-est syrien"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Turquie",
+      "Kurdes",
+      "réfugiés"
+    ],
+    "questions": [
+      "Quelle stabilité ?",
+      "Quels affrontements ?",
+      "Quel retour des réfugiés ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#SYRIE",
+      "#MOYEN-ORIENT"
+    ],
+    "events": [],
+    "signals": [
+      "!INSTABILITE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-attaques-en-mer-rouge",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Attaques en mer Rouge",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "mer Rouge",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "Houthis",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "navires",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller les attaques contre la navigation commerciale en mer Rouge.",
+    "locations": [
+      "Bab-el-Mandeb",
+      "Yémen"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Houthis",
+      "canal de Suez",
+      "coalition navale"
+    ],
+    "questions": [
+      "Quels navires visés ?",
+      "Quel détournement du trafic ?",
+      "Quelle riposte ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#MER-ROUGE",
+      "#MARITIME",
+      "#COMMERCE"
+    ],
+    "events": [
+      "@INCIDENT-MARITIME"
+    ],
+    "signals": [
+      "!MENACE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-normalisation-entre-israel-et-l-arabie-saoudite",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Normalisation entre Israël et l'Arabie saoudite",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Arabie saoudite",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "Israël",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "normalisation",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Suivre les discussions de normalisation diplomatique.",
+    "locations": [
+      "Riyad",
+      "Jérusalem"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "accords d'Abraham",
+      "États-Unis",
+      "Palestiniens"
+    ],
+    "questions": [
+      "Quelles conditions ?",
+      "Quel calendrier ?",
+      "Quelle place pour un État palestinien ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#DIPLOMATIE",
+      "#MOYEN-ORIENT"
+    ],
+    "events": [
+      "@NEGOCIATIONS"
+    ],
+    "signals": [
+      "!DIPLOMATIE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-turquie-et-question-kurde",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Turquie et question kurde",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Turquie",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "Kurdes",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "PKK",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les relations entre la Turquie et les mouvements kurdes.",
+    "locations": [
+      "Ankara",
+      "nord de la Syrie",
+      "nord de l'Irak"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "PKK",
+      "FDS",
+      "processus de paix"
+    ],
+    "questions": [
+      "Quelles opérations militaires ?",
+      "Quel processus de paix ?",
+      "Quelle réaction internationale ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#TURQUIE",
+      "#KURDES"
+    ],
+    "events": [],
+    "signals": [
+      "!TENSION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-detroit-d-ormuz",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Détroit d'Ormuz",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "détroit d'Ormuz",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "pétroliers",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller la sécurité du passage stratégique du détroit d'Ormuz.",
+    "locations": [
+      "golfe Persique",
+      "Ormuz"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Iran",
+      "pétrole",
+      "marine américaine"
+    ],
+    "questions": [
+      "Quel incident ?",
+      "Quel impact sur le prix du pétrole ?",
+      "Quelles escortes ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#ENERGIE",
+      "#MARITIME",
+      "#IRAN"
+    ],
+    "events": [
+      "@INCIDENT-MARITIME"
+    ],
+    "signals": [
+      "!RISQUE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-juntes-militaires-du-sahel",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Juntes militaires du Sahel",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Sahel",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "junte",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "Mali",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les régimes militaires du Mali, du Burkina Faso et du Niger.",
+    "locations": [
+      "Bamako",
+      "Ouagadougou",
+      "Niamey"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Alliance des États du Sahel",
+      "CEDEAO",
+      "Russie"
+    ],
+    "questions": [
+      "Quelles alliances ?",
+      "Quelle situation sécuritaire ?",
+      "Quel calendrier électoral ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#SAHEL",
+      "#AFRIQUE"
+    ],
+    "events": [],
+    "signals": [
+      "!INSTABILITE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-presence-russe-en-afrique",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Présence russe en Afrique",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Russie",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "Africa Corps",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "Wagner",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre l'implantation militaire et économique russe en Afrique.",
+    "locations": [
+      "Mali",
+      "Centrafrique",
+      "Libye"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "mercenaires",
+      "mines d'or",
+      "juntes"
+    ],
+    "questions": [
+      "Où sont-ils déployés ?",
+      "Quels contrats ?",
+      "Quelles exactions signalées ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#AFRIQUE",
+      "#RUSSIE"
+    ],
+    "events": [],
+    "signals": [
+      "!INFLUENCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-guerre-au-soudan",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Guerre au Soudan",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Soudan",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "Forces de soutien rapide",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "Khartoum",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre la guerre au Soudan et la crise humanitaire.",
+    "locations": [
+      "Khartoum",
+      "Darfour",
+      "El-Fasher"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "armée soudanaise",
+      "réfugiés",
+      "famine"
+    ],
+    "questions": [
+      "Quelles villes sont touchées ?",
+      "Quelle situation humanitaire ?",
+      "Quelles médiations ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#SOUDAN",
+      "#AFRIQUE",
+      "#HUMANITAIRE"
+    ],
+    "events": [
+      "@EVOLUTION-CONFLIT"
+    ],
+    "signals": [
+      "!CONFLIT",
+      "!HUMANITAIRE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-est-de-la-rdc-et-m23",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Est de la RDC et M23",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "RDC",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "M23",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "Goma",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre le conflit dans l'est de la République démocratique du Congo.",
+    "locations": [
+      "Goma",
+      "Nord-Kivu",
+      "Bukavu"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Rwanda",
+      "minerais",
+      "MONUSCO"
+    ],
+    "questions": [
+      "Quelles avancées des rebelles ?",
+      "Quel rôle du Rwanda ?",
+      "Quels accords de paix ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#RDC",
+      "#AFRIQUE",
+      "#MINERAIS"
+    ],
+    "events": [
+      "@EVOLUTION-CONFLIT"
+    ],
+    "signals": [
+      "!CONFLIT"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-ethiopie-et-corne-de-l-afrique",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Éthiopie et Corne de l'Afrique",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Éthiopie",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "Érythrée",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "Tigré",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller les tensions en Éthiopie et dans la Corne de l'Afrique.",
+    "locations": [
+      "Addis-Abeba",
+      "Tigré",
+      "Amhara"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Érythrée",
+      "accès à la mer",
+      "Somalie"
+    ],
+    "questions": [
+      "Quelles tensions ?",
+      "Quel risque de guerre ?",
+      "Quels accords ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#ETHIOPIE",
+      "#AFRIQUE"
+    ],
+    "events": [],
+    "signals": [
+      "!TENSION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-instabilite-en-libye",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Instabilité en Libye",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Libye",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "Tripoli",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "milices",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre la division politique et les affrontements en Libye.",
+    "locations": [
+      "Tripoli",
+      "Benghazi"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Haftar",
+      "pétrole",
+      "migrants"
+    ],
+    "questions": [
+      "Quels affrontements ?",
+      "Quelle production de pétrole ?",
+      "Quelles élections ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#LIBYE",
+      "#AFRIQUE"
+    ],
+    "events": [],
+    "signals": [
+      "!INSTABILITE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-uranium-du-niger",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Uranium du Niger",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Niger",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "uranium",
+        "entityWeight": "50"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Suivre le contrôle de l'uranium nigérien après le changement de régime.",
+    "locations": [
+      "Arlit",
+      "Niamey"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Orano",
+      "France",
+      "Russie"
+    ],
+    "questions": [
+      "Qui exploite les mines ?",
+      "Quels contrats ?",
+      "Quel impact sur l'approvisionnement européen ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#NIGER",
+      "#URANIUM",
+      "#ENERGIE"
+    ],
+    "events": [],
+    "signals": [
+      "!RISQUE-APPROVISIONNEMENT"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-piraterie-au-large-de-la-somalie",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Piraterie au large de la Somalie",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "piraterie",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "Somalie",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "golfe d'Aden",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller les actes de piraterie dans l'océan Indien.",
+    "locations": [
+      "golfe d'Aden",
+      "Somalie"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Atalante",
+      "navires marchands",
+      "otages"
+    ],
+    "questions": [
+      "Quel navire attaqué ?",
+      "Quel équipage ?",
+      "Quelle intervention ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#MARITIME",
+      "#PIRATERIE"
+    ],
+    "events": [
+      "@INCIDENT-MARITIME"
+    ],
+    "signals": [
+      "!MENACE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-coups-d-etat-en-afrique",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Coups d'État en Afrique",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "coup d'État",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "militaires",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "Afrique",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Repérer les prises de pouvoir militaires sur le continent africain.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Union africaine",
+      "CEDEAO",
+      "junte"
+    ],
+    "questions": [
+      "Quel pays ?",
+      "Qui prend le pouvoir ?",
+      "Quelles sanctions ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#AFRIQUE",
+      "#COUP-ETAT"
+    ],
+    "events": [
+      "@COUP-ETAT"
+    ],
+    "signals": [
+      "!INSTABILITE",
+      "!ALERTE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-afrique-du-sud-sur-la-scene-internationale",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Afrique du Sud sur la scène internationale",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Afrique du Sud",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "Pretoria",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "BRICS",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre la diplomatie sud-africaine et son rôle dans les BRICS.",
+    "locations": [
+      "Pretoria",
+      "Johannesburg"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "BRICS",
+      "Cour internationale de justice",
+      "G20"
+    ],
+    "questions": [
+      "Quelle position diplomatique ?",
+      "Quelles relations avec les États-Unis ?",
+      "Quel rôle au G20 ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#AFRIQUE-DU-SUD",
+      "#BRICS"
+    ],
+    "events": [],
+    "signals": [
+      "!DIPLOMATIE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-veto-au-conseil-de-securite-de-l-onu",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Veto au Conseil de sécurité de l'ONU",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Conseil de sécurité",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "veto",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "résolution",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les votes et veto au Conseil de sécurité des Nations unies.",
+    "locations": [
+      "New York"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "membres permanents",
+      "résolution",
+      "Nations unies"
+    ],
+    "questions": [
+      "Quelle résolution ?",
+      "Quel pays met son veto ?",
+      "Quelles conséquences ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#ONU",
+      "#DIPLOMATIE"
+    ],
+    "events": [
+      "@VOTE-ONU"
+    ],
+    "signals": [
+      "!BLOCAGE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-sommet-de-l-otan",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sommet de l'OTAN",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "OTAN",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "sommet",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Suivre les sommets de l'Alliance atlantique et leurs décisions.",
+    "locations": [
+      "Bruxelles"
+    ],
+    "times": [
+      "dates du sommet"
+    ],
+    "relatedEntities": [
+      "secrétaire général",
+      "dépenses de défense",
+      "Ukraine"
+    ],
+    "questions": [
+      "Quelles décisions ?",
+      "Quel objectif de dépenses ?",
+      "Quels nouveaux membres ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#OTAN",
+      "#DEFENSE"
+    ],
+    "events": [
+      "@SOMMET"
+    ],
+    "signals": [
+      "!ALLIANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-elargissement-de-l-union-europeenne",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Élargissement de l'Union européenne",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "élargissement",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "Union européenne",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "adhésion",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les candidatures d'adhésion à l'Union européenne.",
+    "locations": [
+      "Bruxelles",
+      "Balkans"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Ukraine",
+      "Moldavie",
+      "Serbie"
+    ],
+    "questions": [
+      "Quel pays avance ?",
+      "Quelles conditions ?",
+      "Quels blocages ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#UNION-EUROPEENNE",
+      "#ELARGISSEMENT"
+    ],
+    "events": [],
+    "signals": [
+      "!DIPLOMATIE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-sommet-des-brics",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sommet des BRICS",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "BRICS",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "sommet",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Suivre les décisions des BRICS et leur élargissement.",
+    "locations": [],
+    "times": [
+      "dates du sommet"
+    ],
+    "relatedEntities": [
+      "Chine",
+      "Inde",
+      "Brésil"
+    ],
+    "questions": [
+      "Quels nouveaux membres ?",
+      "Quelle monnaie commune ?",
+      "Quelles déclarations ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#BRICS",
+      "#MULTIPOLARITE"
+    ],
+    "events": [
+      "@SOMMET"
+    ],
+    "signals": [
+      "!MULTIPOLARITE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-sommet-du-g7",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sommet du G7",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "G7",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "sommet",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Suivre les engagements des grandes économies occidentales.",
+    "locations": [],
+    "times": [
+      "dates du sommet"
+    ],
+    "relatedEntities": [
+      "Union européenne",
+      "Japon",
+      "Canada"
+    ],
+    "questions": [
+      "Quels engagements ?",
+      "Quel communiqué final ?",
+      "Quels désaccords ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#G7",
+      "#DIPLOMATIE"
+    ],
+    "events": [
+      "@SOMMET"
+    ],
+    "signals": [
+      "!GOUVERNANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-sommet-du-g20",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sommet du G20",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "G20",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "sommet",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Suivre les décisions du G20 sur l'économie mondiale.",
+    "locations": [],
+    "times": [
+      "dates du sommet"
+    ],
+    "relatedEntities": [
+      "pays émergents",
+      "dette",
+      "climat"
+    ],
+    "questions": [
+      "Quelle déclaration ?",
+      "Quels absents ?",
+      "Quels accords ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#G20",
+      "#ECONOMIE"
+    ],
+    "events": [
+      "@SOMMET"
+    ],
+    "signals": [
+      "!GOUVERNANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-decision-de-l-opep",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Décision de l'OPEP+",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "OPEP",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "production",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "pétrole",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Suivre les décisions de production des pays exportateurs de pétrole.",
+    "locations": [
+      "Vienne",
+      "Riyad"
+    ],
+    "times": [
+      "réunion ministérielle"
+    ],
+    "relatedEntities": [
+      "Arabie saoudite",
+      "Russie",
+      "quotas"
+    ],
+    "questions": [
+      "Quelle baisse ou hausse de production ?",
+      "Quel impact sur les prix ?",
+      "Quels désaccords ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#ENERGIE",
+      "#OPEP"
+    ],
+    "events": [
+      "@DECISION-OPEP"
+    ],
+    "signals": [
+      "!PRIX-ENERGIE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-mandats-de-la-cour-penale-internationale",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Mandats de la Cour pénale internationale",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Cour pénale internationale",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "mandat d'arrêt",
+        "entityWeight": "50"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Suivre les mandats d'arrêt et procédures de la CPI.",
+    "locations": [
+      "La Haye"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "procureur",
+      "crimes de guerre",
+      "États membres"
+    ],
+    "questions": [
+      "Qui est visé ?",
+      "Quels pays coopèrent ?",
+      "Quelles réactions ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#JUSTICE-INTERNATIONALE",
+      "#CPI"
+    ],
+    "events": [
+      "@DECISION-JUSTICE"
+    ],
+    "signals": [
+      "!JUSTICE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-differends-a-l-omc",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Différends à l'OMC",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "OMC",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "différend",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les litiges commerciaux portés devant l'Organisation mondiale du commerce.",
+    "locations": [
+      "Genève"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "droits de douane",
+      "subventions",
+      "panel"
+    ],
+    "questions": [
+      "Quel litige ?",
+      "Quelle décision ?",
+      "L'organe d'appel fonctionne-t-il ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#COMMERCE",
+      "#OMC"
+    ],
+    "events": [],
+    "signals": [
+      "!TENSION-COMMERCIALE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-rapport-de-l-aiea",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Rapport de l'AIEA",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "AIEA",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "rapport",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "inspecteurs",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les rapports de l'Agence internationale de l'énergie atomique.",
+    "locations": [
+      "Vienne"
+    ],
+    "times": [
+      "réunion du conseil des gouverneurs"
+    ],
+    "relatedEntities": [
+      "Iran",
+      "Zaporijia",
+      "inspections"
+    ],
+    "questions": [
+      "Quel pays est concerné ?",
+      "Quelles conclusions ?",
+      "Quelle réaction ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#NUCLEAIRE",
+      "#AIEA"
+    ],
+    "events": [
+      "@RAPPORT-AIEA"
+    ],
+    "signals": [
+      "!RISQUE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-prix-du-petrole-et-geopolitique",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Prix du pétrole et géopolitique",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "pétrole",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "prix",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "baril",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les variations du prix du pétrole liées aux crises.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "OPEP",
+      "Brent",
+      "Moyen-Orient"
+    ],
+    "questions": [
+      "Quel prix du baril ?",
+      "Quelle cause ?",
+      "Quel impact sur l'inflation ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#ENERGIE",
+      "#PETROLE"
+    ],
+    "events": [],
+    "signals": [
+      "!PRIX-ENERGIE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-gaz-naturel-liquefie",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Gaz naturel liquéfié",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "GNL",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "méthanier",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "gaz",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre le commerce mondial du gaz naturel liquéfié.",
+    "locations": [
+      "Qatar",
+      "États-Unis",
+      "Europe"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "terminaux",
+      "contrats",
+      "Asie"
+    ],
+    "questions": [
+      "Quels nouveaux contrats ?",
+      "Quels prix ?",
+      "Quelle dépendance ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#ENERGIE",
+      "#GAZ"
+    ],
+    "events": [],
+    "signals": [
+      "!DEPENDANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-terres-rares-et-metaux-critiques",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Terres rares et métaux critiques",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "terres rares",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "métaux critiques",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre la concurrence pour les terres rares et métaux stratégiques.",
+    "locations": [
+      "Chine",
+      "Groenland",
+      "Afrique"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Chine",
+      "exportations",
+      "aimants"
+    ],
+    "questions": [
+      "Quelles restrictions d'export ?",
+      "Quels nouveaux gisements ?",
+      "Quelle dépendance européenne ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#MATIERES-PREMIERES",
+      "#TERRES-RARES"
+    ],
+    "events": [],
+    "signals": [
+      "!DEPENDANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-course-au-lithium",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Course au lithium",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "lithium",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "batteries",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre l'accès au lithium nécessaire aux batteries.",
+    "locations": [
+      "Chili",
+      "Argentine",
+      "Bolivie",
+      "Australie"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "véhicules électriques",
+      "Chine",
+      "mines"
+    ],
+    "questions": [
+      "Quels contrats ?",
+      "Quel prix ?",
+      "Quelle nationalisation ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#MATIERES-PREMIERES",
+      "#LITHIUM"
+    ],
+    "events": [],
+    "signals": [
+      "!DEPENDANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-exportations-de-cereales",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Exportations de céréales",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "céréales",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "blé",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "exportations",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les exportations de blé et leurs effets sur la sécurité alimentaire.",
+    "locations": [
+      "Ukraine",
+      "Russie",
+      "Afrique du Nord"
+    ],
+    "times": [
+      "récolte"
+    ],
+    "relatedEntities": [
+      "mer Noire",
+      "prix alimentaires",
+      "famine"
+    ],
+    "questions": [
+      "Quels volumes exportés ?",
+      "Quel prix ?",
+      "Quels pays dépendants ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#ALIMENTATION",
+      "#CEREALES"
+    ],
+    "events": [],
+    "signals": [
+      "!SECURITE-ALIMENTAIRE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-trafic-du-canal-de-suez",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Trafic du canal de Suez",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "canal de Suez",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "trafic",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller le trafic et les perturbations du canal de Suez.",
+    "locations": [
+      "Égypte",
+      "Suez"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "mer Rouge",
+      "porte-conteneurs",
+      "assurances"
+    ],
+    "questions": [
+      "Quel trafic ?",
+      "Quelles perturbations ?",
+      "Quel détour par le cap de Bonne-Espérance ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#COMMERCE",
+      "#MARITIME"
+    ],
+    "events": [],
+    "signals": [
+      "!PERTURBATION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-canal-de-panama",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Canal de Panama",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "canal de Panama",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "trafic",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "sécheresse",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre le fonctionnement et les enjeux politiques du canal de Panama.",
+    "locations": [
+      "Panama"
+    ],
+    "times": [
+      "saison sèche"
+    ],
+    "relatedEntities": [
+      "États-Unis",
+      "Chine",
+      "sécheresse"
+    ],
+    "questions": [
+      "Quel trafic ?",
+      "Quelles restrictions ?",
+      "Quelles pressions politiques ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#COMMERCE",
+      "#MARITIME"
+    ],
+    "events": [],
+    "signals": [
+      "!PERTURBATION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-flotte-fantome-de-petroliers",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Flotte fantôme de pétroliers",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "flotte fantôme",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "pétroliers",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller les pétroliers qui contournent les sanctions.",
+    "locations": [
+      "mer Baltique",
+      "golfe de Finlande"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Russie",
+      "sanctions",
+      "assurances"
+    ],
+    "questions": [
+      "Quels navires ?",
+      "Quels incidents ?",
+      "Quelles mesures de contrôle ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#SANCTIONS",
+      "#MARITIME",
+      "#ENERGIE"
+    ],
+    "events": [
+      "@INCIDENT-MARITIME"
+    ],
+    "signals": [
+      "!CONTOURNEMENT"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-arctique-et-nouvelles-routes",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Arctique et nouvelles routes",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Arctique",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "route maritime",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "ressources",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre la compétition stratégique dans l'Arctique.",
+    "locations": [
+      "Groenland",
+      "route du Nord",
+      "Svalbard"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Russie",
+      "Chine",
+      "Danemark"
+    ],
+    "questions": [
+      "Quelles revendications ?",
+      "Quelles activités militaires ?",
+      "Quelles ressources convoitées ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#ARCTIQUE",
+      "#RESSOURCES"
+    ],
+    "events": [],
+    "signals": [
+      "!COMPETITION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-dissuasion-nucleaire",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Dissuasion nucléaire",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "dissuasion nucléaire",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "armes nucléaires",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les doctrines et déclarations sur la dissuasion nucléaire.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Russie",
+      "France",
+      "États-Unis"
+    ],
+    "questions": [
+      "Quelle déclaration ?",
+      "Quelle évolution de doctrine ?",
+      "Quelles alertes ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#NUCLEAIRE",
+      "#DISSUASION"
+    ],
+    "events": [],
+    "signals": [
+      "!RISQUE",
+      "!FEAR"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-essai-nucleaire",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Essai nucléaire",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "essai nucléaire",
+        "entityWeight": "70"
+      },
+      {
+        "entityName": "explosion",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Détecter les annonces ou indices d'essais nucléaires.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Corée du Nord",
+      "sismographes",
+      "OTICE"
+    ],
+    "questions": [
+      "Quel pays ?",
+      "Quelle puissance estimée ?",
+      "Quelle réaction internationale ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#NUCLEAIRE"
+    ],
+    "events": [
+      "@ESSAI-NUCLEAIRE"
+    ],
+    "signals": [
+      "!ALERTE",
+      "!FEAR"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-traites-de-desarmement",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Traités de désarmement",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "désarmement",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "traité",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "New START",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre l'avenir des traités de contrôle des armements.",
+    "locations": [
+      "Genève"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Russie",
+      "États-Unis",
+      "Chine"
+    ],
+    "questions": [
+      "Le traité est-il prolongé ?",
+      "Quelles inspections ?",
+      "Quelle course aux armements ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#NUCLEAIRE",
+      "#DESARMEMENT"
+    ],
+    "events": [],
+    "signals": [
+      "!RISQUE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-hausse-des-depenses-militaires",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Hausse des dépenses militaires",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "dépenses militaires",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "budget de défense",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre la hausse des budgets de défense dans le monde.",
+    "locations": [
+      "Europe",
+      "Asie"
+    ],
+    "times": [
+      "vote des budgets"
+    ],
+    "relatedEntities": [
+      "OTAN",
+      "SIPRI",
+      "industrie de défense"
+    ],
+    "questions": [
+      "Quelle hausse ?",
+      "Quel pourcentage du PIB ?",
+      "Quels programmes ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#DEFENSE",
+      "#BUDGET"
+    ],
+    "events": [],
+    "signals": [
+      "!REARMEMENT"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-ventes-d-armes",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Ventes d'armes",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "ventes d'armes",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "contrat",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les grands contrats d'armement.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Rafale",
+      "industrie de défense",
+      "exportations"
+    ],
+    "questions": [
+      "Quel contrat ?",
+      "Quel montant ?",
+      "Quelles controverses ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#DEFENSE",
+      "#ARMEMENT"
+    ],
+    "events": [
+      "@CONTRAT-ARMEMENT"
+    ],
+    "signals": [
+      "!COMMERCE-ARMES"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-cyberattaque-etatique",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cyberattaque étatique",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "cyberattaque",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "État",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "infrastructures",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller les cyberattaques attribuées à des États.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "ANSSI",
+      "espionnage",
+      "sabotage"
+    ],
+    "questions": [
+      "Quelle cible ?",
+      "Quel pays soupçonné ?",
+      "Quelle réponse ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#CYBER",
+      "#ESPIONNAGE"
+    ],
+    "events": [
+      "@INCIDENT-CYBER"
+    ],
+    "signals": [
+      "!MENACE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-militarisation-de-l-espace",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Militarisation de l'espace",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "espace",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "satellites",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "militaire",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre la compétition militaire dans l'espace.",
+    "locations": [
+      "orbite basse"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Starlink",
+      "armes antisatellites",
+      "Chine"
+    ],
+    "questions": [
+      "Quel essai ?",
+      "Quelles capacités ?",
+      "Quels débris ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#ESPACE",
+      "#DEFENSE"
+    ],
+    "events": [],
+    "signals": [
+      "!COMPETITION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-missiles-hypersoniques",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Missiles hypersoniques",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "missile hypersonique",
+        "entityWeight": "70"
+      },
+      {
+        "entityName": "essai",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre le développement des missiles hypersoniques.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Russie",
+      "Chine",
+      "États-Unis"
+    ],
+    "questions": [
+      "Quel essai ?",
+      "Quelle vitesse ?",
+      "Quelle défense possible ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#DEFENSE",
+      "#MISSILES"
+    ],
+    "events": [],
+    "signals": [
+      "!COURSE-ARMEMENTS"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-bases-militaires-a-l-etranger",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Bases militaires à l'étranger",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "base militaire",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "étranger",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "accord",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre l'ouverture et la fermeture de bases militaires à l'étranger.",
+    "locations": [
+      "Djibouti",
+      "océan Pacifique"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Chine",
+      "États-Unis",
+      "France"
+    ],
+    "questions": [
+      "Quelle base ?",
+      "Quel accord ?",
+      "Quelle réaction locale ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#DEFENSE",
+      "#INFLUENCE"
+    ],
+    "events": [],
+    "signals": [
+      "!INFLUENCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-grandes-manuvres-militaires",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Grandes manœuvres militaires",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "exercice militaire",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "manœuvres",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller les grands exercices militaires et leur message politique.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "OTAN",
+      "Russie",
+      "Chine"
+    ],
+    "questions": [
+      "Quelle ampleur ?",
+      "Quels pays participent ?",
+      "Quel message envoyé ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#DEFENSE",
+      "#DEMONSTRATION"
+    ],
+    "events": [
+      "@MANOEUVRES-MILITAIRES"
+    ],
+    "signals": [
+      "!TENSION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-guerre-commerciale-et-droits-de-douane",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Guerre commerciale et droits de douane",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "droits de douane",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "guerre commerciale",
+        "entityWeight": "50"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre les hausses de droits de douane et les représailles.",
+    "locations": [
+      "Washington",
+      "Pékin",
+      "Bruxelles"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "États-Unis",
+      "Chine",
+      "Union européenne"
+    ],
+    "questions": [
+      "Quels produits ?",
+      "Quel taux ?",
+      "Quelles représailles ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#COMMERCE",
+      "#TARIFS"
+    ],
+    "events": [
+      "@HAUSSE-TARIFS"
+    ],
+    "signals": [
+      "!TENSION-COMMERCIALE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-decouplage-entre-la-chine-et-les-etats-unis",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Découplage entre la Chine et les États-Unis",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "découplage",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "Chine",
+        "entityWeight": "25"
+      },
+      {
+        "entityName": "États-Unis",
+        "entityWeight": "25"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre la séparation progressive des économies chinoise et américaine.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "semi-conducteurs",
+      "investissements",
+      "chaînes d'approvisionnement"
+    ],
+    "questions": [
+      "Quels secteurs ?",
+      "Quelles restrictions ?",
+      "Quels pays en profitent ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#COMMERCE",
+      "#CHINE",
+      "#ETATS-UNIS"
+    ],
+    "events": [],
+    "signals": [
+      "!FRAGMENTATION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-dedollarisation",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Dédollarisation",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "dédollarisation",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "dollar",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les initiatives pour réduire la place du dollar.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "BRICS",
+      "yuan",
+      "or"
+    ],
+    "questions": [
+      "Quelles initiatives ?",
+      "Quelle part du dollar ?",
+      "Quelles banques centrales achètent de l'or ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#FINANCE",
+      "#MONNAIE"
+    ],
+    "events": [],
+    "signals": [
+      "!MULTIPOLARITE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-sanctions-financieres-et-swift",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sanctions financières et SWIFT",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "SWIFT",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "sanctions financières",
+        "entityWeight": "50"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre l'usage des sanctions financières comme arme géopolitique.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "banques",
+      "avoirs gelés",
+      "systèmes alternatifs"
+    ],
+    "questions": [
+      "Quelles banques exclues ?",
+      "Quels avoirs gelés ?",
+      "Quels systèmes alternatifs ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#SANCTIONS",
+      "#FINANCE"
+    ],
+    "events": [
+      "@SANCTION"
+    ],
+    "signals": [
+      "!PRESSION-ECONOMIQUE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-nouvelles-routes-de-la-soie",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Nouvelles routes de la soie",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "routes de la soie",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "Chine",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "infrastructures",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les investissements chinois dans les infrastructures étrangères.",
+    "locations": [
+      "Asie",
+      "Afrique",
+      "Europe de l'Est"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "ports",
+      "dette",
+      "Belt and Road"
+    ],
+    "questions": [
+      "Quels projets ?",
+      "Quelle dette contractée ?",
+      "Quels pays se retirent ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#CHINE",
+      "#INFLUENCE"
+    ],
+    "events": [],
+    "signals": [
+      "!INFLUENCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-crise-de-la-dette-souveraine",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Crise de la dette souveraine",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "dette souveraine",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "défaut",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "FMI",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller les pays en risque de défaut de paiement.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "FMI",
+      "Banque mondiale",
+      "créanciers"
+    ],
+    "questions": [
+      "Quel pays ?",
+      "Quel plan de sauvetage ?",
+      "Quelles conditions ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#ECONOMIE",
+      "#DETTE"
+    ],
+    "events": [
+      "@RISQUE-DEFAUT"
+    ],
+    "signals": [
+      "!RISQUE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-relocalisation-industrielle",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Relocalisation industrielle",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "relocalisation",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "industrie",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "souveraineté",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre le retour des productions stratégiques.",
+    "locations": [
+      "Europe",
+      "États-Unis"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "semi-conducteurs",
+      "médicaments",
+      "subventions"
+    ],
+    "questions": [
+      "Quelle usine ?",
+      "Quelle subvention ?",
+      "Quel coût ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#INDUSTRIE",
+      "#SOUVERAINETE"
+    ],
+    "events": [],
+    "signals": [
+      "!SOUVERAINETE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-controle-des-investissements-etrangers",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Contrôle des investissements étrangers",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "investissements étrangers",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "contrôle",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "rachat",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre le filtrage des investissements étrangers dans les secteurs stratégiques.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "Chine",
+      "entreprises stratégiques",
+      "État"
+    ],
+    "questions": [
+      "Quel rachat bloqué ?",
+      "Quel secteur ?",
+      "Quel pays acheteur ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#ECONOMIE",
+      "#SOUVERAINETE"
+    ],
+    "events": [],
+    "signals": [
+      "!PROTECTION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-crise-alimentaire-mondiale",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Crise alimentaire mondiale",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "crise alimentaire",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "famine",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "prix",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller l'insécurité alimentaire liée aux conflits et au climat.",
+    "locations": [
+      "Afrique",
+      "Moyen-Orient"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Programme alimentaire mondial",
+      "sécheresse",
+      "céréales"
+    ],
+    "questions": [
+      "Quels pays touchés ?",
+      "Combien de personnes ?",
+      "Quelle aide ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#ALIMENTATION",
+      "#HUMANITAIRE"
+    ],
+    "events": [
+      "@ALERTE-HUMANITAIRE"
+    ],
+    "signals": [
+      "!HUMANITAIRE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-election-presidentielle-americaine",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Élection présidentielle américaine",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "élection présidentielle",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "États-Unis",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "candidat",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Suivre la campagne et les résultats de l'élection présidentielle américaine.",
+    "locations": [
+      "Washington"
+    ],
+    "times": [
+      "campagne électorale",
+      "jour du scrutin"
+    ],
+    "relatedEntities": [
+      "Républicains",
+      "Démocrates",
+      "Maison Blanche"
+    ],
+    "questions": [
+      "Quels sondages ?",
+      "Quel résultat ?",
+      "Quelles conséquences pour la politique étrangère ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#ETATS-UNIS",
+      "#ELECTIONS"
+    ],
+    "events": [
+      "@ELECTION"
+    ],
+    "signals": [
+      "!INCERTITUDE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-elections-dans-un-pays-europeen",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Élections dans un pays européen",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "élections",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "Europe",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "gouvernement",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les élections nationales en Europe et la formation des gouvernements.",
+    "locations": [
+      "Europe"
+    ],
+    "times": [
+      "jour du scrutin"
+    ],
+    "relatedEntities": [
+      "partis",
+      "coalition",
+      "Union européenne"
+    ],
+    "questions": [
+      "Quel résultat ?",
+      "Quelle coalition ?",
+      "Quelle orientation européenne ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#EUROPE",
+      "#ELECTIONS"
+    ],
+    "events": [
+      "@ELECTION"
+    ],
+    "signals": [
+      "!INCERTITUDE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-manifestations-de-masse",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Manifestations de masse",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "manifestations",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "contestation",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "police",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Repérer les mouvements de contestation massifs dans le monde.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "gouvernement",
+      "répression",
+      "réseaux sociaux"
+    ],
+    "questions": [
+      "Quel pays ?",
+      "Quelles revendications ?",
+      "Quelle réponse du pouvoir ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#CONTESTATION",
+      "#SOCIETE"
+    ],
+    "events": [
+      "@MOBILISATION"
+    ],
+    "signals": [
+      "!INSTABILITE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-repression-des-opposants",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Répression des opposants",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "opposants",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "arrestations",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "répression",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les arrestations et poursuites d'opposants politiques.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "ONG",
+      "droits de l'homme",
+      "justice"
+    ],
+    "questions": [
+      "Quel pays ?",
+      "Qui est arrêté ?",
+      "Quelle réaction internationale ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#DROITS-HUMAINS",
+      "#LIBERTES"
+    ],
+    "events": [],
+    "signals": [
+      "!VIGILANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-ingerence-etrangere-dans-une-election",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Ingérence étrangère dans une élection",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "ingérence",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "élection",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "influence",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller les tentatives d'ingérence étrangère dans les scrutins.",
+    "locations": [],
+    "times": [
+      "période électorale"
+    ],
+    "relatedEntities": [
+      "désinformation",
+      "cyberattaque",
+      "Viginum"
+    ],
+    "questions": [
+      "Quel pays visé ?",
+      "Quel acteur soupçonné ?",
+      "Quelles preuves ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#INGERENCE",
+      "#ELECTIONS"
+    ],
+    "events": [
+      "@INGERENCE"
+    ],
+    "signals": [
+      "!ALERTE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-referendum-d-independance",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Référendum d'indépendance",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "référendum",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "indépendance",
+        "entityWeight": "50"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Suivre les consultations sur l'indépendance de territoires.",
+    "locations": [
+      "Nouvelle-Calédonie",
+      "Écosse",
+      "Catalogne"
+    ],
+    "times": [
+      "jour du vote"
+    ],
+    "relatedEntities": [
+      "séparatistes",
+      "État central",
+      "droit international"
+    ],
+    "questions": [
+      "Quel territoire ?",
+      "Quel résultat ?",
+      "Est-il reconnu ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#SOUVERAINETE",
+      "#REFERENDUM"
+    ],
+    "events": [
+      "@REFERENDUM"
+    ],
+    "signals": [
+      "!TENSION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-etat-de-droit-dans-l-union-europeenne",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "État de droit dans l'Union européenne",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "État de droit",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "Union européenne",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "fonds",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les procédures européennes sur le respect de l'État de droit.",
+    "locations": [
+      "Hongrie",
+      "Bruxelles"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Commission européenne",
+      "article 7",
+      "justice"
+    ],
+    "questions": [
+      "Quel pays ?",
+      "Quels fonds gelés ?",
+      "Quelle procédure ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#UNION-EUROPEENNE",
+      "#DEMOCRATIE"
+    ],
+    "events": [],
+    "signals": [
+      "!GOUVERNANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-crise-politique-au-venezuela",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Crise politique au Venezuela",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Venezuela",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "Caracas",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "opposition",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre la crise politique et économique au Venezuela.",
+    "locations": [
+      "Caracas"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "pétrole",
+      "migrants",
+      "États-Unis"
+    ],
+    "questions": [
+      "Quelle situation politique ?",
+      "Quelles sanctions ?",
+      "Quel exode ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#VENEZUELA",
+      "#AMERIQUE-LATINE"
+    ],
+    "events": [],
+    "signals": [
+      "!INSTABILITE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-montee-des-populismes",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Montée des populismes",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "populisme",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "extrême droite",
+        "entityWeight": "25"
+      },
+      {
+        "entityName": "extrême gauche",
+        "entityWeight": "25"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 50,
+    "isFuzzy": true,
+    "instructions": "Suivre l'évolution électorale des partis populistes.",
+    "locations": [],
+    "times": [
+      "élections"
+    ],
+    "relatedEntities": [
+      "élections",
+      "sondages",
+      "coalitions"
+    ],
+    "questions": [
+      "Quels scores ?",
+      "Quelles alliances ?",
+      "Quelles politiques annoncées ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#POLITIQUE",
+      "#POPULISME"
+    ],
+    "events": [],
+    "signals": [
+      "!TENSION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-changement-de-dirigeant-d-une-grande-puissance",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Changement de dirigeant d'une grande puissance",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "nouveau président",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "investiture",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "gouvernement",
+        "entityWeight": "30"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les changements à la tête des grandes puissances.",
+    "locations": [],
+    "times": [
+      "jour de l'investiture"
+    ],
+    "relatedEntities": [
+      "politique étrangère",
+      "alliances",
+      "marchés"
+    ],
+    "questions": [
+      "Qui arrive au pouvoir ?",
+      "Quelle politique étrangère ?",
+      "Quelles premières décisions ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#POUVOIR",
+      "#TRANSITION"
+    ],
+    "events": [
+      "@CHANGEMENT-POUVOIR"
+    ],
+    "signals": [
+      "!INCERTITUDE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-migrations-en-mediterranee",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Migrations en Méditerranée",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "migrants",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "Méditerranée",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "naufrage",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les traversées et les drames en mer Méditerranée.",
+    "locations": [
+      "Lampedusa",
+      "Libye",
+      "Tunisie"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Frontex",
+      "ONG",
+      "garde-côtes"
+    ],
+    "questions": [
+      "Combien d'arrivées ?",
+      "Quels naufrages ?",
+      "Quelle politique européenne ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#MIGRATIONS",
+      "#HUMANITAIRE"
+    ],
+    "events": [
+      "@NAUFRAGE"
+    ],
+    "signals": [
+      "!HUMANITAIRE",
+      "!SAD"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-refugies-climatiques",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Réfugiés climatiques",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "réfugiés climatiques",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "déplacés",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les déplacements de population liés au climat.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "sécheresse",
+      "montée des eaux",
+      "inondations"
+    ],
+    "questions": [
+      "Combien de déplacés ?",
+      "Quelle région ?",
+      "Quel statut juridique ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#CLIMAT",
+      "#MIGRATIONS"
+    ],
+    "events": [],
+    "signals": [
+      "!HUMANITAIRE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-terrorisme-international",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Terrorisme international",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "État islamique",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "attentat",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "terrorisme",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller l'activité des groupes terroristes internationaux.",
+    "locations": [
+      "Sahel",
+      "Syrie",
+      "Afghanistan"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Al-Qaïda",
+      "État islamique au Khorassan",
+      "services de renseignement"
+    ],
+    "questions": [
+      "Quel attentat ?",
+      "Quel groupe revendique ?",
+      "Quelle menace en Europe ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#TERRORISME",
+      "#SECURITE"
+    ],
+    "events": [
+      "@ATTENTAT"
+    ],
+    "signals": [
+      "!MENACE",
+      "!FEAR"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-cartels-et-narcotrafic",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cartels et narcotrafic",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "cartels",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "narcotrafic",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "cocaïne",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre le pouvoir des cartels et le trafic de drogue.",
+    "locations": [
+      "Mexique",
+      "Équateur",
+      "ports européens"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "fentanyl",
+      "violence",
+      "corruption"
+    ],
+    "questions": [
+      "Quel cartel ?",
+      "Quelles saisies ?",
+      "Quelle violence ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#CRIMINALITE",
+      "#NARCOTRAFIC"
+    ],
+    "events": [],
+    "signals": [
+      "!MENACE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-menace-de-pandemie",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Menace de pandémie",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "pandémie",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "épidémie",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "OMS",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller les risques de pandémie et leur gestion internationale.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "OMS",
+      "vaccins",
+      "virus"
+    ],
+    "questions": [
+      "Quel pathogène ?",
+      "Quels pays touchés ?",
+      "Quelle réponse internationale ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#SANTE",
+      "#PANDEMIE"
+    ],
+    "events": [
+      "@ALERTE-SANITAIRE"
+    ],
+    "signals": [
+      "!ALERTE",
+      "!FEAR"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-negociations-climatiques",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Négociations climatiques",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "COP",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "climat",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "accord",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les conférences et engagements sur le climat.",
+    "locations": [],
+    "times": [
+      "dates de la COP"
+    ],
+    "relatedEntities": [
+      "Accord de Paris",
+      "énergies fossiles",
+      "financement"
+    ],
+    "questions": [
+      "Quels engagements ?",
+      "Quel financement pour les pays du Sud ?",
+      "Quels désaccords ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#CLIMAT",
+      "#DIPLOMATIE"
+    ],
+    "events": [
+      "@SOMMET"
+    ],
+    "signals": [
+      "!GOUVERNANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-conflits-lies-a-l-eau",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Conflits liés à l'eau",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "eau",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "barrage",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "sécheresse",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller les tensions autour des ressources en eau.",
+    "locations": [
+      "Nil",
+      "Tigre et Euphrate",
+      "Mékong"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Éthiopie",
+      "Égypte",
+      "Turquie"
+    ],
+    "questions": [
+      "Quel barrage ?",
+      "Quels pays en conflit ?",
+      "Quelle médiation ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#EAU",
+      "#RESSOURCES"
+    ],
+    "events": [],
+    "signals": [
+      "!TENSION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-espionnage-entre-etats",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Espionnage entre États",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "espionnage",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "espion",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "renseignement",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Repérer les affaires d'espionnage entre États.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "services de renseignement",
+      "expulsions",
+      "diplomates"
+    ],
+    "questions": [
+      "Quelle affaire ?",
+      "Quel pays ?",
+      "Quelles expulsions ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#ESPIONNAGE",
+      "#RENSEIGNEMENT"
+    ],
+    "events": [
+      "@AFFAIRE-ESPIONNAGE"
+    ],
+    "signals": [
+      "!TENSION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-desinformation-d-etat",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Désinformation d'État",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "désinformation",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "propagande",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "État",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller les campagnes de désinformation menées par des États.",
+    "locations": [],
+    "times": [],
+    "relatedEntities": [
+      "réseaux sociaux",
+      "Viginum",
+      "faux comptes"
+    ],
+    "questions": [
+      "Quelle campagne ?",
+      "Quel pays ?",
+      "Quelle audience ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#DESINFORMATION",
+      "#INFLUENCE"
+    ],
+    "events": [
+      "@CAMPAGNE-DESINFORMATION"
+    ],
+    "signals": [
+      "!ALERTE",
+      "!DESINFORMATION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-rapprochement-entre-la-chine-et-la-russie",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Rapprochement entre la Chine et la Russie",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Chine",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "Russie",
+        "entityWeight": "40"
+      },
+      {
+        "entityName": "partenariat",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 70,
+    "isFuzzy": true,
+    "instructions": "Suivre le partenariat stratégique entre la Chine et la Russie.",
+    "locations": [
+      "Pékin",
+      "Moscou"
+    ],
+    "times": [
+      "visites officielles"
+    ],
+    "relatedEntities": [
+      "énergie",
+      "armement",
+      "dédollarisation"
+    ],
+    "questions": [
+      "Quels accords signés ?",
+      "Quel soutien militaire ?",
+      "Quels échanges commerciaux ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#CHINE",
+      "#RUSSIE",
+      "#ALLIANCE"
+    ],
+    "events": [
+      "@VISITE-OFFICIELLE"
+    ],
+    "signals": [
+      "!ALLIANCE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-groenland-et-les-etats-unis",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Groenland et les États-Unis",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Groenland",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "États-Unis",
+        "entityWeight": "20"
+      },
+      {
+        "entityName": "Danemark",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre les ambitions américaines sur le Groenland et la réponse danoise.",
+    "locations": [
+      "Groenland",
+      "Nuuk",
+      "Copenhague"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "Arctique",
+      "terres rares",
+      "base de Pituffik"
+    ],
+    "questions": [
+      "Quelles déclarations ?",
+      "Quelle réaction du Danemark ?",
+      "Quelle position des Groenlandais ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#ARCTIQUE",
+      "#ETATS-UNIS"
+    ],
+    "events": [],
+    "signals": [
+      "!TENSION"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-accord-entre-l-union-europeenne-et-le-mercosur",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Accord entre l'Union européenne et le Mercosur",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "Mercosur",
+        "entityWeight": "60"
+      },
+      {
+        "entityName": "accord commercial",
+        "entityWeight": "40"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Suivre la ratification de l'accord commercial entre l'Union européenne et le Mercosur.",
+    "locations": [
+      "Bruxelles",
+      "Brasilia",
+      "Buenos Aires"
+    ],
+    "times": [
+      "votes de ratification"
+    ],
+    "relatedEntities": [
+      "agriculteurs",
+      "France",
+      "Brésil"
+    ],
+    "questions": [
+      "Quels pays s'y opposent ?",
+      "Quel vote ?",
+      "Quelles clauses environnementales ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#COMMERCE",
+      "#UNION-EUROPEENNE"
+    ],
+    "events": [
+      "@RATIFICATION"
+    ],
+    "signals": [
+      "!TENSION-COMMERCIALE"
+    ],
+    "isDeleted": false
+  },
+  {
+    "id": "fr-geo-sabotage-d-infrastructures-sous-marines",
+    "appName": "KAONOMI.Intels",
+    "date": "2026-11-08T14:57:54.038687Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sabotage d'infrastructures sous-marines",
+    "comment": "Intel généré : domaine de la géopolitique",
+    "includedEntities": [
+      {
+        "entityName": "câbles sous-marins",
+        "entityWeight": "50"
+      },
+      {
+        "entityName": "sabotage",
+        "entityWeight": "30"
+      },
+      {
+        "entityName": "gazoduc",
+        "entityWeight": "20"
+      }
+    ],
+    "excludedEntities": [],
+    "triggerLevel": 60,
+    "isFuzzy": true,
+    "instructions": "Surveiller les atteintes aux câbles et gazoducs sous-marins.",
+    "locations": [
+      "mer Baltique",
+      "mer du Nord"
+    ],
+    "times": [],
+    "relatedEntities": [
+      "navires",
+      "OTAN",
+      "télécommunications"
+    ],
+    "questions": [
+      "Quelle infrastructure ?",
+      "Quel navire soupçonné ?",
+      "Quelle enquête ?"
+    ],
+    "tags": [
+      "#GEOPOLITIQUE",
+      "#INFRASTRUCTURES",
+      "#SABOTAGE"
+    ],
+    "events": [
+      "@SABOTAGE"
+    ],
+    "signals": [
+      "!MENACE"
+    ],
+    "isDeleted": false
+  }
+]

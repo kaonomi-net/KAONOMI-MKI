@@ -11,7 +11,7 @@ namespace KAONOMI.ACHEngine
     internal class ACHEngineCollecVAgent : VGrainBase<iACHEngineCollecVAgent>, iACHEngineCollecVAgent
     {
         /// <summary>Creates the agent with the given logger.</summary>
-        /// <param name="logger">Logger for collection operations.</param>
+        /// <param title="logger">Logger for collection operations.</param>
         public ACHEngineCollecVAgent(ILogger<iACHEngineCollecVAgent> logger) : base(logger)
         {
         }

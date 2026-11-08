@@ -20,7 +20,7 @@ public sealed class EngineFixture : IAsyncLifetime
         _host = await SearchEngineHost.StartAsync(settings) ?? throw new InvalidOperationException("The engine did not start");
     }
 
-    /// <summary>The repository of KAONOMI (NEST 7.17) on the engine, its indices named with <paramref name="prefix"/>.</summary>
+    /// <summary>The repository of KAONOMI (NEST 7.17) on the engine, its indices named with <paramref title="prefix"/>.</summary>
     public ElasticRepository Repository(string prefix) => new(new ElasticServerSettings { url = Url, prefix = prefix });
 
     /// <summary>Stops the engine and starts it again on the same data (what was written must still be there).</summary>

@@ -47,7 +47,19 @@ public sealed class IdeaEntry
     /// <summary>Category used to group ideas.</summary>
     public string? Category { get; set; }
 
+    /// <summary>The title shared by every document (the same as <see cref="IdeaTitle"/>, kept in step on save).</summary>
+    [JsonPropertyName("title")]
+    public string? Title { get; set; }
+
+    /// <summary>The tags: #TOPIC, upper case, '-' for the spaces (normalised by the server on save).</summary>
     [JsonPropertyName("tags")]
-    /// <summary>Tags used to classify or filter ideas.</summary>
     public List<string>? Tags { get; set; }
+
+    /// <summary>The events: @EVENT, upper case, '-' for the spaces.</summary>
+    [JsonPropertyName("events")]
+    public List<string>? Events { get; set; }
+
+    /// <summary>The signals: !SIGNAL, upper case, '-' for the spaces.</summary>
+    [JsonPropertyName("signals")]
+    public List<string>? Signals { get; set; }
 }

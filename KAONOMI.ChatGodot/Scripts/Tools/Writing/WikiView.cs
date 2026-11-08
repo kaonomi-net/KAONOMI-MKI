@@ -103,11 +103,20 @@ public sealed class WikiView : IToolView
         title.AddThemeFontSizeOverride("font_size", 20);
         title.AddThemeFontOverride("font", Eve.Eve.Display);
         title.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
-        var tags = Ui.Line(vm, nameof(vm.Tags), "#TOPIC !ALERT ?QUESTION &LINK");
-        tags.CustomMinimumSize = new Vector2(240, 0);
-        tags.SizeFlagsHorizontal = Control.SizeFlags.ShrinkEnd;
+        // The tags, the events and the signals of the page, one line each (see MetaTags).
+        LineEdit Meta(string property, string hint)
+        {
+            var line = Ui.Line(vm, property, hint);
+            line.CustomMinimumSize = new Vector2(170, 0);
+            line.SizeFlagsHorizontal = Control.SizeFlags.ShrinkEnd;
+            line.TooltipText = hint + " · separated by spaces or commas, '-' inside one";
+            return line;
+        }
+        var tags = Meta(nameof(vm.Tags), MetaTags.TagsHint);
+        var events = Meta(nameof(vm.Events), MetaTags.EventsHint);
+        var signals = Meta(nameof(vm.Signals), MetaTags.SignalsHint);
         var info = Ui.Label(vm, nameof(vm.Info), Eve.Eve.Muted, 11);
-        var headRow = Ui.Row(8, back, home, title, tags);
+        var headRow = Ui.Row(8, back, home, title, tags, events, signals);
         var head = Ui.Column(2, headRow, info);
 
         // The groups of the page and of the links between the pages.

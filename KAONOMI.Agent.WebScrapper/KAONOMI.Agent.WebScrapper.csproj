@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>KAONOMI.Agent.WebScrapper</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MARI.Framework.Builders" Version="1.0.0" />
+    <PackageReference Include="MARI.Framework.Core" Version="1.0.0" />
+    <PackageReference Include="MARI.Framework.Core.Abstractions" Version="1.0.0" />
+    <PackageReference Include="MARI.Framework.Node" Version="1.0.0" />
+    <PackageReference Include="MARI.Framework.Extensions.Mongo" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Playwright" Version="1.49.0" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.71" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KAONOMI.Core\KAONOMI.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

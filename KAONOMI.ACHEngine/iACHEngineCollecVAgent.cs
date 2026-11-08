@@ -8,8 +8,8 @@ namespace KAONOMI.ACHEngine
     public interface iACHEngineCollecVAgent : IVGrain
     {
         /// <summary>Collects context inputs and passes the sequence string to the next step.</summary>
-        /// <param name="input">Current sequence input.</param>
-        /// <param name="context">MARI execution context.</param>
+        /// <param title="input">Current sequence input.</param>
+        /// <param title="context">MARI execution context.</param>
         /// <returns>The input string after collection completes.</returns>
         Task<string> DoProcess(string input, IExecutionContext context);
     }

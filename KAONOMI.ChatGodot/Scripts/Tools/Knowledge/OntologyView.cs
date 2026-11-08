@@ -11,7 +11,8 @@ namespace KAONOMI.ChatGodot.Tools.Knowledge;
 /// <summary>
 /// /ontology (port of <c>OntologyView.axaml</c>): the tree of every node of the ontology. The filter applies as you type
 /// (all fields, accents ignored; Enter: search now and select the first match; Esc: clear), Search, Clear, Add root
-/// node, Expand all, Collapse all, Show deleted, ↻ Refresh (F5). A click on a node expands or collapses its children, a
+/// node, Expand all, Collapse all, Show deleted, Import (a JSON export under the selected node), Import folder (an Export all folder under the selected node), Export all (every node, one JSON file each, into a chosen folder),
+/// ↻ Refresh (F5). A click on a node expands or collapses its children, a
 /// double-click (or Enter) opens it in a new Entity window; right click: Edit, Add child node, Add root node, Clone,
 /// Attach to another node (then click the virtual parent; Esc cancels), Detach (on a virtual link), Export, Import,
 /// Delete, Undelete, Undelete with descendants, Show deleted nodes. Ctrl+S / ⌘S saves the selected node.
@@ -27,6 +28,7 @@ public sealed class OntologyView : IToolView
         vm.ConfirmAsync = (message, confirm) => Dialogs.Confirm("Ontology", message, confirm);
         vm.SaveTextFileAsync = SaveTextFileAsync;
         vm.OpenTextFileAsync = OpenTextFileAsync;
+        vm.PickFolderAsync = title => Dialogs.OpenFolder(title);
 
         // The toolbar.
         var term = Ui.Line(vm, nameof(vm.Term), "Filter nodes as you type (all fields, accents ignored) · Enter: first match · Esc: clear");
@@ -50,6 +52,9 @@ public sealed class OntologyView : IToolView
             Ui.Command("EXPAND ALL", vm.ExpandAllCommand),
             Ui.Command("COLLAPSE ALL", vm.CollapseAllCommand),
             showDeleted,
+            Ui.Command("IMPORT…", vm.ImportIntoSelectedCommand, tooltip: "Import a JSON export under the selected node (each node gets a new id)"),
+            Ui.Command("IMPORT FOLDER…", vm.ImportFolderIntoSelectedCommand, tooltip: "Import a folder exported with Export all under the selected node: the hierarchy is rebuilt, each node gets a new id, deleted nodes are left out"),
+            Ui.Command("EXPORT ALL…", vm.ExportAllCommand, tooltip: "Export every node (no filter, deleted ones included) to a folder: one JSON file per node"),
             Ui.Command("↻ REFRESH", vm.RefreshCommand, tooltip: "Reload all nodes from the server (F5). Unsaved changes are lost."))));
 
         // Attach mode: the next node clicked becomes a virtual parent.

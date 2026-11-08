@@ -180,6 +180,10 @@ public static class SearchOpener
                 case "dialog":
                     search.Status = "A dialog has no window of its own: its JSON is on the right";
                     return;
+                case "webpage":
+                    // A page of the web scraper agent: its screenshot (or the page itself).
+                    search.Status = SearchWindowViewModel.OpenWebPage(hit);
+                    return;
                 default:
                     search.Status = $"No window for the index {hit.Index}";
                     return;

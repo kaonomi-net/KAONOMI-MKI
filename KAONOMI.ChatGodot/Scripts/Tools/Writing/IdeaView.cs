@@ -1,4 +1,5 @@
 using Godot;
+using KAONOMI.Chat.Services;
 using KAONOMI.Chat.ViewModels;
 using KAONOMI.ChatGodot.Eve;
 
@@ -123,7 +124,9 @@ public sealed class IdeaView : IToolView
             Ui.Field("Title", titleBox),
             Ui.Field("Category", WritingUi.TextWithChoices(entry, nameof(entry.Category), vm.Categories, "e.g. Product, Research, UI")),
             Ui.Field("Description", Ui.Lines(entry, nameof(entry.IdeaDescription), 220, "Describe the idea…")),
-            Ui.Field("Tags (one per line)", Ui.Lines(entry, nameof(entry.Tags), 70)),
+            Ui.Field("Tags (one per line: #TOPIC)", Ui.Lines(entry, nameof(entry.Tags), 70, MetaTags.TagsHint)),
+            Ui.Field("Events (one per line: @EVENT)", Ui.Lines(entry, nameof(entry.Events), 54, MetaTags.EventsHint)),
+            Ui.Field("Signals (one per line: !SIGNAL)", Ui.Lines(entry, nameof(entry.Signals), 54, MetaTags.SignalsHint)),
             Ui.Field("Comment", Ui.Lines(entry, nameof(entry.Comment), 60)));
         return Ui.Column(8, Ui.Margin(header, 8, 4, 8, 0), Eve.Eve.Separator(), Ui.FillHeight(Ui.Scroll(Ui.Margin(fields, 8, 0, 12, 12))));
     }

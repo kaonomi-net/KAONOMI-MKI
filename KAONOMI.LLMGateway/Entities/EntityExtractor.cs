@@ -7,7 +7,7 @@ namespace KAONOMI.LLMGateway.Entities;
 /// <summary>
 /// Finds the entities of a prompt with rules, without a model (a fraction of a millisecond): code (fenced blocks, lines
 /// of code, stack traces) and the languages of programming, formulas, URLs, e-mails, IP addresses, dates and times,
-/// amounts, percentages, phone numbers, numbers, file names, hashtags and mentions, people (a title before a name),
+/// amounts, percentages, phone numbers, numbers, file names, hashtags and mentions, people (a title before a title),
 /// proper nouns, the names of the gazetteers of the settings (ORG, PRODUCT… any type), and the language of the prompt
 /// (fr or en). An entity covers its text: a number inside a date or an amount is not a number again.
 /// </summary>
@@ -26,7 +26,7 @@ public sealed partial class EntityExtractor
     /// <summary>The types of the gazetteers.</summary>
     public IEnumerable<string> GazetteerTypes => _gazetteer.Select(g => g.Type).Distinct();
 
-    /// <summary>The entities of <paramref name="text"/>, in the order of the text (the language last).</summary>
+    /// <summary>The entities of <paramref title="text"/>, in the order of the text (the language last).</summary>
     public IReadOnlyList<Entity> Extract(string? text)
     {
         var found = new List<Entity>();
@@ -34,7 +34,7 @@ public sealed partial class EntityExtractor
             return found;
         var covered = new bool[text.Length];
 
-        // Code first: what is inside a block of code is not a date, a number or a name.
+        // Code first: what is inside a block of code is not a date, a number or a title.
         foreach (Match m in FencedCode().Matches(text))
         {
             var language = m.Groups["lang"].Value.Trim().ToLowerInvariant();

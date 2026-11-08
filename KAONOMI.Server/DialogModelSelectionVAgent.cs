@@ -19,7 +19,7 @@ namespace KAONOMI.Server
     internal class DialogModelSelectionVAgent : VGrainBase<IDialogModelSelectionVAgent>, IDialogModelSelectionVAgent
     {
         /// <summary>Creates the agent with MARI logging support.</summary>
-        /// <param name="logger">Logger for this grain type.</param>
+        /// <param title="logger">Logger for this grain type.</param>
         public DialogModelSelectionVAgent(ILogger<IDialogModelSelectionVAgent> logger) : base(logger)
         {
         }

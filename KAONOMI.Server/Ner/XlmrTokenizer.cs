@@ -48,7 +48,7 @@ namespace KAONOMI.Server.Ner
             _unkScore = lowest - 10;
         }
 
-        /// <summary>The pieces of <paramref name="text"/>, without &lt;s&gt; and &lt;/s&gt;.</summary>
+        /// <summary>The pieces of <paramref title="text"/>, without &lt;s&gt; and &lt;/s&gt;.</summary>
         public List<XlmrToken> Encode(string text)
         {
             var tokens = new List<XlmrToken>();
@@ -68,7 +68,7 @@ namespace KAONOMI.Server.Ner
             return tokens;
         }
 
-        /// <summary>A word (characters <paramref name="start"/> to <paramref name="end"/>) cut into the pieces of best score.</summary>
+        /// <summary>A word (characters <paramref title="start"/> to <paramref title="end"/>) cut into the pieces of best score.</summary>
         private void EncodeWord(string text, int start, int end, List<XlmrToken> tokens)
         {
             var word = text[start..end];

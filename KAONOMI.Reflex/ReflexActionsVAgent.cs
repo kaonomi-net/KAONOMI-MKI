@@ -11,7 +11,7 @@ namespace KAONOMI.Reflex
     internal class ReflexActionsVAgent : VGrainBase<iReflexActionsVAgent>, iReflexActionsVAgent
     {
         /// <summary>Creates the agent with the given logger.</summary>
-        /// <param name="logger">Logger for action operations.</param>
+        /// <param title="logger">Logger for action operations.</param>
         public ReflexActionsVAgent(ILogger<iReflexActionsVAgent> logger) : base(logger)
         {
         }

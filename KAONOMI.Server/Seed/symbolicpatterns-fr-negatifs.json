@@ -1,0 +1,2654 @@
+[
+  {
+    "id": "fr-sad-mort",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Mort",
+    "symbol": "mort",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:mort(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]c[èe]s)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tr[ée]pas)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]funt(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:perte(s)?\\s+humaine(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT",
+      "#DEUIL"
+    ],
+    "language": "FR",
+    "comment": "La mort, la fin de la vie.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-mourir",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Mourir",
+    "symbol": "mourir",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:mour(ir|ant|ante|ants|antes|ra|rait|rons|ront)|meur(s|t|ent)|d[ée]c[ée]d(er|[ée]|[ée]e|[ée]s|[ée]es|ait)|p[ée]rir|p[ée]ri(e|s|es|ssent|t)?|succomb(er|[ée]|[ée]e|ait|e|ent)|expir(er|[ée]|[ée]e|ait))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT"
+    ],
+    "language": "FR",
+    "comment": "L'action de mourir, de perdre la vie.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-deces",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Décès",
+    "symbol": "décès",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]c[èe]s)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:disparition(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:perte(s)?\\s+(d['’]un|d['’]une)\\s+proche(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mortalit[ée](s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT",
+      "#DEUIL"
+    ],
+    "language": "FR",
+    "comment": "Le décès, la disparition d'une personne.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-tuer",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Tuer",
+    "symbol": "tuer",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:tu(er|e|es|ent|[ée]|[ée]e|[ée]s|[ée]es|ait|aient|era|erai|eur|eurs|euse)|abatt(re|u|ue|us|ues|ait)|ex[ée]cut(er|[ée]|[ée]e|[ée]s)|[ée]liminer|[ée]limin([ée]|[ée]e|[ée]s|[ée]es))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT",
+      "#VIOLENCE"
+    ],
+    "language": "FR",
+    "comment": "Donner la mort à un être vivant.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-meurtre",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Meurtre",
+    "symbol": "meurtre",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:meurtre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:meurtri(er|[èe]re|ers|[èe]res))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:homicide(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:crime(s)?\\s+de\\s+sang)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT",
+      "#VIOLENCE",
+      "#CRIME"
+    ],
+    "language": "FR",
+    "comment": "Le fait de tuer volontairement quelqu'un.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-assassinat",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Assassinat",
+    "symbol": "assassinat",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:assassinat(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:assassin(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:assassin(er|[ée]|[ée]e|[ée]s|[ée]es|ait))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tueur(s)?\\s+[àa]\\s+gages)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT",
+      "#VIOLENCE",
+      "#CRIME"
+    ],
+    "language": "FR",
+    "comment": "Meurtre prémédité.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-suicide",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Suicide",
+    "symbol": "suicide",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:suicide(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:suicid(er|[ée]|[ée]e|[ée]s|[ée]es|aire|aires))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:(mettre|met|mets|mettent|mettait|mis|mise)\\s+fin\\s+[àa]\\s+(ses|mes|tes|leurs|nos|vos)\\s+jours)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:(se|me|te)\\s+donner\\s+la\\s+mort)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:autolyse)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT",
+      "#DETRESSE"
+    ],
+    "language": "FR",
+    "comment": "Le fait de se donner la mort.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-cadavre",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cadavre",
+    "symbol": "cadavre",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cadavre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]pouille(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:macchab[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:corps\\s+sans\\s+vie)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:charogne(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT"
+    ],
+    "language": "FR",
+    "comment": "Le corps d'une personne morte.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-tombe",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Tombe",
+    "symbol": "tombe",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:tombe(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tombeau(x)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:s[ée]pulture(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:caveau(x)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mausol[ée]e(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT",
+      "#DEUIL"
+    ],
+    "language": "FR",
+    "comment": "Le lieu où l'on enterre un mort.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-cercueil",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cercueil",
+    "symbol": "cercueil",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cercueil(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bi[èe]re(s)?\\s+fun[ée]raire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sarcophage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:urne(s)?\\s+fun[ée]raire(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT",
+      "#DEUIL"
+    ],
+    "language": "FR",
+    "comment": "La caisse où l'on place le corps d'un mort.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-enterrement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Enterrement",
+    "symbol": "enterrement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:enterrement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:enterr(er|[ée]|[ée]e|[ée]s|[ée]es))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:inhumation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:inhum(er|[ée]|[ée]e)|ensevel(ir|i|ie|is|ies))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT",
+      "#DEUIL"
+    ],
+    "language": "FR",
+    "comment": "La mise en terre d'un mort.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-funerailles",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Funérailles",
+    "symbol": "funérailles",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:fun[ée]railles)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:obs[èe]ques)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fun[ée]raire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cort[èe]ge(s)?\\s+fun[èe]bre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cr[ée]mation(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT",
+      "#DEUIL"
+    ],
+    "language": "FR",
+    "comment": "La cérémonie qui accompagne un mort.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-deuil",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Deuil",
+    "symbol": "deuil",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:deuil(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:endeuill(er|[ée]|[ée]e|[ée]s|[ée]es))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:condol[ée]ances)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pleurer\\s+(un|une|son|sa)\\s+(mort|morte|d[ée]funt|d[ée]funte))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#DEUIL",
+      "#TRISTESSE"
+    ],
+    "language": "FR",
+    "comment": "La douleur et le temps qui suivent la mort d'un proche.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-veuf",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Veuf",
+    "symbol": "veuf",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:veu(f|fs|ve|ves))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:veuvage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:orphelin(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:orphelinat(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#DEUIL"
+    ],
+    "language": "FR",
+    "comment": "La personne dont le conjoint est mort.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-cimetiere",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cimetière",
+    "symbol": "cimetière",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cimeti[èe]re(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:n[ée]cropole(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ossuaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:catacombe(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:columbarium(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT",
+      "#DEUIL"
+    ],
+    "language": "FR",
+    "comment": "Le lieu où l'on enterre les morts.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-agonie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Agonie",
+    "symbol": "agonie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:agonie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:agonis(er|ant|ante|ants|ait|e))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[âa]le(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dernier(s)?\\s+souffle(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fin\\s+de\\s+vie)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT",
+      "#SOUFFRANCE"
+    ],
+    "language": "FR",
+    "comment": "Les derniers moments avant la mort.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-tristesse",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Tristesse",
+    "symbol": "tristesse",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:tristesse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:triste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:(?<![àa]\\s+)peine(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:afflig[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:abattu(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#TRISTESSE"
+    ],
+    "language": "FR",
+    "comment": "L'état de celui qui est triste.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-chagrin",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Chagrin",
+    "symbol": "chagrin",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:chagrin(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chagrin([ée]|[ée]e|[ée]s|[ée]es))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:affliction(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:navr[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cr[èe]ve-c(œ|oe)ur)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#TRISTESSE"
+    ],
+    "language": "FR",
+    "comment": "Une peine morale profonde.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-desespoir",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Désespoir",
+    "symbol": "désespoir",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]sespoir(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]sesp[ée]r([ée]|[ée]e|[ée]s|[ée]es|er|ant|ante))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sans\\s+espoir)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]courag[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:accabl[ée](e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#TRISTESSE",
+      "#DETRESSE"
+    ],
+    "language": "FR",
+    "comment": "La perte de tout espoir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-depression",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Dépression",
+    "symbol": "dépression",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]pression(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]pressi(f|fs|ve|ves))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]prim(e|[ée]|[ée]e|[ée]s|[ée]es|er|ant|ante))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:neurasth[ée]nie)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:burn-?out)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#TRISTESSE",
+      "#DETRESSE",
+      "#MALADIE"
+    ],
+    "language": "FR",
+    "comment": "Un trouble de l'humeur, une profonde tristesse.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-solitude",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Solitude",
+    "symbol": "solitude",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:solitude(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:seul(e|s|es)?\\s+au\\s+monde)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:isol([ée]|[ée]e|[ée]s|[ée]es|ement))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:esseul[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]laiss[ée](e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#TRISTESSE",
+      "#RELATION"
+    ],
+    "language": "FR",
+    "comment": "L'état de celui qui est seul.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-abandon",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Abandon",
+    "symbol": "abandon",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:abandon(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:abandonn(er|[ée]|[ée]e|[ée]s|[ée]es|e|ent))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:largu[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rejet([ée]|[ée]e|[ée]s|[ée]es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:l[âa]ch[ée](e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#TRISTESSE",
+      "#RELATION"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'être laissé, quitté.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-douleur",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Douleur",
+    "symbol": "douleur",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:douleur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:douloureu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mal\\s+[àa]\\s+(en\\s+)?mourir)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:supplice(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:calvaire(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#SOUFFRANCE"
+    ],
+    "language": "FR",
+    "comment": "Une sensation pénible, physique ou morale.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-souffrance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Souffrance",
+    "symbol": "souffrance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:souffrance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:souffr(ir|e|es|ent|ant|ante|ait|u)|endur(er|[ée]|e))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:martyre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tourment(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#SOUFFRANCE"
+    ],
+    "language": "FR",
+    "comment": "Le fait de souffrir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-pleurer",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Pleurer",
+    "symbol": "pleurer",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:pleur(er|e|es|ent|[ée]|ait|aient|ant|eur|eurs)|sanglot(s|er|e|ent)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:larmoy(er|ant|ante)|chialer)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fondre\\s+en\\s+larmes)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#TRISTESSE"
+    ],
+    "language": "FR",
+    "comment": "Verser des larmes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-larme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Larme",
+    "symbol": "larme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:larme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:en\\s+larmes)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:yeux\\s+rougis)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sanglot(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#TRISTESSE"
+    ],
+    "language": "FR",
+    "comment": "La goutte qui coule des yeux quand on pleure.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-malheur",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Malheur",
+    "symbol": "malheur",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:malheur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:malheureu(x|se|ses|sement))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:infortune(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]tresse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mis[èe]re(s)?\\s+noire(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#TRISTESSE",
+      "#CATASTROPHE"
+    ],
+    "language": "FR",
+    "comment": "Un événement pénible, la mauvaise fortune.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-drame",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Drame",
+    "symbol": "drame",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:drame(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dramatique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tragique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:funeste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sinistre(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#CATASTROPHE"
+    ],
+    "language": "FR",
+    "comment": "Un événement tragique.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-tragedie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Tragédie",
+    "symbol": "tragédie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:trag[ée]die(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tragiquement)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fatal(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fatalit[ée](s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#CATASTROPHE"
+    ],
+    "language": "FR",
+    "comment": "Un événement terrible, aux suites fatales.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-catastrophe",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Catastrophe",
+    "symbol": "catastrophe",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:catastrophe(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:catastrophique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]sastre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]sastreu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cataclysme(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#CATASTROPHE"
+    ],
+    "language": "FR",
+    "comment": "Un désastre, un malheur soudain et grand.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-guerre",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Guerre",
+    "symbol": "guerre",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:guerre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:guerri(er|[èe]re|ers))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:conflit(s)?\\s+arm[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bombardement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bombard(er|[ée]|[ée]e|[ée]s))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#GUERRE",
+      "#VIOLENCE"
+    ],
+    "language": "FR",
+    "comment": "Un conflit armé.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-massacre",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Massacre",
+    "symbol": "massacre",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:massacre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:massacr(er|[ée]|[ée]e|[ée]s|[ée]es))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tuerie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:carnage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:boucherie(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#GUERRE",
+      "#VIOLENCE",
+      "#MORT"
+    ],
+    "language": "FR",
+    "comment": "La tuerie d'un grand nombre de personnes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-genocide",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Génocide",
+    "symbol": "génocide",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:g[ée]nocide(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:g[ée]nocidaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:extermination(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:extermin(er|[ée]|[ée]e|[ée]s))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]puration(s)?\\s+ethnique(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#GUERRE",
+      "#VIOLENCE",
+      "#MORT"
+    ],
+    "language": "FR",
+    "comment": "L'extermination d'un peuple.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-attentat",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Attentat",
+    "symbol": "attentat",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:attentat(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attentat-suicide)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:kamikaze(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:voiture(s)?\\s+pi[ée]g[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:prise(s)?\\s+d['’]otages?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#VIOLENCE",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Une attaque criminelle contre des personnes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-terrorisme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Terrorisme",
+    "symbol": "terrorisme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:terrorisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:terroriste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:djihadiste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:radicalis([ée]|[ée]e|[ée]s|ation))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#VIOLENCE",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "L'emploi de la terreur à des fins politiques.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-violence",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Violence",
+    "symbol": "violence",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:violence(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:violent(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:brutalit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:brutal(e|es|aux)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:frapp(er|[ée]|[ée]e|[ée]s|[ée]es))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#VIOLENCE"
+    ],
+    "language": "FR",
+    "comment": "L'usage de la force contre quelqu'un.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-agression",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Agression",
+    "symbol": "agression",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:agression(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:agress(er|[ée]|[ée]e|[ée]s|[ée]es|eur|eurs))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tabass(er|[ée]|[ée]e|age))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:passage(s)?\\s+[àa]\\s+tabac)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lynchage(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#VIOLENCE",
+      "#CRIME"
+    ],
+    "language": "FR",
+    "comment": "Une attaque violente contre quelqu'un.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-torture",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Torture",
+    "symbol": "torture",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:torture(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tortur(er|[ée]|[ée]e|[ée]s|[ée]es|eur|eurs))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:s[ée]vices)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:supplici[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:martyris(er|[ée]|[ée]e))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#VIOLENCE",
+      "#SOUFFRANCE"
+    ],
+    "language": "FR",
+    "comment": "Les souffrances infligées volontairement.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-haine",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Haine",
+    "symbol": "haine",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:haine(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ha[ïi]r)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hai(s|t|ssent)|ha[ïi](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]test(er|e|es|ent|[ée]|[ée]e))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ex[ée]cr(er|[ée]|able))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#ANGER",
+      "#VIOLENCE"
+    ],
+    "language": "FR",
+    "comment": "Une hostilité violente envers quelqu'un.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-colere",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Colère",
+    "symbol": "colère",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:col[èe]re(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:furieu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:enrag([ée]|[ée]e|[ée]s|[ée]es))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fureur(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#ANGER"
+    ],
+    "language": "FR",
+    "comment": "Une vive irritation.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-cauchemar",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cauchemar",
+    "symbol": "cauchemar",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cauchemar(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cauchemardesque(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mauvais\\s+r[êe]ve(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:terreur(s)?\\s+nocturne(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#FEAR"
+    ],
+    "language": "FR",
+    "comment": "Un rêve effrayant ; une situation pénible.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-maladie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Maladie",
+    "symbol": "maladie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:maladie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:malade(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pathologie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:affection(s)?\\s+grave(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mal\\s+incurable)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MALADIE"
+    ],
+    "language": "FR",
+    "comment": "Une altération de la santé.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-cancer",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cancer",
+    "symbol": "cancer",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cancer(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:canc[ée]reu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tumeur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:m[ée]tastase(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:leuc[ée]mie(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MALADIE",
+      "#MORT"
+    ],
+    "language": "FR",
+    "comment": "Une maladie grave due à une tumeur maligne.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-epidemie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Épidémie",
+    "symbol": "épidémie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:[ée]pid[ée]mie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pand[ée]mie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:peste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chol[ée]ra)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:contagion(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MALADIE",
+      "#CATASTROPHE"
+    ],
+    "language": "FR",
+    "comment": "La propagation rapide d'une maladie.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-blessure",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Blessure",
+    "symbol": "blessure",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:blessure(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bless([ée]|[ée]e|[ée]s|[ée]es|er))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:plaie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mutil([ée]|[ée]e|[ée]s|[ée]es|ation))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:traumatisme(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#SOUFFRANCE",
+      "#VIOLENCE"
+    ],
+    "language": "FR",
+    "comment": "Une lésion du corps.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-accident",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Accident",
+    "symbol": "accident",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:accident(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:accident[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:collision(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:carambolage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:crash(s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#CATASTROPHE"
+    ],
+    "language": "FR",
+    "comment": "Un événement soudain et dommageable.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-noyade",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Noyade",
+    "symbol": "noyade",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:noyade(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:noy(er|[ée]|[ée]e|[ée]s|[ée]es|ait))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:naufrage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:naufrag[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:englouti(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT",
+      "#CATASTROPHE"
+    ],
+    "language": "FR",
+    "comment": "La mort par immersion.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-incendie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Incendie",
+    "symbol": "incendie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:incendie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:incendi(er|[ée]|[ée]e|aire|aires))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:brasier(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:calcin[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:br[ûu]l[ée](e|s|es)?\\s+vif(s|ve|ves)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#CATASTROPHE"
+    ],
+    "language": "FR",
+    "comment": "Un grand feu destructeur.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-explosion",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Explosion",
+    "symbol": "explosion",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:explosion(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:explos(er|[ée]|[ée]e|if|ifs|ive|ives))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]flagration(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]tonation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bombe(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#CATASTROPHE",
+      "#VIOLENCE"
+    ],
+    "language": "FR",
+    "comment": "Une déflagration violente.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-effondrement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Effondrement",
+    "symbol": "effondrement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:effondrement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:effondr(er|[ée]|[ée]e|[ée]s|[ée]es))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]croul(ement|[ée]|[ée]e|er))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]boulement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:s[ée]isme(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#CATASTROPHE"
+    ],
+    "language": "FR",
+    "comment": "La chute brutale de ce qui tenait debout.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-ruine",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Ruine",
+    "symbol": "ruine",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:ruine(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ruin(er|[ée]|[ée]e|[ée]s|[ée]es))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]combres)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]vast(er|[ée]|[ée]e|ation))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ravag(er|[ée]|[ée]e|[ée]s))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#ECHEC",
+      "#MISERE"
+    ],
+    "language": "FR",
+    "comment": "La perte de ses biens ; un bâtiment détruit.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-faillite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Faillite",
+    "symbol": "faillite",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:faillite(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:banqueroute(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:liquidation(s)?\\s+judiciaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]p[ôo]t\\s+de\\s+bilan)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:insolvab(le|les|ilit[ée]))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#ECHEC",
+      "#MISERE"
+    ],
+    "language": "FR",
+    "comment": "L'état d'une entreprise qui ne peut plus payer.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-misere",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Misère",
+    "symbol": "misère",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:mis[èe]re(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mis[ée]rable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]nuement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:indigence(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pr[ée]carit[ée](s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MISERE"
+    ],
+    "language": "FR",
+    "comment": "Un extrême dénuement.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-pauvrete",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Pauvreté",
+    "symbol": "pauvreté",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:pauvret[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pauvre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]muni(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sans-abri)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sdf)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MISERE"
+    ],
+    "language": "FR",
+    "comment": "Le manque d'argent, de ressources.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-famine",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Famine",
+    "symbol": "famine",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:famine(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:affam([ée]|[ée]e|[ée]s|[ée]es|er))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:disette(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:malnutrition(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mourir\\s+de\\s+faim)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MISERE",
+      "#MORT"
+    ],
+    "language": "FR",
+    "comment": "Le manque total de nourriture d'une population.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-echec",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Échec",
+    "symbol": "échec",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:[ée]chec(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]chou(er|[ée]|[ée]e|e|ent|ait))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fiasco(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:revers)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]b[âa]cle(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#ECHEC"
+    ],
+    "language": "FR",
+    "comment": "Le fait de ne pas réussir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-perte",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Perte",
+    "symbol": "perte",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:perte(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:perdu(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:privation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:manque(s)?\\s+cruel(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:irr[ée]parable(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#DEUIL",
+      "#ECHEC"
+    ],
+    "language": "FR",
+    "comment": "Le fait de perdre quelqu'un ou quelque chose.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-regret",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Regret",
+    "symbol": "regret",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:regret(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:regrett(er|e|es|ent|[ée]|[ée]e|able))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:remords)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:repentir)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nostalgie(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#TRISTESSE"
+    ],
+    "language": "FR",
+    "comment": "Le chagrin de ce qui est passé ou perdu.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-culpabilite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Culpabilité",
+    "symbol": "culpabilité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:culpabilit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:coupable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:culpabilis(er|[ée]|[ée]e|ant|ante))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:faute(s)?\\s+grave(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#TRISTESSE",
+      "#DETRESSE"
+    ],
+    "language": "FR",
+    "comment": "Le sentiment d'être coupable.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-honte",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Honte",
+    "symbol": "honte",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:honte(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:honteu(x|se|ses|sement))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]shonneur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:opprobre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ignominie(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#TRISTESSE"
+    ],
+    "language": "FR",
+    "comment": "Un sentiment d'humiliation, de déshonneur.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-humiliation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Humiliation",
+    "symbol": "humiliation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:humiliation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:humili(er|[ée]|[ée]e|[ée]s|[ée]es|ant|ante))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rabaiss(er|[ée]|[ée]e))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:m[ée]pris([ée]|[ée]e|[ée]s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:affront(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#TRISTESSE",
+      "#RELATION"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'être rabaissé.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-trahison",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Trahison",
+    "symbol": "trahison",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:trahison(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:trah(ir|i|ie|is|ies|it|issent))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tra[îi]tre(s|sse|sses)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:f[ée]lonie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:perfidie(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#RELATION"
+    ],
+    "language": "FR",
+    "comment": "Le fait de trahir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-mensonge",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Mensonge",
+    "symbol": "mensonge",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:mensonge(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:menteu(r|rs|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ment(ir|i|ait|ent))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tromperie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:duperie(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#RELATION"
+    ],
+    "language": "FR",
+    "comment": "Une affirmation contraire à la vérité.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-rupture",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Rupture",
+    "symbol": "rupture",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:rupture(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rompu(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:quitt[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chagrin(s)?\\s+d['’]amour)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:c(œ|oe)ur\\s+bris[ée])(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#RELATION",
+      "#TRISTESSE"
+    ],
+    "language": "FR",
+    "comment": "La fin d'une relation.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-divorce",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Divorce",
+    "symbol": "divorce",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:divorce(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:divorc(er|[ée]|[ée]e|[ée]s|[ée]es))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:s[ée]par[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:garde\\s+des\\s+enfants)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#RELATION"
+    ],
+    "language": "FR",
+    "comment": "La rupture légale d'un mariage.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-separation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Séparation",
+    "symbol": "séparation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:s[ée]paration(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:s[ée]par(er|[ée]|[ée]e|[ée]s|[ée]es))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]loignement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]chirement(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#RELATION",
+      "#TRISTESSE"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'être éloigné de quelqu'un.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-exil",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Exil",
+    "symbol": "exil",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:exil(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:exil([ée]|[ée]e|[ée]s|[ée]es|er))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]racin[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]fugi[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:banni(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#TRISTESSE",
+      "#MISERE"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'être chassé de son pays.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-prison",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Prison",
+    "symbol": "prison",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:prison(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:prisonni(er|[èe]re|ers|[èe]res))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:incarc[ée]r([ée]|[ée]e|[ée]s|ation|er))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]tention(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cachot(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#JUSTICE"
+    ],
+    "language": "FR",
+    "comment": "Le lieu où l'on enferme les condamnés.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-condamnation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Condamnation",
+    "symbol": "condamnation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:condamnation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:condamn(er|[ée]|[ée]e|[ée]s|[ée]es))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:peine(s)?\\s+de\\s+prison)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:perp[ée]tuit[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]clusion(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#JUSTICE"
+    ],
+    "language": "FR",
+    "comment": "La décision qui inflige une peine.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-execution",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Exécution",
+    "symbol": "exécution",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:ex[ée]cution(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:peine(s)?\\s+de\\s+mort)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pendaison(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:guillotine(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:peloton(s)?\\s+d['’]ex[ée]cution)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#JUSTICE",
+      "#MORT"
+    ],
+    "language": "FR",
+    "comment": "La mise à mort d'un condamné.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-sang",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sang",
+    "symbol": "sang",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:sang(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sanglant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ensanglant([ée]|[ée]e|[ée]s|[ée]es))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:h[ée]morragie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:saign(er|e|[ée]|[ée]e|ant))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#VIOLENCE",
+      "#MORT"
+    ],
+    "language": "FR",
+    "comment": "Le liquide rouge des veines ; la violence qui le fait couler.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-poison",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Poison",
+    "symbol": "poison",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:poison(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:empoisonn(er|[ée]|[ée]e|[ée]s|ement))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:venin(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:toxique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:intoxication(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT",
+      "#CRIME"
+    ],
+    "language": "FR",
+    "comment": "Une substance qui tue ou rend malade.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-squelette",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Squelette",
+    "symbol": "squelette",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:squelette(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ossement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cr[âa]ne(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:t[êe]te(s)?\\s+de\\s+mort)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:macabre(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT",
+      "#SURNATUREL"
+    ],
+    "language": "FR",
+    "comment": "Les os d'un mort.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-fantome",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Fantôme",
+    "symbol": "fantôme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:fant[ôo]me(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:spectre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:revenant(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:esprit(s)?\\s+frappeur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hant([ée]|[ée]e|[ée]s|[ée]es|er))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#SURNATUREL",
+      "#MORT"
+    ],
+    "language": "FR",
+    "comment": "L'apparition d'un mort.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-enfer",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Enfer",
+    "symbol": "enfer",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:enfer(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:infernal(e|es|aux)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:damn([ée]|[ée]e|[ée]s|[ée]es|ation))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:g[ée]henne)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#SURNATUREL"
+    ],
+    "language": "FR",
+    "comment": "Le lieu de la damnation ; une situation insupportable.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-demon",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Démon",
+    "symbol": "démon",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]mon(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]moniaque(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:diable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:diabolique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:satan(ique|iques)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#SURNATUREL"
+    ],
+    "language": "FR",
+    "comment": "Un être malfaisant.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-malediction",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Malédiction",
+    "symbol": "malédiction",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:mal[ée]diction(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:maudi(t|te|ts|tes|re))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sort(s)?\\s+funeste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mauvais\\s+(œ|oe)il)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:porte-malheur)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#SURNATUREL",
+      "#MALHEUR"
+    ],
+    "language": "FR",
+    "comment": "Un sort funeste.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-apocalypse",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Apocalypse",
+    "symbol": "apocalypse",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:apocalypse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:apocalyptique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fin\\s+du\\s+monde)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:armageddon)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chaos)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#CATASTROPHE",
+      "#SURNATUREL"
+    ],
+    "language": "FR",
+    "comment": "La fin du monde.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-neant",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Néant",
+    "symbol": "néant",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:n[ée]ant(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:an[ée]ant(ir|i|ie|is|ies|issement))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:annihil(er|[ée]|[ée]e|ation))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#DETRESSE"
+    ],
+    "language": "FR",
+    "comment": "Le rien, l'absence de tout.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-lamentation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Lamentation",
+    "symbol": "lamentation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:lamentation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lament(er|e|ent|[ée]|able|ables))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:g[ée]mi(r|t|ssent|ssement|ssements))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:plainte(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:j[ée]r[ée]miade(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#TRISTESSE"
+    ],
+    "language": "FR",
+    "comment": "La plainte de celui qui souffre.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-tenebres",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Ténèbres",
+    "symbol": "ténèbres",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:t[ée]n[èe]bres)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:t[ée]n[ée]breu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:obscurit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nuit\\s+noire)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sombre(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#SURNATUREL",
+      "#FEAR"
+    ],
+    "language": "FR",
+    "comment": "L'obscurité profonde.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-detresse",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Détresse",
+    "symbol": "détresse",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]tresse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]sarroi(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:au\\s+bout\\s+du\\s+rouleau)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[àa]\\s+bout)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:impuissance(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#DETRESSE"
+    ],
+    "language": "FR",
+    "comment": "Un sentiment d'abandon et d'impuissance.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-desolation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Désolation",
+    "symbol": "désolation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]solation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]sol([ée]|[ée]e|[ée]s|[ée]es|ant|ante))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:navrant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lugubre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:affligeant(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#TRISTESSE",
+      "#CATASTROPHE"
+    ],
+    "language": "FR",
+    "comment": "Une peine extrême ; un lieu ravagé et vide.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-melancolie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Mélancolie",
+    "symbol": "mélancolie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:m[ée]lancolie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:m[ée]lancolique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:spleen(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:morosit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:morose(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#TRISTESSE"
+    ],
+    "language": "FR",
+    "comment": "Une tristesse vague et durable.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-epuisement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Épuisement",
+    "symbol": "épuisement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:[ée]puisement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]puis([ée]|[ée]e|[ée]s|[ée]es|ant|ante))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ext[ée]nu[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:harass[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[àa]\\s+bout\\s+de\\s+forces)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#DETRESSE",
+      "#SOUFFRANCE"
+    ],
+    "language": "FR",
+    "comment": "Une fatigue extrême.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-menace",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Menace",
+    "symbol": "menace",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:menace(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:menac(er|[ée]|[ée]e|[ée]s|ant|ante|ait))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:intimidation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chantage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:repr[ée]sailles)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#FEAR",
+      "#VIOLENCE"
+    ],
+    "language": "FR",
+    "comment": "L'annonce d'un mal à venir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-danger",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Danger",
+    "symbol": "danger",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:danger(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dangereu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:p[ée]ril(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:p[ée]rilleu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mortel(le|s|les)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#FEAR"
+    ],
+    "language": "FR",
+    "comment": "Ce qui menace la sécurité.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-victime",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Victime",
+    "symbol": "victime",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:victime(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:martyr(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sinistr[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rescap[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:survivant(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#VIOLENCE",
+      "#CRIME"
+    ],
+    "language": "FR",
+    "comment": "La personne qui subit un mal.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-enlevement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Enlèvement",
+    "symbol": "enlèvement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:enl[èe]vement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:enlev([ée]|[ée]e|[ée]s|[ée]es|er))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:kidnapping(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:kidnapp(er|[ée]|[ée]e|eur|eurs))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rapt(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#CRIME",
+      "#FEAR"
+    ],
+    "language": "FR",
+    "comment": "Le rapt d'une personne.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-disparition",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Disparition",
+    "symbol": "disparition",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:disparition(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:disparu(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:introuvable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:port[ée](e|s|es)?\\s+disparu(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#FEAR",
+      "#DEUIL"
+    ],
+    "language": "FR",
+    "comment": "Le fait de ne plus être retrouvé.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-harcelement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Harcèlement",
+    "symbol": "harcèlement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:harc[èe]lement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:harcel(er|[ée]|[ée]e|[ée]s|[ée]es)|harc[èe]le(nt|s)?|pers[ée]cution(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pers[ée]cut(er|[ée]|[ée]e|eur|eurs)|cyberharc[èe]lement)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#VIOLENCE",
+      "#RELATION"
+    ],
+    "language": "FR",
+    "comment": "Des attaques répétées contre quelqu'un.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-detruire",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Détruire",
+    "symbol": "détruire",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]trui(re|t|s|sent|sait)|d[ée]truit(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:destruction(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]mol(ir|i|ie|ition))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:saccag(er|[ée]|[ée]e|e))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#VIOLENCE",
+      "#CATASTROPHE"
+    ],
+    "language": "FR",
+    "comment": "Mettre en ruine, faire disparaître.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-cendre",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cendre",
+    "symbol": "cendre",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cendre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]duit(e|s|es)?\\s+en\\s+cendres)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:incin[ée]r([ée]|[ée]e|ation|er))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:poussi[èe]re(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT",
+      "#CATASTROPHE"
+    ],
+    "language": "FR",
+    "comment": "Ce qui reste de ce qui a brûlé, des morts incinérés.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-linceul",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Linceul",
+    "symbol": "linceul",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:linceul(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:suaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mortuaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chambre(s)?\\s+fun[ée]raire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:veill[ée]e(s)?\\s+fun[èe]bre(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT",
+      "#DEUIL"
+    ],
+    "language": "FR",
+    "comment": "Le drap qui enveloppe un mort.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-necrologie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Nécrologie",
+    "symbol": "nécrologie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:n[ée]crologie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:n[ée]crologique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:avis\\s+de\\s+d[ée]c[èe]s)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:faire-part\\s+de\\s+d[ée]c[èe]s)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:oraison(s)?\\s+fun[èe]bre(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT",
+      "#DEUIL"
+    ],
+    "language": "FR",
+    "comment": "L'annonce ou le récit de la mort d'une personne.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-euthanasie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Euthanasie",
+    "symbol": "euthanasie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:euthanasie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:euthanasi(er|[ée]|[ée]e))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:suicide(s)?\\s+assist[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:aide(s)?\\s+[àa]\\s+mourir)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:soins\\s+palliatifs)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT",
+      "#MALADIE"
+    ],
+    "language": "FR",
+    "comment": "Le fait de provoquer la mort pour abréger les souffrances.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-sad-overdose",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.788063Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Overdose",
+    "symbol": "overdose",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:overdose(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:surdose(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:intoxication(s)?\\s+mortelle(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:drogue(s)?\\s+dure(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:toxicomane(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!SAD"
+    ],
+    "tags": [
+      "#MORT",
+      "#MALADIE"
+    ],
+    "language": "FR",
+    "comment": "Une dose mortelle de drogue.",
+    "isDeleted": false
+  }
+]

@@ -434,14 +434,10 @@ public partial class OntologyWindowViewModel : ViewModelBase, INoteContextProvid
     }
 
     /// <summary>
-    /// Normalises a tag to a hashtag starting with a capital letter, without spaces:
-    /// "domestic pet" → "#DomesticPet", "#animal" → "#Animal".
+    /// Normalises a tag as the server keeps it (<see cref="MetaTags"/>): upper case, '-' between the words:
+    /// "domestic pet" → "#DOMESTIC-PET", "#animal" → "#ANIMAL" (empty when nothing is left).
     /// </summary>
-    public static string ToHashtag(string tag)
-    {
-        var words = tag.Trim().TrimStart('#').Split([' ', '\t', '-', '_'], StringSplitOptions.RemoveEmptyEntries);
-        return "#" + string.Concat(words.Select(w => char.ToUpperInvariant(w[0]) + w[1..]));
-    }
+    public static string ToHashtag(string tag) => MetaTags.Normalize(tag, MetaTags.Tag) ?? string.Empty;
 
     private sealed class AutoFillAnswer
     {
@@ -481,6 +477,9 @@ public partial class OntologyWindowViewModel : ViewModelBase, INoteContextProvid
 
     /// <summary>Asks for a file to import and returns its text, or null when cancelled; set by the view.</summary>
     public Func<Task<string?>> OpenTextFileAsync { get; set; } = () => Task.FromResult<string?>(null);
+
+    /// <summary>Asks for a folder (argument: the dialog title) and returns its path, or null when cancelled; set by the view.</summary>
+    public Func<string, Task<string?>> PickFolderAsync { get; set; } = _ => Task.FromResult<string?>(null);
 
     /// <summary>Raised when a node must be shown in the Entity window (the editor) with the name field focused.</summary>
     public event Action<OntologyNodeViewModel>? EditRequested;
@@ -1244,7 +1243,112 @@ public partial class OntologyWindowViewModel : ViewModelBase, INoteContextProvid
     }
 
     /// <summary>
-    /// Imports a JSON export (one node object or an array of them, with nested <c>children</c>) under
+    /// Exports every node of the ontology, one JSON file per node (<c>&lt;id&gt;.json</c>), into a folder chosen by the
+    /// user. The nodes are read again from the server (<c>POST /ontology/last</c>), whatever the filter or the
+    /// selection of the tree: deleted nodes included (with their <c>isDeleted</c>). Each file holds the node as the
+    /// server stores it, <c>id</c> and <c>nodeparentId</c> kept, so the hierarchy can be rebuilt; a file of the same
+    /// name in the folder is overwritten.
+    /// </summary>
+    [RelayCommand]
+    private async Task ExportAllAsync(CancellationToken cancellationToken)
+    {
+        IsError = false;
+        var folder = await PickFolderAsync("Export all ontology nodes: choose the folder");
+        if (string.IsNullOrEmpty(folder))
+        {
+            Status = "Export cancelled";
+            LogOutcome("Export all");
+            return;
+        }
+
+        IsBusy = true;
+        Status = "Loading every node for the export…";
+        var written = 0;
+        try
+        {
+            var entries = await _assistant.GetLastOntologiesAsync("*", MaxNodes, cancellationToken);
+            System.IO.Directory.CreateDirectory(folder);
+            var invalid = System.IO.Path.GetInvalidFileNameChars();
+            var used = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var entry in entries)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                var baseName = string.IsNullOrWhiteSpace(entry.Id) ? "node" : entry.Id;
+                baseName = new string(baseName.Select(c => invalid.Contains(c) ? '_' : c).ToArray());
+                // Two nodes with the same id (or none) must not overwrite each other in the folder.
+                var name = baseName;
+                for (var n = 2; !used.Add(name); n++)
+                    name = $"{baseName}-{n}";
+
+                var json = JsonSerializer.SerializeToNode(entry)!.ToJsonString(ExportJsonOptions);
+                await System.IO.File.WriteAllTextAsync(System.IO.Path.Combine(folder, name + ".json"), json,
+                    new System.Text.UTF8Encoding(false), cancellationToken);
+                written++;
+                if (written % 200 == 0)
+                    Status = $"Exporting {written}/{entries.Count}…";
+            }
+
+            Status = $"Exported {written} node(s) to {folder}"
+                     + (entries.Count >= MaxNodes ? $" · limit of {MaxNodes} reached, some nodes may be missing" : string.Empty);
+            LogOutcome("Export all");
+        }
+        catch (OperationCanceledException)
+        {
+            Status = $"Export cancelled after {written} node(s)";
+            LogOutcome("Export all");
+        }
+        catch (Exception ex)
+        {
+            IsError = true;
+            Status = $"Export failed after {written} node(s): {ex.Message}";
+            LogOutcome("Export all");
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
+
+    /// <summary>
+    /// The Import button of the toolbar: imports a JSON export file under the node selected in the tree (the same import
+    /// as the node's right-click menu).
+    /// </summary>
+    [RelayCommand]
+    private Task ImportIntoSelectedAsync() =>
+        SelectedImportParent("Import") is { } parent ? ImportIntoNodeAsync(parent) : Task.CompletedTask;
+
+    /// <summary>
+    /// The Import folder button of the toolbar: imports the JSON files of a folder (an "Export all", one file per node)
+    /// under the node selected in the tree.
+    /// </summary>
+    [RelayCommand]
+    private Task ImportFolderIntoSelectedAsync() =>
+        SelectedImportParent("Import folder") is { } parent ? ImportFolderIntoNodeAsync(parent) : Task.CompletedTask;
+
+    /// <summary>
+    /// The node selected in the tree when nodes can be imported under it; otherwise null, with the reason in the status
+    /// (nothing selected, a node not saved yet, a deleted node).
+    /// </summary>
+    private OntologyNodeViewModel? SelectedImportParent(string action)
+    {
+        var parent = SelectedNode;
+        string? refusal = parent switch
+        {
+            null => "Select the node to import under first (click it in the tree)",
+            { IsNew: true } => $"Save \"{parent.DisplayName}\" before importing under it",
+            { IsDeleted: true } => $"\"{parent.DisplayName}\" is deleted: undelete it before importing under it",
+            _ => null
+        };
+        if (refusal is null)
+            return parent;
+        IsError = true;
+        Status = refusal;
+        LogOutcome(action);
+        return null;
+    }
+
+    /// <summary>
+    /// Imports a JSON export file (one node object or an array of them, with nested <c>children</c>) under
     /// <paramref name="parent"/>: every node gets a new id, is linked to its new parent and is created with
     /// <c>PUT /ontology</c>. Ids found in the file are ignored.
     /// </summary>
@@ -1297,9 +1401,179 @@ public partial class OntologyWindowViewModel : ViewModelBase, INoteContextProvid
             return;
         }
 
+        await ImportRootsAsync(roots, parent, "Import", string.Empty);
+    }
+
+    /// <summary>
+    /// Imports the <c>*.json</c> files of a folder chosen by the user under <paramref name="parent"/>. Each file holds
+    /// one node (or an array of nodes) as written by "Export all": the hierarchy is rebuilt from their <c>id</c> and
+    /// <c>nodeparentId</c> (see <see cref="NestFlatNodes"/>); the nodes whose parent is not in the folder go directly
+    /// under <paramref name="parent"/>. Deleted nodes (and what is under them) are left out, every node gets a new id,
+    /// and the virtual links are dropped, as for a file import. Unreadable files are skipped and counted.
+    /// </summary>
+    public async Task ImportFolderIntoNodeAsync(OntologyNodeViewModel parent)
+    {
+        IsError = false;
+        var folder = await PickFolderAsync("Import ontology nodes: choose the folder of an export");
+        if (string.IsNullOrEmpty(folder))
+        {
+            Status = "Import cancelled";
+            LogOutcome("Import folder");
+            return;
+        }
+
+        IsBusy = true;
+        Status = $"Reading {folder}…";
+        var flat = new List<JsonObject>();
+        var badFiles = 0;
+        string[] files;
+        try
+        {
+            files = System.IO.Directory.GetFiles(folder, "*.json");
+            foreach (var file in files)
+            {
+                try
+                {
+                    switch (JsonNode.Parse(await System.IO.File.ReadAllTextAsync(file)))
+                    {
+                        case JsonObject single:
+                            flat.Add(single);
+                            break;
+                        case JsonArray array:
+                            flat.AddRange(array.OfType<JsonObject>());
+                            break;
+                        default:
+                            badFiles++;
+                            break;
+                    }
+                }
+                catch (Exception ex) when (ex is JsonException or System.IO.IOException or UnauthorizedAccessException)
+                {
+                    badFiles++;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            IsBusy = false;
+            IsError = true;
+            Status = $"Could not read the folder: {ex.Message}";
+            LogOutcome("Import folder");
+            return;
+        }
+        IsBusy = false;
+
+        var roots = NestFlatNodes(flat, out var deleted);
+        if (roots.Count == 0)
+        {
+            IsError = true;
+            Status = $"No ontology node to import in {folder} ({files.Length} JSON file(s)"
+                     + (badFiles > 0 ? $", {badFiles} unreadable" : string.Empty)
+                     + (deleted > 0 ? $", {deleted} deleted node(s) left out" : string.Empty) + ")";
+            LogOutcome("Import folder");
+            return;
+        }
+
+        var notes = (badFiles > 0 ? $" · {badFiles} unreadable file(s) skipped" : string.Empty)
+                    + (deleted > 0 ? $" · {deleted} deleted node(s) left out" : string.Empty);
+        await ImportRootsAsync(roots, parent, "Import folder", notes);
+    }
+
+    /// <summary>
+    /// Turns flat exported nodes (each with its <c>id</c> and <c>nodeparentId</c>) into trees nested in
+    /// <c>children</c>, the shape the import creates. A node whose parent is not among them is a root; a node that
+    /// already holds <c>children</c> keeps them. Deleted nodes and everything under them are left out
+    /// (<paramref name="deleted"/> counts them); nodes caught in a parent cycle become roots, so none is lost.
+    /// </summary>
+    public static List<JsonObject> NestFlatNodes(IEnumerable<JsonObject> flat, out int deleted)
+    {
+        static string? Text(JsonObject node, string key) =>
+            node[key] is JsonValue value && value.TryGetValue<string>(out var text) && !string.IsNullOrWhiteSpace(text) ? text : null;
+        static bool IsDeletedNode(JsonObject node) =>
+            node["isDeleted"] is JsonValue value && value.TryGetValue<bool>(out var flag) && flag;
+
+        var nodes = flat.Select(n => n.DeepClone().AsObject()).ToList();
+        var byId = new Dictionary<string, JsonObject>();
+        foreach (var node in nodes)
+            if (Text(node, "id") is { } id)
+                byId.TryAdd(id, node);
+
+        var childrenOf = new Dictionary<JsonObject, List<JsonObject>>(ReferenceEqualityComparer.Instance);
+        var roots = new List<JsonObject>();
+        foreach (var node in nodes)
+        {
+            var parentId = Text(node, "nodeparentId");
+            if (parentId is not null && byId.TryGetValue(parentId, out var parentNode) && !ReferenceEquals(parentNode, node))
+            {
+                if (!childrenOf.TryGetValue(parentNode, out var list))
+                    childrenOf[parentNode] = list = [];
+                list.Add(node);
+            }
+            else
+            {
+                roots.Add(node);
+            }
+        }
+
+        var placed = new HashSet<JsonObject>(ReferenceEqualityComparer.Instance);
+        var deletedCount = 0;
+        var result = new List<JsonObject>();
+
+        // Nodes reached from no root are in a cycle: each one not placed yet starts a tree of its own.
+        foreach (var root in roots.Concat(nodes))
+        {
+            if (placed.Contains(root))
+                continue;
+            if (Build(root) is { } tree)
+                result.Add(tree);
+        }
+
+        deleted = deletedCount;
+        return result;
+
+        JsonObject? Build(JsonObject node)
+        {
+            if (!placed.Add(node))
+                return null;
+            if (IsDeletedNode(node))
+            {
+                deletedCount += 1 + CountUnder(node);
+                return null;
+            }
+
+            var children = (node["children"] as JsonArray)?.OfType<JsonObject>().Select(c => (JsonNode)c.DeepClone()).ToList() ?? [];
+            foreach (var child in childrenOf.GetValueOrDefault(node) ?? [])
+                if (Build(child) is { } tree)
+                    children.Add(tree);
+            node.Remove("children");
+            if (children.Count > 0)
+                node["children"] = new JsonArray(children.ToArray());
+            return node;
+        }
+
+        int CountUnder(JsonObject node)
+        {
+            var count = 0;
+            foreach (var child in childrenOf.GetValueOrDefault(node) ?? [])
+                if (placed.Add(child))
+                    count += 1 + CountUnder(child);
+            return count;
+        }
+    }
+
+    /// <summary>
+    /// Creates <paramref name="roots"/> and their nested <c>children</c> under <paramref name="parent"/> once the user
+    /// confirms: every node gets a new id, is linked to its new parent and is created with <c>PUT /ontology</c>.
+    /// </summary>
+    private async Task ImportRootsAsync(List<JsonObject> roots, OntologyNodeViewModel parent, string action, string notes)
+    {
         var total = roots.Sum(CountNodes);
         if (!await ConfirmAsync($"Import {total} node(s) under \"{parent.DisplayName}\"?\n\nEach node is created with a new id.", "Import"))
+        {
+            Status = "Import cancelled";
+            LogOutcome(action);
             return;
+        }
 
         IsBusy = true;
         var imported = 0;
@@ -1308,14 +1582,14 @@ public partial class OntologyWindowViewModel : ViewModelBase, INoteContextProvid
             foreach (var root in roots)
                 await ImportNodeAsync(root, parent);
 
-            Status = $"Imported {imported} node(s) under \"{parent.DisplayName}\"";
-            LogOutcome("Import");
+            Status = $"Imported {imported} node(s) under \"{parent.DisplayName}\"{notes}";
+            LogOutcome(action);
         }
         catch (Exception ex)
         {
             IsError = true;
             Status = $"Imported {imported}/{total} node(s); error: {ex.Message}";
-            LogOutcome("Import");
+            LogOutcome(action);
         }
         finally
         {

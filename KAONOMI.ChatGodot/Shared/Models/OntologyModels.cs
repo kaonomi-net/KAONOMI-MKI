@@ -100,8 +100,21 @@ public sealed class OntologyEntry
     [JsonPropertyName("synonyms")]
     public List<string>? Synonyms { get; set; }
 
+    /// <summary>The title of the node (besides its name).</summary>
+    [JsonPropertyName("title")]
+    public string Title { get; set; } = string.Empty;
+
+    /// <summary>The tags: #TOPIC, upper case, '-' for the spaces (<see cref="Services.MetaTags"/>).</summary>
     [JsonPropertyName("tags")]
     public List<string>? Tags { get; set; }
+
+    /// <summary>The events: @EVENT.</summary>
+    [JsonPropertyName("events")]
+    public List<string> Events { get; set; } = [];
+
+    /// <summary>The signals: !SIGNAL.</summary>
+    [JsonPropertyName("signals")]
+    public List<string> Signals { get; set; } = [];
 
     [JsonPropertyName("relatedLinks")]
     public List<string>? RelatedLinks { get; set; }
@@ -155,6 +168,8 @@ public sealed class OntologyEntry
         copy.SentencesExemples = SentencesExemples is null ? null : [.. SentencesExemples];
         copy.Synonyms = Synonyms is null ? null : [.. Synonyms];
         copy.Tags = Tags is null ? null : [.. Tags];
+        copy.Events = [.. Events];
+        copy.Signals = [.. Signals];
         copy.RelatedLinks = RelatedLinks is null ? null : [.. RelatedLinks];
         copy.RelatedEntities = RelatedEntities is null ? null : [.. RelatedEntities];
         copy.VirtualParentIds = VirtualParentIds is null ? null : [.. VirtualParentIds];

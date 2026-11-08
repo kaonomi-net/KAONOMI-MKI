@@ -31,7 +31,7 @@ namespace KAONOMI.Core.Helpers
             await _httpClient.GetFromJsonAsync<JsonElement>($"{baseUrl.TrimEnd('/')}/options");
 
         /// <summary>
-        /// POST /generate of the Fooocus API: generates the images of <paramref name="request"/> and returns them; on
+        /// POST /generate of the Fooocus API: generates the images of <paramref title="request"/> and returns them; on
         /// failure, a result with <see cref="ImageGenerationResult.error"/> set and no image.
         /// </summary>
         public static async Task<ImageGenerationResult> GenerateAsync(string baseUrl, ImageGenerationRequest request)

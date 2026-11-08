@@ -13,8 +13,9 @@ namespace KAONOMI.Chat.ViewModels;
 
 /// <summary>
 /// "Annotate…" (a right click on an image, a text selected, a video, an audio file, an entity): the user types the
-/// annotation and its tags (<c>#SOFTWARE #IDEA</c>…, a click on a suggested tag adds it), saved with the object
-/// annotated and the context of its window (as for a white note) by <c>PUT /annotation</c>.
+/// annotation, its title, its tags (<c>#SOFTWARE #IDEA</c>…, a click on a suggested tag adds it), its events
+/// (<c>@EVENT</c>) and its signals (<c>!SIGNAL</c>), saved with the object annotated and the context of its window (as
+/// for a white note) by <c>PUT /annotation</c>.
 /// </summary>
 public partial class AnnotationDialogViewModel : ViewModelBase
 {
@@ -80,10 +81,22 @@ public partial class AnnotationDialogViewModel : ViewModelBase
     [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
     private string _text = string.Empty;
 
-    /// <summary>The tags typed, separated by spaces or commas (<c>#SOFTWARE #IDEA</c>; the # is optional).</summary>
+    /// <summary>The title of the annotation (<see cref="Title"/> is the title of the popup).</summary>
+    [ObservableProperty]
+    private string _annotationTitle = string.Empty;
+
+    /// <summary>The tags typed, separated by spaces or commas (<c>#SOFTWARE #IDEA</c>; the # is optional, '-' inside one).</summary>
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
     private string _tagsText;
+
+    /// <summary>The events typed (<c>@EVENT</c>), separated by spaces or commas.</summary>
+    [ObservableProperty]
+    private string _eventsText = string.Empty;
+
+    /// <summary>The signals typed (<c>!SIGNAL</c>), separated by spaces or commas.</summary>
+    [ObservableProperty]
+    private string _signalsText = string.Empty;
 
     [ObservableProperty]
     private string _status = string.Empty;
@@ -101,14 +114,8 @@ public partial class AnnotationDialogViewModel : ViewModelBase
     /// <summary>Raised once the annotation is saved, with its id.</summary>
     public event Action<string>? Saved;
 
-    /// <summary>The tags typed, normalized (upper case, #, no duplicates).</summary>
-    public List<string> Tags => TagsText
-        .Split([' ', ',', ';', '\n', '\t'], StringSplitOptions.RemoveEmptyEntries)
-        .Select(NormalizeTag)
-        .Where(t => t is not null)
-        .Select(t => t!)
-        .Distinct()
-        .ToList();
+    /// <summary>The tags typed, normalized (upper case, #, '-' inside one, no duplicates).</summary>
+    public List<string> Tags => MetaTags.Parse(TagsText, MetaTags.Tag);
 
     /// <summary>Adds <paramref name="tag"/> to the tags typed (removes it when it is there already).</summary>
     [RelayCommand]
@@ -142,7 +149,10 @@ public partial class AnnotationDialogViewModel : ViewModelBase
                 MachineName = Environment.MachineName,
                 UserName = Environment.UserName,
                 Text = Text.Trim(),
+                Title = AnnotationTitle.Trim(),
                 Tags = Tags,
+                Events = MetaTags.Parse(EventsText, MetaTags.Event),
+                Signals = MetaTags.Parse(SignalsText, MetaTags.Signal),
                 TargetType = Target.Type,
                 TargetId = Target.Id,
                 TargetTitle = Target.Title,
@@ -179,14 +189,8 @@ public partial class AnnotationDialogViewModel : ViewModelBase
         CloseRequested?.Invoke();
     }
 
-    /// <summary>A tag as the server stores it: <c>#</c> and the word in upper case, spaces made underscores; null when empty.</summary>
-    public static string? NormalizeTag(string? tag)
-    {
-        var word = tag?.Trim().TrimStart('#').Trim();
-        return string.IsNullOrEmpty(word)
-            ? null
-            : "#" + string.Join('_', word.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries)).ToUpperInvariant();
-    }
+    /// <summary>A tag as the server stores it: <c>#</c> and the words in upper case joined by '-'; null when empty.</summary>
+    public static string? NormalizeTag(string? tag) => MetaTags.Normalize(tag, MetaTags.Tag);
 
     /// <summary>Raised once the annotation is in the journal of the activities (the window of the journal reads it again).</summary>
     public static event Action? Journaled;

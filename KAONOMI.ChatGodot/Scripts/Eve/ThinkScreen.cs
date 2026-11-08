@@ -12,26 +12,36 @@ using KAONOMI.Chat.ViewModels;
 namespace KAONOMI.ChatGodot.Eve;
 
 /// <summary>
-/// <c>/think</c>: the screen goes black over everything, "think …" at the top (its dots breathing), and the last hour
-/// of KAONOMI floats in 3D: a cloud of whole texts, never cut into words: the documents written in the hour (cache,
-/// completions, dialogs, diary, documents, ideas, intel, ontology, relations, tasks, YouTube videos…: <c>POST /recent</c>),
-/// each with its kind, its title and its whole sentences; the annotations of the hour (their text, what they annotate);
-/// the activities of the journal (what was saved, and where); the newest the largest and the nearest, in a cloud that
-/// turns slowly while each card drifts on its own, and the pictures of the image analyses of the hour, floating around
-/// it. No id is ever shown. A text that names an entity of the ontology (its name or a synonym) stands out: in gold,
-/// nearer the front, with a halo and a breath of its own. A black fog
-/// gives the depth. A quiet music plays meanwhile, made by the code (no file): a pad of four calm chords that follow one
+/// <c>/think</c>: the screen goes black over everything, "think …" at the top (its dots breathing), and what the
+/// dialogs of the last hour brought out floats in 3D, a word cloud over the whole screen where each word wanders and
+/// its opacity waves: the entities the NER detected (<c>GET /detectedentity/top</c>, coloured by their type), the
+/// symbols of the symbolic patterns that matched (<c>GET /detectedsymbol/top</c>, coloured by their signal: !SAD blue,
+/// !HAPPY gold, !FEAR red, !DISGUST green), the tags of the detections (<c>GET /detectedtag/top</c>, #TAG) and the most
+/// frequent words of the text of the annotations of the hour (in lilac); the more often found the larger. The messages of the ticker (<c>POST /messageflow/last</c>) cross the screen on lanes of
+/// their own, in their colour; the annotations of the hour are cards of whole sentences in a cloud that turns slowly;
+/// the pictures of the image analyses of the hour float around it. No id is ever shown. A black fog gives the depth. A quiet music plays meanwhile, made by the code (no file): a pad of four calm chords that follow one
 /// another slowly, a few bell notes of the pentatonic scale now and then, in a large reverb. A key or a click brings the
 /// chat back (the music fades with the screen).
 /// </summary>
 public partial class ThinkScreen : Control
 {
     private const int Minutes = 60;
-    /// <summary>The cards of the cloud (texts, annotations, activities), the newest first.</summary>
+    /// <summary>The cards of the cloud (the annotations of the hour), the newest first.</summary>
     private const int CloudItems = 36;
     /// <summary>The length of a card, in whole sentences.</summary>
     private const int MaxCharacters = 300;
     private const int Pictures = 16;
+    /// <summary>The pictures grow to this size (times their first size), then shrink by half, again and again, in this many seconds each way.</summary>
+    private const float PictureGrowth = 2f;
+    private const double PictureBreath = 5.25;
+    /// <summary>The words of the cloud, the most frequent of each kind: detected entities, symbols, tags.</summary>
+    private const int EntityWords = 40;
+    private const int SymbolWords = 40;
+    private const int TagWords = 30;
+    /// <summary>The most frequent words of the text of the annotations of the hour.</summary>
+    private const int AnnotationWords = 25;
+    /// <summary>The messages of the ticker that cross the screen.</summary>
+    private const int Messages = 12;
     private const float CloudRadius = 9f;
     private const float Turn = 0.045f;
 
@@ -84,7 +94,7 @@ public partial class ThinkScreen : Control
             }
         });
         _camera = new Camera3D { Fov = 55, Near = 0.1f, Far = 200, Current = true };
-        _camera.Position = new Vector3(0, 0, 22);
+        _camera.Position = new Vector3(0, 0, CameraDistance);
         _scene.AddChild(_camera);
         _cloud = new Node3D();
         _scene.AddChild(_cloud);
@@ -278,8 +288,10 @@ public partial class ThinkScreen : Control
                 MathF.Sin(t * 0.31f + phase.X) * range,
                 MathF.Sin(t * 0.23f + phase.Y) * range * 0.7f,
                 MathF.Sin(t * 0.19f + phase.Z) * range * 0.5f);
-        _camera.Position = new Vector3(MathF.Sin(t * 0.11f) * 1.2f, MathF.Sin(t * 0.09f) * 0.8f, 22 + MathF.Sin(t * 0.05f) * 1.5f);
+        _camera.Position = new Vector3(MathF.Sin(t * 0.11f) * 1.2f, MathF.Sin(t * 0.09f) * 0.8f, CameraDistance + MathF.Sin(t * 0.05f) * 1.5f);
         _camera.LookAt(Vector3.Zero, Vector3.Up);
+        // The words of the detected entities wander over the whole screen.
+        Wander((float)delta);
         // The entities of the ontology breathe: their halo brightens and they grow a little, each at its own pace.
         foreach (var (label, phase) in _entities)
         {
@@ -318,52 +330,43 @@ public partial class ThinkScreen : Control
 
     private async Task LoadAsync()
     {
-        IReadOnlyList<SearchHit> hits = [];
-        try
-        {
-            hits = await _assistant.GetRecentAsync(Minutes, SearchWindowViewModel.AllIndices, 40);
-        }
-        catch (Exception ex)
-        {
-            ActivityLog.Error("Think", "The entities of the last hour could not be read", ex);
-        }
         var since = DateTime.UtcNow.AddMinutes(-Minutes);
         static DateTime Utc(DateTime date) => date.Kind == DateTimeKind.Local ? date.ToUniversalTime() : date;
-        // The documents of the hour: their kind, their title (never when it is only their id), their text.
-        var items = hits.Where(h => h.Index != "imageanalysis" || h.Text.Length > 0)
-            .Select(h => new ThinkItem(h.Index.ToUpperInvariant(), h.Title == h.Id ? null : h.Title, h.Text, h.Date is { } d ? Utc(d) : null, Kind.Document))
+        async Task<T> Read<T>(Func<Task<T>> read, T empty, string what)
+        {
+            try
+            {
+                return await read();
+            }
+            catch (Exception ex)
+            {
+                ActivityLog.Error("Think", $"The {what} could not be read", ex);
+                return empty;
+            }
+        }
+
+        // What the dialogs of the hour brought out: the entities, the symbols and the tags detected, counted.
+        var entities = await Read(() => _assistant.GetDetectedEntitiesTopAsync(Minutes, EntityWords), (IReadOnlyList<DetectedEntityCount>)[], "detected entities");
+        var symbols = await Read(() => _assistant.GetDetectedSymbolsTopAsync(Minutes, SymbolWords), (IReadOnlyList<DetectedSymbolCount>)[], "detected symbols");
+        var tags = await Read(() => _assistant.GetDetectedTagsTopAsync(Minutes, TagWords), (IReadOnlyList<DetectedTagCount>)[], "detected tags");
+        // The messages of the ticker (the ones it shows now, whatever their date), the most important first.
+        var messages = (await Read(() => _assistant.GetLastMessageFlowsAsync("*", 50), (IReadOnlyList<MessageFlowEntry>)[], "messages of the ticker"))
+            .Where(m => !string.IsNullOrWhiteSpace(m.Text))
+            .OrderByDescending(m => m.Priority).ThenByDescending(m => m.Date ?? DateTime.MinValue)
+            .Take(Messages)
             .ToList();
         // The annotations of the hour: their text, and what they annotate.
-        var annotations = 0;
-        try
-        {
-            foreach (var annotation in await _assistant.SearchAnnotationsAsync("*", 200))
-                if (annotation.Date is { } date && Utc(date) >= since)
-                {
-                    annotations++;
-                    var text = annotation.Text.Trim().Length > 0 ? annotation.Text : string.Join(' ', annotation.Tags);
-                    items.Add(new ThinkItem("ANNOTATION", annotation.TargetTitle, text, Utc(date), Kind.Annotation));
-                }
-        }
-        catch (Exception ex)
-        {
-            ActivityLog.Error("Think", "The annotations of the last hour could not be read", ex);
-        }
-        // The activities of the journal of the hour: what was saved, and where.
-        var activities = 0;
-        try
-        {
-            foreach (var activity in await _assistant.GetUserActivitiesAsync("*", 200))
-                if (activity.Date is { } date && date.UtcDateTime >= since)
-                {
-                    activities++;
-                    items.Add(new ThinkItem(activity.Action, activity.WindowName, activity.Description, date.UtcDateTime, Kind.Activity));
-                }
-        }
-        catch (Exception ex)
-        {
-            ActivityLog.Error("Think", "The activities of the last hour could not be read", ex);
-        }
+        var items = new List<ThinkItem>();
+        var annotationTexts = new List<string>();
+        foreach (var annotation in await Read(() => _assistant.SearchAnnotationsAsync("*", 200), new List<AnnotationEntry>(), "annotations"))
+            if (annotation.Date is { } date && Utc(date) >= since)
+            {
+                var text = annotation.Text.Trim().Length > 0 ? annotation.Text : string.Join(' ', annotation.Tags);
+                items.Add(new ThinkItem("ANNOTATION", annotation.TargetTitle, text, Utc(date), Kind.Annotation));
+                annotationTexts.Add(annotation.Text);
+            }
+        // The most frequent words of their text join the cloud (the stop words, numbers and short words left out).
+        var annotationTerms = WordCloud.TopTerms(annotationTexts.Select(t => WithoutIds(t)), AnnotationWords);
         // Whole sentences, never an id (the ids written in the texts are taken away), each text once, the newest first.
         var cards = items
             .Select(i => i with { Heading = Clean(i.Heading), Body = Sentences(Clean(i.Body) ?? string.Empty) })
@@ -372,37 +375,23 @@ public partial class ThinkScreen : Control
             .OrderByDescending(i => i.Date ?? DateTime.MinValue)
             .Take(CloudItems)
             .ToList();
-        // The entities of the ontology (names and synonyms): a text that names one stands out in gold.
-        var entities = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        try
-        {
-            foreach (var node in await _assistant.GetLastOntologiesAsync("*", 1000))
-            {
-                if (node.IsOntologyClass)
-                    continue;
-                foreach (var name in new[] { node.Name }.Concat(node.Synonyms ?? []))
-                    if (!string.IsNullOrWhiteSpace(name) && name.Trim().Length >= 3)
-                        entities.Add(name.Trim());
-            }
-        }
-        catch (Exception ex)
-        {
-            ActivityLog.Error("Think", "The entities of the ontology could not be read", ex);
-        }
-        if (entities.Count > 0)
-            cards = cards.Select(c => c with { Entity = entities.Any(e => Names(c.Heading + "\n" + c.Body, e)) }).ToList();
-        var pictures = hits.Where(h => h.Index == "imageanalysis").Select(ImagePathOf).Where(p => p is not null && File.Exists(p)).Select(p => p!).Distinct().Take(Pictures).ToList();
+        // The pictures of the image analyses of the hour.
+        var hits = await Read(() => _assistant.GetRecentAsync(Minutes, ["imageanalysis"], 40), (IReadOnlyList<SearchHit>)[], "image analyses");
+        var pictures = hits.Select(ImagePathOf).Where(p => p is not null && File.Exists(p)).Select(p => p!).Distinct().Take(Pictures).ToList();
+
+        var words = MergeWords(entities, symbols, tags, annotationTerms, messages);
         if (!IsInsideTree() || _leaving)
             return;
         Bind.OnMain(() =>
         {
             if (!IsInstanceValid(this) || _leaving)
                 return;
+            if (words.Count == 0 && cards.Count == 0 && pictures.Count == 0)
+                Place(new Label3D { Text = "nothing in the last hour", Font = Eve.Display, FontSize = 48, PixelSize = 0.02f, Modulate = new Color(1, 1, 1, 0.5f), Billboard = BaseMaterial3D.BillboardModeEnum.Enabled, Shaded = false }, Vector3.Zero, 0.2f, 0);
             ShowCloud(cards);
+            ShowWords(words);
             ShowPictures(pictures);
-            var documents = hits.Count(h => h.Index != "imageanalysis");
-            var known = cards.Count(c => c.Entity);
-            _footer.Text = $"the last {Minutes} minutes  ·  {documents} text(s)  ·  {annotations} annotation(s)  ·  {activities} activit{(activities == 1 ? "y" : "ies")}  ·  {pictures.Count} picture(s)  ·  {known} naming an entity of the ontology, in gold  ·  a key or a click brings the chat back";
+            _footer.Text = $"the last {Minutes} minutes  ·  {entities.Count} detected entit{(entities.Count == 1 ? "y" : "ies")}  ·  {symbols.Count} symbol(s): sad in blue, happy in gold, fear in red, disgust in green  ·  {tags.Count} tag(s)  ·  {messages.Count} message(s) of the ticker  ·  {cards.Count} annotation(s), their words in lilac  ·  {pictures.Count} picture(s)  ·  a key or a click brings the chat back";
         });
     }
 
@@ -441,10 +430,6 @@ public partial class ThinkScreen : Control
         return kept.ToString();
     }
 
-    /// <summary>True when <paramref name="text"/> names <paramref name="name"/> as a whole word.</summary>
-    private static bool Names(string text, string name) =>
-        System.Text.RegularExpressions.Regex.IsMatch(text, $@"(?<!\w){System.Text.RegularExpressions.Regex.Escape(name)}(?!\w)", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-
     /// <summary>
     /// The GUIDs (and their pieces of hexadecimal digits) and the words mixing letters and digits (ids such as
     /// task_12, a3f9…) of a text, taken away.
@@ -480,10 +465,7 @@ public partial class ThinkScreen : Control
     private void ShowCloud(IReadOnlyList<ThinkItem> cards)
     {
         if (cards.Count == 0)
-        {
-            Place(new Label3D { Text = "nothing in the last hour", Font = Eve.Display, FontSize = 48, PixelSize = 0.02f, Modulate = new Color(1, 1, 1, 0.5f), Billboard = BaseMaterial3D.BillboardModeEnum.Enabled, Shaded = false }, Vector3.Zero, 0.2f, 0);
             return;
-        }
         var random = new Random(cards.Count * 7919);
         for (var order = 0; order < cards.Count; order++)
         {
@@ -528,6 +510,332 @@ public partial class ThinkScreen : Control
         }
     }
 
+    // ── The detected entities ──
+
+    /// <summary>
+    /// The entities detected by the NER in the dialogs of the hour and the terms of the white notes (in lilac), as a word
+    /// cloud filling the whole screen in front of the cards: the weight of a word grows with the number of times it was found (on a log scale, the most frequent
+    /// weighs 1), and with it its size and its first place near the centre; its opacity waves (see PairOpacities). The colour tells the type: gold for an entity of the ontology,
+    /// cyan for a person, amber for an organization, green for a place, a soft white for the rest (dates, URLs, amounts…).
+    /// </summary>
+    private void ShowWords(IReadOnlyList<CloudWord> entities)
+    {
+        if (entities.Count == 0)
+            return;
+        // The words lie on a plane facing the camera that does not turn with the cards: a word cloud laid out flat (the
+        // most frequent first, at the centre, each next one at the first free place along a spiral of the shape of the
+        // screen), then scaled as a whole to fill all the view of the camera, its margins aside (the title, the footer).
+        var words = new Node3D { Position = new Vector3(0, 0, WordsDepth) };
+        _scene.AddChild(words);
+        var aspect = Size.Y > 0 ? Size.X / Size.Y : 16f / 9f;
+        var max = Math.Log(1 + entities.Max(e => e.Count));
+        var placed = new List<(Label3D Label, Rect2 Box, Color Tint, bool Long)>();
+        foreach (var entity in entities)
+        {
+            var weight = max <= 0 ? 1 : Math.Log(1 + entity.Count) / max;
+            var label = new Label3D
+            {
+                Text = entity.Text,
+                Font = Eve.Display,
+                FontSize = (int)Math.Round(36 + 84 * weight),
+                PixelSize = WordPixel,
+                Billboard = BaseMaterial3D.BillboardModeEnum.Enabled,
+                Shaded = false,
+                NoDepthTest = false,
+                AlphaCut = Label3D.AlphaCutMode.Disabled,
+                OutlineSize = weight > 0.6 ? 8 : 0,
+                Modulate = new Color(1, 1, 1, 0)
+            };
+            var tint = entity.Tint;
+            if (label.OutlineSize > 0)
+                label.OutlineModulate = tint with { A = 0.25f };
+            // The size of the word in the units of the plane, with a little room around it.
+            var pixels = Eve.Display.GetStringSize(entity.Text, HorizontalAlignment.Left, -1, label.FontSize);
+            var size = new Vector2(pixels.X, Math.Max(pixels.Y, label.FontSize)) * WordPixel * 1.12f;
+            // A message of the ticker, or a long text (more than LongWord characters), is not laid out in the cloud: it
+            // crosses the screen on a lane of its own.
+            var isLong = entity.Lane || entity.Text.Length > LongWord;
+            var box = isLong ? new Rect2(-size / 2, size) : FreePlace(size, aspect, placed.Where(p => !p.Long).Select(p => p.Box));
+            placed.Add((label, box, tint, isLong));
+        }
+
+        // The cloud of the short words scaled (sizes and places) to the visible rectangle of the plane: the half height the
+        // camera sees at that distance, the width of the screen, 8 % kept for the title, the footer and the sway of the camera.
+        var halfHeight = (float)((CameraDistance - WordsDepth) * Math.Tan(Mathf.DegToRad(_camera.Fov) / 2));
+        var visible = new Vector2(halfHeight * 2 * aspect * 0.94f, halfHeight * 2 * 0.86f);
+        var shorts = placed.Where(p => !p.Long).Select(p => p.Box).ToList();
+        var bounds = shorts.Count > 0 ? shorts.Aggregate((a, b) => a.Merge(b)) : new Rect2(-visible / 2, visible);
+        var scale = Math.Min(MaxWordScale, Math.Min(visible.X / bounds.Size.X, visible.Y / bounds.Size.Y));
+        var centre = bounds.GetCenter();
+        var random = new Random(entities.Count * 4243 + 11);
+        _wordsArea = visible / 2;
+        var smallestFont = placed.Min(p => p.Label.FontSize);
+        // The lanes of the long texts: the height of the screen shared between them, one each, so that they never cover
+        // one another; from top to bottom, the most frequent first.
+        var longs = placed.Count(p => p.Long);
+        var laneHeight = longs > 0 ? visible.Y / longs : 0;
+        var lane = 0;
+        for (var order = 0; order < placed.Count; order++)
+        {
+            var (label, box, tint, isLong) = placed[order];
+            // The speed in inverse proportion to the size of the font: a word twice as large goes half as fast.
+            var speed = Math.Max(WordSpeedMin, WordSpeedMax * smallestFont / label.FontSize);
+            // A long text no higher than 85 % of its lane.
+            var wordScale = isLong ? Math.Min(scale, laneHeight * 0.85f / box.Size.Y) : scale;
+            // The font scaled rather than its pixels: a large word stays sharp.
+            label.FontSize = Math.Clamp((int)Math.Round(label.FontSize * wordScale), 8, 512);
+            label.OutlineSize = (int)Math.Round(label.OutlineSize * wordScale);
+            var half = box.Size * wordScale / 2;
+            var wanderer = new Wanderer(label, half, speed, new Random(order * 7717 + 5))
+            {
+                Tint = tint,
+                Born = _clock + 0.3 + 0.05 * order
+            };
+            // A small depth of its own for each word, so that they do not z-fight.
+            var depth = (float)random.NextDouble() * 0.6f - 0.3f;
+            if (isLong)
+            {
+                // Its lane, crossing the screen from outside: the even lanes from the left, the odd ones from the right,
+                // each starting at its own distance from the edge so that they do not come in together.
+                wanderer.LaneY = _wordsArea.Y - laneHeight * (lane + 0.5f);
+                wanderer.Direction = lane % 2 == 0 ? 1 : -1;
+                var start = _wordsArea.X + half.X + (float)random.NextDouble() * _wordsArea.X;
+                label.Position = new Vector3(-wanderer.Direction * start, wanderer.LaneY.Value, depth);
+                wanderer.Born = _clock;
+                lane++;
+            }
+            else
+            {
+                // Godot's y goes up, the layout's down.
+                var home = (box.GetCenter() - centre) * scale;
+                label.Position = new Vector3(home.X, -home.Y, depth);
+                // From its place in the cloud, the word then wanders over the whole screen (see Wander).
+                wanderer.Target = wanderer.NextTarget(_wordsArea);
+            }
+            words.AddChild(label);
+            _wanderers.Add(wanderer);
+        }
+        PairOpacities(random);
+    }
+
+    /// <summary>A text longer than this (in characters) crosses the screen on a lane of its own, from outside.</summary>
+    private const int LongWord = 50;
+
+    /// <summary>
+    /// The opacity of each word goes from 0 to 100 % and back, but always by pairs in opposition: the two words of a pair
+    /// share a pace and a phase, one at 50 % + x when the other is at 50 % − x. So at any time half of the words are at
+    /// 50 % or more and half at 50 % or less. The words are paired at random; an odd one out stays at 50 %.
+    /// </summary>
+    private void PairOpacities(Random random)
+    {
+        var order = _wanderers.OrderBy(_ => random.Next()).ToList();
+        for (var i = 0; i + 1 < order.Count; i += 2)
+        {
+            var phase = (float)(random.NextDouble() * Math.Tau);
+            // A full wave (0 → 100 % → 0) in 8 to 16 seconds.
+            var pace = (float)(Math.Tau / (8 + random.NextDouble() * 8));
+            foreach (var (w, sign) in new[] { (order[i], 1f), (order[i + 1], -1f) })
+            {
+                w.Phase = phase;
+                w.Pace = pace;
+                w.Sign = sign;
+            }
+        }
+    }
+
+    /// <summary>The slowest a word goes, in units of the plane per second (the screen is about 35 wide).</summary>
+    private const float WordSpeedMin = 0.3f;
+    /// <summary>The speed of the smallest word; the others in inverse proportion to their font.</summary>
+    private const float WordSpeedMax = 1.4f;
+
+    /// <summary>The words that wander, and the half size of the visible rectangle of their plane.</summary>
+    private readonly List<Wanderer> _wanderers = [];
+    private Vector2 _wordsArea;
+
+    /// <summary>
+    /// A word that wanders over the screen: it heads for a point of the visible rectangle, turning smoothly, and once
+    /// there picks another, the farthest of a few drawn at random, so that little by little it goes everywhere.
+    /// </summary>
+    private sealed class Wanderer(Label3D label, Vector2 half, float speed, Random random)
+    {
+        public Label3D Label { get; } = label;
+        public Vector2 Half { get; } = half;
+        public float Speed { get; } = speed;
+        public Vector2 Target { get; set; }
+        public Vector2 Velocity { get; set; }
+        /// <summary>The colour of the word (its opacity set at each frame).</summary>
+        public Color Tint { get; set; } = Colors.White;
+        /// <summary>When it appears (clock of the screen), fading in for 0.8 s.</summary>
+        public double Born { get; set; }
+        /// <summary>The wave of its opacity: phase, pace (radians per second), and +1 / −1 in its pair (0: always 50 %).</summary>
+        public float Phase { get; set; }
+        public float Pace { get; set; }
+        public float Sign { get; set; }
+        /// <summary>A long text: the height of its lane (null for a word that wanders), and its way (+1 rightward, −1 leftward).</summary>
+        public float? LaneY { get; set; }
+        public int Direction { get; set; } = 1;
+
+        /// <summary>The opacity at <paramref name="clock"/>: 50 % ± 50 % along the wave, times the fade-in.</summary>
+        public float Opacity(double clock)
+        {
+            var wave = 0.5f + 0.5f * Sign * MathF.Sin(Pace * (float)clock + Phase);
+            return wave * (float)Math.Clamp((clock - Born) / 0.8, 0, 1);
+        }
+
+        /// <summary>The farthest of three points drawn in the rectangle where the word fits whole.</summary>
+        public Vector2 NextTarget(Vector2 area)
+        {
+            var room = new Vector2(Math.Max(0, area.X - Half.X), Math.Max(0, area.Y - Half.Y));
+            var here = new Vector2(Label.Position.X, Label.Position.Y);
+            Vector2 Draw() => new((float)(random.NextDouble() * 2 - 1) * room.X, (float)(random.NextDouble() * 2 - 1) * room.Y);
+            return Enumerable.Range(0, 3).Select(_ => Draw()).OrderByDescending(p => p.DistanceSquaredTo(here)).First();
+        }
+    }
+
+    /// <summary>
+    /// Moves each word toward its target, turning smoothly, kept inside the screen; a long text along its lane, from one
+    /// side to the other, coming back from outside once it has left the screen whole.
+    /// </summary>
+    private void Wander(float delta)
+    {
+        foreach (var w in _wanderers)
+        {
+            if (w.LaneY is { } laneY)
+            {
+                var x = w.Label.Position.X + w.Direction * w.Speed * delta;
+                var limit = _wordsArea.X + w.Half.X;
+                if (w.Direction * x > limit)
+                    x = -w.Direction * limit;
+                w.Label.Position = new Vector3(x, laneY, w.Label.Position.Z);
+                w.Label.Modulate = w.Tint with { A = w.Opacity(_clock) };
+                continue;
+            }
+            var position = new Vector2(w.Label.Position.X, w.Label.Position.Y);
+            var toTarget = w.Target - position;
+            if (toTarget.Length() < 0.6f)
+            {
+                w.Target = w.NextTarget(_wordsArea);
+                toTarget = w.Target - position;
+            }
+            w.Velocity = w.Velocity.Lerp(toTarget.Normalized() * w.Speed, Math.Min(1f, delta * 0.9f));
+            position += w.Velocity * delta;
+            var room = new Vector2(Math.Max(0, _wordsArea.X - w.Half.X), Math.Max(0, _wordsArea.Y - w.Half.Y));
+            position = position.Clamp(-room, room);
+            w.Label.Position = new Vector3(position.X, position.Y, w.Label.Position.Z);
+            w.Label.Modulate = w.Tint with { A = w.Opacity(_clock) };
+        }
+    }
+
+    /// <summary>The distance of the camera to the centre of the scene (it sways around it, see _Process).</summary>
+    private const float CameraDistance = 22f;
+    /// <summary>The plane of the words, a little in front of the centre of the cards.</summary>
+    private const float WordsDepth = 2f;
+    /// <summary>The size of a pixel of a word before the cloud is scaled to the screen.</summary>
+    private const float WordPixel = 0.008f;
+    /// <summary>A few words are not blown up beyond this.</summary>
+    private const float MaxWordScale = 6f;
+
+    /// <summary>
+    /// The first place, along a spiral from the centre stretched to <paramref name="aspect"/>, where a box of
+    /// <paramref name="size"/> overlaps none of <paramref name="taken"/> (y going down, as on the screen).
+    /// </summary>
+    private static Rect2 FreePlace(Vector2 size, float aspect, IEnumerable<Rect2> taken)
+    {
+        var boxes = taken.ToList();
+        var step = Math.Max(0.02f, Math.Min(size.X, size.Y) * 0.25f);
+        for (var i = 0; i < 20000; i++)
+        {
+            var angle = i * 0.35f;
+            var radius = step * angle / MathF.Tau;
+            var centre = new Vector2(MathF.Cos(angle) * radius * aspect, MathF.Sin(angle) * radius);
+            var box = new Rect2(centre - size / 2, size);
+            if (!boxes.Any(b => b.Intersects(box)))
+                return box;
+        }
+        // Never reached in practice: beside everything.
+        var right = boxes.Count == 0 ? 0 : boxes.Max(b => b.End.X);
+        return new Rect2(new Vector2(right, -size.Y / 2), size);
+    }
+
+    /// <summary>A word of the cloud: its text, how many times it was found, its colour; on a lane of its own (a message of the ticker).</summary>
+    private sealed record CloudWord(string Text, int Count, Color Tint, bool Lane = false);
+
+    /// <summary>The colours of the signals of the symbols, and of the tags.</summary>
+    private static readonly Color SadTint = new(0.45f, 0.62f, 1f);
+    private static readonly Color HappyTint = new(1f, 0.82f, 0.3f);
+    private static readonly Color FearTint = new(1f, 0.38f, 0.42f);
+    private static readonly Color DisgustTint = new(0.6f, 0.85f, 0.3f);
+    private static readonly Color TagTint = new(0.72f, 0.85f, 0.92f);
+    /// <summary>The colour of the words of the annotations: a pale lilac.</summary>
+    private static readonly Color AnnotationTint = new(0.82f, 0.7f, 1f);
+
+    /// <summary>
+    /// The words of the cloud: the detected entities, the symbols, the tags and the most frequent words of the text of
+    /// the annotations; a word found in several of them (the same text) adds up its counts and keeps the colour of the
+    /// first. Then the messages of the ticker, on lanes. The most frequent first.
+    /// </summary>
+    private static List<CloudWord> MergeWords(IReadOnlyList<DetectedEntityCount> entities, IReadOnlyList<DetectedSymbolCount> symbols,
+        IReadOnlyList<DetectedTagCount> tags, IReadOnlyList<(string Term, int Count)> annotationTerms, IReadOnlyList<MessageFlowEntry> messages)
+    {
+        var words = new Dictionary<string, CloudWord>(StringComparer.OrdinalIgnoreCase);
+        void Add(string text, int count, Color tint)
+        {
+            text = text.Trim();
+            if (text.Length == 0)
+                return;
+            words[text] = words.TryGetValue(text, out var known) ? known with { Count = known.Count + count } : new CloudWord(text, count, tint);
+        }
+        foreach (var entity in entities)
+            Add(entity.Text, entity.Count, EntityTint(entity));
+        foreach (var symbol in symbols)
+            Add(symbol.Symbol, symbol.Count, SignalTint(symbol.Signals));
+        foreach (var tag in tags)
+            Add(tag.Tag, tag.Count, TagTint);
+        foreach (var (term, count) in annotationTerms)
+            Add(term, count, AnnotationTint);
+        var cloud = words.Values.OrderByDescending(w => w.Count).ThenBy(w => w.Text, StringComparer.OrdinalIgnoreCase).ToList();
+        // The messages weigh as the most frequent word, so that they are well read.
+        var weight = cloud.Count > 0 ? cloud.Max(w => w.Count) : 1;
+        cloud.AddRange(messages.Select(m => new CloudWord(m.Text!.Trim(), weight, MessageTint(m.Color), Lane: true)));
+        return cloud;
+    }
+
+    /// <summary>The colour of a symbol by its first known signal.</summary>
+    private static Color SignalTint(IEnumerable<string> signals)
+    {
+        foreach (var signal in signals)
+            switch (signal.ToUpperInvariant())
+            {
+                case "!SAD": return SadTint;
+                case "!HAPPY": return HappyTint;
+                case "!FEAR": return FearTint;
+                case "!DISGUST": return DisgustTint;
+            }
+        return Colors.White;
+    }
+
+    /// <summary>The colour of a message of the ticker: red, green, or amber.</summary>
+    private static Color MessageTint(string? color) => color?.Trim().ToLowerInvariant() switch
+    {
+        "red" => new Color(1f, 0.42f, 0.42f),
+        "green" => new Color(0.5f, 0.95f, 0.6f),
+        _ => Eve.Amber
+    };
+
+    /// <summary>The colour of an entity by its type (gold when it is an entity of the ontology).</summary>
+    private static Color EntityTint(DetectedEntityCount entity)
+    {
+        if (entity.OntologyId is { Length: > 0 })
+            return Gold;
+        return entity.Type.ToUpperInvariant() switch
+        {
+            "PERSON" or "PER" => Eve.Cyan,
+            "ORG" or "ORGANIZATION" => Eve.Amber,
+            "LOC" or "LOCATION" or "CITY" or "COUNTRY" or "GPE" => new Color(0.55f, 0.9f, 0.6f),
+            _ => new Color(0.85f, 0.88f, 0.95f)
+        };
+    }
+
     /// <summary>Adds <paramref name="node"/> to the cloud at <paramref name="home"/>, drifting around it by <paramref name="range"/>.</summary>
     private void Place(Node3D node, Vector3 home, float range, int order)
     {
@@ -567,6 +875,18 @@ public partial class ThinkScreen : Control
             var home = new Vector3(MathF.Cos(angle) * ring, (float)random.NextDouble() * 6 - 3, MathF.Sin(angle) * ring * 0.8f);
             Place(sprite, home, 0.5f, 100 + order);
             CreateTween().TweenProperty(sprite, "modulate", new Color(1, 1, 1, 0.92f), 0.8).SetDelay(0.6 + 0.1 * order);
+            // Its size breathes: it grows twice as large, then shrinks by half, then grows back to twice, and
+            // so on; each picture a little after the one before, so that they do not breathe together.
+            // (The loop starts after its delay: a delay inside a looping tween would come back at each breath.)
+            var picture = sprite;
+            sprite.CreateTween().TweenCallback(Callable.From(() =>
+            {
+                if (!IsInstanceValid(picture))
+                    return;
+                var breath = picture.CreateTween().SetLoops().SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
+                breath.TweenProperty(picture, "scale", Vector3.One * PictureGrowth, PictureBreath);
+                breath.TweenProperty(picture, "scale", Vector3.One * PictureGrowth / 2, PictureBreath);
+            })).SetDelay(0.6 + 0.4 * order);
             order++;
         }
     }

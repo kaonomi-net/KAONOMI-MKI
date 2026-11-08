@@ -15,9 +15,9 @@ namespace KAONOMI.Server
         /// <summary>
         /// Maps version, message-flow, cache, and symbolic-pattern CRUD/search endpoints onto the application.
         /// </summary>
-        /// <param name="app">The endpoint route builder.</param>
-        /// <param name="session">Session manager used for persistence operations.</param>
-        /// <returns>The same <paramref name="app"/> instance for chaining.</returns>
+        /// <param title="app">The endpoint route builder.</param>
+        /// <param title="session">Session manager used for persistence operations.</param>
+        /// <returns>The same <paramref title="app"/> instance for chaining.</returns>
         public static IEndpointRouteBuilder MapApiEndpoints(this IEndpointRouteBuilder app, SessionManager session)
         {
             // POST /ner {text, types?}: the entities of the text (XLM-RoBERTa int8: PERSON, ORG, LOC; the rules: URL, EMAIL,
@@ -26,6 +26,21 @@ namespace KAONOMI.Server
 
             // GET /ner/types: the types the NER finds (of the model, of the rules, of the ontology) and the state of the model.
             app.MapGet("/ner/types", () => Task.FromResult(Ner.NerService.Get(session.Config).Types()));
+
+            // GET /detectedentity/top?minutes=60&size=60: the entities found by the NER in the dialogs of the last minutes
+            // (all of them when minutes is 0), counted, the most frequent first.
+            app.MapGet("/detectedentity/top", (int? minutes, int? size) =>
+                Task.FromResult(session.DetectedEntitiesTop(minutes ?? 60, size ?? 60)));
+
+            // GET /detectedsymbol/top?minutes=60&size=60: the symbols found by the symbolic patterns in the dialogs of the
+            // last minutes (all of them when minutes is 0), counted by symbol and signals, the most frequent first.
+            app.MapGet("/detectedsymbol/top", (int? minutes, int? size) =>
+                Task.FromResult(session.DetectedSymbolsTop(minutes ?? 60, size ?? 60)));
+
+            // GET /detectedtag/top?minutes=60&size=60: the tags found through the detections (patterns, entities of the
+            // ontology, tags written) in the dialogs of the last minutes, counted, the most frequent first.
+            app.MapGet("/detectedtag/top", (int? minutes, int? size) =>
+                Task.FromResult(session.DetectedTagsTop(minutes ?? 60, size ?? 60)));
 
             // GET /version: returns the server version string.
             app.MapGet("/version", () =>
@@ -182,6 +197,11 @@ namespace KAONOMI.Server
                 }
                 return Task.FromResult(result);
             });
+
+            // GET /whitenote/last?size=200: the last white notes, newest first: their text and their (blurred) date only,
+            // never their context.
+            app.MapGet("/whitenote/last", (int? size) =>
+                Task.FromResult(session.WhiteNotesLast(size ?? 200).Select(n => new { n.text, n.date }).ToList()));
 
 
             // POST /messageflow/update: saves (creates or overwrites) a ticker message; returns the saved id, or "-1" with the error message.
@@ -594,7 +614,7 @@ namespace KAONOMI.Server
             // POST /cluster/update: saves (creates or overwrites) a cluster; returns the saved id, or "-1" with the error message.
             app.MapPost("/cluster/update", (Cluster p) => { p.Normalize(); return Task.FromResult(SoftDelete(() => session.ClusterSave(p))); });
 
-            // POST /cluster/search: free-text search on name, description, tags and members (body: SearchCriterias; "*" or empty: the newest ones).
+            // POST /cluster/search: free-text search on title, description, tags and members (body: SearchCriterias; "*" or empty: the newest ones).
             app.MapPost("/cluster/search", (SearchCriterias p) =>
             {
                 var size = p.size > 0 ? p.size : 10;
@@ -620,13 +640,13 @@ namespace KAONOMI.Server
                 return result is null ? Results.NotFound() : Results.Ok(result);
             });
 
-            // PUT /preset: creates a preset (its name in upper case, its effects within their ranges); returns the new id, or "-1" with the error message.
+            // PUT /preset: creates a preset (its title in upper case, its effects within their ranges); returns the new id, or "-1" with the error message.
             app.MapPut("/preset", (Preset p) => { p.Normalize(); return Task.FromResult(SoftDelete(() => session.PresetSave(p))); });
 
             // POST /preset/update: saves (creates or overwrites) a preset; returns the saved id, or "-1" with the error message.
             app.MapPost("/preset/update", (Preset p) => { p.Normalize(); return Task.FromResult(SoftDelete(() => session.PresetSave(p))); });
 
-            // POST /preset/search: free-text search on name, description, voice, animation, persona and tags (body: SearchCriterias; "*" or empty: the newest ones).
+            // POST /preset/search: free-text search on title, description, voice, animation, persona and tags (body: SearchCriterias; "*" or empty: the newest ones).
             app.MapPost("/preset/search", (SearchCriterias p) =>
             {
                 var size = p.size > 0 ? p.size : 10;
@@ -1004,7 +1024,7 @@ namespace KAONOMI.Server
                 return Task.FromResult(result);
             });
 
-            // POST /task/search: free-text search on name, description, type, status and comment (body: SearchCriterias; "*" or empty: the newest tasks); deleted tasks are left out.
+            // POST /task/search: free-text search on title, description, type, status and comment (body: SearchCriterias; "*" or empty: the newest tasks); deleted tasks are left out.
             app.MapPost("/task/search", (SearchCriterias p) =>
             {
                 var size = p.size > 0 ? p.size : 10;
@@ -1663,7 +1683,7 @@ namespace KAONOMI.Server
                 return Task.FromResult(result);
             });
 
-            // POST /imageanalysis/search: fuzzy search on the file name, the AI analysis, the comments, the annotations and the place (body: SearchCriterias); deleted ones left out.
+            // POST /imageanalysis/search: fuzzy search on the file title, the AI analysis, the comments, the annotations and the place (body: SearchCriterias); deleted ones left out.
             app.MapPost("/imageanalysis/search", (SearchCriterias p) =>
             {
                 var size = p.size > 0 ? p.size : 10;

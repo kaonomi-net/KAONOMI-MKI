@@ -14,7 +14,7 @@ namespace KAONOMI.Core.Data
         where TEntity : EntityBase
     {
         /// <summary>
-        /// The <paramref name="size"/> most recent documents (sorted by <c>date</c>, newest first), at most 10,000
+        /// The <paramref title="size"/> most recent documents (sorted by <c>date</c>, newest first), at most 10,000
         /// (the default Elasticsearch result window).
         /// </summary>
         IReadOnlyCollection<TEntity> Last(int size);

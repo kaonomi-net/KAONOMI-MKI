@@ -1,0 +1,5604 @@
+[
+  {
+    "id": "fr-fear-guerre",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Guerre",
+    "symbol": "guerre",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:guerre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:guerre(s)?\\s+mondiale(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:troisi[èe]me\\s+guerre\\s+mondiale)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]tat\\s+de\\s+guerre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]claration\\s+de\\s+guerre)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Un conflit armé entre États ou groupes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-conflit",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Conflit",
+    "symbol": "conflit",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:conflit(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:conflit(s)?\\s+arm[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:affrontement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hostilit[ée]s)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:zone(s)?\\s+de\\s+conflit)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Un affrontement armé.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-invasion",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Invasion",
+    "symbol": "invasion",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:invasion(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:envah(ir|i|ie|is|it|issent|isseur|isseurs)|incursion(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:offensive(s)?\\s+terrestre(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "L'entrée de forces armées dans un pays.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-bombardement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Bombardement",
+    "symbol": "bombardement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:bombardement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bombard(er|[ée]|[ée]e|[ée]s|[ée]es|ent)|pilonnage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pilonn(er|[ée]|[ée]e)|tapis\\s+de\\s+bombes)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Une attaque par des bombes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-missile",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Missile",
+    "symbol": "missile",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:missile(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:roquette(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tir(s)?\\s+de\\s+missile(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:missile(s)?\\s+balistique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ogive(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Un projectile autopropulsé.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-bombe",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Bombe",
+    "symbol": "bombe",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:bombe(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:obus)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bombe(s)?\\s+[àa]\\s+fragmentation)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bombe(s)?\\s+[àa]\\s+sous-munitions)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mine(s)?\\s+antipersonnel)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Un engin explosif.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-arme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Arme",
+    "symbol": "arme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:arme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:armement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:arsenal)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:armes\\s+de\\s+destruction\\s+massive)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:munition(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Un instrument fait pour tuer ou blesser.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-armee",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Armée",
+    "symbol": "armée",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:arm[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:militaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:forces\\s+arm[ée]es)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]tat-major)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]giment(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Les forces militaires d'un pays.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-soldat",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Soldat",
+    "symbol": "soldat",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:soldat(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:combattant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:militaire(s)?\\s+tu[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fantassin(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]serviste(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Une personne qui combat dans une armée.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-mobilisation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Mobilisation",
+    "symbol": "mobilisation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:mobilisation(s)?\\s+g[ée]n[ée]rale(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mobilisation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mobilis(er|[ée]|[ée]s)\\s+(les|des)\\s+(troupes|r[ée]servistes)|appel\\s+sous\\s+les\\s+drapeaux)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "L'appel des troupes à la guerre.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-combat",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Combat",
+    "symbol": "combat",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:combat(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:combat(tre|tent|tu|tus)\\s+(sur\\s+le\\s+front|l['’]ennemi)|ligne(s)?\\s+de\\s+front)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:front\\s+de\\s+l['’]est)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:en\\s+premi[èe]re\\s+ligne)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Un affrontement armé.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-raid",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Raid",
+    "symbol": "raid",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:raid(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:raid(s)?\\s+a[ée]rien(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:frappe(s)?\\s+a[ée]rienne(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:frappe(s)?\\s+de\\s+missiles)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attaque(s)?\\s+a[ée]rienne(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Une attaque rapide, souvent aérienne.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-drone",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Drone",
+    "symbol": "drone",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:drone(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:drone(s)?\\s+kamikaze(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:drone(s)?\\s+arm[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attaque(s)?\\s+de\\s+drones)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:essaim(s)?\\s+de\\s+drones)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Un aéronef sans pilote, souvent armé.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-blinde",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Blindé",
+    "symbol": "blindé",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:blind[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:char(s)?\\s+d['’]assaut)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:char(s)?\\s+de\\s+combat)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:colonne(s)?\\s+de\\s+chars)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tank(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Un véhicule militaire protégé.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-artillerie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Artillerie",
+    "symbol": "artillerie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:artillerie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:canon(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tir(s)?\\s+d['’]artillerie)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:obusier(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mortier(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Les canons et pièces de tir lourd.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-nucleaire",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Nucléaire",
+    "symbol": "nucléaire",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:nucl[ée]aire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:menace\\s+nucl[ée]aire)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:guerre\\s+nucl[ée]aire)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:arme(s)?\\s+nucl[ée]aire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hiver\\s+nucl[ée]aire)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "L'énergie et l'arme atomiques.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-atomique",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Atomique",
+    "symbol": "atomique",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:atomique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bombe(s)?\\s+atomique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bombe(s)?\\s+h)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:champignon\\s+atomique)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:retomb[ée]es\\s+radioactives)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "L'arme qui libère l'énergie de l'atome.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-belligerant",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Belligérant",
+    "symbol": "belligérant",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:bellig[ée]rant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:escalade\\s+militaire)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:escalade\\s+du\\s+conflit)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mont[ée]e\\s+des\\s+tensions)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:engrenage)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Une partie engagée dans une guerre.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-offensive",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Offensive",
+    "symbol": "offensive",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:offensive(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:contre-offensive(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:assaut(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:perc[ée]e(s)?\\s+ennemie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attaque(s)?\\s+massive(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Une attaque de grande ampleur.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-encerclement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Encerclement",
+    "symbol": "encerclement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:encerclement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:encercl(er|[ée]|[ée]e|[ée]s|[ée]es)|ville(s)?\\s+assi[ée]g[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:si[èe]ge\\s+de\\s+la\\s+ville)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:assi[ée]g(er|[ée]|[ée]e))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'entourer une ville ou une armée.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-envahisseur",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Envahisseur",
+    "symbol": "envahisseur",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:envahisseur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:occupant(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:occupation\\s+militaire)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:territoire(s)?\\s+occup[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:force(s)?\\s+d['’]occupation)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Celui qui occupe un pays par la force.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-refugie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Réfugié",
+    "symbol": "réfugié",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:r[ée]fugi[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:exode(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fuir\\s+la\\s+guerre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]plac[ée](e|s|es)?\\s+de\\s+guerre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:camp(s)?\\s+de\\s+r[ée]fugi[ée]s)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Une personne qui fuit la guerre.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-embargo",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Embargo",
+    "symbol": "embargo",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:embargo(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sanction(s)?\\s+[ée]conomique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mesures\\s+de\\s+r[ée]torsion)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gel\\s+des\\s+avoirs)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:boycott(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "L'interdiction de commercer avec un pays.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-ultimatum",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Ultimatum",
+    "symbol": "ultimatum",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:ultimatum(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mise(s)?\\s+en\\s+demeure)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:menace(s)?\\s+d['’]intervention)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dernier\\s+avertissement)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bruits\\s+de\\s+bottes)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Une dernière mise en demeure avant la force.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-rearmement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Réarmement",
+    "symbol": "réarmement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:r[ée]armement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]arm(er|[ée]|[ée]e)|course\\s+aux\\s+armements)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:militarisation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:budget(s)?\\s+militaire(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Le fait de s'armer à nouveau.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-dissuasion",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Dissuasion",
+    "symbol": "dissuasion",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:dissuasion(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dissuasi(f|ve|fs|ves))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:force\\s+de\\s+frappe)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]quilibre\\s+de\\s+la\\s+terreur)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:arsenal\\s+nucl[ée]aire)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "La menace qui empêche l'attaque.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-bataille",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Bataille",
+    "symbol": "bataille",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:bataille(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:champ(s)?\\s+de\\s+bataille)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:combats\\s+acharn[ée]s)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:combats\\s+de\\s+rue)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gu[ée]rilla(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Un combat entre armées.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-tranchee",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Tranchée",
+    "symbol": "tranchée",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:tranch[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:guerre\\s+de\\s+position)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:no\\s+man['’]s\\s+land)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:barbel[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:casemate(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Un fossé où se protègent les soldats.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-espionnage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Espionnage",
+    "symbol": "espionnage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:espionnage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:espion(ne|s|nes)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:agent(s)?\\s+secret(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:taupe(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:renseignement(s)?\\s+militaire(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "La recherche secrète d'informations.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-sabotage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sabotage",
+    "symbol": "sabotage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:sabotage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sabot(er|[ée]|[ée]e|eur|eurs)|acte(s)?\\s+de\\s+sabotage)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:infrastructure(s)?\\s+vis[ée]e(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "La destruction volontaire et secrète.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-blocus",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Blocus",
+    "symbol": "blocus",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:blocus)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:blocus\\s+maritime)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:couper\\s+les\\s+vivres)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:asphyxie\\s+[ée]conomique)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:isolement\\s+total)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "L'encerclement qui coupe les approvisionnements.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-deportation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Déportation",
+    "symbol": "déportation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]portation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]port(er|[ée]|[ée]e|[ée]s|[ée]es)|transfert(s)?\\s+forc[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:camp(s)?\\s+de\\s+concentration)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nettoyage\\s+ethnique)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Le transfert forcé de populations.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-exaction",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Exaction",
+    "symbol": "exaction",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:exaction(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:crime(s)?\\s+de\\s+guerre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:crime(s)?\\s+contre\\s+l['’]humanit[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:atrocit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:civils\\s+tu[ée]s)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Une violence commise contre des civils.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-pillage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Pillage",
+    "symbol": "pillage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:pillage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pill(er|[ée]|[ée]e|ard|ards)|razzia(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mise\\s+[àa]\\s+sac)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:saccage(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Le vol par la violence.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-couvre-feu",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Couvre-feu",
+    "symbol": "couvre-feu",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:couvre-feu(x)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:loi\\s+martiale)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]tat\\s+de\\s+si[èe]ge)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]tat\\s+d['’]urgence)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:interdiction\\s+de\\s+circuler)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "L'interdiction de sortir la nuit.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-sirene",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sirène",
+    "symbol": "sirène",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:sir[èe]ne(s)?\\s+d['’]alerte)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:alerte(s)?\\s+a[ée]rienne(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:alerte(s)?\\s+g[ée]n[ée]rale(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sir[èe]ne(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:abri(s)?\\s+anti-a[ée]rien(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "L'alarme qui annonce un danger.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-bunker",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Bunker",
+    "symbol": "bunker",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:bunker(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:abri(s)?\\s+antiatomique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:abri(s)?\\s+souterrain(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:blockhaus)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:se\\s+terrer)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Un abri fortifié.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-troupes",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Troupes",
+    "symbol": "troupes",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:troupes)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:troupes\\s+au\\s+sol)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]ploiement(s)?\\s+militaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:contingent(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:renforts\\s+militaires)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Les soldats déployés.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-mercenaire",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Mercenaire",
+    "symbol": "mercenaire",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:mercenaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:milice(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:milicien(ne|s|nes)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:paramilitaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:seigneur(s)?\\s+de\\s+guerre)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Un soldat payé par une puissance étrangère.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-insurrection",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Insurrection",
+    "symbol": "insurrection",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:insurrection(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:insurg[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:guerre\\s+civile)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:soul[èe]vement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]bellion(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Un soulèvement armé.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-putsch",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Putsch",
+    "symbol": "putsch",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:putsch(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:coup\\s+d['’][ée]tat)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:junte(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:putschiste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:renversement(s)?\\s+du\\s+pouvoir)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Une prise du pouvoir par la force.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-dictature",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Dictature",
+    "symbol": "dictature",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:dictature(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dictateur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]gime\\s+autoritaire)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:totalitaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tyrannie(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Un régime autoritaire.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-tyran",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Tyran",
+    "symbol": "tyran",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:tyran(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:despote(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:autocrate(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:oppresseur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bourreau(x)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Un dirigeant cruel et absolu.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-represailles",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Représailles",
+    "symbol": "représailles",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:repr[ée]sailles)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:riposte(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]torsion(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vengeance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:contre-attaque(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Une riposte violente.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-annexion",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Annexion",
+    "symbol": "annexion",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:annexion(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:annex(er|[ée]|[ée]e)|conqu[êe]te(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:expansionnisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vell[ée]it[ée]s\\s+territoriales)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "L'appropriation d'un territoire par la force.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-fusillade",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Fusillade",
+    "symbol": "fusillade",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:fusillade(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tir(s)?\\s+nourri(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]change(s)?\\s+de\\s+tirs)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rafale(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:coups\\s+de\\s+feu)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Des tirs nourris d'armes à feu.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-evacuation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Évacuation",
+    "symbol": "évacuation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:[ée]vacuation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]vacu(er|[ée]|[ée]e|[ée]s|[ée]es)|corridor(s)?\\s+humanitaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fuite(s)?\\s+des\\s+civils)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:exfiltration(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Le fait de faire partir une population en danger.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-conscription",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Conscription",
+    "symbol": "conscription",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:conscription(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:conscrit(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:service\\s+militaire\\s+obligatoire)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:enr[ôo]lement(s)?\\s+forc[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:appel[ée](s)?\\s+sous\\s+les\\s+drapeaux)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "L'enrôlement obligatoire dans l'armée.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-cyberguerre",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cyberguerre",
+    "symbol": "cyberguerre",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cyberguerre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cyber-guerre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:guerre\\s+hybride)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:guerre\\s+de\\s+l['’]information)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cybermenace(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "La guerre menée par attaques informatiques.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-crise",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Crise",
+    "symbol": "crise",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:crise(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:crise(s)?\\s+[ée]conomique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:crise(s)?\\s+financi[èe]re(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:crise(s)?\\s+de\\s+la\\s+dette)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:crise(s)?\\s+[ée]nerg[ée]tique(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Une période de grave difficulté.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-recession",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Récession",
+    "symbol": "récession",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:r[ée]cession(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]cessionniste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:croissance\\s+n[ée]gative)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ralentissement(s)?\\s+[ée]conomique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]pression\\s+[ée]conomique)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Le recul de l'activité économique.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-inflation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Inflation",
+    "symbol": "inflation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:inflation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:inflationniste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hausse\\s+des\\s+prix)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:flamb[ée]e\\s+des\\s+prix)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vie\\s+ch[èe]re)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "La hausse générale des prix.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-chomage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Chômage",
+    "symbol": "chômage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:ch[ôo]mage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sans\\s+emploi)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:demandeur(s)?\\s+d['’]emploi)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:perte(s)?\\s+d['’]emploi)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:taux\\s+de\\s+ch[ôo]mage)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Le manque d'emploi.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-licenciement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Licenciement",
+    "symbol": "licenciement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:licenciement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:licenci(er|[ée]|[ée]e|[ée]s|[ée]es)|plan(s)?\\s+social(aux)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:plan(s)?\\s+de\\s+licenciement)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:suppression(s)?\\s+de\\s+postes)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "La rupture du contrat de travail par l'employeur.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-krach",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Krach",
+    "symbol": "krach",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:krach(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:krach\\s+boursier)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chute\\s+des\\s+march[ée]s)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:effondrement\\s+des\\s+march[ée]s)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lundi\\s+noir)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "L'effondrement brutal de la Bourse.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-banqueroute",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Banqueroute",
+    "symbol": "banqueroute",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:banqueroute(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:faillite(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cessation\\s+de\\s+paiement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]p[ôo]t\\s+de\\s+bilan)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mise\\s+en\\s+faillite)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "La faillite.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-dette",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Dette",
+    "symbol": "dette",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:dette(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dette\\s+publique)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cr[ée]ance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cr[ée]ancier(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:remboursement(s)?\\s+impossible(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "L'argent que l'on doit.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-endettement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Endettement",
+    "symbol": "endettement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:endettement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:endett([ée]|[ée]e|[ée]s|[ée]es|er)|cribl[ée](e|s|es)?\\s+de\\s+dettes)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dans\\s+le\\s+rouge)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fin(s)?\\s+de\\s+mois\\s+difficile(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'être endetté.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-deficit",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Déficit",
+    "symbol": "déficit",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]ficit(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]ficitaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:trou\\s+budg[ée]taire)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]rapage(s)?\\s+budg[ée]taire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dans\\s+le\\s+rouge)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Le manque d'argent dans un budget.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-austerite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Austérité",
+    "symbol": "austérité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:aust[ée]rit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cure\\s+d['’]aust[ée]rit[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:coupe(s)?\\s+budg[ée]taire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rigueur\\s+budg[ée]taire)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tour\\s+de\\s+vis)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "La politique de restriction des dépenses.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-penurie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Pénurie",
+    "symbol": "pénurie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:p[ée]nurie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rupture(s)?\\s+de\\s+stock)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]tals\\s+vides)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rayons\\s+vides)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:manque\\s+de\\s+carburant)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Le manque d'un produit nécessaire.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-precarite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Précarité",
+    "symbol": "précarité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:pr[ée]carit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pr[ée]caire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:emploi(s)?\\s+pr[ée]caire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fin\\s+de\\s+droits)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:travailleur(s)?\\s+pauvre(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "L'instabilité des ressources et de l'emploi.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-devaluation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Dévaluation",
+    "symbol": "dévaluation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]valuation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]valu(er|[ée]|[ée]e)|chute\\s+de\\s+la\\s+monnaie)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:monnaie\\s+qui\\s+s['’]effondre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]pr[ée]ciation\\s+mon[ée]taire)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "La baisse de la valeur d'une monnaie.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-stagflation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Stagflation",
+    "symbol": "stagflation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:stagflation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:stagnation\\s+[ée]conomique)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:croissance\\s+en\\s+berne)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]conomie\\s+[àa]\\s+l['’]arr[êe]t)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "La stagnation avec inflation.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-speculation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Spéculation",
+    "symbol": "spéculation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:sp[ée]culation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sp[ée]culati(f|fs|ve|ves))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sp[ée]cul(er|ateur|ateurs)|fonds\\s+vautour(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:casino\\s+financier)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Les opérations risquées sur les marchés.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-surchauffe",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Surchauffe",
+    "symbol": "surchauffe",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:surchauffe(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bulle(s)?\\s+sp[ée]culative(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bulle(s)?\\s+immobili[èe]re(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bulle(s)?\\s+financi[èe]re(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]clatement\\s+de\\s+la\\s+bulle)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bulle\\s+internet)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Une hausse excessive qui finit par éclater.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-degringolade",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Dégringolade",
+    "symbol": "dégringolade",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]gringolade(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]gringol(er|e|ent|[ée])|plongeon\\s+de\\s+la\\s+bourse)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chute\\s+libre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]vissage(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Une chute rapide.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-delocalisation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Délocalisation",
+    "symbol": "délocalisation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]localisation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]localis(er|[ée]|[ée]e|[ée]s)|fermeture(s)?\\s+d['’]usine(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:usine(s)?\\s+ferm[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:emplois\\s+d[ée]localis[ée]s)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Le transfert d'activités à l'étranger.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-restructuration",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Restructuration",
+    "symbol": "restructuration",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:restructuration(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:restructur(er|[ée]|[ée]e)|r[ée]duction(s)?\\s+d['’]effectifs)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]graissage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:compression(s)?\\s+de\\s+personnel)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "La réorganisation qui supprime des emplois.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-deflation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Déflation",
+    "symbol": "déflation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]flation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]flationniste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:spirale\\s+d[ée]flationniste)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:baisse\\s+g[ée]n[ée]ralis[ée]e\\s+des\\s+prix)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "La baisse générale et durable des prix.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-flambee",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Flambée",
+    "symbol": "flambée",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:flamb[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:envol[ée]e\\s+des\\s+prix)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:prix\\s+qui\\s+explosent)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:prix\\s+de\\s+l['’][ée]nergie)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:facture(s)?\\s+qui\\s+explose(nt)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Une hausse brutale.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-surendettement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Surendettement",
+    "symbol": "surendettement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:surendettement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:surendett[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dossier\\s+de\\s+surendettement)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:commission\\s+de\\s+surendettement)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Le fait de ne plus pouvoir payer ses dettes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-impaye",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Impayé",
+    "symbol": "impayé",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:impay[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:loyer(s)?\\s+impay[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:facture(s)?\\s+impay[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:retard(s)?\\s+de\\s+paiement)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:relance(s)?\\s+de\\s+paiement)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Une somme due non payée.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-expulsion",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Expulsion",
+    "symbol": "expulsion",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:expulsion(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:expuls(er|[ée]|[ée]e|[ée]s|[ée]es)|mis(e|es)?\\s+[àa]\\s+la\\s+porte)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:perdre\\s+(son|mon|ton)\\s+logement)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[àa]\\s+la\\s+rue)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'être chassé de son logement.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-saisie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Saisie",
+    "symbol": "saisie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:saisie(s)?\\s+(sur\\s+salaire|immobili[èe]re|des\\s+biens)|saisie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:confiscation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:biens\\s+saisis)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vente\\s+aux\\s+ench[èe]res\\s+forc[ée]e)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "La confiscation de biens pour dettes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-huissier",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Huissier",
+    "symbol": "huissier",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:huissier(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:commissaire(s)?\\s+de\\s+justice)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:recouvrement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:commandement\\s+de\\s+payer)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mise\\s+en\\s+demeure)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "L'officier qui recouvre les dettes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-insolvabilite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Insolvabilité",
+    "symbol": "insolvabilité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:insolvabilit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:insolvable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]faut\\s+de\\s+paiement)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cessation\\s+de\\s+paiements)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ne\\s+plus\\s+pouvoir\\s+payer)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "L'incapacité de payer ses dettes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-liquidation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Liquidation",
+    "symbol": "liquidation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:liquidation(s)?\\s+judiciaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:liquidation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:entreprise(s)?\\s+liquid[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:redressement\\s+judiciaire)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:proc[ée]dure\\s+collective)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "La fin d'une entreprise et la vente de ses biens.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-chomeur",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Chômeur",
+    "symbol": "chômeur",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:ch[ôo]meu(r|rs|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:inscrit(e|s|es)?\\s+[àa]\\s+p[ôo]le\\s+emploi)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:inscrit(e|s|es)?\\s+[àa]\\s+france\\s+travail)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sans\\s+travail)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:au\\s+ch[ôo]mage)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Une personne sans emploi.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-rationnement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Rationnement",
+    "symbol": "rationnement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:rationnement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rationn(er|[ée]|[ée]e)|ticket(s)?\\s+de\\s+rationnement)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:quota(s)?\\s+par\\s+personne)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tickets\\s+de\\s+restriction)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "La limitation de ce que chacun peut acheter.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-volatilite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Volatilité",
+    "symbol": "volatilité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:volatilit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:volatil(e|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:march[ée]s\\s+agit[ée]s)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:s[ée]ance\\s+noire)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:yo-yo\\s+des\\s+march[ée]s)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Les variations brutales des marchés.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-incertitude",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Incertitude",
+    "symbol": "incertitude",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:incertitude(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:incertain(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:avenir\\s+sombre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:climat\\s+d['’]incertitude)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:flou\\s+total)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Le fait de ne pas savoir ce qui va arriver.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-instabilite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Instabilité",
+    "symbol": "instabilité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:instabilit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:instable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:turbulence(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tourmente(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fragilit[ée](s)?\\s+financi[èe]re(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Le manque de stabilité.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-defaillance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Défaillance",
+    "symbol": "défaillance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]faillance(s)?\\s+d['’]entreprise(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]faillance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]faut\\s+souverain)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:faillite(s)?\\s+en\\s+cascade)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:effet\\s+domino)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "L'incapacité d'une entreprise à faire face.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-delestage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Délestage",
+    "symbol": "délestage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]lestage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:coupure(s)?\\s+de\\s+courant)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:panne(s)?\\s+g[ée]n[ée]rale(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:black-out)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:p[ée]nurie(s)?\\s+d['’][ée]lectricit[ée])(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Les coupures de courant organisées.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-protectionnisme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Protectionnisme",
+    "symbol": "protectionnisme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:protectionnisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:protectionniste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:guerre\\s+commerciale)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:droits\\s+de\\s+douane)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:guerre\\s+des\\s+tarifs)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "La fermeture des frontières au commerce.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-subprimes",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Subprimes",
+    "symbol": "subprimes",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:subprime(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:crise\\s+de\\s+2008)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cr[ée]dit(s)?\\s+toxique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pr[êe]t(s)?\\s+toxique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:actif(s)?\\s+toxique(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Les crédits à risque à l'origine de la crise de 2008.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-desindustrialisation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Désindustrialisation",
+    "symbol": "désindustrialisation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]sindustrialisation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:friche(s)?\\s+industrielle(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:usines\\s+qui\\s+ferment)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]sert(s)?\\s+industriel(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "La disparition des industries d'un pays.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-declassement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Déclassement",
+    "symbol": "déclassement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]classement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]class([ée]|[ée]e|[ée]s|[ée]es)|descenseur\\s+social)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:classe(s)?\\s+moyenne(s)?\\s+appauvrie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:perte\\s+de\\s+statut)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "La perte de son rang social.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-depreciation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Dépréciation",
+    "symbol": "dépréciation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]pr[ée]ciation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]pr[ée]ci(er|[ée]|[ée]e)|moins-value(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:perte(s)?\\s+de\\s+valeur)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:actifs\\s+d[ée]pr[ée]ci[ée]s)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "La perte de valeur.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-marasme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Marasme",
+    "symbol": "marasme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:marasme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:morosit[ée]\\s+[ée]conomique)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]conomie\\s+en\\s+panne)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:croissance\\s+atone)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:climat\\s+morose)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Une stagnation profonde.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-stagnation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Stagnation",
+    "symbol": "stagnation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:stagnation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:stagn(er|e|ent|ant|ante)|pi[ée]tinement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:au\\s+point\\s+mort)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:croissance\\s+z[ée]ro)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "L'absence de progression.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-effritement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Effritement",
+    "symbol": "effritement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:effritement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:effrit(er|e|[ée]|[ée]e)|[ée]rosion(s)?\\s+du\\s+pouvoir\\s+d['’]achat)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rogn[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:grignot[ée](e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Une dégradation lente.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-pauperisation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Paupérisation",
+    "symbol": "paupérisation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:paup[ée]risation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:appauvrissement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:appauvr(ir|i|ie|is)|pouvoir\\s+d['’]achat\\s+en\\s+berne)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fin\\s+du\\s+mois)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "L'appauvrissement d'une population.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-inegalite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Inégalité",
+    "symbol": "inégalité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:in[ée]galit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:in[ée]galitaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fracture\\s+sociale)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]cart(s)?\\s+de\\s+richesse)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:injustice(s)?\\s+sociale(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Les écarts injustes de richesse.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-terrorisme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Terrorisme",
+    "symbol": "terrorisme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:terrorisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:menace\\s+terroriste)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:acte(s)?\\s+terroriste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]seau(x)?\\s+terroriste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cellule(s)?\\s+terroriste(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "L'usage de la terreur à des fins politiques.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-terroriste",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Terroriste",
+    "symbol": "terroriste",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:terroriste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:poseur(s)?\\s+de\\s+bombe(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:assaillant(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:auteur(s)?\\s+de\\s+l['’]attentat)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:commando(s)?\\s+arm[ée](s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Une personne qui commet des attentats.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-attentat",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Attentat",
+    "symbol": "attentat",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:attentat(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attentat(s)?\\s+meurtrier(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attaque(s)?\\s+terroriste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:acte(s)?\\s+de\\s+terreur)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tuerie(s)?\\s+de\\s+masse)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Une attaque criminelle contre des personnes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-kamikaze",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Kamikaze",
+    "symbol": "kamikaze",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:kamikaze(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attentat(s)?-suicide)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ceinture(s)?\\s+d['’]explosifs)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ceinture(s)?\\s+explosive(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mission\\s+suicide)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Un assaillant qui se tue en attaquant.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-radicalisation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Radicalisation",
+    "symbol": "radicalisation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:radicalisation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:radicalis([ée]|[ée]e|[ée]s|[ée]es|er)|basculement\\s+dans\\s+la\\s+violence)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]rive(s)?\\s+sectaire(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Le passage à des idées extrêmes et violentes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-extremisme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Extrémisme",
+    "symbol": "extrémisme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:extr[ée]misme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:extr[ée]miste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ultra-violent(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:groupuscule(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ultradroite)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ultragauche)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Les idées poussées à l'extrême et à la violence.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-fanatisme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Fanatisme",
+    "symbol": "fanatisme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:fanatisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fanatique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fanatis([ée]|[ée]e|[ée]s|er)|int[ée]grisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sectarisme(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Un zèle aveugle et violent.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-endoctrinement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Endoctrinement",
+    "symbol": "endoctrinement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:endoctrinement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:endoctrin(er|[ée]|[ée]e|[ée]s)|embrigadement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:embrigad(er|[ée]|[ée]e)|lavage\\s+de\\s+cerveau)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'imposer une doctrine par la manipulation.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-propagande",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Propagande",
+    "symbol": "propagande",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:propagande(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:propagandiste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vid[ée]o(s)?\\s+de\\s+revendication)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:apologie\\s+du\\s+terrorisme)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:recrutement\\s+en\\s+ligne)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "La diffusion d'idées pour manipuler.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-explosif",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Explosif",
+    "symbol": "explosif",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:explosif(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:engin(s)?\\s+explosif(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bombe(s)?\\s+artisanale(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tatp)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]tonateur(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Une substance ou un engin qui explose.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-otage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Otage",
+    "symbol": "otage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:otage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:prise(s)?\\s+d['’]otage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:preneur(s)?\\s+d['’]otage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:s[ée]questration(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:retenu(e|s|es)?\\s+en\\s+otage)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Une personne retenue pour faire pression.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-rancon",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Rançon",
+    "symbol": "rançon",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:ran[çc]on(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:demande(s)?\\s+de\\s+ran[çc]on)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lib[ée]ration\\s+contre\\s+ran[çc]on)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:extorsion(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chantage(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "La somme exigée pour libérer quelqu'un.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-assaillant",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Assaillant",
+    "symbol": "assaillant",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:assaillant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:agresseur(s)?\\s+arm[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:forcen[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:individu(s)?\\s+arm[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tireur(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Celui qui attaque.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-tuerie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Tuerie",
+    "symbol": "tuerie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:tuerie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fusillade(s)?\\s+de\\s+masse)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:massacre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bain\\s+de\\s+sang)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:carnage(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Un meurtre de plusieurs personnes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-vigipirate",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Vigipirate",
+    "symbol": "vigipirate",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:vigipirate)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:urgence\\s+attentat)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:alerte\\s+attentat)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:niveau\\s+d['’]alerte\\s+maximal)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sentinelle)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Le plan d'alerte contre le terrorisme.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-suspect",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Suspect",
+    "symbol": "suspect",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:colis\\s+suspect(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bagage(s)?\\s+abandonn[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:objet(s)?\\s+suspect(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:suspect(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:individu\\s+suspect)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Un objet ou une personne qui inquiète.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-piege",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Piégé",
+    "symbol": "piégé",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:pi[ée]g[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:voiture(s)?\\s+pi[ée]g[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:colis\\s+pi[ée]g[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lettre(s)?\\s+pi[ée]g[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:engin\\s+pi[ée]g[ée])(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Un objet qui contient une bombe cachée.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-deminage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Déminage",
+    "symbol": "déminage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]minage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]mineur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:p[ée]rim[èe]tre\\s+de\\s+s[ée]curit[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lev[ée]e\\s+de\\s+doute)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:robot\\s+d[ée]mineur)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "La neutralisation des explosifs.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-attaque",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Attaque",
+    "symbol": "attaque",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:attaque(s)?\\s+au\\s+couteau)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attaque(s)?\\s+[àa]\\s+l['’]arme\\s+blanche)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attaque(s)?\\s+arm[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attaque(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:agression(s)?\\s+arm[ée]e(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Une agression violente.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-egorgement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Égorgement",
+    "symbol": "égorgement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:[ée]gorgement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]gorg(er|[ée]|[ée]e|[ée]s)|d[ée]capitation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]capit(er|[ée]|[ée]e)|poignard(er|[ée]|[ée]e))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Le fait de trancher la gorge.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-barbarie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Barbarie",
+    "symbol": "barbarie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:barbarie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:barbare(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:atrocit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:inhumain(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sauvagerie(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Une cruauté extrême.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-psychose",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Psychose",
+    "symbol": "psychose",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:psychose(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:peur\\s+collective)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:climat\\s+de\\s+peur)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vent\\s+de\\s+panique)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:terreur\\s+g[ée]n[ée]ralis[ée]e)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Une peur collective.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-panique",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Panique",
+    "symbol": "panique",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:panique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:paniqu(er|[ée]|[ée]e|[ée]s|[ée]es)|mouvement(s)?\\s+de\\s+foule)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sauve-qui-peut)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bousculade(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Une peur soudaine et incontrôlée.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-confinement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Confinement",
+    "symbol": "confinement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:confinement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:confin(er|[ée]|[ée]e|[ée]s|[ée]es)|restez\\s+chez\\s+vous)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mise(s)?\\s+[àa]\\s+l['’]abri)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bouclage(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Le fait de rester enfermé à l'abri.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-kalachnikov",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Kalachnikov",
+    "symbol": "kalachnikov",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:kalachnikov(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ak-47)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fusil(s)?\\s+d['’]assaut)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:arme(s)?\\s+de\\s+guerre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:arme(s)?\\s+automatique(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Un fusil d'assaut.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-cyberterrorisme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cyberterrorisme",
+    "symbol": "cyberterrorisme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cyberterrorisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cyberterroriste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attaque(s)?\\s+contre\\s+les\\s+infrastructures)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sabotage\\s+informatique)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Le terrorisme par attaques informatiques.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-bioterrorisme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Bioterrorisme",
+    "symbol": "bioterrorisme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:bioterrorisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:arme(s)?\\s+biologique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:anthrax)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:agent(s)?\\s+pathog[èe]ne(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:enveloppe(s)?\\s+contamin[ée]e(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Le terrorisme par des agents biologiques.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-sarin",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sarin",
+    "symbol": "sarin",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:sarin)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gaz\\s+toxique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:arme(s)?\\s+chimique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attaque(s)?\\s+chimique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gaz\\s+innervant(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Un gaz de combat mortel.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-radiologique",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Radiologique",
+    "symbol": "radiologique",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:radiologique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bombe(s)?\\s+sale(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mati[èe]re(s)?\\s+radioactive(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:contamination\\s+radioactive)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:irradiation(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Une menace liée aux matières radioactives.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-complot",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Complot",
+    "symbol": "complot",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:complot(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:comploteur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:conjuration(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:projet(s)?\\s+d['’]attentat)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attentat\\s+d[ée]jou[ée])(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Un projet secret contre quelqu'un.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-enrolement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Enrôlement",
+    "symbol": "enrôlement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:enr[ôo]lement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:recrutement\\s+terroriste)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:recrue(s)?\\s+terroriste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fili[èe]re(s)?\\s+terroriste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:recrut(er|[ée]|[ée]e)\\s+par\\s+un\\s+groupe\\s+arm[ée])(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "L'enrôlement dans un groupe violent.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-fiche",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Fiché",
+    "symbol": "fiché",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:fich[ée](e|s|es)?\\s+s)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fiche\\s+s)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fich[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sous\\s+surveillance)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:suivi(e|s|es)?\\s+par\\s+les\\s+services)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Une personne suivie par les services de sécurité.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-revendication",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Revendication",
+    "symbol": "revendication",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:revendication(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:revendiqu(er|[ée]|[ée]e)|a\\s+revendiqu[ée]\\s+l['’]attentat)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:communiqu[ée]\\s+de\\s+revendication)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Le fait de déclarer être l'auteur d'un attentat.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-victimes",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Victimes",
+    "symbol": "victimes",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:victimes)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bilan\\s+des\\s+victimes)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bilan\\s+provisoire)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bless[ée]s\\s+graves)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:morts\\s+et\\s+bless[ée]s)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Les personnes touchées par l'attaque.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-recueillement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Recueillement",
+    "symbol": "recueillement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:recueillement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hommage(s)?\\s+aux\\s+victimes)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:minute\\s+de\\s+silence)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:deuil\\s+national)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:marche\\s+blanche)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Le souvenir des victimes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-securitaire",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sécuritaire",
+    "symbol": "sécuritaire",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:s[ée]curitaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:s[ée]curit[ée]\\s+renforc[ée]e)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mesures\\s+de\\s+s[ée]curit[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:contr[ôo]les\\s+renforc[ée]s)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:haut\\s+niveau\\s+de\\s+s[ée]curit[ée])(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "La protection renforcée contre la menace.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-alerte",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Alerte",
+    "symbol": "alerte",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:alerte(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:alerte\\s+enl[èe]vement)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:alerte\\s+maximale)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:danger\\s+imminent)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:menace\\s+imminente)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "L'avertissement d'un danger imminent.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-effroi",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Effroi",
+    "symbol": "effroi",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:effroi(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fuir)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:s['’]enfuir)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:courir\\s+se\\s+cacher)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:prendre\\s+la\\s+fuite)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "La peur qui fait fuir devant un danger.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-traque",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Traque",
+    "symbol": "traque",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:traque(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:traqu(er|[ée]|[ée]e|[ée]s)|chasse\\s+[àa]\\s+l['’]homme)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:en\\s+cavale)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:avis\\s+de\\s+recherche)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "La poursuite d'un suspect.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-machette",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Machette",
+    "symbol": "machette",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:machette(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:arme(s)?\\s+blanche(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:arm[ée](e|s|es)?\\s+d['’]un\\s+couteau)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:couteau(x)?\\s+de\\s+boucher)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hachoir(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Une arme blanche.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-haine",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Haine",
+    "symbol": "haine",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:discours\\s+de\\s+haine)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:appel(s)?\\s+au\\s+meurtre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:haine(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:incitation\\s+[àa]\\s+la\\s+haine)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:menace(s)?\\s+de\\s+mort)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "L'hostilité qui pousse à la violence.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-cible",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cible",
+    "symbol": "cible",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cible(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cibl[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vis[ée](e|s|es)?\\s+par)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lieu(x)?\\s+sensible(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cible(s)?\\s+molle(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Ce qui est visé par une attaque.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-ia",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "IA",
+    "symbol": "IA",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:ia)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:intelligence(s)?\\s+artificielle(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:i\\.a\\.)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ia\\s+g[ée]n[ée]rative)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ia\\s+forte)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "L'intelligence artificielle et la peur qu'elle inspire.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-robot",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Robot",
+    "symbol": "robot",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:robot(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:robotique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:andro[ïi]de(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:humano[ïi]de(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:automate(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Une machine qui agit seule.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-automatisation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Automatisation",
+    "symbol": "automatisation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:automatisation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:automatis(er|[ée]|[ée]e|[ée]s|[ée]es)|remplac[ée](e|s|es)?\\s+par\\s+(une|des)\\s+machine(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:remplac[ée](e|s|es)?\\s+par\\s+l['’]ia)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:emplois\\s+menac[ée]s)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Le remplacement du travail humain par des machines.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-algorithme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Algorithme",
+    "symbol": "algorithme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:algorithme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:algorithmique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]cision(s)?\\s+automatis[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:notation\\s+sociale)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cr[ée]dit\\s+social)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Une suite d'instructions qui décide à notre place.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-surveillance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Surveillance",
+    "symbol": "surveillance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:surveillance\\s+de\\s+masse)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:surveillance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:big\\s+brother)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:soci[ée]t[ée]\\s+de\\s+surveillance)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:flicage(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Le contrôle permanent des personnes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-biometrie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Biométrie",
+    "symbol": "biométrie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:biom[ée]trie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:biom[ée]trique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:reconnaissance\\s+faciale)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cam[ée]ra(s)?\\s+intelligente(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vid[ée]osurveillance(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "L'identification automatique des corps et des visages.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-deepfake",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Deepfake",
+    "symbol": "deepfake",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:deepfake(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:deep\\s+fake(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hypertrucage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fausse(s)?\\s+vid[ée]o(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:clonage\\s+de\\s+voix)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Une fausse vidéo réaliste créée par l'IA.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-desinformation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Désinformation",
+    "symbol": "désinformation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]sinformation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fake\\s+news)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fausse(s)?\\s+information(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:infox)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:intox)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "La diffusion volontaire de fausses informations.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-manipulation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Manipulation",
+    "symbol": "manipulation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:manipulation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:manipul(er|e|es|ent|[ée]|[ée]e|[ée]s|[ée]es|ait|aient|ateur|atrice|ateurs)|influence(s)?\\s+cach[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ing[ée]rence(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:op[ée]ration(s)?\\s+d['’]influence)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'influencer à l'insu des gens.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-singularite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Singularité",
+    "symbol": "singularité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:singularit[ée](s)?\\s+technologique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:singularit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]passer\\s+l['’]humain)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]pass[ée](e|s|es)?\\s+par\\s+l['’]ia)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Le moment où l'IA dépasserait l'humain.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-incontrolable",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Incontrôlable",
+    "symbol": "incontrôlable",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:incontr[ôo]lable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:perte\\s+de\\s+contr[ôo]le)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hors\\s+de\\s+contr[ôo]le)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]chapper\\s+[àa]\\s+tout\\s+contr[ôo]le)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:emballement)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "La perte de maîtrise des machines.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-piratage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Piratage",
+    "symbol": "piratage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:piratage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pirat(er|[ée]|[ée]e|[ée]s|[ée]es)|hacker(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hack([ée]|[ée]e|[ée]s)|intrusion(s)?\\s+informatique(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "L'accès illégal à un système informatique.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-cyberattaque",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cyberattaque",
+    "symbol": "cyberattaque",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cyberattaque(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cyber-attaque(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attaque(s)?\\s+informatique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attaque(s)?\\s+par\\s+d[ée]ni\\s+de\\s+service)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ddos)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Une attaque contre des systèmes informatiques.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-rancongiciel",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Rançongiciel",
+    "symbol": "rançongiciel",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:ran[çc]ongiciel(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ransomware(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:donn[ée]es\\s+chiffr[ée]es)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:demande\\s+de\\s+ran[çc]on)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:logiciel(s)?\\s+malveillant(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Un logiciel qui bloque les données contre rançon.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-divulgation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Divulgation",
+    "symbol": "divulgation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:divulgation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fuite(s)?\\s+de\\s+donn[ée]es)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vol(s)?\\s+de\\s+donn[ée]es)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:donn[ée]es\\s+(vol[ée]es|pirat[ée]es|divulgu[ée]es))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:br[èe]che(s)?\\s+de\\s+s[ée]curit[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fichier(s)?\\s+vol[ée](s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "La divulgation de données privées.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-tracage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Traçage",
+    "symbol": "traçage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:tra[çc]age(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tracking)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:g[ée]olocalis([ée]|[ée]e|[ée]s|ation))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pistage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:suivi(e|s|es)?\\s+[àa]\\s+la\\s+trace)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Le suivi des faits et gestes de chacun.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-robots-tueurs",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Robots-tueurs",
+    "symbol": "robots-tueurs",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:robots?-tueurs?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:robot(s)?\\s+tueur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:arme(s)?\\s+autonome(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:syst[èe]me(s)?\\s+d['’]armes\\s+l[ée]tales\\s+autonomes)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "Les armes qui choisissent seules leurs cibles.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-biais",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Biais",
+    "symbol": "biais",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:biais\\s+algorithmique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:biais)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:discrimination(s)?\\s+algorithmique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:algorithme(s)?\\s+discriminant(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:profilage(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Un préjugé reproduit par une machine.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-hallucination",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Hallucination",
+    "symbol": "hallucination",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:hallucination(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hallucin(er|e|[ée]|[ée]e)|r[ée]ponse(s)?\\s+invent[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:erreur(s)?\\s+de\\s+l['’]ia)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:information(s)?\\s+fausse(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Une réponse inventée par une IA.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-transhumanisme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Transhumanisme",
+    "symbol": "transhumanisme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:transhumanisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:transhumaniste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:humain\\s+augment[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:puce(s)?\\s+implant[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cyborg(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "L'idée d'augmenter l'humain par la technique.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-obsolescence",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Obsolescence",
+    "symbol": "obsolescence",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:obsolescence(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:obsol[èe]te(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:m[ée]tier(s)?\\s+qui\\s+disparai(ssen)?t)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:inutile\\s+face\\s+[àa]\\s+la\\s+machine)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:devenu(e|s|es)?\\s+inutile(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Le fait de devenir inutile, dépassé.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-dependance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Dépendance",
+    "symbol": "dépendance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]pendance(s)?\\s+num[ée]rique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]pendance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:addiction(s)?\\s+aux\\s+[ée]crans)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:accro(s)?\\s+aux\\s+[ée]crans)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cyberd[ée]pendance(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Le fait de ne plus pouvoir se passer d'une technologie.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-censure",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Censure",
+    "symbol": "censure",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:censure(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:censur(er|[ée]|[ée]e|[ée]s)|mod[ée]ration\\s+automatique)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:libert[ée]\\s+d['’]expression\\s+menac[ée]e)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:shadowban)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Le contrôle de ce que l'on peut dire.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-spyware",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Spyware",
+    "symbol": "spyware",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:spyware(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:logiciel(s)?\\s+espion(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pegasus)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]coute(s)?\\s+ill[ée]gale(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:micro(s)?\\s+cach[ée](s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Un logiciel qui écoute et observe en secret.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-malware",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Malware",
+    "symbol": "malware",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:malware(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:virus\\s+informatique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cheval\\s+de\\s+troie)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ver(s)?\\s+informatique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:logiciel(s)?\\s+infect[ée](s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Un programme qui infecte les ordinateurs.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-phishing",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Phishing",
+    "symbol": "phishing",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:phishing)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hame[çc]onnage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:arnaque(s)?\\s+en\\s+ligne)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:faux\\s+courriel(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mail(s)?\\s+frauduleux)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Une arnaque pour voler des identifiants.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-usurpation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Usurpation",
+    "symbol": "usurpation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:usurpation(s)?\\s+d['’]identit[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:usurpation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vol\\s+d['’]identit[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:identit[ée]\\s+vol[ée]e)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:faux\\s+profil(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Le vol d'identité.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-deshumanisation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Déshumanisation",
+    "symbol": "déshumanisation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]shumanisation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]shumanis([ée]|[ée]e|[ée]s|ant|ante)|sans\\s+contact\\s+humain)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:relation(s)?\\s+virtuelle(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:isolement\\s+num[ée]rique)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "La perte de l'humain dans les relations.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-uberisation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Uberisation",
+    "symbol": "uberisation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:uberisation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ub[ée]ris([ée]|[ée]e|ation|er)|travailleur(s)?\\s+de\\s+plateforme)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:livreur(s)?\\s+pr[ée]caire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:micro-travail)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "La précarisation du travail par les plateformes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-terminator",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Terminator",
+    "symbol": "terminator",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:terminator)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:skynet)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]volte\\s+des\\s+machines)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:machines\\s+qui\\s+prennent\\s+le\\s+pouvoir)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:soul[èe]vement\\s+des\\s+robots)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "L'image de la machine qui se retourne contre l'humain.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-extinction",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Extinction",
+    "symbol": "extinction",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:extinction(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:extinction\\s+de\\s+l['’]humanit[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:risque\\s+existentiel)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:menace\\s+existentielle)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fin\\s+de\\s+l['’]humanit[ée])(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "La disparition de l'humanité.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-dystopie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Dystopie",
+    "symbol": "dystopie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:dystopie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dystopique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:monde\\s+orwellien)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:meilleur\\s+des\\s+mondes)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ia\\s+autonome)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Un futur où la technique opprime l'humain.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-superintelligence",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Superintelligence",
+    "symbol": "superintelligence",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:superintelligence(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:conscience\\s+artificielle)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:machine\\s+consciente)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ia\\s+consciente)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ia\\s+sensible)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]veil\\s+des\\s+machines)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "L'idée d'une IA plus intelligente et consciente que l'humain.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-fichage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Fichage",
+    "symbol": "fichage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:fichage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:donn[ée]es\\s+personnelles)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:collecte\\s+de\\s+donn[ée]es)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:exploitation\\s+des\\s+donn[ée]es)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:donn[ée]es\\s+priv[ée]es)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "La collecte des informations personnelles.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-vie-privee",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Vie privée",
+    "symbol": "vie privée",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:vie\\s+priv[ée]e)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:atteinte\\s+[àa]\\s+la\\s+vie\\s+priv[ée]e)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:intimit[ée]\\s+viol[ée]e)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:respect\\s+de\\s+la\\s+vie\\s+priv[ée]e)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:plus\\s+aucune\\s+vie\\s+priv[ée]e)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Ce qui ne regarde que soi.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-predictif",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Prédictif",
+    "symbol": "prédictif",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:pr[ée]dicti(f|fs|ve|ves))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:police\\s+pr[ée]dictive)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:justice\\s+pr[ée]dictive)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:profilage\\s+pr[ée]dictif)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:minority\\s+report)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Ce qui prétend prévoir nos actes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-chatbot",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Chatbot",
+    "symbol": "chatbot",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:chatbot(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:agent(s)?\\s+conversationnel(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:faux\\s+humain)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bot(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:compte(s)?\\s+automatis[ée](s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Un agent conversationnel automatique.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-robotisation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Robotisation",
+    "symbol": "robotisation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:robotisation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:remplace(r|nt)?\\s+(mon|ton|son|notre|votre|leur|nos|les)\\s+(m[ée]tier|emploi|travail|job)(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:remplac[ée](e|s|es)?\\s+par\\s+un\\s+robot)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:destruction\\s+d['’]emplois)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fin\\s+du\\s+travail)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ch[ôo]mage\\s+technologique)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'être remplacé par une IA ou un robot.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-arnaque",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Arnaque",
+    "symbol": "arnaque",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:arnaque(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:arnaqu(er|[ée]|[ée]e|eur|eurs)|escroquerie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:escroc(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fraude(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Une escroquerie, souvent en ligne.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-trucage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Trucage",
+    "symbol": "trucage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:trucage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:truquage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:truqu[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:falsifi([ée]|[ée]e|[ée]s|cation)|montage(s)?\\s+trompeur(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Une image ou une voix falsifiée.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-emballement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Emballement",
+    "symbol": "emballement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:emballement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:course\\s+[àa]\\s+l['’]ia)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:course\\s+aux\\s+armements\\s+de\\s+l['’]ia)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fuite\\s+en\\s+avant)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:moratoire)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Une accélération que plus personne ne maîtrise.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-cybercriminalite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cybercriminalité",
+    "symbol": "cybercriminalité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cybercriminalit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cybercriminel(le|s|les)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dark\\s+web)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:darknet)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:march[ée](s)?\\s+noir(s)?\\s+num[ée]rique(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Les crimes commis sur internet.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-botnet",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Botnet",
+    "symbol": "botnet",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:botnet(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]seau(x)?\\s+de\\s+zombies)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:machine(s)?\\s+zombie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ordinateur(s)?\\s+zombie(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Un réseau de machines piratées.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-requisition",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Réquisition",
+    "symbol": "réquisition",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:r[ée]quisition(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]quisitionn(er|[ée]|[ée]e|[ée]s)|[ée]conomie\\s+de\\s+guerre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:effort\\s+de\\s+guerre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:loi\\s+de\\s+mobilisation)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#GUERRE"
+    ],
+    "language": "FR",
+    "comment": "La mise au service de la guerre des biens et des personnes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-hyperinflation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Hyperinflation",
+    "symbol": "hyperinflation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:hyperinflation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:inflation\\s+galopante)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:monnaie\\s+de\\s+singe)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:billet(s)?\\s+sans\\s+valeur)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:prix\\s+qui\\s+doublent)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Une inflation hors de contrôle.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-faillite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Faillite",
+    "symbol": "faillite",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:faillite(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:failli(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mettre\\s+la\\s+cl[ée]\\s+sous\\s+la\\s+porte)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fermer\\s+boutique)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:entreprise(s)?\\s+en\\s+difficult[ée])(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "L'état d'une entreprise qui ne peut plus payer.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-matraquage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Matraquage",
+    "symbol": "matraquage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:matraquage\\s+fiscal)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:matraquage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hausse(s)?\\s+d['’]imp[ôo]ts)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ras-le-bol\\s+fiscal)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pression\\s+fiscale)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "Une pression fiscale très forte.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-greve",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Grève",
+    "symbol": "grève",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:gr[èe]ve(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gr[ée]viste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gr[èe]ve\\s+g[ée]n[ée]rale)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:paralysie\\s+du\\s+pays)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pays\\s+bloqu[ée])(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "L'arrêt collectif du travail.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-addiction",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Addiction",
+    "symbol": "addiction",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:addiction(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:addict(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:scrolling\\s+infini)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:temps\\s+d['’][ée]cran)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:captation\\s+de\\s+l['’]attention)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "La dépendance aux écrans et aux applications.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-polarisation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Polarisation",
+    "symbol": "polarisation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:polarisation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bulle(s)?\\s+de\\s+filtre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chambre(s)?\\s+d['’][ée]cho)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:algorithme(s)?\\s+de\\s+recommandation)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:soci[ée]t[ée]\\s+fractur[ée]e)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "La division de la société par les algorithmes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-cyberharcelement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cyberharcèlement",
+    "symbol": "cyberharcèlement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cyberharc[èe]lement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:harc[èe]lement\\s+en\\s+ligne)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:raid\\s+num[ée]rique)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:doxxing)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:menace(s)?\\s+en\\s+ligne)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "Le harcèlement en ligne.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-clonage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Clonage",
+    "symbol": "clonage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:clonage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:voix\\s+clon[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:clone(s)?\\s+num[ée]rique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:avatar(s)?\\s+frauduleux)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sosie(s)?\\s+num[ée]rique(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "La copie numérique d'une personne.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-monopole",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Monopole",
+    "symbol": "monopole",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:monopole(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gafam)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:big\\s+tech)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:g[ée]ants\\s+du\\s+num[ée]rique)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:concentration\\s+du\\s+pouvoir)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA",
+      "#ECONOMIE"
+    ],
+    "language": "FR",
+    "comment": "La domination de quelques géants de la technologie.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-panne",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Panne",
+    "symbol": "panne",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:panne(s)?\\s+informatique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:panne(s)?\\s+g[ée]ante(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:panne(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bug(s)?\\s+g[ée]ant(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:syst[èe]mes\\s+en\\s+panne)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "L'arrêt brutal des systèmes informatiques.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-intrusion",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Intrusion",
+    "symbol": "intrusion",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:intrusion(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:acc[èe]s\\s+non\\s+autoris[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:compte(s)?\\s+pirat[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mot(s)?\\s+de\\s+passe\\s+vol[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:identifiants\\s+vol[ée]s)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#IA"
+    ],
+    "language": "FR",
+    "comment": "L'accès non autorisé à un système ou un compte.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-explosion",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Explosion",
+    "symbol": "explosion",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:explosion(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:explos(er|[ée]|[ée]e)|d[ée]flagration(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:souffle\\s+de\\s+l['’]explosion)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]tonation(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Une déflagration violente.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-terreur",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Terreur",
+    "symbol": "terreur",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:terreur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:terroris([ée]|[ée]e|[ée]s|[ée]es|er)|terrifi([ée]|[ée]e|[ée]s|[ée]es|ant|ante|er)|semer\\s+la\\s+terreur)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:climat\\s+de\\s+terreur)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:horrifi([ée]|[ée]e|[ée]s|ant|ante))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Une peur extrême et collective.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-menace",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Menace",
+    "symbol": "menace",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:menace(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:menac(er|[ée]|[ée]e|ant|ante)|menace(s)?\\s+de\\s+mort)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lettre(s)?\\s+de\\s+menace)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:intimidation(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "L'annonce d'un mal à venir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-danger",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Danger",
+    "symbol": "danger",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:danger(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dangereu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:p[ée]ril(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:en\\s+danger)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mise(s)?\\s+en\\s+danger)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Ce qui menace la sécurité.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-enlevement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Enlèvement",
+    "symbol": "enlèvement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:enl[èe]vement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:kidnapping(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:kidnapp(er|[ée]|[ée]e|eur|eurs)|rapt(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:s[ée]questr[ée](e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Le rapt d'une personne.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-cagoule",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cagoule",
+    "symbol": "cagoule",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cagoule(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cagoul[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:homme(s)?\\s+masqu[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:individu(s)?\\s+masqu[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:visage\\s+dissimul[ée])(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Un visage masqué qui inquiète.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-emeute",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Émeute",
+    "symbol": "émeute",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:[ée]meute(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]meutier(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:violences\\s+urbaines)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gu[ée]rilla\\s+urbaine)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:affrontements\\s+avec\\s+la\\s+police)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "Un soulèvement violent dans la rue.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-lynchage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Lynchage",
+    "symbol": "lynchage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:lynchage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lynch(er|[ée]|[ée]e)|vindicte)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:foule\\s+en\\s+col[èe]re)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:passage\\s+[àa]\\s+tabac)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#TERRORISME"
+    ],
+    "language": "FR",
+    "comment": "La violence d'une foule contre une personne.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-peur",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Peur",
+    "symbol": "peur",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:peur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:effray([ée]|[ée]e|[ée]s|[ée]es|er|ant|ante)|effroi)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:apeur[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]pouvant(e|[ée]|[ée]e|able|ables))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#EMOTION"
+    ],
+    "language": "FR",
+    "comment": "L'émotion face à un danger.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-fear-angoisse",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T12:23:24.901841Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Angoisse",
+    "symbol": "angoisse",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:angoisse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:angoiss([ée]|[ée]e|[ée]s|[ée]es|ant|ante|er))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:anxi[ée]t[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:anxieu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:panique(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!FEAR"
+    ],
+    "tags": [
+      "#FEAR",
+      "#EMOTION"
+    ],
+    "language": "FR",
+    "comment": "Une inquiétude profonde, une oppression.",
+    "isDeleted": false
+  }
+]

@@ -11,7 +11,7 @@ namespace KAONOMI.Core.Models.LLM
     /// </summary>
     public class DialogGenericRequest
     {
-        /// <summary>Target model name.</summary>
+        /// <summary>Target model title.</summary>
         public string? model { get; set; }
         /// <summary>History or user message.</summary>
         public List<Message>? messages { get; set; }

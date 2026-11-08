@@ -19,7 +19,7 @@ namespace KAONOMI.Server
     internal class DialogEntityVAgent : VGrainBase<IDialogEntityVAgent>, IDialogEntityVAgent
     {
         /// <summary>Creates the agent with MARI logging support.</summary>
-        /// <param name="logger">Logger for this grain type.</param>
+        /// <param title="logger">Logger for this grain type.</param>
         public DialogEntityVAgent(ILogger<IDialogEntityVAgent> logger) : base(logger)
         {
         }
@@ -95,12 +95,77 @@ namespace KAONOMI.Server
             var prompt = string.IsNullOrWhiteSpace(dialog.PromptUserText) && dialog.request is not null
                 ? HelperLlmParsersAndTools.GetUserPromptFromRequest(dialog.request)
                 : dialog.PromptUserText;
-            var result = await Task.Run(() => Ner.NerService.Get(config).Extract(prompt));
+            // Every type: the model (PERSON, ORG, LOC), the rules (URL, EMAIL, DATE, MONEY, CODE…) and the ontology.
+            var result = await Task.Run(() => Ner.NerService.Get(config).Extract(prompt, types: null));
             dialog.Entities = result.entities;
             foreach (var warning in result.warnings)
                 session.LogSave(warning, appName, "WARNING");
             session.LogSave($"{result.entities.Count} entities in {result.durationMs} ms: " +
                 string.Join(", ", result.entities.Take(20).Select(e => $"{e.type}:{e.text}")), appName, "INFO");
+
+            await StoreEntitiesAsync(dialog, result.entities, session, appName);
+            await StoreTagsAsync(dialog, result.entities, session, appName);
+        }
+
+        /// <summary>
+        /// Keeps the tags of the entities found that are entities of the ontology (their tags in the ontology: #IA,
+        /// #PERSON…) in the search engine (index <c>detectedtag</c>), one document per tag and entity of the ontology,
+        /// with the forms written in the prompt. The entities the ontology does not know have no tags. A failure is
+        /// logged and does not stop the sequence.
+        /// </summary>
+        private static async Task StoreTagsAsync(Dialog dialog, IReadOnlyCollection<NerEntity> entities, SessionManager session, string appName)
+        {
+            var known = entities.Where(e => !string.IsNullOrWhiteSpace(e.ontologyId)).GroupBy(e => e.ontologyId!).ToList();
+            if (known.Count == 0)
+                return;
+            try
+            {
+                var tags = new List<DetectedTag>();
+                foreach (var group in known)
+                {
+                    var node = await Task.Run(() => session.OntologyGet(group.Key));
+                    if (node is null || node.isDeleted)
+                        continue;
+                    var name = node.name ?? group.First().ontologyName ?? group.First().text;
+                    tags.AddRange(TagRules.NormalizeTags(node.Tags).Select(tag =>
+                        new DetectedTag(tag, dialog.id, dialog.SessionId, DetectedTag.OriginEntity, group.Key, name)
+                        {
+                            appName = appName,
+                            matchedTexts = group.Select(e => e.text).Distinct().ToList()
+                        }));
+                }
+                if (tags.Count == 0)
+                    return;
+                var ret = await Task.Run(() => session.DetectedTagsSave(tags));
+                session.LogSave($"{ret.Message} ({string.Join(", ", tags.Select(t => t.tag).Distinct().Take(20))})", appName,
+                    ret.ReturnedId == tags.Count.ToString() ? "INFO" : "WARNING");
+            }
+            catch (Exception ex)
+            {
+                session.LogSave($"Error saving the detected tags of dialog '{dialog.id}': {ex.Message}", appName, "ERROR");
+            }
+        }
+
+        /// <summary>
+        /// Keeps the entities found in the search engine (index <c>detectedentity</c>), one document each, linked to the
+        /// dialog and its session. A failure is logged and does not stop the sequence: the entities stay in the dialog.
+        /// </summary>
+        private static async Task StoreEntitiesAsync(Dialog dialog, IReadOnlyCollection<NerEntity> entities, SessionManager session, string appName)
+        {
+            if (entities.Count == 0)
+                return;
+            try
+            {
+                var detected = entities.Select(e => new DetectedEntity(e, dialog.id, dialog.SessionId) { appName = appName }).ToList();
+                var ret = await Task.Run(() => session.DetectedEntitiesSave(detected));
+                var level = ret.ReturnedId == detected.Count.ToString() ? "INFO" : "WARNING";
+                var types = string.Join(", ", detected.GroupBy(d => d.type).OrderBy(g => g.Key).Select(g => $"{g.Key}={g.Count()}"));
+                session.LogSave($"{ret.Message} ({types})", appName, level);
+            }
+            catch (Exception ex)
+            {
+                session.LogSave($"Error saving the detected entities of dialog '{dialog.id}': {ex.Message}", appName, "ERROR");
+            }
         }
     }
 }

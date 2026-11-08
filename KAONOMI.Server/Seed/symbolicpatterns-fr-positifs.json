@@ -1,0 +1,5392 @@
+[
+  {
+    "id": "fr-happy-vie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Vie",
+    "symbol": "vie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:vie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:existence(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:joie\\s+de\\s+vivre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:go[ûu]t\\s+de\\s+vivre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pleine\\s+vie)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#VIE"
+    ],
+    "language": "FR",
+    "comment": "La vie, le fait d'exister.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-vivre",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Vivre",
+    "symbol": "vivre",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:vi(vre|vons|vez|vent|vais|vait|vaient|vra|vrons|vront)|v[ée]cu(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:exist(er|e|ent|ait))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:profit(er|e|ons|ez|ent)\\s+de\\s+la\\s+vie)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#VIE"
+    ],
+    "language": "FR",
+    "comment": "Être en vie, profiter de l'existence.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-vivant",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Vivant",
+    "symbol": "vivant",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:vivant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:en\\s+vie)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bien\\s+vivant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:anim[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:plein(e|s|es)?\\s+de\\s+vie)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#VIE"
+    ],
+    "language": "FR",
+    "comment": "Ce qui est en vie, plein de vie.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-naissance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Naissance",
+    "symbol": "naissance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:naissance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:venue\\s+au\\s+monde)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mise\\s+au\\s+monde)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:faire-part\\s+de\\s+naissance)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:natalit[ée](s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NAISSANCE",
+      "#VIE"
+    ],
+    "language": "FR",
+    "comment": "La venue au monde d'un être.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-naitre",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Naître",
+    "symbol": "naître",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:na[îi]tre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:na[îi]t)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:naiss(ent|ait|ance)|n[ée](e|s|es)?\\s+(le|en|[àa]|hier|ce\\s+matin|aujourd['’]hui)|vu\\s+le\\s+jour)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:venu(e|s|es)?\\s+au\\s+monde)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NAISSANCE",
+      "#VIE"
+    ],
+    "language": "FR",
+    "comment": "Venir au monde.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-bebe",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Bébé",
+    "symbol": "bébé",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:b[ée]b[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:poupon(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bambin(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:petit\\s+bout)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tout-petit(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NAISSANCE",
+      "#ENFANCE"
+    ],
+    "language": "FR",
+    "comment": "Un tout petit enfant.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-nouveau-ne",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Nouveau-né",
+    "symbol": "nouveau-né",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:nouveau-n[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nouveaux-n[ée]s)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nouvelle-n[ée]e)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:petit\\s+dernier)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:petite\\s+derni[èe]re)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NAISSANCE",
+      "#ENFANCE"
+    ],
+    "language": "FR",
+    "comment": "L'enfant qui vient de naître.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-nourrisson",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Nourrisson",
+    "symbol": "nourrisson",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:nourrisson(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nouveau\\s+venu)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nouvelle\\s+venue)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:petit\\s+ange)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NAISSANCE",
+      "#ENFANCE"
+    ],
+    "language": "FR",
+    "comment": "L'enfant qui tète encore.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-grossesse",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Grossesse",
+    "symbol": "grossesse",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:grossesse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attend(re|s|ons|ent)\\s+un\\s+(enfant|b[ée]b[ée]|heureux\\s+[ée]v[ée]nement)|heureux\\s+[ée]v[ée]nement)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:future(s)?\\s+maman(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:futur(s)?\\s+papa(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NAISSANCE",
+      "#FAMILLE"
+    ],
+    "language": "FR",
+    "comment": "L'état de la femme qui attend un enfant.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-sage-femme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sage-femme",
+    "symbol": "sage-femme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:sage(s)?-femme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ma[ïi]euticien(ne|s|nes)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:suivi\\s+de\\s+grossesse)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]chographie(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NAISSANCE"
+    ],
+    "language": "FR",
+    "comment": "La personne qui aide les femmes à accoucher.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-accouchement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Accouchement",
+    "symbol": "accouchement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:accouchement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:accouch(er|[ée]|[ée]e|e|ent|ait)|enfantement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:donner\\s+la\\s+vie)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:donn[ée]\\s+la\\s+vie)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NAISSANCE"
+    ],
+    "language": "FR",
+    "comment": "La mise au monde d'un enfant.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-maternite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Maternité",
+    "symbol": "maternité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:maternit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:maternel(le|s|les)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:devenir\\s+maman)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:devenue\\s+maman)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:jeune(s)?\\s+maman(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NAISSANCE",
+      "#FAMILLE"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'être mère.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-paternite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Paternité",
+    "symbol": "paternité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:paternit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:paternel(le|s|les)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:devenir\\s+papa)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:devenu\\s+papa)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:jeune(s)?\\s+papa(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NAISSANCE",
+      "#FAMILLE"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'être père.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-enfant",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Enfant",
+    "symbol": "enfant",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:enfant(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gamin(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:marmot(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:petit(e|s|es)?\\s+(gar[çc]on|fille)(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bout(s)?\\s+de\\s+chou)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#ENFANCE",
+      "#FAMILLE"
+    ],
+    "language": "FR",
+    "comment": "Un être humain dans ses premières années.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-enfance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Enfance",
+    "symbol": "enfance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:enfance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:enfantin(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:innocence(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[âa]ge\\s+tendre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cour\\s+de\\s+r[ée]cr[ée](ation)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#ENFANCE"
+    ],
+    "language": "FR",
+    "comment": "Les premières années de la vie.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-berceau",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Berceau",
+    "symbol": "berceau",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:berceau(x)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:berc(er|[ée]|[ée]e|ement)|landau(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:couffin(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:layette(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NAISSANCE",
+      "#ENFANCE"
+    ],
+    "language": "FR",
+    "comment": "Le petit lit d'un bébé.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-bapteme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Baptême",
+    "symbol": "baptême",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:bapt[êe]me(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:baptis(er|[ée]|[ée]e)|parrain(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:marraine(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:filleul(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NAISSANCE",
+      "#FETE"
+    ],
+    "language": "FR",
+    "comment": "La fête qui accueille un enfant.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-allaitement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Allaitement",
+    "symbol": "allaitement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:allaitement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:allait(er|e|[ée]|[ée]e)|biberon(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:t[ée]t[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:donner\\s+le\\s+sein)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NAISSANCE",
+      "#ENFANCE"
+    ],
+    "language": "FR",
+    "comment": "Le fait de nourrir un bébé au sein.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-croissance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Croissance",
+    "symbol": "croissance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:croissance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]veloppement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:essor(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]panoui(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#VIE",
+      "#NATURE"
+    ],
+    "language": "FR",
+    "comment": "Le fait de grandir, de se développer.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-grandir",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Grandir",
+    "symbol": "grandir",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:grand(ir|it|is|issent|issait|i|ie)|m[ûu]rir)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:m[ûu]ri(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:premiers\\s+pas)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:premier(s)?\\s+mot(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#ENFANCE",
+      "#VIE"
+    ],
+    "language": "FR",
+    "comment": "Devenir plus grand, mûrir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-anniversaire",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Anniversaire",
+    "symbol": "anniversaire",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:anniversaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:joyeux\\s+anniversaire)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bon\\s+anniversaire)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bougie(s)?\\s+d['’]anniversaire)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:souffler\\s+(les|ses)\\s+bougies)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE",
+      "#VIE"
+    ],
+    "language": "FR",
+    "comment": "Le jour où l'on fête sa naissance.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-jeunesse",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Jeunesse",
+    "symbol": "jeunesse",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:jeunesse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:juv[ée]nile(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fra[îi]cheur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:printemps\\s+de\\s+la\\s+vie)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:jeune(s)?\\s+et\\s+plein(e|s|es)?\\s+d['’][ée]nergie)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#VIE",
+      "#ENFANCE"
+    ],
+    "language": "FR",
+    "comment": "Le temps de la vie où l'on est jeune.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-famille",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Famille",
+    "symbol": "famille",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:famille(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:familial(e|es|aux)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:foyer(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:les\\s+miens)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]union(s)?\\s+de\\s+famille)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FAMILLE"
+    ],
+    "language": "FR",
+    "comment": "Les parents et leurs enfants.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-maman",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Maman",
+    "symbol": "maman",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:maman(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:m[èe]re(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mamounette)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:maternelle(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FAMILLE"
+    ],
+    "language": "FR",
+    "comment": "La mère, avec tendresse.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-papa",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Papa",
+    "symbol": "papa",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:papa(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:p[èe]re(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:paternel(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:papounet)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FAMILLE"
+    ],
+    "language": "FR",
+    "comment": "Le père, avec tendresse.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-grands-parents",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Grands-parents",
+    "symbol": "grands-parents",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:grands?-parents?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:grand-m[èe]re(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:grand-p[èe]re(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mamie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:papi(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FAMILLE"
+    ],
+    "language": "FR",
+    "comment": "Les parents des parents.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-adoption",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Adoption",
+    "symbol": "adoption",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:adoption(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:adopt(er|[ée]|[ée]e|[ée]s|[ée]es|if|ive)|famille(s)?\\s+d['’]accueil)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:accueillir\\s+un\\s+enfant)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FAMILLE",
+      "#NAISSANCE"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'accueillir un enfant comme le sien.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-renaissance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Renaissance",
+    "symbol": "renaissance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:renaissance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rena[îi]tre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rena[îi]t)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nouveau\\s+d[ée]part)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nouvelle\\s+vie)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:second\\s+souffle)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#VIE",
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "Le fait de renaître, un nouveau départ.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-fertilite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Fertilité",
+    "symbol": "fertilité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:fertilit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fertile(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:f[ée]cond(e|s|es|it[ée])?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:f[ée]condation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:prolifique(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NAISSANCE",
+      "#NATURE"
+    ],
+    "language": "FR",
+    "comment": "La capacité à donner la vie.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-vitalite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Vitalité",
+    "symbol": "vitalité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:vitalit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vital(e|es|aux)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dynamisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:p[ée]tillant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:plein(e|s|es)?\\s+d['’]entrain)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#VIE",
+      "#SANTE"
+    ],
+    "language": "FR",
+    "comment": "L'énergie de la vie.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-bonheur",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Bonheur",
+    "symbol": "bonheur",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:bonheur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bonne\\s+fortune)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:b[ée]n[ée]fique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:combl[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:aux\\s+anges)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "L'état de celui qui est pleinement heureux.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-heureux",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Heureux",
+    "symbol": "heureux",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:heureu(x|se|ses|sement))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:happy)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]panoui(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:radieu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rayonnant(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "Qui ressent du bonheur.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-joie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Joie",
+    "symbol": "joie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:joie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]joui(r|e|s|es|ssance|ssances)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:liesse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ga[îi]t[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:exultation(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "Un sentiment vif de plaisir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-joyeux",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Joyeux",
+    "symbol": "joyeux",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:joyeu(x|se|ses|sement))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:jovial(e|es|aux)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:guilleret(te|s|tes)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:enjou[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:de\\s+bonne\\s+humeur)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "Qui exprime la joie.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-gaiete",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Gaieté",
+    "symbol": "gaieté",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:gaiet[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gai(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:all[èe]gre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:p[ée]tillant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:espi[èe]gle(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "La bonne humeur, l'entrain.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-rire",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Rire",
+    "symbol": "rire",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:ri(re|t|ent|ait|aient|ons|ez)|rigol(er|e|ent|ade|ades|o|ote)|[ée]clat(s)?\\s+de\\s+rire)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fou\\s+rire)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hilare(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE",
+      "#HUMOUR"
+    ],
+    "language": "FR",
+    "comment": "Exprimer la gaieté par le rire.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-sourire",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sourire",
+    "symbol": "sourire",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:sourire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sour(it|ient|iait|iant|iante|ions)|souriant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ravi(e|s|es)?\\s+(de|d['’]))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "L'expression du visage qui montre le plaisir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-humour",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Humour",
+    "symbol": "humour",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:humour(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dr[ôo]le(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:amusant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:comique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:blague(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE",
+      "#HUMOUR"
+    ],
+    "language": "FR",
+    "comment": "La capacité à faire rire.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-plaisir",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Plaisir",
+    "symbol": "plaisir",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:plaisir(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:agr[ée]able(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]lectation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:savour(er|e|[ée]|[ée]e)|r[ée]gal(e|er|[ée])?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "Ce qui fait du bien, réjouit.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-allegresse",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Allégresse",
+    "symbol": "allégresse",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:all[ée]gresse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:exaltation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:transport(s)?\\s+de\\s+joie)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fou\\s+de\\s+joie)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:folle\\s+de\\s+joie)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "Une joie vive qui se manifeste.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-euphorie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Euphorie",
+    "symbol": "euphorie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:euphorie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:euphorique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:exalt[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sur\\s+un\\s+petit\\s+nuage)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:au\\s+septi[èe]me\\s+ciel)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "Un sentiment intense de bien-être.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-enthousiasme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Enthousiasme",
+    "symbol": "enthousiasme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:enthousiasme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:enthousiaste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:emball([ée]|[ée]e|[ée]s|[ée]es)|passionnant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:g[ée]nial(e|es|aux)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE",
+      "#MOTIVATION"
+    ],
+    "language": "FR",
+    "comment": "Une ardeur joyeuse.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-ravi",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Ravi",
+    "symbol": "ravi",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:ravi(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:enchant[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:aux\\s+anges)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:transport[ée](e|s|es)?\\s+de\\s+joie)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:charm[ée](e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "Très content.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-content",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Content",
+    "symbol": "content",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:content(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:satisfait(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:combl[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:heureux\\s+de)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:heureuse\\s+de)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "Satisfait, heureux de quelque chose.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-satisfaction",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Satisfaction",
+    "symbol": "satisfaction",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:satisfaction(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:satisfaisant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:contentement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pl[ée]nitude(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE",
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Le plaisir de ce qui est réussi.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-serenite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sérénité",
+    "symbol": "sérénité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:s[ée]r[ée]nit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:serein(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:apais[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:qui[ée]tude(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:zen)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#BIENETRE",
+      "#PAIX"
+    ],
+    "language": "FR",
+    "comment": "Un calme intérieur.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-bien-etre",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Bien-être",
+    "symbol": "bien-être",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:bien-[êe]tre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bien\\s+dans\\s+(ma|sa|ta|leur|notre|votre)\\s+peau)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:confort(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:douceur(s)?\\s+de\\s+vivre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cocooning)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#BIENETRE"
+    ],
+    "language": "FR",
+    "comment": "L'état agréable du corps et de l'esprit.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-epanouissement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Épanouissement",
+    "symbol": "épanouissement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:[ée]panouissement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]panou(ir|i|ie|is|ies|issant|issante))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:accomplissement(s)?\\s+personnel(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pl[ée]nitude(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#BIENETRE",
+      "#VIE"
+    ],
+    "language": "FR",
+    "comment": "Le développement heureux de soi.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-emerveillement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Émerveillement",
+    "symbol": "émerveillement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:[ée]merveillement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]merveill(er|[ée]|[ée]e|[ée]s|[ée]es|ant|ante)|[ée]bloui(e|s|es|ssant|ssante)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fascin[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:wow)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'être émerveillé.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-enchantement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Enchantement",
+    "symbol": "enchantement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:enchantement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:enchanteu(r|rs|resse)|magique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:f[ée]erique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:merveilleu(x|se|ses))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "Un ravissement, une magie.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-jubilation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Jubilation",
+    "symbol": "jubilation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:jubilation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:jubil(er|e|ent|ait|ant|ante)|exult(er|e|ent)|sauter\\s+de\\s+joie)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "Une joie débordante.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-felicite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Félicité",
+    "symbol": "félicité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:f[ée]licit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bonheur\\s+parfait)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nirvana)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:paradis\\s+sur\\s+terre)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "Un bonheur parfait.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-beatitude",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Béatitude",
+    "symbol": "béatitude",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:b[ée]atitude(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:b[ée]at(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:extase(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ravissement(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE",
+      "#PAIX"
+    ],
+    "language": "FR",
+    "comment": "Un bonheur calme et parfait.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-optimisme",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Optimisme",
+    "symbol": "optimisme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:optimisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:optimiste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:positi(f|fs|ve|ves|vit[ée]))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:voir\\s+le\\s+verre\\s+[àa]\\s+moiti[ée]\\s+plein)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bon\\s+c[ôo]t[ée]\\s+des\\s+choses)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "La tendance à voir le bon côté.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-entrain",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Entrain",
+    "symbol": "entrain",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:entrain)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:avoir\\s+la\\s+p[êe]che)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:avoir\\s+la\\s+patate)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:en\\s+forme)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:plein(e|s|es)?\\s+d['’][ée]nergie)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE",
+      "#VIE"
+    ],
+    "language": "FR",
+    "comment": "Une gaieté pleine d'énergie.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-fierte",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Fierté",
+    "symbol": "fierté",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:fiert[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fi(er|[èe]re|ers|[èe]res)\\s+de)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:honneur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:digne(s)?\\s+d['’][ée]loges)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE",
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "La satisfaction d'avoir bien fait.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-soulagement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Soulagement",
+    "symbol": "soulagement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:soulagement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:soulag([ée]|[ée]e|[ée]s|[ée]es|er|eant)|ouf)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]livr([ée]|[ée]e|[ée]s|ance)|rassur[ée](e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#BIENETRE",
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "La fin d'une inquiétude.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-delice",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Délice",
+    "symbol": "délice",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]lice(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]licieu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:savoureu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:exquis(e|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:succulent(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE",
+      "#PLAISIR"
+    ],
+    "language": "FR",
+    "comment": "Un plaisir très vif.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-merveille",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Merveille",
+    "symbol": "merveille",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:merveille(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:splendide(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:magnifique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sublime(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:formidable(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "Une chose admirable.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-chance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Chance",
+    "symbol": "chance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:chance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chanceu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:veinard(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bonne\\s+[ée]toile)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:coup\\s+de\\s+bol)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE",
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Un sort favorable.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-amour",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Amour",
+    "symbol": "amour",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:amour(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:je\\s+t['’]aime)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mon\\s+c(œ|oe)ur)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ma\\s+ch[ée]rie)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mon\\s+ch[ée]ri)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMOUR"
+    ],
+    "language": "FR",
+    "comment": "Un sentiment profond d'affection.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-aimer",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Aimer",
+    "symbol": "aimer",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:aim(er|e|es|ons|ez|ent|ais|ait|[ée]|[ée]e|[ée]s|[ée]es)|ador(er|e|ent|[ée]|[ée]e|able|ables)|ch[ée]r(ir|i|ie|is|ies)|affectionn(er|e|[ée]|[ée]e))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMOUR"
+    ],
+    "language": "FR",
+    "comment": "Éprouver de l'amour, de l'affection.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-tendresse",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Tendresse",
+    "symbol": "tendresse",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:tendresse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tendre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:doux\\s+et\\s+tendre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:douceur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attendri(e|s|es|ssant|ssante)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMOUR"
+    ],
+    "language": "FR",
+    "comment": "Une affection douce.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-calin",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Câlin",
+    "symbol": "câlin",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:c[âa]lin(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:c[âa]lin(er|[ée]|[ée]e)|[ée]treinte(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:enlac[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dans\\s+(mes|ses|tes)\\s+bras)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMOUR",
+      "#FAMILLE"
+    ],
+    "language": "FR",
+    "comment": "Un geste tendre où l'on serre quelqu'un.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-bisou",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Bisou",
+    "symbol": "bisou",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:bisou(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bise(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:b[ée]cot(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:smack)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gros\\s+bisous)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMOUR",
+      "#FAMILLE"
+    ],
+    "language": "FR",
+    "comment": "Un petit baiser affectueux.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-mariage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Mariage",
+    "symbol": "mariage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:mariage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mari(er|[ée]|[ée]e|[ée]s|[ée]es)\\s+(avec|hier|demain|aujourd['’]hui)|[ée]pous(er|[ée]|[ée]e)|union(s)?\\s+civile(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vivent\\s+les\\s+mari[ée]s)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMOUR",
+      "#FETE"
+    ],
+    "language": "FR",
+    "comment": "L'union de deux personnes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-noces",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Noces",
+    "symbol": "noces",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:noce(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nuptial(e|es|aux)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lune\\s+de\\s+miel)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:voyage\\s+de\\s+noces)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:noces\\s+d['’]or)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMOUR",
+      "#FETE"
+    ],
+    "language": "FR",
+    "comment": "La fête du mariage.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-fiancailles",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Fiançailles",
+    "symbol": "fiançailles",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:fian[çc]ailles)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fianc[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:demande\\s+en\\s+mariage)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bague\\s+de\\s+fian[çc]ailles)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMOUR",
+      "#FETE"
+    ],
+    "language": "FR",
+    "comment": "La promesse de mariage.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-couple",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Couple",
+    "symbol": "couple",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:couple(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[âa]me(s)?\\s+s(œ|oe)ur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ma\\s+moiti[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:en\\s+amoureux)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vie\\s+[àa]\\s+deux)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMOUR"
+    ],
+    "language": "FR",
+    "comment": "Deux personnes qui s'aiment.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-passion",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Passion",
+    "symbol": "passion",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:passion(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:passionn[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fou\\s+amoureux)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:folle\\s+amoureuse)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMOUR"
+    ],
+    "language": "FR",
+    "comment": "Un amour intense.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-romantique",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Romantique",
+    "symbol": "romantique",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:romantique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:romantisme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[îi]ner\\s+aux\\s+chandelles)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sentimental(e|es|aux)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:idylle(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMOUR"
+    ],
+    "language": "FR",
+    "comment": "Tendre et sentimental.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-amoureux",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Amoureux",
+    "symbol": "amoureux",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:amoureu(x|se|ses|sement))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]pris(e|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:coup\\s+de\\s+foudre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tomb(er|[ée]|[ée]e)\\s+amoureu(x|se))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:b[ée]guin(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMOUR"
+    ],
+    "language": "FR",
+    "comment": "Qui aime d'amour.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-amitie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Amitié",
+    "symbol": "amitié",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:amiti[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:amical(e|es|aux|ement)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fraternit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:camaraderie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sororit[ée](s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMITIE"
+    ],
+    "language": "FR",
+    "comment": "Un lien d'affection entre amis.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-ami",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Ami",
+    "symbol": "ami",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:ami(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:copain(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:copine(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pote(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:meilleur(e|s|es)?\\s+ami(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMITIE"
+    ],
+    "language": "FR",
+    "comment": "Une personne liée par l'amitié.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-complicite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Complicité",
+    "symbol": "complicité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:complicit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:complice(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:entente(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:connivence(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:au\\s+diapason)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMITIE",
+      "#AMOUR"
+    ],
+    "language": "FR",
+    "comment": "Une entente profonde.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-affection",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Affection",
+    "symbol": "affection",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:affection(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:affectueu(x|se|ses|sement))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attachement(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMOUR",
+      "#AMITIE"
+    ],
+    "language": "FR",
+    "comment": "Un sentiment tendre envers quelqu'un.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-bienveillance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Bienveillance",
+    "symbol": "bienveillance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:bienveillance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bienveillant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:attentionn[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pr[ée]venant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:altruisme(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMITIE",
+      "#PAIX"
+    ],
+    "language": "FR",
+    "comment": "La volonté du bien d'autrui.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-gentillesse",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Gentillesse",
+    "symbol": "gentillesse",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:gentillesse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gentil(le|s|les)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:aimable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:adorable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:charmant(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMITIE"
+    ],
+    "language": "FR",
+    "comment": "Une douceur aimable.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-generosite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Générosité",
+    "symbol": "générosité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:g[ée]n[ée]rosit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:g[ée]n[ée]reu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:don(s)?\\s+de\\s+soi)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:c(œ|oe)ur\\s+sur\\s+la\\s+main)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:largesse(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMITIE"
+    ],
+    "language": "FR",
+    "comment": "Le fait de donner volontiers.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-partage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Partage",
+    "symbol": "partage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:partage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:partag(er|eons|ent|eait|eaient)|mettre\\s+en\\s+commun)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:convivial(e|es|aux|it[ée])?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMITIE"
+    ],
+    "language": "FR",
+    "comment": "Le fait de partager avec d'autres.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-solidarite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Solidarité",
+    "symbol": "solidarité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:solidarit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:solidaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fraternel(le|s|les)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:main\\s+tendue)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:soutien(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMITIE",
+      "#PAIX"
+    ],
+    "language": "FR",
+    "comment": "L'aide mutuelle.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-entraide",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Entraide",
+    "symbol": "entraide",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:entraide(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:s['’]entraider)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:coup\\s+de\\s+main)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:aid(er|[ée]|[ée]e)\\s+(un|une)\\s+ami(e)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:b[ée]n[ée]volat(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMITIE"
+    ],
+    "language": "FR",
+    "comment": "L'aide que l'on se donne.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-reconciliation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Réconciliation",
+    "symbol": "réconciliation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:r[ée]conciliation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]concili(er|[ée]|[ée]e|[ée]s|[ée]es)|faire\\s+la\\s+paix)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pardon(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pardonn(er|[ée]|[ée]e))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMITIE",
+      "#PAIX"
+    ],
+    "language": "FR",
+    "comment": "Le fait de se réconcilier.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-retrouvailles",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Retrouvailles",
+    "symbol": "retrouvailles",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:retrouvailles)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:se\\s+retrouver)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:retrouv[ée](e|s|es)?\\s+enfin)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]union(s)?\\s+familiale(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]unis)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMITIE",
+      "#FAMILLE"
+    ],
+    "language": "FR",
+    "comment": "Le fait de se retrouver après une absence.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-confiance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Confiance",
+    "symbol": "confiance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:confiance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:confiant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fiable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:loyaut[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fid[ée]lit[ée](s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#AMITIE",
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "Le fait de se fier à quelqu'un.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-fete",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Fête",
+    "symbol": "fête",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:f[êe]te(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:f[êe]t(er|[ée]|[ée]e|ons|ent)|festivit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:soir[ée]e(s)?\\s+festive(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:faire\\s+la\\s+f[êe]te)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE"
+    ],
+    "language": "FR",
+    "comment": "Un moment de réjouissance.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-celebration",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Célébration",
+    "symbol": "célébration",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:c[ée]l[ée]bration(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:c[ée]l[ée]br(er|[ée]|[ée]e|ons|ent)|comm[ée]mor(er|ation)\\s+heureuse)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:c[ée]r[ée]monie(s)?\\s+joyeuse(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE"
+    ],
+    "language": "FR",
+    "comment": "Le fait de célébrer un événement.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-festival",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Festival",
+    "symbol": "festival",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:festival(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:festivalier(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:kermesse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:f[êe]te\\s+foraine)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:guinguette(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE"
+    ],
+    "language": "FR",
+    "comment": "Une grande fête artistique.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-reveillon",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Réveillon",
+    "symbol": "réveillon",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:r[ée]veillon(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nouvel\\s+an)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bonne\\s+ann[ée]e)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:meilleurs\\s+v(œ|oe)ux)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:saint-sylvestre)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE"
+    ],
+    "language": "FR",
+    "comment": "Le repas de fête de Noël ou du Nouvel An.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-noel",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Noël",
+    "symbol": "noël",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:no[ëe]l(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:joyeux\\s+no[ëe]l)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sapin(s)?\\s+de\\s+no[ëe]l)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:p[èe]re\\s+no[ëe]l)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nativit[ée])(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE",
+      "#FAMILLE"
+    ],
+    "language": "FR",
+    "comment": "La fête de la Nativité.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-cadeau",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cadeau",
+    "symbol": "cadeau",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cadeau(x)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pr[ée]sent(s)?\\s+offert(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:offr(ir|e|ent|ait)\\s+(un|des)\\s+cadeau(x)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:surprise(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]trenne(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE"
+    ],
+    "language": "FR",
+    "comment": "Un présent offert.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-surprise",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Surprise",
+    "symbol": "surprise",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:surprise(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:surpris(e|es)?\\s+et\\s+(ravi|ravie|heureux|heureuse))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bonne\\s+nouvelle)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:agr[ée]able\\s+surprise)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE",
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "Un événement inattendu et heureux.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-felicitations",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Félicitations",
+    "symbol": "félicitations",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:f[ée]licitation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:f[ée]licit(er|e|[ée]|[ée]e|ons)|compliment(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chapeau\\s+bas)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hourra)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE",
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Des compliments pour un succès.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-bravo",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Bravo",
+    "symbol": "bravo",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:bravo(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bien\\s+jou[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:super\\s+boulot)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:g[ée]nial)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:youpi)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE",
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Une acclamation d'approbation.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-champagne",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Champagne",
+    "symbol": "champagne",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:champagne(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sabrer\\s+le\\s+champagne)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:trinqu(er|ons|[ée]))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[àa]\\s+la\\s+v[ôo]tre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sant[ée]\\s+!)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE"
+    ],
+    "language": "FR",
+    "comment": "Le vin des célébrations.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-danse",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Danse",
+    "symbol": "danse",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:danse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dans(er|e|ons|ent|ait|eur|euse|eurs|euses)|bal(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:valse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:guinche(r)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE",
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "Le mouvement du corps en musique.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-chanson",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Chanson",
+    "symbol": "chanson",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:chanson(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chant(er|e|ons|ent|ait|eur|euse)|refrain(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:m[ée]lodie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fredonn(er|e|[ée]))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE",
+      "#CREATION"
+    ],
+    "language": "FR",
+    "comment": "Un texte mis en musique.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-musique",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Musique",
+    "symbol": "musique",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:musique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:musical(e|es|aux)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:concert(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:symphonie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:harmonieu(x|se|ses))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE",
+      "#CREATION"
+    ],
+    "language": "FR",
+    "comment": "L'art des sons.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-festin",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Festin",
+    "symbol": "festin",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:festin(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:banquet(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gueuleton(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bon\\s+repas)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ripaille(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE",
+      "#PLAISIR"
+    ],
+    "language": "FR",
+    "comment": "Un repas de fête.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-carnaval",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Carnaval",
+    "symbol": "carnaval",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:carnaval(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mardi\\s+gras)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]fil[ée](s)?\\s+costum[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]guisement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:masque(s)?\\s+de\\s+carnaval)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE"
+    ],
+    "language": "FR",
+    "comment": "Une fête costumée.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-vacances",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Vacances",
+    "symbol": "vacances",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:vacance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vacancier(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cong[ée](s)?\\s+pay[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:farniente)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]vasion(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE",
+      "#BIENETRE"
+    ],
+    "language": "FR",
+    "comment": "Le temps de repos et de loisirs.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-pique-nique",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Pique-nique",
+    "symbol": "pique-nique",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:pique-nique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:piqueniqu(e|er)|d[ée]jeuner\\s+sur\\s+l['’]herbe)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:barbecue(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ap[ée]ro(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE",
+      "#NATURE"
+    ],
+    "language": "FR",
+    "comment": "Un repas en plein air.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-applaudissement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Applaudissement",
+    "symbol": "applaudissement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:applaudissement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:applaud(ir|it|issent|i|ie)|ovation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:standing\\s+ovation)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:acclam(er|[ée]|[ée]e|ation|ations))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE",
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Des battements de mains d'approbation.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-cotillon",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Cotillon",
+    "symbol": "cotillon",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cotillon(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:confetti(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:serpentin(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ballon(s)?\\s+de\\s+f[êe]te)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:feu(x)?\\s+d['’]artifice)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE"
+    ],
+    "language": "FR",
+    "comment": "Les petits objets de fête.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-guirlande",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Guirlande",
+    "symbol": "guirlande",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:guirlande(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lampion(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]coration(s)?\\s+de\\s+f[êe]te)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:illumination(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:paillette(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#FETE"
+    ],
+    "language": "FR",
+    "comment": "La décoration de fête.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-sante",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Santé",
+    "symbol": "santé",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:sant[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bonne\\s+sant[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:en\\s+pleine\\s+forme)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bien\\s+portant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:p[ée]tant(e|s|es)?\\s+de\\s+sant[ée])(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#SANTE"
+    ],
+    "language": "FR",
+    "comment": "Le bon état du corps et de l'esprit.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-guerison",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Guérison",
+    "symbol": "guérison",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:gu[ée]rison(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gu[ée]r(ir|i|ie|is|ies|it|issent)|tir[ée](e|s|es)?\\s+d['’]affaire)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hors\\s+de\\s+danger)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sauv[ée](e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#SANTE",
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "Le retour à la santé.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-retablissement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Rétablissement",
+    "symbol": "rétablissement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:r[ée]tablissement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]tabli(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:remis(e|es)?\\s+sur\\s+pied)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:de\\s+nouveau\\s+sur\\s+pied)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:prompt\\s+r[ée]tablissement)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#SANTE"
+    ],
+    "language": "FR",
+    "comment": "Le retour à un bon état.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-convalescence",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Convalescence",
+    "symbol": "convalescence",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:convalescence(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:convalescent(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sur\\s+la\\s+voie\\s+de\\s+la\\s+gu[ée]rison)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]cup[ée]ration(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]mission(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#SANTE"
+    ],
+    "language": "FR",
+    "comment": "La période où l'on se remet.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-energie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Énergie",
+    "symbol": "énergie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:[ée]nergie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]nergique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tonus)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dynamique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:revigor[ée](e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#SANTE",
+      "#VIE"
+    ],
+    "language": "FR",
+    "comment": "La force qui permet d'agir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-vigueur",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Vigueur",
+    "symbol": "vigueur",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:vigueur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vigoureu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:costaud(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fringant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:en\\s+forme\\s+olympique)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#SANTE"
+    ],
+    "language": "FR",
+    "comment": "La force physique, la robustesse.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-remede",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Remède",
+    "symbol": "remède",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:rem[èe]de(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:traitement(s)?\\s+efficace(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:antidote(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:baume(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:panac[ée]e(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#SANTE"
+    ],
+    "language": "FR",
+    "comment": "Ce qui guérit.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-soin",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Soin",
+    "symbol": "soin",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:soin(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:prendre\\s+soin)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:choy(er|[ée]|[ée]e)|dorlot(er|[ée]|[ée]e)|bichonn(er|[ée]|[ée]e))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#SANTE",
+      "#BIENETRE"
+    ],
+    "language": "FR",
+    "comment": "L'attention portée au bien-être.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-miracle",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Miracle",
+    "symbol": "miracle",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:miracle(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:miraculeu(x|se|ses|sement))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:prodige(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:providentiel(le|s|les)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:inesp[ée]r[ée](e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#ESPOIR",
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "Un fait extraordinaire et heureux.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-longevite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Longévité",
+    "symbol": "longévité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:long[ée]vit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:centenaire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:longue\\s+vie)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bel\\s+[âa]ge)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vieillir\\s+en\\s+beaut[ée])(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#SANTE",
+      "#VIE"
+    ],
+    "language": "FR",
+    "comment": "Une longue vie.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-robuste",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Robuste",
+    "symbol": "robuste",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:robuste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:solide(s)?\\s+comme\\s+un\\s+roc)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:increvable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]sistant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:endurant(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#SANTE"
+    ],
+    "language": "FR",
+    "comment": "Fort et résistant.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-sain",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sain",
+    "symbol": "sain",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:sain(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sainement)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:salubre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]quilibr[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bio)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#SANTE"
+    ],
+    "language": "FR",
+    "comment": "En bonne santé, bon pour la santé.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-detente",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Détente",
+    "symbol": "détente",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]tente(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]tendu(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]contract[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:relax(e|[ée]|[ée]e)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cool)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#BIENETRE"
+    ],
+    "language": "FR",
+    "comment": "Le relâchement agréable.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-repos",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Repos",
+    "symbol": "repos",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:repos)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:repos(er|[ée]|[ée]e|ant|ante)|sieste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:grasse\\s+matin[ée]e)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ressourc(er|[ée]|[ée]e|ement))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#BIENETRE",
+      "#SANTE"
+    ],
+    "language": "FR",
+    "comment": "Le temps où l'on se repose.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-relaxation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Relaxation",
+    "symbol": "relaxation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:relaxation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:m[ée]ditation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:yoga(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:massage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:spa(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#BIENETRE"
+    ],
+    "language": "FR",
+    "comment": "Une méthode pour se détendre.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-printemps",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Printemps",
+    "symbol": "printemps",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:printemps)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:printanier(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:printani[èe]re(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:beaux\\s+jours)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:retour\\s+des\\s+hirondelles)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE",
+      "#VIE"
+    ],
+    "language": "FR",
+    "comment": "La saison où la nature renaît.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-soleil",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Soleil",
+    "symbol": "soleil",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:soleil(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ensoleill[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rayon(s)?\\s+de\\s+soleil)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:radieux\\s+soleil)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:soleil\\s+levant)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE",
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "L'astre qui donne la lumière et la chaleur.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-lumiere",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Lumière",
+    "symbol": "lumière",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:lumi[èe]re(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lumineu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]clat(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rayonnement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:clart[ée](s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE",
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "Ce qui éclaire.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-fleur",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Fleur",
+    "symbol": "fleur",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:fleur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fleuri(r|e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bouquet(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rose(s)?\\s+rouge(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:p[ée]tale(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE"
+    ],
+    "language": "FR",
+    "comment": "L'organe coloré des plantes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-floraison",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Floraison",
+    "symbol": "floraison",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:floraison(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]closion\\s+des\\s+fleurs)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:en\\s+fleurs)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fleurissement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cerisier(s)?\\s+en\\s+fleurs)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE",
+      "#VIE"
+    ],
+    "language": "FR",
+    "comment": "Le moment où les plantes fleurissent.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-bourgeon",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Bourgeon",
+    "symbol": "bourgeon",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:bourgeon(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bourgeonn(er|e|ent|ant|ement)|jeune(s)?\\s+pousse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rameau(x)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE",
+      "#VIE"
+    ],
+    "language": "FR",
+    "comment": "La pousse qui va devenir feuille ou fleur.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-eclosion",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Éclosion",
+    "symbol": "éclosion",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:[ée]closion(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]clo(re|t|sent|s|se)|sorti(e|s|es)?\\s+de\\s+l['’](œ|oe)uf)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:poussin(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:oisillon(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE",
+      "#NAISSANCE"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'éclore, de sortir de l'œuf.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-germination",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Germination",
+    "symbol": "germination",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:germination(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:germ(er|e|ent|[ée]|[ée]e)|semis)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:semer)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sem([ée]|[ée]e|[ée]s|[ée]es))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE",
+      "#VIE"
+    ],
+    "language": "FR",
+    "comment": "Le développement d'une graine.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-graine",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Graine",
+    "symbol": "graine",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:graine(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:semence(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:p[ée]pin(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:planter\\s+(une|des)\\s+graine(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE",
+      "#VIE"
+    ],
+    "language": "FR",
+    "comment": "La semence qui donnera une plante.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-arbre",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Arbre",
+    "symbol": "arbre",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:arbre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:for[êe]t(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:feuillage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ch[êe]ne(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:verger(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE",
+      "#VIE"
+    ],
+    "language": "FR",
+    "comment": "Une grande plante à tronc.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-jardin",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Jardin",
+    "symbol": "jardin",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:jardin(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:jardin(er|age|ier|i[èe]re)|potager(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:parterre(s)?\\s+de\\s+fleurs)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:serre(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE",
+      "#BIENETRE"
+    ],
+    "language": "FR",
+    "comment": "Un terrain cultivé de fleurs et légumes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-nature",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Nature",
+    "symbol": "nature",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:nature(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:naturel(le|s|les)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:biodiversit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]cosyst[èe]me(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:grand\\s+air)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE"
+    ],
+    "language": "FR",
+    "comment": "Le monde vivant.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-aube",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Aube",
+    "symbol": "aube",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:aube(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:point\\s+du\\s+jour)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:petit\\s+matin)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lever\\s+du\\s+jour)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:premi[èe]res\\s+lueurs)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE",
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "Le début du jour.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-aurore",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Aurore",
+    "symbol": "aurore",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:aurore(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:aurore(s)?\\s+bor[ée]ale(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lever\\s+de\\s+soleil)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:aube\\s+nouvelle)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE",
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "La lumière qui précède le lever du soleil.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-arc-en-ciel",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Arc-en-ciel",
+    "symbol": "arc-en-ciel",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:arc(s)?-en-ciel)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:arcs-en-ciel)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mille\\s+couleurs)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:multicolore(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chatoyant(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE",
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "Un arc coloré dans le ciel.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-plage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Plage",
+    "symbol": "plage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:plage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bord\\s+de\\s+mer)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:baignade(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sable\\s+chaud)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:estival(e|es|aux)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE",
+      "#BIENETRE"
+    ],
+    "language": "FR",
+    "comment": "Le bord de mer où l'on se baigne.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-renouveau",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Renouveau",
+    "symbol": "renouveau",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:renouveau(x)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:renouvellement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:regain(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nouveau\\s+souffle)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:revivre)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE",
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "Un retour à la vie, un renouvellement.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-verdure",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Verdure",
+    "symbol": "verdure",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:verdure(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:verdoyant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:prairie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:p[âa]turage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:herbe(s)?\\s+fra[îi]che(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE"
+    ],
+    "language": "FR",
+    "comment": "L'ensemble des plantes vertes.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-oiseau",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Oiseau",
+    "symbol": "oiseau",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:oiseau(x)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chant\\s+des\\s+oiseaux)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gazouill(is|er|ement)|hirondelle(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rossignol(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE"
+    ],
+    "language": "FR",
+    "comment": "Un animal à plumes qui chante.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-papillon",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Papillon",
+    "symbol": "papillon",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:papillon(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chenille(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chrysalide(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:libellule(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:coccinelle(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE"
+    ],
+    "language": "FR",
+    "comment": "Un insecte aux ailes colorées.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-nid",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Nid",
+    "symbol": "nid",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:nid(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nich[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:couv[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nidification(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:(œ|oe)uf(s)?\\s+de\\s+p[âa]ques)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE",
+      "#NAISSANCE"
+    ],
+    "language": "FR",
+    "comment": "L'abri que construisent les oiseaux.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-recolte",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Récolte",
+    "symbol": "récolte",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:r[ée]colte(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]colt(er|[ée]|[ée]e)|cueillette(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cueill(ir|i|ie)|fruits\\s+du\\s+travail)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE",
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Le fait de cueillir les fruits du travail.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-moisson",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Moisson",
+    "symbol": "moisson",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:moisson(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:moissonn(er|[ée]|[ée]e)|bl[ée](s)?\\s+m[ûu]r(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vendange(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]pis)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE",
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "La récolte des céréales.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-etoile",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Étoile",
+    "symbol": "étoile",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:[ée]toile(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]toil[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ciel\\s+[ée]toil[ée])(?![\\w-])",
+      "(?i)(?<![\\w-])(?:voie\\s+lact[ée]e)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]toile(s)?\\s+filante(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE",
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "Un astre qui brille la nuit.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-paysage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Paysage",
+    "symbol": "paysage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:paysage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:panorama(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vue\\s+imprenable)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:coucher\\s+de\\s+soleil)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:horizon(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#NATURE",
+      "#BIENETRE"
+    ],
+    "language": "FR",
+    "comment": "Une étendue de pays que l'on contemple.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-reussite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Réussite",
+    "symbol": "réussite",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:r[ée]ussite(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]uss(ir|i|ie|is|ies|it|issent)|aboutissement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mission\\s+accomplie)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:objectif(s)?\\s+atteint(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Le fait de réussir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-succes",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Succès",
+    "symbol": "succès",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:succ[èe]s)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fructueu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:couronn[ée](e|s|es)?\\s+de\\s+succ[èe]s)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:carton\\s+plein)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:perc[ée]e(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Un résultat heureux.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-victoire",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Victoire",
+    "symbol": "victoire",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:victoire(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:victorieu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vainqueur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:remport(er|[ée]|[ée]e)|battu\\s+le\\s+record)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Le fait de gagner.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-triomphe",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Triomphe",
+    "symbol": "triomphe",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:triomphe(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:triomph(er|[ée]|ant|ante|al|ale)|cons[ée]cration(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:apoth[ée]ose(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gloire(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Un succès éclatant.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-exploit",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Exploit",
+    "symbol": "exploit",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:exploit(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:prouesse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:performance(s)?\\s+remarquable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:haut\\s+fait)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tour\\s+de\\s+force)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Une action remarquable.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-medaille",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Médaille",
+    "symbol": "médaille",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:m[ée]daille(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:m[ée]daill[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:m[ée]daille\\s+d['’]or)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:podium(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]cor[ée](e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Une récompense pour un mérite.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-champion",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Champion",
+    "symbol": "champion",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:champion(ne|s|nes)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:championnat(s)?\\s+gagn[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:premi(er|[èe]re)\\s+du\\s+classement)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:num[ée]ro\\s+un)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Le vainqueur d'une compétition.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-diplome",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Diplôme",
+    "symbol": "diplôme",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:dipl[ôo]me(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dipl[ôo]m[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:re[çc]u(e|s|es)?\\s+([àa]|au)\\s+(l['’]examen|bac|concours)|bac\\s+en\\s+poche)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mention\\s+tr[èe]s\\s+bien)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE",
+      "#APPRENTISSAGE"
+    ],
+    "language": "FR",
+    "comment": "Un titre obtenu par un examen.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-promotion",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Promotion",
+    "symbol": "promotion",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:promotion(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:promu(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:avancement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:augmentation(s)?\\s+de\\s+salaire)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nouveau\\s+poste)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Une montée en grade.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-accomplissement",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Accomplissement",
+    "symbol": "accomplissement",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:accomplissement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:accompl(ir|i|ie|is|ies)|r[ée]alisation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:concr[ée]tis(er|[ée]|[ée]e|ation))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'accomplir pleinement.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-progres",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Progrès",
+    "symbol": "progrès",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:progr[èe]s)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:progress(er|e|ent|[ée]|ion|ions)|am[ée]lioration(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:avanc[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:s['’]am[ée]liorer)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE",
+      "#APPRENTISSAGE"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'aller vers le mieux.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-performance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Performance",
+    "symbol": "performance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:performance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:performant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:brillant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:excellent(e|s|es)?\\s+r[ée]sultat(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Un résultat remarquable.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-record",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Record",
+    "symbol": "record",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:record(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:battre\\s+(le|son|un)\\s+record)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:record\\s+du\\s+monde)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:in[ée]dit(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:historique(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Une performance jamais atteinte.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-trophee",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Trophée",
+    "symbol": "trophée",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:troph[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:coupe(s)?\\s+(gagn[ée]e|remport[ée]e)(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:palme(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:couronne(s)?\\s+de\\s+lauriers)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:distinction(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Un objet qui récompense une victoire.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-talent",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Talent",
+    "symbol": "talent",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:talent(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:talentueu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:dou[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:virtuose(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:prodige(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE",
+      "#CREATION"
+    ],
+    "language": "FR",
+    "comment": "Une aptitude remarquable.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-merite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Mérite",
+    "symbol": "mérite",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:m[ée]rite(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:m[ée]rit(er|[ée]|[ée]e|ant|ante|oire)|bien\\s+m[ée]rit[ée](e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:digne(s)?\\s+d['’][ée]loges)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Ce qui rend digne d'estime.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-gagner",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Gagner",
+    "symbol": "gagner",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:gagn(er|e|es|ons|ez|ent|[ée]|[ée]e|[ée]s|ait|ant|ante|ants)|vainc(re|u|ue)|l['’]emport(er|[ée]))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Être vainqueur, obtenir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-excellence",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Excellence",
+    "symbol": "excellence",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:excellence(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:excellent(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:remarquable(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:exceptionnel(le|s|les)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:parfait(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Le plus haut degré de qualité.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-recompense",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Récompense",
+    "symbol": "récompense",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:r[ée]compense(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]compens(er|[ée]|[ée]e|[ée]s))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gratification(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:laur[ée]at(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bonus)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Ce qu'on reçoit pour un mérite.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-prosperite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Prospérité",
+    "symbol": "prospérité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:prosp[ée]rit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:prosp[èe]re(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:florissant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:abondance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:richesse(s)?\\s+partag[ée]e(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE",
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "L'état de ce qui est florissant.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-espoir",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Espoir",
+    "symbol": "espoir",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:espoir(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:plein(e|s|es)?\\s+d['’]espoir)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lueur(s)?\\s+d['’]espoir)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:encourag(eant|eante|ement|[ée]|[ée]e)|perspective(s)?\\s+heureuse(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'attendre un bien avec confiance.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-esperance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Espérance",
+    "symbol": "espérance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:esp[ée]rance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:esp[ée]r(er|ons|ez|ait)|j['’]esp[èe]re)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:souhait(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:souhait(er|e|[ée]|ons))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "La confiance en l'avenir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-reve",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Rêve",
+    "symbol": "rêve",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:r[êe]ve(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[êe]v(er|e|ons|ent|[ée]|ait|eur|euse)|songe(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:aspiration(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[êe]ve\\s+devenu\\s+r[ée]alit[ée])(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#ESPOIR",
+      "#CREATION"
+    ],
+    "language": "FR",
+    "comment": "Un désir, une aspiration.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-avenir",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Avenir",
+    "symbol": "avenir",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:avenir(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:futur\\s+radieux)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lendemain(s)?\\s+qui\\s+chante(nt)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:demain\\s+sera\\s+meilleur)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:promesse(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "Le temps à venir, plein de promesses.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-paix",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Paix",
+    "symbol": "paix",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:paix)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:paisible(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pacifique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tranquillit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:calme\\s+retrouv[ée])(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#PAIX"
+    ],
+    "language": "FR",
+    "comment": "L'absence de conflit, la tranquillité.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-harmonie",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Harmonie",
+    "symbol": "harmonie",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:harmonie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:harmonieu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]quilibre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:concorde(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:accord\\s+parfait)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#PAIX",
+      "#BIENETRE"
+    ],
+    "language": "FR",
+    "comment": "Un accord heureux.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-liberte",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Liberté",
+    "symbol": "liberté",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:libert[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:libre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lib[ée]r([ée]|[ée]e|[ée]s|[ée]es|ation)|[ée]mancipation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ind[ée]pendance(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#PAIX",
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'être libre.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-gratitude",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Gratitude",
+    "symbol": "gratitude",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:gratitude(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:reconnaissant(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gr[âa]ce(s)?(?!\\s+[àa]))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rendre\\s+gr[âa]ce)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:remerciement(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#GRATITUDE"
+    ],
+    "language": "FR",
+    "comment": "La reconnaissance d'un bienfait.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-merci",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Merci",
+    "symbol": "merci",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:merci(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:mille\\s+mercis)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:remerci(er|e|[ée]|[ée]e|ons)|thank\\s+you)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:je\\s+vous\\s+remercie)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#GRATITUDE"
+    ],
+    "language": "FR",
+    "comment": "Le mot qui remercie.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-reconnaissance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Reconnaissance",
+    "symbol": "reconnaissance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:reconnaissance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:reconnu(e|s|es)?\\s+(pour|[àa]\\s+sa\\s+juste\\s+valeur))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:hommage(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#GRATITUDE",
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'être reconnu, la gratitude.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-benediction",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Bénédiction",
+    "symbol": "bénédiction",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:b[ée]n[ée]diction(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:b[ée]ni(e|s|es|r)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bienfait(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:don\\s+du\\s+ciel)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cadeau\\s+du\\s+ciel)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#GRATITUDE",
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "Une grâce, un bienfait.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-grace",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Grâce",
+    "symbol": "grâce",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:gr[âa]ce(s)?(?!\\s+[àa]))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:gracieu(x|se|ses|sement))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]l[ée]gance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]l[ée]gant(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#GRATITUDE",
+      "#BEAUTE"
+    ],
+    "language": "FR",
+    "comment": "Le charme, la faveur.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-sagesse",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Sagesse",
+    "symbol": "sagesse",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:sagesse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:sage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:clairvoyance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:discernement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:lucidit[ée](s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#ESPOIR",
+      "#PAIX"
+    ],
+    "language": "FR",
+    "comment": "La connaissance et la mesure.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-courage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Courage",
+    "symbol": "courage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:courage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:courageu(x|se|ses|sement))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:brave(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:bravoure(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:vaillant(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "La force face aux difficultés.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-perseverance",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Persévérance",
+    "symbol": "persévérance",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:pers[ée]v[ée]rance(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:pers[ée]v[ée]r(er|[ée]|ant|ante)|t[ée]nacit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tenace(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]termination(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#ESPOIR",
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Le fait de continuer malgré les obstacles.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-resilience",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Résilience",
+    "symbol": "résilience",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:r[ée]silience(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]silient(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:se\\s+relever)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:relev[ée](e|s|es)?\\s+la\\s+t[êe]te)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:rebondir)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "La capacité à se relever.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-foi",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Foi",
+    "symbol": "foi",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:foi)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:croire\\s+en\\s+(soi|toi|moi|nous|l['’]avenir))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:conviction(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ferveur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:fervent(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "Une confiance profonde.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-inspiration",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Inspiration",
+    "symbol": "inspiration",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:inspiration(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:inspir([ée]|[ée]e|[ée]s|ant|ante|er)|muse(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]lan(s)?\\s+cr[ée]ateur(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]clic(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#CREATION",
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "Un élan créateur.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-motivation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Motivation",
+    "symbol": "motivation",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:motivation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:motiv([ée]|[ée]e|[ée]s|[ée]es|ant|ante)|stimul([ée]|[ée]e|ant|ante)|boost([ée]|[ée]e)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#ESPOIR",
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Ce qui pousse à agir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-ambition",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Ambition",
+    "symbol": "ambition",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:ambition(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ambitieu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:grand(s)?\\s+dessein(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:projet(s)?\\s+d['’]avenir)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:viser\\s+haut)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#REUSSITE",
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "Le désir d'accomplir de grandes choses.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-creation",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Création",
+    "symbol": "création",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cr[ée]ation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cr[ée](er|[ée]|[ée]e|[ée]s|[ée]es|ateur|atrice|ateurs)|(œ|oe)uvre(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chef-d['’](œ|oe)uvre)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:chefs-d['’](œ|oe)uvre)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#CREATION"
+    ],
+    "language": "FR",
+    "comment": "Le fait de créer.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-creativite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Créativité",
+    "symbol": "créativité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:cr[ée]ativit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:cr[ée]ati(f|fs|ve|ves))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ing[ée]nieu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:inventi(f|ve|vit[ée]))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:original(e|es|aux)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#CREATION"
+    ],
+    "language": "FR",
+    "comment": "La capacité à inventer.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-invention",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Invention",
+    "symbol": "invention",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:invention(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:invent(er|[ée]|[ée]e|eur|eurs|rice)|innovation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:innov(er|ant|ante)|trouvaille(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#CREATION",
+      "#REUSSITE"
+    ],
+    "language": "FR",
+    "comment": "Une chose nouvelle imaginée.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-decouverte",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Découverte",
+    "symbol": "découverte",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:d[ée]couverte(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:d[ée]couvr(ir|e|ent|ait)|d[ée]couvert(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]v[ée]lation(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:eur[êe]ka)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#CREATION",
+      "#APPRENTISSAGE"
+    ],
+    "language": "FR",
+    "comment": "Le fait de découvrir.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-apprendre",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Apprendre",
+    "symbol": "apprendre",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:appren(dre|ds|d|ons|ez|nent|ait|tissage)|apprentissage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]tudi(er|e|[ée]))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:connaissance(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#APPRENTISSAGE"
+    ],
+    "language": "FR",
+    "comment": "Acquérir des connaissances.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-curiosite",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Curiosité",
+    "symbol": "curiosité",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:curiosit[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:curieu(x|se|ses))(?![\\w-])",
+      "(?i)(?<![\\w-])(?:soif\\s+de\\s+savoir)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:int[ée]ress([ée]|[ée]e|ant|ante)|captivant(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#APPRENTISSAGE"
+    ],
+    "language": "FR",
+    "comment": "L'envie de connaître.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-imagination",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Imagination",
+    "symbol": "imagination",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:imagination(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:imagin(er|[ée]|[ée]e|atif|ative)|fantaisie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[êe]verie(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:conte(s)?\\s+de\\s+f[ée]es)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#CREATION"
+    ],
+    "language": "FR",
+    "comment": "La faculté d'imaginer.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-art",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Art",
+    "symbol": "art",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:art(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:artiste(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:artistique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:peinture(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:po[ée]sie(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#CREATION",
+      "#BEAUTE"
+    ],
+    "language": "FR",
+    "comment": "L'expression de la beauté.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-beaute",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Beauté",
+    "symbol": "beauté",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:beaut[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:belle(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:joli(e|s|es)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ravissant(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#BEAUTE"
+    ],
+    "language": "FR",
+    "comment": "Ce qui est beau.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-jeu",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Jeu",
+    "symbol": "jeu",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:jeu(x)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:ludique(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:amus(er|e|ement|ant|ante)|divertissement(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:r[ée]cr[ée]ation(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE",
+      "#ENFANCE"
+    ],
+    "language": "FR",
+    "comment": "Une activité pour s'amuser.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-jouer",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Jouer",
+    "symbol": "jouer",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:jou(er|e|es|ons|ez|ent|ait|aient)|s['’]amuser)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:batifol(er|e)|gambad(er|e|ent)|joueu(r|se|rs|ses))(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#JOIE",
+      "#ENFANCE"
+    ],
+    "language": "FR",
+    "comment": "S'amuser à un jeu.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-aventure",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Aventure",
+    "symbol": "aventure",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:aventure(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:aventureu(x|se|ses|rier|ri[èe]re)|p[ée]riple(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:[ée]pop[ée]e(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:excitant(e|s|es)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#VOYAGE",
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "Une expérience nouvelle et excitante.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-voyage",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Voyage",
+    "symbol": "voyage",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:voyage(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:voyag(er|eur|euse|eurs|e|eons)|escapade(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:road\\s+trip)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tour\\s+du\\s+monde)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#VOYAGE",
+      "#JOIE"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'aller découvrir d'autres lieux.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-exploration",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Exploration",
+    "symbol": "exploration",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:exploration(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:explor(er|ateur|atrice|[ée]|[ée]e)|exp[ée]dition(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:contr[ée]e(s)?\\s+lointaine(s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:terre(s)?\\s+inconnue(s)?)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#VOYAGE",
+      "#APPRENTISSAGE"
+    ],
+    "language": "FR",
+    "comment": "Le fait d'explorer.",
+    "isDeleted": false
+  },
+  {
+    "id": "fr-happy-nouveaute",
+    "appName": "KAONOMI.SymbolicPatterns",
+    "date": "2026-11-08T11:54:06.698403Z",
+    "machineName": "RTX4090",
+    "userName": "JeromeFortias",
+    "title": "Nouveauté",
+    "symbol": "nouveauté",
+    "regexPatterns": [
+      "(?i)(?<![\\w-])(?:nouveaut[ée](s)?)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:nouveau\\s+d[ée]part)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:tout\\s+neuf)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:toute\\s+neuve)(?![\\w-])",
+      "(?i)(?<![\\w-])(?:premi[èe]re\\s+fois)(?![\\w-])"
+    ],
+    "event": null,
+    "events": [],
+    "signals": [
+      "!HAPPY"
+    ],
+    "tags": [
+      "#CREATION",
+      "#ESPOIR"
+    ],
+    "language": "FR",
+    "comment": "Ce qui est nouveau.",
+    "isDeleted": false
+  }
+]

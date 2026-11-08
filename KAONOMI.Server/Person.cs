@@ -1,13 +1,13 @@
 namespace KAONOMI.Server
 {
     /// <summary>
-    /// Demo model for the minimal API (first name + last name).
+    /// Demo model for the minimal API (first title + last title).
     /// </summary>
     public class Person
     {
-        /// <summary>First name.</summary>
+        /// <summary>First title.</summary>
         public string FirstName { get; set; }
-        /// <summary>Last name.</summary>
+        /// <summary>Last title.</summary>
         public string LastName { get; set; }
 
     }

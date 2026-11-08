@@ -11,7 +11,7 @@ namespace KAONOMI.Dreamer
     internal class DreamerAnalysisVAgent : VGrainBase<iDreamerAnalysisVAgent>, iDreamerAnalysisVAgent
     {
         /// <summary>Creates the agent with the given logger.</summary>
-        /// <param name="logger">Logger for analysis operations.</param>
+        /// <param title="logger">Logger for analysis operations.</param>
         public DreamerAnalysisVAgent(ILogger<iDreamerAnalysisVAgent> logger) : base(logger)
         {
         }

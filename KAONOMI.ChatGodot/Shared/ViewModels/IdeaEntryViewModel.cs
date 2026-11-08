@@ -17,7 +17,7 @@ public partial class IdeaEntryViewModel : ViewModelBase
 {
     private static readonly HashSet<string> EditableProperties =
     [
-        nameof(IdeaTitle), nameof(IdeaDescription), nameof(Category), nameof(Tags), nameof(Comment)
+        nameof(IdeaTitle), nameof(IdeaDescription), nameof(Category), nameof(Tags), nameof(Events), nameof(Signals), nameof(Comment)
     ];
 
     private readonly KaonomiAssistantService _assistant;
@@ -85,10 +85,18 @@ public partial class IdeaEntryViewModel : ViewModelBase
     [NotifyPropertyChangedFor(nameof(Summary))]
     private string _category = string.Empty;
 
-    /// <summary>One tag per line.</summary>
+    /// <summary>One tag per line (#TOPIC; the spaces of a line become '-', see <see cref="MetaTags"/>).</summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasTags), nameof(TagsPreview))]
     private string _tags = string.Empty;
+
+    /// <summary>One event per line (@EVENT).</summary>
+    [ObservableProperty]
+    private string _events = string.Empty;
+
+    /// <summary>One signal per line (!SIGNAL).</summary>
+    [ObservableProperty]
+    private string _signals = string.Empty;
 
     [ObservableProperty]
     private string _comment = string.Empty;
@@ -204,10 +212,13 @@ public partial class IdeaEntryViewModel : ViewModelBase
         _isLoading = true;
         try
         {
-            IdeaTitle = entry.IdeaTitle ?? string.Empty;
+            // The title of the idea, or the title shared by every document when the idea has none.
+            IdeaTitle = (string.IsNullOrWhiteSpace(entry.IdeaTitle) ? entry.Title : entry.IdeaTitle) ?? string.Empty;
             IdeaDescription = entry.IdeaDescription ?? string.Empty;
             Category = entry.Category ?? string.Empty;
             Tags = string.Join(Environment.NewLine, entry.Tags ?? []);
+            Events = string.Join(Environment.NewLine, entry.Events ?? []);
+            Signals = string.Join(Environment.NewLine, entry.Signals ?? []);
             Comment = entry.Comment ?? string.Empty;
             IsDirty = false;
             IsError = false;
@@ -227,9 +238,12 @@ public partial class IdeaEntryViewModel : ViewModelBase
         MachineName = _entry.MachineName,
         UserName = _entry.UserName,
         IdeaTitle = IdeaTitle.Trim(),
+        Title = IdeaTitle.Trim(),
         IdeaDescription = IdeaDescription,
         Category = Category.Trim(),
-        Tags = SplitLines(Tags),
+        Tags = MetaTags.Normalize(SplitLines(Tags), MetaTags.Tag),
+        Events = MetaTags.Normalize(SplitLines(Events), MetaTags.Event),
+        Signals = MetaTags.Normalize(SplitLines(Signals), MetaTags.Signal),
         Comment = Comment
     };
 

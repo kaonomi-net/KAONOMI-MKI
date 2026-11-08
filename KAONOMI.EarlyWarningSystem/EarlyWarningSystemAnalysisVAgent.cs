@@ -11,7 +11,7 @@ namespace KAONOMI.EarlyWarningSystem
     internal class EarlyWarningSystemAnalysisVAgent : VGrainBase<iEarlyWarningSystemAnalysisVAgent>, iEarlyWarningSystemAnalysisVAgent
     {
         /// <summary>Creates the agent with the given logger.</summary>
-        /// <param name="logger">Logger for analysis operations.</param>
+        /// <param title="logger">Logger for analysis operations.</param>
         public EarlyWarningSystemAnalysisVAgent(ILogger<iEarlyWarningSystemAnalysisVAgent> logger) : base(logger)
         {
         }

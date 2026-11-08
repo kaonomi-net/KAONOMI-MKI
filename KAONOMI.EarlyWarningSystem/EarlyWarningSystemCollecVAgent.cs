@@ -11,7 +11,7 @@ namespace KAONOMI.EarlyWarningSystem
     internal class EarlyWarningSystemCollecVAgent : VGrainBase<iEarlyWarningSystemCollecVAgent>, iEarlyWarningSystemCollecVAgent
     {
         /// <summary>Creates the agent with the given logger.</summary>
-        /// <param name="logger">Logger for collection operations.</param>
+        /// <param title="logger">Logger for collection operations.</param>
         public EarlyWarningSystemCollecVAgent(ILogger<iEarlyWarningSystemCollecVAgent> logger) : base(logger)
         {
         }

@@ -30,8 +30,58 @@ public partial class IntelWindowViewModel : ViewModelBase, INoteContextProvider
     public IntelWindowViewModel(KaonomiAssistantService assistant, bool load = true)
     {
         _assistant = assistant;
+        _transfer = new DocumentTransfer<IntelEntry>
+        {
+            Plural = "intels",
+            LogArea = "Intel",
+            // The server leaves the deleted intels out of /intel/last.
+            LoadAll = (size, ct) => _assistant.GetLastIntelsAsync(size, ct),
+            Id = e => e.Id,
+            Create = (e, ct) => _assistant.CreateIntelAsync(e, ct),
+            Save = (e, ct) => _assistant.UpdateIntelAsync(e, ct),
+            Confirm = (message, label) => ConfirmAsync(message, label),
+            OpenTextFile = () => OpenTextFileAsync(),
+            PickFolder = title => PickFolderAsync(title),
+            Report = (status, isError) => { Status = status; IsError = isError; }
+        };
         if (load)
             _ = SearchAsync(CancellationToken.None);
+    }
+
+    private readonly DocumentTransfer<IntelEntry> _transfer;
+
+    /// <summary>Asks for a JSON file to import and returns its text, or null when cancelled; set by the view.</summary>
+    public Func<Task<string?>> OpenTextFileAsync { get; set; } = () => Task.FromResult<string?>(null);
+
+    /// <summary>Asks for a folder (argument: the dialog title), or null when cancelled; set by the view.</summary>
+    public Func<string, Task<string?>> PickFolderAsync { get; set; } = _ => Task.FromResult<string?>(null);
+
+    /// <summary>Exports every intel of the server (the deleted ones excepted) to a folder: one JSON file per intel.</summary>
+    [RelayCommand]
+    private Task ExportAllAsync(CancellationToken cancellationToken) => _transfer.ExportAllAsync(cancellationToken);
+
+    /// <summary>Imports the intels of a JSON file (one intel or an array, as the seed files), then lists the latest ones.</summary>
+    [RelayCommand]
+    private async Task ImportAsync(CancellationToken cancellationToken)
+    {
+        if (await _transfer.ImportFileAsync(cancellationToken))
+            await ReloadKeepingStatusAsync();
+    }
+
+    /// <summary>Imports the intels of a folder (an "Export all", one file per intel), then lists the latest ones.</summary>
+    [RelayCommand]
+    private async Task ImportFolderAsync(CancellationToken cancellationToken)
+    {
+        if (await _transfer.ImportFolderAsync(cancellationToken))
+            await ReloadKeepingStatusAsync();
+    }
+
+    /// <summary>Runs the current search again to show the imported intels, keeping the import status.</summary>
+    private async Task ReloadKeepingStatusAsync()
+    {
+        var (status, isError) = (Status, IsError);
+        await SearchAsync(CancellationToken.None);
+        (Status, IsError) = (status, isError);
     }
 
     /// <summary>Search hits and locally created rows bound to the results list.</summary>

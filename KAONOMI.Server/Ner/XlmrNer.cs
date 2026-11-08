@@ -7,10 +7,12 @@ using Microsoft.ML.OnnxRuntime.Tensors;
 namespace KAONOMI.Server.Ner
 {
     /// <summary>
-    /// The named entities of a text by XLM-RoBERTa (<c>Davlan/xlm-roberta-base-ner-hrl</c>, ONNX quantized in int8, on
-    /// the CPU): persons, organizations and places in 10 languages, French and English among them. The labels are those
-    /// of <c>config.json</c> (O, B-PER, I-PER, B-ORG, I-ORG, B-LOC, I-LOC, tagged IOB1: I- is the usual one, B- only
-    /// starts a name right after another of the same type). The pieces are grouped as the pipeline of Hugging Face does
+    /// The named entities of a text by an XLM-RoBERTa token classification model exported to ONNX (quantized in int8, on
+    /// the CPU; see Ner/export/ner_export.py): by default <c>FacebookAI/xlm-roberta-large-finetuned-conll03-english</c>
+    /// (CoNLL-2003: persons, organizations, places and miscellaneous names; trained on English, it reads the other
+    /// languages of XLM-R too, French among them), before it <c>Davlan/xlm-roberta-base-ner-hrl</c>. The labels are those
+    /// of <c>config.json</c> (O, B-/I-PER, ORG, LOC, MISC…, tagged IOB1: I- is the usual one, B- only starts a title right
+    /// after another of the same type). The pieces are grouped as the pipeline of Hugging Face does
     /// with aggregation "simple": the pieces in a row of the same type make one entity unless a piece is B-, its score
     /// the mean of theirs. A text longer than the model reads at once (512 pieces) is read in windows that overlap.
     /// </summary>
@@ -38,23 +40,53 @@ namespace KAONOMI.Server.Ner
             foreach (var p in id2label.EnumerateObject())
                 _labels[int.Parse(p.Name)] = p.Value.GetString()!;
             ModelFile = Path.GetFileName(model);
+            ModelId = ReadModelId(folder, config.RootElement);
         }
+
+        /// <summary>
+        /// The Hugging Face name of the model: the one of reference.json (written by the export), or "_name_or_path" of
+        /// config.json when it is such a name (owner/model, not a path), or else the name of the folder.
+        /// </summary>
+        private static string ReadModelId(string folder, JsonElement config)
+        {
+            static bool IsHubName(string? name) =>
+                !string.IsNullOrWhiteSpace(name) && name.Count(c => c == '/') == 1 && !name.Contains('\\') && !name.Contains(':') && !name.StartsWith('/') && !name.StartsWith('.');
+            try
+            {
+                var reference = Path.Combine(folder, "reference.json");
+                if (File.Exists(reference))
+                {
+                    using var doc = JsonDocument.Parse(File.ReadAllText(reference));
+                    if (doc.RootElement.TryGetProperty("model", out var model) && IsHubName(model.GetString()))
+                        return model.GetString()!;
+                }
+            }
+            catch (Exception ex) when (ex is IOException or JsonException)
+            {
+            }
+            if (config.TryGetProperty("_name_or_path", out var path) && IsHubName(path.GetString()))
+                return path.GetString()!;
+            return Path.GetFileName(folder.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+        }
+
+        /// <summary>The name of the model (its Hugging Face id, e.g. FacebookAI/xlm-roberta-large-finetuned-conll03-english).</summary>
+        public string ModelId { get; }
 
         public string Folder { get; }
 
         public string ModelFile { get; }
 
-        /// <summary>The types the model finds, as the server names them, from its labels (PERSON, ORG, LOC, and DATE for this one).</summary>
+        /// <summary>The types the model finds, as the server names them, from its labels (PERSON, ORG, LOC, MISC for CoNLL-2003).</summary>
         public IReadOnlyList<string> Types => _labels.Where(l => l != "O").Select(l => TypeOf(l.Length > 2 && l[1] == '-' ? l[2..] : l)).Distinct().ToList();
 
         public XlmrTokenizer Tokenizer => _tokenizer;
 
-        /// <summary>PER → PERSON; ORG and LOC stay.</summary>
+        /// <summary>PER → PERSON; ORG, LOC, MISC (and DATE of the former model) stay.</summary>
         public static string TypeOf(string label) => label switch { "PER" => "PERSON", _ => label };
 
         /// <summary>
-        /// The persons, organizations, places and dates of <paramref name="text"/>, in the order of the text. With
-        /// <paramref name="whole"/> (the default), each entity is made whole after the model: its punctuation at both ends
+        /// The persons, organizations, places and dates of <paramref title="text"/>, in the order of the text. With
+        /// <paramref title="whole"/> (the default), each entity is made whole after the model: its punctuation at both ends
         /// taken off (one of punctuation only dropped: "'" of "l'ESA"), a word cut in its middle completed ("L" of
         /// "Louvre" → "Louvre", never across an apostrophe or a hyphen), and two entities of the same type that then
         /// touch made one. Without it, the entities are those of the pipeline of Hugging Face (to compare with it).
@@ -123,7 +155,7 @@ namespace KAONOMI.Server.Ner
             return found.OrderBy(e => e.start).ToList();
         }
 
-        /// <summary>The entities of the pieces <paramref name="first"/> to <paramref name="first"/> + <paramref name="count"/>.</summary>
+        /// <summary>The entities of the pieces <paramref title="first"/> to <paramref title="first"/> + <paramref title="count"/>.</summary>
         private IEnumerable<NerEntity> Read(string text, List<XlmrToken> tokens, int first, int count)
         {
             var n = count + 2;
@@ -159,7 +191,7 @@ namespace KAONOMI.Server.Ner
                 labelled.Add((bi, type, 1 / sum, t.Start, t.End));
             }
 
-            // The pieces in a row of the same type, unless a piece is B- (a second name right after the first).
+            // The pieces in a row of the same type, unless a piece is B- (a second title right after the first).
             var group = new List<(string Bi, string Type, double Score, int Start, int End)>();
             foreach (var piece in labelled.Append(("B", "O", 0, 0, 0)))
             {

@@ -25,8 +25,8 @@ namespace KAONOMI.Core.Hosting
         /// </summary>
         public static readonly TimeSpan GrainCallTimeout = TimeSpan.FromMinutes(10);
 
-        /// <summary>Applies Kaonomi silo name, optional dashboard, grain call timeout and local sequence executor placement.</summary>
-        /// <param name="dashboardPort">Port of the dashboard web UI; when null the silo only reports its statistics.</param>
+        /// <summary>Applies Kaonomi silo title, optional dashboard, grain call timeout and local sequence executor placement.</summary>
+        /// <param title="dashboardPort">Port of the dashboard web UI; when null the silo only reports its statistics.</param>
         public static ISiloBuilder UseKaonomiNode(this ISiloBuilder silo, string siloName, int? dashboardPort = null)
         {
             silo.Configure<SiloOptions>(options => options.SiloName = siloName);

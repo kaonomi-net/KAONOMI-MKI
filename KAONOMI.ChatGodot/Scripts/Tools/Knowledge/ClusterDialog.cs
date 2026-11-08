@@ -13,8 +13,8 @@ namespace KAONOMI.ChatGodot.Tools.Knowledge;
 
 /// <summary>
 /// The popup of a cluster, a window of the desktop: the elements inside the drawing (their window, their title, their
-/// id), the name of the cluster, its description and its tags (#TOPIC, !ALERT, ?QUESTION, &amp;LINK, separated by
-/// spaces or commas; the server puts them in upper case without a space). It opens for a new cluster (the pen of the
+/// id), the name of the cluster, its title, its description, its tags (#TOPIC), events (@EVENT) and signals (!SIGNAL),
+/// separated by spaces or commas, '-' inside one (<see cref="MetaTags"/>: upper case, no space). It opens for a new cluster (the pen of the
 /// graph of relations has just drawn around some elements: CREATE CLUSTER stores it, <c>PUT /cluster</c>) or for a
 /// stored one (a double-click on its name in the graph: SAVE stores the changes, <c>POST /cluster/update</c>, DELETE
 /// marks it deleted, <c>DELETE /cluster/{id}</c>, it is never erased). The cluster and each of its elements also have
@@ -137,7 +137,10 @@ internal static class ClusterDialog
 
         var name = new LineEdit { PlaceholderText = "Name of the cluster", Text = entry.Name };
         var description = new TextEdit { PlaceholderText = "What these elements have in common", Text = entry.Description, WrapMode = TextEdit.LineWrappingMode.Boundary, CustomMinimumSize = new Vector2(0, 90) };
-        var tags = new LineEdit { PlaceholderText = "#TOPIC !ALERT ?QUESTION &LINK · separated by spaces or commas (upper case, no space: the server sees to it)", Text = string.Join(' ', entry.Tags) };
+        var titleField = new LineEdit { PlaceholderText = "Title of the cluster (besides its name)", Text = entry.Title };
+        var tags = new LineEdit { PlaceholderText = MetaTags.TagsHint + " · separated by spaces or commas, '-' inside one", Text = MetaTags.Format(entry.Tags) };
+        var events = new LineEdit { PlaceholderText = MetaTags.EventsHint + " · separated by spaces or commas, '-' inside one", Text = MetaTags.Format(entry.Events) };
+        var signals = new LineEdit { PlaceholderText = MetaTags.SignalsHint + " · separated by spaces or commas, '-' inside one", Text = MetaTags.Format(entry.Signals) };
         var status = Eve.Eve.Text_(string.Empty, Eve.Eve.Muted, 12, wrap: true);
         status.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
         void SetStatus(string text, bool error)
@@ -158,7 +161,10 @@ internal static class ClusterDialog
         {
             entry.Name = name.Text.Trim();
             entry.Description = description.Text.Trim();
-            entry.Tags = tags.Text.Split([' ', ',', ';', '\n'], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
+            entry.Title = titleField.Text.Trim();
+            entry.Tags = MetaTags.Parse(tags.Text, MetaTags.Tag);
+            entry.Events = MetaTags.Parse(events.Text, MetaTags.Event);
+            entry.Signals = MetaTags.Parse(signals.Text, MetaTags.Signal);
             if (!TryDate(dateFrom, out var from) || !TryDate(dateTo, out var to))
             {
                 SetStatus("The dates of the cluster must be yyyy-MM-dd (or empty)", true);
@@ -267,8 +273,11 @@ internal static class ClusterDialog
             Eve.Eve.Caption(heading, Eve.Eve.TextBright, 12),
             membersPanel,
             Ui.Field("Name", name),
+            Ui.Field("Title", titleField),
             Ui.Field("Description", description),
             Ui.Field("Tags", tags),
+            Ui.Field("Events", events),
+            Ui.Field("Signals", signals),
             Ui.Row(10, Ui.Field("From", dateFrom), Ui.Field("To", dateTo), Ui.Field("Probability", Ui.Row(8, clusterProbability, clusterValue))),
             Ui.Row(8, status, delete, cancel, save));
         var root = Ui.Margin(form, 14);

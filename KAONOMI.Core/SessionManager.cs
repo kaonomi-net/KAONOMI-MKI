@@ -127,6 +127,17 @@ using System.Threading.Tasks;
             return ret;
         }
 
+        /// <summary>The last <paramref title="size"/> white notes not deleted, newest first (admin repository).</summary>
+        public List<WhiteNote> WhiteNotesLast(int size)
+        {
+            if (_config == null || ElasticSearchAdmin == null)
+            {
+                throw new Exception("Config not done");
+            }
+
+            return ElasticSearchAdmin.Last<WhiteNote>(Math.Clamp(size, 1, 1000), nameof(WhiteNote.isDeleted)).ToList();
+        }
+
         public ServiceReturn SystemLogSave(SystemLog log)
         {
             ServiceReturn ret = new ServiceReturn();
@@ -179,7 +190,7 @@ using System.Threading.Tasks;
             return ret;
         }
 
-        /// <summary>The <paramref name="size"/> most recent logs of the admin repository, newest first (at most 10,000).</summary>
+        /// <summary>The <paramref title="size"/> most recent logs of the admin repository, newest first (at most 10,000).</summary>
         public List<Log> LogsLast(int size = ElasticRepository.MaxResults)
         {
             if (_config == null || ElasticSearchAdmin == null)
@@ -190,7 +201,7 @@ using System.Threading.Tasks;
             return ElasticSearchAdmin.Last(size).ToList();
         }
 
-        /// <summary>All the logs of the last <paramref name="minutes"/> minutes (every application), newest first.</summary>
+        /// <summary>All the logs of the last <paramref title="minutes"/> minutes (every application), newest first.</summary>
         public List<Log> LogsSince(int minutes = 60)
         {
             if (_config == null || ElasticSearchAdmin == null)
@@ -287,7 +298,7 @@ using System.Threading.Tasks;
 
 
         /// <summary>
-        /// The token usages (one per LLM call: model, prompt and completion tokens) of the last <paramref name="minutes"/>
+        /// The token usages (one per LLM call: model, prompt and completion tokens) of the last <paramref title="minutes"/>
         /// minutes, newest first (at most 10,000).
         /// </summary>
         public List<TokensUsage> TokensUsageLast(int minutes = 60)
@@ -467,6 +478,76 @@ using System.Threading.Tasks;
             return ret;
         }
 
+        /// <summary>
+        /// Saves the entities found by the NER in a dialog in the dialog repository (index <c>detectedentity</c>), one
+        /// document each. Their ids are made from the dialog, the place and the type: a dialog processed again writes
+        /// its entities over. Returns how many were saved; an entity that fails is told in <see cref="ServiceReturn.Message"/>.
+        /// </summary>
+        public ServiceReturn DetectedEntitiesSave(IEnumerable<DetectedEntity> entities)
+        {
+            ServiceReturn ret = new ServiceReturn();
+            if (_config == null || ElasticSearchDialog == null)
+            {
+                throw new Exception("Config not done");
+            }
+
+            int saved = 0;
+            var errors = new List<string>();
+            foreach (var entity in entities)
+            {
+                try
+                {
+                    ElasticSearchDialog.Save(entity);
+                    saved++;
+                }
+                catch (Exception ex)
+                {
+                    errors.Add($"{entity.type}:{entity.text}: {ex.Message}");
+                }
+            }
+
+            ret.ReturnedId = saved.ToString();
+            ret.Message = errors.Count == 0
+                ? $"{saved} detected entities saved"
+                : $"{saved} detected entities saved, {errors.Count} failed: {string.Join("; ", errors.Take(5))}";
+            return ret;
+        }
+
+        /// <summary>The entities found by the NER in the dialog <paramref title="dialogId"/>.</summary>
+        public List<DetectedEntity> DetectedEntitiesOfDialog(string dialogId, int size = 1000) =>
+            ElasticSearchDialog.WithValue<DetectedEntity>(nameof(DetectedEntity.dialogId), dialogId, size).ToList();
+
+        /// <summary>
+        /// The entities found by the NER in the last <paramref title="minutes"/> minutes (all of them when 0), counted: the
+        /// same entity of the ontology, or else the same normalized text of the same type, is one entity. The
+        /// <paramref title="size"/> found most often, most often first.
+        /// </summary>
+        public List<DetectedEntityCount> DetectedEntitiesTop(int minutes, int size)
+        {
+            if (_config == null || ElasticSearchDialog == null)
+            {
+                throw new Exception("Config not done");
+            }
+
+            var from = minutes > 0 ? DateTimeOffset.Now.AddMinutes(-minutes) : DateTimeOffset.UnixEpoch;
+            return ElasticSearchDialog.Since<DetectedEntity>(from)
+                .Where(e => !e.isDeleted && !string.IsNullOrWhiteSpace(e.text))
+                .GroupBy(e => e.ontologyId is { Length: > 0 } id ? "onto:" + id : $"{e.type}:{(e.normalizedText.Length > 0 ? e.normalizedText : DetectedEntity.Normalize(e.text))}")
+                .Select(g => new DetectedEntityCount
+                {
+                    text = g.Select(e => e.ontologyName).FirstOrDefault(n => !string.IsNullOrWhiteSpace(n))
+                           ?? g.GroupBy(e => e.text.Trim()).OrderByDescending(t => t.Count()).ThenBy(t => t.Key, StringComparer.Ordinal).First().Key,
+                    type = g.GroupBy(e => e.type).OrderByDescending(t => t.Count()).First().Key,
+                    count = g.Count(),
+                    dialogs = g.Select(e => e.dialogId).Distinct().Count(),
+                    ontologyId = g.First().ontologyId,
+                    lastSeen = g.Max(e => e.date)
+                })
+                .OrderByDescending(c => c.count).ThenByDescending(c => c.lastSeen)
+                .Take(Math.Clamp(size, 1, 1000))
+                .ToList();
+        }
+
         /// <summary>Loads an ontology entry by id from the dialog repository.</summary>
         public Ontology OntologyGet(string id)
         {
@@ -486,7 +567,7 @@ using System.Threading.Tasks;
         }
 
         /// <summary>Searches ontology entries by prompt text with a maximum result count.</summary>
-        /// <summary>Every entity of the ontology not marked deleted (up to <paramref name="size"/>), for the dictionary of the NER.</summary>
+        /// <summary>Every entity of the ontology not marked deleted (up to <paramref title="size"/>), for the dictionary of the NER.</summary>
         public List<Ontology> OntologiesAll(int size = 10000) => ElasticSearchDialog.Last<Ontology>(size, nameof(Ontology.isDeleted)).ToList();
 
         public List<Ontology> OntologiesSearch(string term, int size)
@@ -566,11 +647,11 @@ using System.Threading.Tasks;
 
         /// <summary>The indices <c>POST /search</c> looks into when none is asked.</summary>
         public static readonly string[] SearchableIndices =
-            ["cache", "completion", "dialog", "diary", "document", "idea", "imageanalysis", "intel", "ontology", "relation", "taskitem", "youtubevideo", "cluster", "wiki", "bpmn", "infra", "mindmap", "ghostwriter"];
+            ["cache", "completion", "dialog", "diary", "document", "idea", "imageanalysis", "intel", "ontology", "relation", "taskitem", "youtubevideo", "cluster", "wiki", "bpmn", "infra", "mindmap", "ghostwriter", "detectedentity", "detectedsymbol", "detectedtag", "detectedintel", "detectedevent", "detectedsignal", "webpage", "webparagraph"];
 
         /// <summary>
         /// The indices asked that may be searched: the ones of <see cref="SearchableIndices"/> only (all of them when
-        /// none is asked). Any other name (a pattern such as <c>*</c> or <c>diar*</c>, the index of another repository)
+        /// none is asked). Any other title (a pattern such as <c>*</c> or <c>diar*</c>, the index of another repository)
         /// is left out: it would read what the filters of the known indices hide.
         /// </summary>
         private static List<string> AllowedIndices(IEnumerable<string>? indices)
@@ -580,8 +661,8 @@ using System.Threading.Tasks;
         }
 
         /// <summary>
-        /// A loose search of <paramref name="term"/> in each of <paramref name="indices"/> (<see cref="SearchableIndices"/>
-        /// when empty), <paramref name="size"/> hits per index at most: a word with a typo or as the start of a word,
+        /// A loose search of <paramref title="term"/> in each of <paramref title="indices"/> (<see cref="SearchableIndices"/>
+        /// when empty), <paramref title="size"/> hits per index at most: a word with a typo or as the start of a word,
         /// accents ignored, is enough; the hits of an index that fails are left out.
         /// </summary>
         public List<SearchHit> SearchAll(string term, IEnumerable<string>? indices, int size)
@@ -607,8 +688,8 @@ using System.Threading.Tasks;
         }
 
         /// <summary>
-        /// The documents of the last <paramref name="minutes"/> minutes in each of <paramref name="indices"/>
-        /// (<see cref="SearchableIndices"/> when empty), the newest first, <paramref name="size"/> per index at most.
+        /// The documents of the last <paramref title="minutes"/> minutes in each of <paramref title="indices"/>
+        /// (<see cref="SearchableIndices"/> when empty), the newest first, <paramref title="size"/> per index at most.
         /// </summary>
         public List<SearchHit> RecentAll(int minutes, IEnumerable<string>? indices, int size)
         {
@@ -632,7 +713,7 @@ using System.Threading.Tasks;
             return perIndex.SelectMany(t => t.Result).ToList();
         }
 
-        /// <summary>Marks a document of <typeparamref name="T"/> deleted (isDeleted = true): nothing of these kinds is ever erased.</summary>
+        /// <summary>Marks a document of <typeparamref title="T"/> deleted (isDeleted = true): nothing of these kinds is ever erased.</summary>
         private ServiceReturn MarkDeleted<T>(ElasticRepository repository, string id, string kind) where T : EntityBase, ISoftDeletable
         {
             ServiceReturn ret = new ServiceReturn();
@@ -771,6 +852,12 @@ using System.Threading.Tasks;
             {
                 throw new Exception("Config not done");
             }
+            // A pattern sent without a date gets the date of its save: the default date (year 1) cannot be read back by
+            // the clients as a DateTimeOffset in a time zone east of UTC.
+            if (symbolicPattern.date == default)
+            {
+                symbolicPattern.date = DateTime.UtcNow;
+            }
             try
             {
                 string retid = "";
@@ -786,6 +873,183 @@ using System.Threading.Tasks;
             }
             return ret;
         }
+
+        /// <summary>All the symbolic patterns not deleted (at most <paramref title="size"/>), from the dialog repository.</summary>
+        public List<SymbolicPattern> SymbolicPatternsAll(int size = ElasticRepository.MaxResults)
+        {
+            if (_config == null || ElasticSearchDialog == null)
+            {
+                throw new Exception("Config not done");
+            }
+            return ElasticSearchDialog.Last<SymbolicPattern>(size, nameof(SymbolicPattern.isDeleted)).ToList();
+        }
+
+        /// <summary>
+        /// Saves the symbolic patterns found in a dialog in the dialog repository (index <c>detectedsymbol</c>), one
+        /// document each; their ids are made from the dialog and the pattern, so a dialog analysed again writes them over.
+        /// Returns how many were saved; a detection that fails is told in <see cref="ServiceReturn.Message"/>.
+        /// </summary>
+        public ServiceReturn DetectedSymbolsSave(IEnumerable<DetectedSymbol> detections)
+        {
+            ServiceReturn ret = new ServiceReturn();
+            if (_config == null || ElasticSearchDialog == null)
+            {
+                throw new Exception("Config not done");
+            }
+
+            int saved = 0;
+            var errors = new List<string>();
+            foreach (var detection in detections)
+            {
+                try
+                {
+                    ElasticSearchDialog.Save(detection);
+                    saved++;
+                }
+                catch (Exception ex)
+                {
+                    errors.Add($"{detection.symbol}: {ex.Message}");
+                }
+            }
+
+            ret.ReturnedId = saved.ToString();
+            ret.Message = errors.Count == 0
+                ? $"{saved} detected symbols saved"
+                : $"{saved} detected symbols saved, {errors.Count} failed: {string.Join("; ", errors.Take(5))}";
+            return ret;
+        }
+
+        /// <summary>
+        /// Saves the tags found in a dialog through its detections (symbolic patterns, entities of the ontology) in the
+        /// dialog repository (index <c>detectedtag</c>), one document each; their ids are made from the dialog, the tag
+        /// and the origin, so a dialog analysed again writes them over. Returns how many were saved.
+        /// </summary>
+        /// <summary>
+        /// Saves detections of any kind (<see cref="DetectedIntel"/>, <see cref="DetectedEvent"/>, <see cref="DetectedSignal"/>…)
+        /// in the dialog repository, each in the index of its type; their ids are stable, so a dialog analysed again
+        /// writes them over. Returns how many were saved; those that fail are told in <see cref="ServiceReturn.Message"/>.
+        /// </summary>
+        public ServiceReturn DetectionsSave<T>(IEnumerable<T> detections) where T : EntityBase
+        {
+            ServiceReturn ret = new ServiceReturn();
+            if (_config == null || ElasticSearchDialog == null)
+            {
+                throw new Exception("Config not done");
+            }
+
+            int saved = 0;
+            var errors = new List<string>();
+            foreach (var detection in detections)
+            {
+                try
+                {
+                    ElasticSearchDialog.Save(detection);
+                    saved++;
+                }
+                catch (Exception ex)
+                {
+                    errors.Add($"{detection.title}: {ex.Message}");
+                }
+            }
+
+            ret.ReturnedId = saved.ToString();
+            ret.Message = errors.Count == 0
+                ? $"{saved} {typeof(T).Name} saved"
+                : $"{saved} {typeof(T).Name} saved, {errors.Count} failed: {string.Join("; ", errors.Take(5))}";
+            return ret;
+        }
+
+        public ServiceReturn DetectedTagsSave(IEnumerable<DetectedTag> tags)
+        {
+            ServiceReturn ret = new ServiceReturn();
+            if (_config == null || ElasticSearchDialog == null)
+            {
+                throw new Exception("Config not done");
+            }
+
+            int saved = 0;
+            var errors = new List<string>();
+            foreach (var tag in tags)
+            {
+                try
+                {
+                    ElasticSearchDialog.Save(tag);
+                    saved++;
+                }
+                catch (Exception ex)
+                {
+                    errors.Add($"{tag.tag} ({tag.origin} {tag.originText}): {ex.Message}");
+                }
+            }
+
+            ret.ReturnedId = saved.ToString();
+            ret.Message = errors.Count == 0
+                ? $"{saved} detected tags saved"
+                : $"{saved} detected tags saved, {errors.Count} failed: {string.Join("; ", errors.Take(5))}";
+            return ret;
+        }
+
+        /// <summary>
+        /// The symbols found by the symbolic patterns in the last <paramref title="minutes"/> minutes (all of them when 0),
+        /// counted by symbol and signals, the <paramref title="size"/> found most often first.
+        /// </summary>
+        public List<DetectedSymbolCount> DetectedSymbolsTop(int minutes, int size)
+        {
+            if (_config == null || ElasticSearchDialog == null)
+            {
+                throw new Exception("Config not done");
+            }
+            var from = minutes > 0 ? DateTimeOffset.Now.AddMinutes(-minutes) : DateTimeOffset.UnixEpoch;
+            return ElasticSearchDialog.Since<DetectedSymbol>(from)
+                .Where(d => !d.isDeleted && !string.IsNullOrWhiteSpace(d.symbol))
+                .GroupBy(d => d.symbol.Trim().ToLowerInvariant() + "|" + string.Join(",", (d.Signals ?? new List<string>()).OrderBy(s => s)))
+                .Select(g => new DetectedSymbolCount
+                {
+                    symbol = g.First().symbol.Trim(),
+                    signals = g.First().Signals ?? new List<string>(),
+                    count = g.Sum(d => Math.Max(1, d.count)),
+                    dialogs = g.Select(d => d.dialogId).Distinct().Count(),
+                    lastSeen = g.Max(d => d.date)
+                })
+                .OrderByDescending(c => c.count).ThenByDescending(c => c.lastSeen)
+                .Take(Math.Clamp(size, 1, 1000))
+                .ToList();
+        }
+
+        /// <summary>
+        /// The tags found through the detections in the last <paramref title="minutes"/> minutes (all of them when 0),
+        /// counted, the <paramref title="size"/> found most often first.
+        /// </summary>
+        public List<DetectedTagCount> DetectedTagsTop(int minutes, int size)
+        {
+            if (_config == null || ElasticSearchDialog == null)
+            {
+                throw new Exception("Config not done");
+            }
+            var from = minutes > 0 ? DateTimeOffset.Now.AddMinutes(-minutes) : DateTimeOffset.UnixEpoch;
+            return ElasticSearchDialog.Since<DetectedTag>(from)
+                .Where(t => !t.isDeleted && !string.IsNullOrWhiteSpace(t.tag))
+                .GroupBy(t => t.tag)
+                .Select(g => new DetectedTagCount
+                {
+                    tag = g.Key,
+                    count = g.Count(),
+                    dialogs = g.Select(t => t.dialogId).Distinct().Count(),
+                    origins = g.Select(t => t.origin).Distinct().OrderBy(o => o).ToList(),
+                    lastSeen = g.Max(t => t.date)
+                })
+                .OrderByDescending(c => c.count).ThenByDescending(c => c.lastSeen)
+                .Take(Math.Clamp(size, 1, 1000))
+                .ToList();
+        }
+
+        /// <summary>The tags found in the dialog <paramref title="dialogId"/>.</summary>
+        public List<DetectedTag> DetectedTagsOfDialog(string dialogId, int size = 1000) =>
+            ElasticSearchDialog.WithValue<DetectedTag>(nameof(DetectedTag.dialogId), dialogId, size).ToList();
+
+        /// <summary>The symbolic patterns found in the dialog <paramref title="dialogId"/>.</summary>
+        public List<DetectedSymbol> DetectedSymbolsOfDialog(string dialogId, int size = 1000) =>
+            ElasticSearchDialog.WithValue<DetectedSymbol>(nameof(DetectedSymbol.dialogId), dialogId, size).ToList();
 
         /// <summary>Loads a symbolic pattern by id from the dialog repository.</summary>
         public SymbolicPattern SymbolicPatternGet(string id)
@@ -885,13 +1149,13 @@ using System.Threading.Tasks;
             return (Cluster)ElasticSearchServer.Load<Cluster>(id);
         }
 
-        /// <summary>Searches the clusters on name, description, tags and members (<c>*</c> or empty: the newest ones), the deleted ones left out.</summary>
+        /// <summary>Searches the clusters on title, description, tags and members (<c>*</c> or empty: the newest ones), the deleted ones left out.</summary>
         public List<Cluster> ClustersSearch(string term, int size)
         {
             return ElasticSearchServer.Search<Cluster>(term, ClusterSearchFields, size, nameof(Cluster.isDeleted)).ToList();
         }
 
-        /// <summary>The <paramref name="size"/> most recent clusters, newest first, the deleted ones left out.</summary>
+        /// <summary>The <paramref title="size"/> most recent clusters, newest first, the deleted ones left out.</summary>
         public List<Cluster> ClustersLast(int size)
         {
             return ElasticSearchServer.Last<Cluster>(size, nameof(Cluster.isDeleted)).ToList();
@@ -943,13 +1207,13 @@ using System.Threading.Tasks;
             return (Preset)ElasticSearchServer.Load<Preset>(id);
         }
 
-        /// <summary>Searches the presets on name, description, voice, animation, persona and tags (<c>*</c> or empty: the newest ones), the deleted ones left out.</summary>
+        /// <summary>Searches the presets on title, description, voice, animation, persona and tags (<c>*</c> or empty: the newest ones), the deleted ones left out.</summary>
         public List<Preset> PresetsSearch(string term, int size)
         {
             return ElasticSearchServer.Search<Preset>(term, PresetSearchFields, size, nameof(Preset.isDeleted)).ToList();
         }
 
-        /// <summary>The <paramref name="size"/> most recent presets, newest first, the deleted ones left out.</summary>
+        /// <summary>The <paramref title="size"/> most recent presets, newest first, the deleted ones left out.</summary>
         public List<Preset> PresetsLast(int size)
         {
             return ElasticSearchServer.Last<Preset>(size, nameof(Preset.isDeleted)).ToList();
@@ -964,7 +1228,7 @@ using System.Threading.Tasks;
 
         /// <summary>
         /// Saves a page of the wiki (normalised: its id the slug of its title, its links and summary): a new page when
-        /// <paramref name="create"/> (refused when a page of that slug exists and is not deleted), else a new version of it
+        /// <paramref title="create"/> (refused when a page of that slug exists and is not deleted), else a new version of it
         /// (its version one more, its date of creation kept).
         /// </summary>
         public ServiceReturn WikiSave(Wiki page, bool create)
@@ -1022,13 +1286,13 @@ using System.Threading.Tasks;
             return ElasticSearchServer.Search<Wiki>(term, WikiSearchFields, size, nameof(Wiki.isDeleted)).ToList();
         }
 
-        /// <summary>The <paramref name="size"/> pages of the wiki changed last, newest first, the deleted ones left out.</summary>
+        /// <summary>The <paramref title="size"/> pages of the wiki changed last, newest first, the deleted ones left out.</summary>
         public List<Wiki> WikisLast(int size)
         {
             return ElasticSearchServer.Last<Wiki>(size, nameof(Wiki.isDeleted)).ToList();
         }
 
-        /// <summary>The pages of the wiki that link to the page <paramref name="id"/> (among the 1000 changed last), by title.</summary>
+        /// <summary>The pages of the wiki that link to the page <paramref title="id"/> (among the 1000 changed last), by title.</summary>
         public List<Wiki> WikiBacklinks(string id)
         {
             var slug = Wiki.Slug(id);
@@ -1045,7 +1309,7 @@ using System.Threading.Tasks;
 
         /// <summary>
         /// Saves a BPMN diagram (normalised: its id the slug of its title, its elements and summary): a new diagram when
-        /// <paramref name="create"/> (refused when a diagram of that slug exists and is not deleted), else a new version
+        /// <paramref title="create"/> (refused when a diagram of that slug exists and is not deleted), else a new version
         /// of it (its version one more, its date of creation kept).
         /// </summary>
         public ServiceReturn BpmnSave(Bpmn diagram, bool create) => DiagramSave(diagram, create);
@@ -1053,7 +1317,7 @@ using System.Threading.Tasks;
         /// <summary>Saves an infrastructure diagram (/infra) as <see cref="BpmnSave"/> does, in the infra index.</summary>
         public ServiceReturn InfraSave(Infra diagram, bool create) => DiagramSave(diagram, create);
 
-        /// <summary>Saves a diagram of <typeparamref name="T"/> (BPMN, infrastructure) in its own index; see <see cref="BpmnSave"/>.</summary>
+        /// <summary>Saves a diagram of <typeparamref title="T"/> (BPMN, infrastructure) in its own index; see <see cref="BpmnSave"/>.</summary>
         private ServiceReturn DiagramSave<T>(T diagram, bool create) where T : Bpmn
         {
             ServiceReturn ret = new ServiceReturn();
@@ -1109,7 +1373,7 @@ using System.Threading.Tasks;
             return ElasticSearchServer.Search<Bpmn>(term, BpmnSearchFields, size, nameof(Bpmn.isDeleted)).ToList();
         }
 
-        /// <summary>The <paramref name="size"/> BPMN diagrams changed last, newest first, the deleted ones left out.</summary>
+        /// <summary>The <paramref title="size"/> BPMN diagrams changed last, newest first, the deleted ones left out.</summary>
         public List<Bpmn> BpmnsLast(int size)
         {
             return ElasticSearchServer.Last<Bpmn>(size, nameof(Bpmn.isDeleted)).ToList();
@@ -1133,7 +1397,7 @@ using System.Threading.Tasks;
         public List<Infra> InfrasSearch(string term, int size) =>
             ElasticSearchServer.Search<Infra>(term, BpmnSearchFields, size, nameof(Bpmn.isDeleted)).ToList();
 
-        /// <summary>The <paramref name="size"/> infrastructure diagrams changed last, newest first, the deleted ones left out.</summary>
+        /// <summary>The <paramref title="size"/> infrastructure diagrams changed last, newest first, the deleted ones left out.</summary>
         public List<Infra> InfrasLast(int size) => ElasticSearchServer.Last<Infra>(size, nameof(Bpmn.isDeleted)).ToList();
 
         /// <summary>Marks an infrastructure diagram deleted (isDeleted = true): it is never erased.</summary>
@@ -1143,7 +1407,7 @@ using System.Threading.Tasks;
 
         /// <summary>
         /// Saves a mind map (normalised: its id the slug of its title, its nodes and summary): a new map when
-        /// <paramref name="create"/> (refused when a map of that slug exists and is not deleted), else a new version of
+        /// <paramref title="create"/> (refused when a map of that slug exists and is not deleted), else a new version of
         /// it (its version one more, its date of creation kept).
         /// </summary>
         public ServiceReturn MindmapSave(Mindmap map, bool create)
@@ -1201,7 +1465,7 @@ using System.Threading.Tasks;
             return ElasticSearchServer.Search<Mindmap>(term, MindmapSearchFields, size, nameof(Mindmap.isDeleted)).ToList();
         }
 
-        /// <summary>The <paramref name="size"/> mind maps changed last, newest first, the deleted ones left out.</summary>
+        /// <summary>The <paramref title="size"/> mind maps changed last, newest first, the deleted ones left out.</summary>
         public List<Mindmap> MindmapsLast(int size)
         {
             return ElasticSearchServer.Last<Mindmap>(size, nameof(Mindmap.isDeleted)).ToList();
@@ -1214,7 +1478,7 @@ using System.Threading.Tasks;
 
         /// <summary>
         /// Saves a writing (normalised: its id the slug of its title, its chapters numbered): a new writing when
-        /// <paramref name="create"/> (refused when a writing of that slug exists and is not deleted), else a new version
+        /// <paramref title="create"/> (refused when a writing of that slug exists and is not deleted), else a new version
         /// of it (its version one more, its date of creation kept).
         /// </summary>
         public ServiceReturn GhostWriterSave(GhostWriter writing, bool create)
@@ -1272,7 +1536,7 @@ using System.Threading.Tasks;
             return ElasticSearchServer.Search<GhostWriter>(term, GhostWriterSearchFields, size, nameof(GhostWriter.isDeleted)).ToList();
         }
 
-        /// <summary>The <paramref name="size"/> writings changed last, newest first, the deleted ones left out.</summary>
+        /// <summary>The <paramref title="size"/> writings changed last, newest first, the deleted ones left out.</summary>
         public List<GhostWriter> GhostWritersLast(int size)
         {
             return ElasticSearchServer.Last<GhostWriter>(size, nameof(GhostWriter.isDeleted)).ToList();
@@ -1321,7 +1585,7 @@ using System.Threading.Tasks;
             return ret;
         }
 
-        /// <summary>The <paramref name="size"/> last entries of the journal of the writing <paramref name="writingId"/>, newest first.</summary>
+        /// <summary>The <paramref title="size"/> last entries of the journal of the writing <paramref title="writingId"/>, newest first.</summary>
         public List<GhostWriterJournal> GhostWriterJournalOf(string writingId, int size)
         {
             var id = GhostWriter.Slug(writingId);
@@ -1374,7 +1638,7 @@ using System.Threading.Tasks;
             return ElasticSearchServer.Search<Idea>(term, IdeaSearchFields, size).ToList();
         }
 
-        /// <summary>The <paramref name="size"/> most recent ideas, newest first.</summary>
+        /// <summary>The <paramref title="size"/> most recent ideas, newest first.</summary>
         public List<Idea> IdeasLast(int size)
         {
             return ElasticSearchServer.Last<Idea>(size).ToList();
@@ -1457,7 +1721,7 @@ using System.Threading.Tasks;
             return ElasticSearchServer.Search<Diary>(term, DiarySearchFields, size, nameof(Diary.isDeleted)).ToList();
         }
 
-        /// <summary>The <paramref name="size"/> most recent diary entries, newest first, without the deleted ones.</summary>
+        /// <summary>The <paramref title="size"/> most recent diary entries, newest first, without the deleted ones.</summary>
         public List<Diary> DiariesLast(int size)
         {
             return ElasticSearchServer.Last<Diary>(size, nameof(Diary.isDeleted)).ToList();
@@ -1542,7 +1806,7 @@ using System.Threading.Tasks;
         }
 
         /// <summary>
-        /// Searches tasks on name, description, type, status and comment (<c>*</c> or empty: the newest ones); deleted
+        /// Searches tasks on title, description, type, status and comment (<c>*</c> or empty: the newest ones); deleted
         /// tasks (<c>isDeleted</c>) are left out.
         /// </summary>
         public List<TaskItem> TaskItemsSearch(string term, int size)
@@ -1550,7 +1814,7 @@ using System.Threading.Tasks;
             return ElasticSearchServer.Search<TaskItem>(term, TaskItemSearchFields, size, nameof(TaskItem.isDeleted)).ToList();
         }
 
-        /// <summary>The <paramref name="size"/> most recent tasks, newest first, without the deleted ones.</summary>
+        /// <summary>The <paramref title="size"/> most recent tasks, newest first, without the deleted ones.</summary>
         public List<TaskItem> TaskItemsLast(int size)
         {
             return ElasticSearchServer.Last<TaskItem>(size, nameof(TaskItem.isDeleted)).ToList();
@@ -1597,8 +1861,8 @@ using System.Threading.Tasks;
         /// </summary>
         private static readonly string[] IntelSearchFields =
         {
-            "name", "description", "categories", "triggers", "relatedEntities", "excludedEntities", "events", "signal",
-            "tags", "instruction", "actions",
+            "title", "instructions", "includedEntities.entityName", "excludedEntities.entityName",
+            "locations", "times", "relatedEntities", "questions", "tags", "events", "signals",
             "comment", "appName", "userName", "machineName"
         };
 
@@ -1614,6 +1878,10 @@ using System.Threading.Tasks;
             {
                 intel.date = DateTime.UtcNow;
             }
+            // The trigger level is a percentage; the entities without a name are left out.
+            intel.TriggerLevel = Math.Clamp(intel.TriggerLevel, 0, 100);
+            intel.IncludedEntities = (intel.IncludedEntities ?? new List<EntityWithWeight>()).Where(e => !string.IsNullOrWhiteSpace(e?.EntityName)).ToList();
+            intel.ExcludedEntities = (intel.ExcludedEntities ?? new List<EntityWithWeight>()).Where(e => !string.IsNullOrWhiteSpace(e?.EntityName)).ToList();
             try
             {
                 string retid = "";
@@ -1650,7 +1918,7 @@ using System.Threading.Tasks;
             return ElasticSearchServer.Search<Intel>(term, IntelSearchFields, size, nameof(Intel.isDeleted)).ToList();
         }
 
-        /// <summary>The <paramref name="size"/> most recent intels, newest first, without the deleted ones.</summary>
+        /// <summary>The <paramref title="size"/> most recent intels, newest first, without the deleted ones.</summary>
         public List<Intel> IntelsLast(int size)
         {
             return ElasticSearchServer.Last<Intel>(size, nameof(Intel.isDeleted)).ToList();
@@ -1750,10 +2018,58 @@ using System.Threading.Tasks;
             return ElasticSearchServer.Search<CollectionPlan>(term, CollectionPlanSearchFields, size, nameof(CollectionPlan.isDeleted)).ToList();
         }
 
-        /// <summary>The <paramref name="size"/> most recent collection plans, newest first, without the deleted ones.</summary>
+        /// <summary>The <paramref title="size"/> most recent collection plans, newest first, without the deleted ones.</summary>
         public List<CollectionPlan> CollectionPlansLast(int size)
         {
             return ElasticSearchServer.Last<CollectionPlan>(size, nameof(CollectionPlan.isDeleted)).ToList();
+        }
+
+        /// <summary>Saves (creates or overwrites) a web page of the web scraper in the data repository (index <c>webpage</c>).</summary>
+        public ServiceReturn WebPageSave(WebPage page) => SaveInData(page, "Web page");
+
+        /// <summary>Saves (creates or overwrites) a paragraph of a web page in the data repository (index <c>webparagraph</c>).</summary>
+        public ServiceReturn WebParagraphSave(WebParagraph paragraph) => SaveInData(paragraph, "Web paragraph");
+
+        /// <summary>
+        /// The most recent visit of <paramref title="url"/> by the web scraper (its URL or the URL reached), or null when
+        /// the page was never saved.
+        /// </summary>
+        public WebPage? WebPageLastVisit(string url)
+        {
+            if (string.IsNullOrWhiteSpace(url) || ElasticSearchServer == null)
+            {
+                return null;
+            }
+            var hits = ElasticSearchServer.Search<WebPage>(url, new[] { "url", "finalUrl" }, 50, nameof(WebPage.isDeleted));
+            return hits.Where(p => string.Equals(p.url, url, StringComparison.OrdinalIgnoreCase) || string.Equals(p.finalUrl, url, StringComparison.OrdinalIgnoreCase))
+                       .OrderByDescending(p => p.scrapedAt)
+                       .FirstOrDefault();
+        }
+
+        /// <summary>Saves a document in the data repository; a missing date is set to now.</summary>
+        private ServiceReturn SaveInData<TEntity>(TEntity entity, string what) where TEntity : EntityBase
+        {
+            ServiceReturn ret = new ServiceReturn();
+            if (_config == null || ElasticSearchServer == null)
+            {
+                throw new Exception("Config not done");
+            }
+            if (entity.date == default)
+            {
+                entity.date = DateTime.UtcNow;
+            }
+            try
+            {
+                ret.ReturnedId = ElasticSearchServer.Save(entity);
+                ret.Message = ret.ReturnedId + " id created. " + what + " well saved";
+            }
+            catch (Exception ex)
+            {
+                ret.Message = "Error : " + ex.Message;
+                ret.ReturnedId = "-1";
+                ret.Success = false;
+            }
+            return ret;
         }
 
         /// <summary>
@@ -1824,7 +2140,7 @@ using System.Threading.Tasks;
             return ret;
         }
 
-        /// <summary>The <paramref name="size"/> most recent activities, newest first, without the deleted ones.</summary>
+        /// <summary>The <paramref title="size"/> most recent activities, newest first, without the deleted ones.</summary>
         public List<UserActivities> UserActivitiesLast(int size)
         {
             return ElasticSearchServer.Last<UserActivities>(size, nameof(UserActivities.isDeleted)).ToList();
@@ -1866,7 +2182,7 @@ using System.Threading.Tasks;
         }
 
         /// <summary>
-        /// The <paramref name="size"/> best scores of <paramref name="game"/> (the highest first, the oldest first on a tie),
+        /// The <paramref title="size"/> best scores of <paramref title="game"/> (the highest first, the oldest first on a tie),
         /// among its last 5000 scores; deleted scores are left out.
         /// </summary>
         public List<GameScore> GameScoresBest(string game, int size)
@@ -1879,7 +2195,7 @@ using System.Threading.Tasks;
                 .ToList();
         }
 
-        /// <summary>The <paramref name="size"/> most recent scores (all games), newest first, without the deleted ones.</summary>
+        /// <summary>The <paramref title="size"/> most recent scores (all games), newest first, without the deleted ones.</summary>
         public List<GameScore> GameScoresLast(int size)
         {
             return ElasticSearchServer.Last<GameScore>(size, nameof(GameScore.isDeleted)).ToList();
@@ -1968,7 +2284,7 @@ using System.Threading.Tasks;
             return ElasticSearchServer.Search<YoutubeVideo>(term, YoutubeVideoSearchFields, size, nameof(YoutubeVideo.isDeleted)).ToList();
         }
 
-        /// <summary>The <paramref name="size"/> most recent YouTube videos, newest first, without the deleted ones.</summary>
+        /// <summary>The <paramref title="size"/> most recent YouTube videos, newest first, without the deleted ones.</summary>
         public List<YoutubeVideo> YoutubeVideosLast(int size)
         {
             return ElasticSearchServer.Last<YoutubeVideo>(size, nameof(YoutubeVideo.isDeleted)).ToList();
@@ -2067,7 +2383,7 @@ using System.Threading.Tasks;
             return ElasticSearchServer.Search<Document>(term, DocumentSearchFields, size, nameof(Document.isDeleted)).ToList();
         }
 
-        /// <summary>The <paramref name="size"/> most recent documents, newest first, without the deleted ones.</summary>
+        /// <summary>The <paramref title="size"/> most recent documents, newest first, without the deleted ones.</summary>
         public List<Document> DocumentsLast(int size)
         {
             return ElasticSearchServer.Last<Document>(size, nameof(Document.isDeleted)).ToList();
@@ -2110,7 +2426,7 @@ using System.Threading.Tasks;
 
 
         /// <summary>
-        /// Fields of <see cref="ImageAnalysis"/> searched by <see cref="ImageAnalysesSearch"/>: the file name, the AI
+        /// Fields of <see cref="ImageAnalysis"/> searched by <see cref="ImageAnalysesSearch"/>: the file title, the AI
         /// analysis, the comments, the comments of the annotations and the place.
         /// </summary>
         private static readonly string[] ImageAnalysisSearchFields = { "title", "fileName", "aiAnalysis", "comments.text", "annotations.comment", "locationName", "imagePath", "category", "comment" };
@@ -2163,7 +2479,7 @@ using System.Threading.Tasks;
             return (ImageAnalysis)ElasticSearchServer.Load<ImageAnalysis>(id);
         }
 
-        /// <summary>The analysis of the picture at <paramref name="imagePath"/> (null when it has none yet).</summary>
+        /// <summary>The analysis of the picture at <paramref title="imagePath"/> (null when it has none yet).</summary>
         public ImageAnalysis ImageAnalysisOfImage(string imagePath)
         {
             return string.IsNullOrWhiteSpace(imagePath) ? null : ImageAnalysisGet(ImageAnalysis.IdFor(imagePath));
@@ -2178,7 +2494,7 @@ using System.Threading.Tasks;
             return ElasticSearchServer.Search<ImageAnalysis>(term, ImageAnalysisSearchFields, size, nameof(ImageAnalysis.isDeleted)).ToList();
         }
 
-        /// <summary>The <paramref name="size"/> most recent image analyses, without the deleted ones.</summary>
+        /// <summary>The <paramref title="size"/> most recent image analyses, without the deleted ones.</summary>
         public List<ImageAnalysis> ImageAnalysesLast(int size)
         {
             return ElasticSearchServer.Last<ImageAnalysis>(size, nameof(ImageAnalysis.isDeleted)).ToList();
@@ -2316,7 +2632,7 @@ using System.Threading.Tasks;
             return ElasticSearchServer.Search<Relation>(term, RelationSearchFields, size, nameof(Relation.isDeleted)).ToList();
         }
 
-        /// <summary>The <paramref name="size"/> most recent relations, without the deleted ones.</summary>
+        /// <summary>The <paramref title="size"/> most recent relations, without the deleted ones.</summary>
         public List<Relation> RelationsLast(int size)
         {
             return ElasticSearchServer.Last<Relation>(size, nameof(Relation.isDeleted)).ToList();
@@ -2374,7 +2690,7 @@ using System.Threading.Tasks;
             {
                 throw new Exception("Config not done");
             }
-            if (string.IsNullOrWhiteSpace(annotation.text) && (annotation.tags == null || annotation.tags.Count == 0))
+            if (string.IsNullOrWhiteSpace(annotation.text) && (annotation.Tags == null || annotation.Tags.Count == 0))
             {
                 ret.ReturnedId = "-1";
                 ret.Success = false;
@@ -2394,8 +2710,8 @@ using System.Threading.Tasks;
                 {
                     annotation.id = Guid.NewGuid().ToString();
                 }
-                var tags = annotation.tags ?? [];
-                annotation.tags = [];
+                var tags = annotation.Tags ?? [];
+                annotation.Tags = [];
                 foreach (var tag in tags)
                 {
                     annotation.AddTag(tag);
@@ -2439,7 +2755,7 @@ using System.Threading.Tasks;
             return ElasticSearchServer.Search<Annotation>(term, AnnotationSearchFields, size, nameof(Annotation.isDeleted)).ToList();
         }
 
-        /// <summary>The <paramref name="size"/> most recent annotations, without the deleted ones.</summary>
+        /// <summary>The <paramref title="size"/> most recent annotations, without the deleted ones.</summary>
         public List<Annotation> AnnotationsLast(int size)
         {
             return ElasticSearchServer.Last<Annotation>(size, nameof(Annotation.isDeleted)).ToList();
@@ -2521,7 +2837,7 @@ using System.Threading.Tasks;
                 excludeFlag: nameof(Completion.isDeleted)).ToList();
         }
 
-        /// <summary>The <paramref name="size"/> most recent completions, newest first.</summary>
+        /// <summary>The <paramref title="size"/> most recent completions, newest first.</summary>
         public List<Completion> CompletionsLast(int size)
         {
             return ElasticSearchDialog.Last<Completion>(size).ToList();
@@ -2560,7 +2876,7 @@ using System.Threading.Tasks;
         public async Task<System.Text.Json.JsonElement> ImageOptionsAsync() =>
             await HelperFooocusClient.GetOptionsAsync(_config.fooocusUrl);
 
-        /// <summary>Generates the images of <paramref name="request"/> with Fooocus, and logs it (prompt, seed, time, or the error).</summary>
+        /// <summary>Generates the images of <paramref title="request"/> with Fooocus, and logs it (prompt, seed, time, or the error).</summary>
         public async Task<ImageGenerationResult> ImageGenerateAsync(ImageGenerationRequest request)
         {
             var result = await HelperFooocusClient.GenerateAsync(_config.fooocusUrl, request);

@@ -32,7 +32,6 @@ namespace KAONOMI.Core.Models
         public bool isOntologyClass { get; set; } = false;
         public string? Symbol { get; set; }
         public List<string> synonyms { get; set; }
-        public List<string> Tags { get; set; }
         public List<string> relatedLinks { get; set; }
         public List<string> relatedEntities { get; set; }
         public bool isDeleted { get; set; }

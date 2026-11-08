@@ -1,0 +1,81 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- The colours of the EVE theme of the Godot chat, flat: no translucency, no shader, no glow. -->
+  <Styles.Resources>
+    <ResourceDictionary>
+      <Color x:Key="KSpace">#05080B</Color>
+      <Color x:Key="KPanel">#0B0E12</Color>
+      <Color x:Key="KHeader">#171B1F</Color>
+      <Color x:Key="KField">#070A0D</Color>
+      <Color x:Key="KEdge">#33404A</Color>
+      <Color x:Key="KText">#D1D9DE</Color>
+      <Color x:Key="KTextBright">#F2F5F7</Color>
+      <Color x:Key="KMuted">#8C969F</Color>
+      <Color x:Key="KAccent">#5CC2E0</Color>
+      <Color x:Key="KWarm">#EDA338</Color>
+      <Color x:Key="KRed">#E0565B</Color>
+      <Color x:Key="KGreen">#5CCB7A</Color>
+      <SolidColorBrush x:Key="Space" Color="{StaticResource KSpace}" />
+      <SolidColorBrush x:Key="Panel" Color="{StaticResource KPanel}" />
+      <SolidColorBrush x:Key="Header" Color="{StaticResource KHeader}" />
+      <SolidColorBrush x:Key="Field" Color="{StaticResource KField}" />
+      <SolidColorBrush x:Key="Edge" Color="{StaticResource KEdge}" />
+      <SolidColorBrush x:Key="Text" Color="{StaticResource KText}" />
+      <SolidColorBrush x:Key="TextBright" Color="{StaticResource KTextBright}" />
+      <SolidColorBrush x:Key="Muted" Color="{StaticResource KMuted}" />
+      <SolidColorBrush x:Key="Accent" Color="{StaticResource KAccent}" />
+      <SolidColorBrush x:Key="Warm" Color="{StaticResource KWarm}" />
+      <SolidColorBrush x:Key="Red" Color="{StaticResource KRed}" />
+      <SolidColorBrush x:Key="Green" Color="{StaticResource KGreen}" />
+      <Color x:Key="SystemAccentColor">#5CC2E0</Color>
+    </ResourceDictionary>
+  </Styles.Resources>
+
+  <Style Selector="Window">
+    <Setter Property="Background" Value="{StaticResource Space}" />
+    <Setter Property="Foreground" Value="{StaticResource Text}" />
+    <Setter Property="FontSize" Value="13" />
+  </Style>
+  <Style Selector="TextBlock.caption">
+    <Setter Property="Foreground" Value="{StaticResource Muted}" />
+    <Setter Property="FontSize" Value="10" />
+    <Setter Property="LetterSpacing" Value="1" />
+  </Style>
+  <Style Selector="TextBlock.title">
+    <Setter Property="Foreground" Value="{StaticResource TextBright}" />
+    <Setter Property="FontSize" Value="15" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+  <Style Selector="Button">
+    <Setter Property="CornerRadius" Value="2" />
+    <Setter Property="Padding" Value="8,4" />
+  </Style>
+  <Style Selector="Button.primary">
+    <Setter Property="Background" Value="{StaticResource Accent}" />
+    <Setter Property="Foreground" Value="#05080B" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+  <Style Selector="Button.icon">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Padding" Value="4" />
+    <Setter Property="FontSize" Value="18" />
+    <Setter Property="Width" Value="44" />
+    <Setter Property="Height" Value="38" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Button.icon.open">
+    <Setter Property="BorderBrush" Value="{StaticResource Accent}" />
+    <Setter Property="BorderThickness" Value="2,0,0,0" />
+    <Setter Property="Background" Value="#1A5CC2E0" />
+  </Style>
+  <Style Selector="Button.small">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Padding" Value="4,0" />
+    <Setter Property="FontSize" Value="11" />
+    <Setter Property="MinHeight" Value="0" />
+  </Style>
+  <Style Selector="TextBox">
+    <Setter Property="CornerRadius" Value="2" />
+  </Style>
+</Styles>

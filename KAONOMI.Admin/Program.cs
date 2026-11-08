@@ -16,7 +16,7 @@ namespace KAONOMI.Admin
         static private string _defaultModel;
 
         /// <summary>Entry point: configuration, session, input loop, and async LLM calls.</summary>
-        /// <param name="args">Command-line arguments (unused).</param>
+        /// <param title="args">Command-line arguments (unused).</param>
         static async Task Main(string[] args)
         {
             string ollamaUrl = "http://localhost:11434";

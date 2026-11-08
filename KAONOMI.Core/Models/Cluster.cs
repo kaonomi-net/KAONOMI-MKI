@@ -29,7 +29,7 @@ public class ClusterPoint
 }
 
 /// <summary>
-/// A cluster: a group of elements of the graph of relations drawn around with the pen of <c>/relation</c>, with a name,
+/// A cluster: a group of elements of the graph of relations drawn around with the pen of <c>/relation</c>, with a title,
 /// a description and tags. Never erased (<see cref="ISoftDeletable"/>); the tags follow <see cref="TagRules"/>.
 /// </summary>
 public class Cluster : EntityBase, ISoftDeletable, ITagged
@@ -45,8 +45,6 @@ public class Cluster : EntityBase, ISoftDeletable, ITagged
     public List<ClusterMember> members { get; set; } = new List<ClusterMember>();
     /// <summary>The drawing of the pen, simplified, in the coordinates of the graph (shown smoothed by "Show clusters").</summary>
     public List<ClusterPoint> path { get; set; } = new List<ClusterPoint>();
-    /// <summary>The tags: #TOPIC, !ALERT, ?QUESTION, &amp;LINK, in upper case, no space (<see cref="TagRules"/>).</summary>
-    public List<string> Tags { get; set; } = new List<string>();
     /// <summary>When the cluster starts to hold (optional).</summary>
     public DateTime? dateFrom { get; set; }
     /// <summary>When the cluster stops holding (optional).</summary>

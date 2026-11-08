@@ -115,6 +115,41 @@ public sealed class KaonomiAssistantService
         return await response.Content.ReadJsonAsync<List<SearchHit>>(cancellationToken) ?? [];
     }
 
+    /// <summary>
+    /// The entities found by the NER in the dialogs of the last <paramref name="minutes"/> minutes (all when 0), counted,
+    /// the <paramref name="size"/> most frequent first, via <c>GET /detectedentity/top</c>.
+    /// </summary>
+    public async Task<IReadOnlyList<DetectedEntityCount>> GetDetectedEntitiesTopAsync(int minutes, int size, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.GetAsync($"detectedentity/top?minutes={minutes}&size={size}", cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<List<DetectedEntityCount>>(cancellationToken) ?? [];
+    }
+
+    /// <summary>The symbols found by the symbolic patterns in the last <paramref name="minutes"/> minutes, counted (<c>GET /detectedsymbol/top</c>).</summary>
+    public async Task<IReadOnlyList<DetectedSymbolCount>> GetDetectedSymbolsTopAsync(int minutes, int size, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.GetAsync($"detectedsymbol/top?minutes={minutes}&size={size}", cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<List<DetectedSymbolCount>>(cancellationToken) ?? [];
+    }
+
+    /// <summary>The tags found through the detections in the last <paramref name="minutes"/> minutes, counted (<c>GET /detectedtag/top</c>).</summary>
+    public async Task<IReadOnlyList<DetectedTagCount>> GetDetectedTagsTopAsync(int minutes, int size, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.GetAsync($"detectedtag/top?minutes={minutes}&size={size}", cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<List<DetectedTagCount>>(cancellationToken) ?? [];
+    }
+
+    /// <summary>The texts of the last <paramref name="size"/> white notes, newest first, via <c>GET /whitenote/last</c>.</summary>
+    public async Task<IReadOnlyList<WhiteNoteEntry>> GetLastWhiteNotesAsync(int size, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.GetAsync($"whitenote/last?size={size}", cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<List<WhiteNoteEntry>>(cancellationToken) ?? [];
+    }
+
     // ── Clusters (the groups of elements drawn with the pen of the graph of relations) ──
 
     /// <summary>Creates a cluster via <c>PUT /cluster</c>.</summary>
@@ -499,6 +534,19 @@ public sealed class KaonomiAssistantService
         var request = new CacheSearchRequest { Term = term, Size = size };
 
         using var response = await _httpClient.PostJsonAsync("symbolicpattern/search", request, cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+
+        return await response.Content.ReadJsonAsync<List<SymbolicPatternEntry>>(cancellationToken) ?? [];
+    }
+
+    /// <summary>Up to <paramref name="size"/> symbolic patterns, deleted ones included, via <c>POST /symbolicpattern/last</c>.</summary>
+    public async Task<IReadOnlyList<SymbolicPatternEntry>> GetLastSymbolicPatternsAsync(
+        int size,
+        CancellationToken cancellationToken = default)
+    {
+        var request = new CacheSearchRequest { Term = "*", Size = size };
+
+        using var response = await _httpClient.PostJsonAsync("symbolicpattern/last", request, cancellationToken);
         await EnsureSuccessAsync(response, cancellationToken);
 
         return await response.Content.ReadJsonAsync<List<SymbolicPatternEntry>>(cancellationToken) ?? [];

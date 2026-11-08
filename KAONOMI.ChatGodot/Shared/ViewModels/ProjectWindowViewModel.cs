@@ -167,11 +167,22 @@ public partial class ProjectWindowViewModel : ViewModelBase, INoteContextProvide
     [ObservableProperty]
     private string _newComment = string.Empty;
 
+    /// <summary>The tags (#TOPIC), events (@EVENT) and signals (!SIGNAL) of the new task, separated by spaces or commas.</summary>
+    [ObservableProperty]
+    private string _newTags = string.Empty;
+
+    [ObservableProperty]
+    private string _newEvents = string.Empty;
+
+    [ObservableProperty]
+    private string _newSignals = string.Empty;
+
     /// <summary>Shows an empty form for a new task (type change, status todo, starting today).</summary>
     [RelayCommand]
     private void NewTask()
     {
         NewName = NewDescription = NewSecurity = NewLegal = NewData = NewComment = string.Empty;
+        NewTags = NewEvents = NewSignals = string.Empty;
         NewType = "change";
         NewTaskStatus = "todo";
         NewStart = DateTime.Today;
@@ -201,6 +212,10 @@ public partial class ProjectWindowViewModel : ViewModelBase, INoteContextProvide
             tags
         }.Where(part => part is not null));
         NewComment = string.IsNullOrWhiteSpace(idea.Comment) ? origin : origin + "\n" + idea.Comment.Trim();
+        // The task takes the tags of the idea (its events and signals too).
+        NewTags = MetaTags.Format(MetaTags.Normalize(idea.Tags, MetaTags.Tag));
+        NewEvents = MetaTags.Format(MetaTags.Normalize(idea.Events, MetaTags.Event));
+        NewSignals = MetaTags.Format(MetaTags.Normalize(idea.Signals, MetaTags.Signal));
         IsError = false;
         Status = $"New task from the idea \"{(NewName.Length == 0 ? "(untitled)" : NewName)}\": check it, then CREATE.";
         ActivityLog.Info("Project", $"New task form filled from the idea {idea.Id ?? "(unsaved)"}");
@@ -225,6 +240,10 @@ public partial class ProjectWindowViewModel : ViewModelBase, INoteContextProvide
             MachineName = Environment.MachineName,
             UserName = Environment.UserName,
             Name = NewName.Trim(),
+            Title = NewName.Trim(),
+            Tags = MetaTags.Parse(NewTags, MetaTags.Tag),
+            Events = MetaTags.Parse(NewEvents, MetaTags.Event),
+            Signals = MetaTags.Parse(NewSignals, MetaTags.Signal),
             Description = NewDescription.Trim(),
             Type = NewType,
             Status = NewTaskStatus,

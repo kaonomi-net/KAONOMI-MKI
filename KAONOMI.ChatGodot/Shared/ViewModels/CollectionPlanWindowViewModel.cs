@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -63,7 +67,7 @@ public partial class CollectionPlanWindowViewModel : ViewModelBase, INoteContext
     private string _term = string.Empty;
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(CloneCommand), nameof(DeleteCommand), nameof(RunCommand))]
+    [NotifyCanExecuteChangedFor(nameof(CloneCommand), nameof(DeleteCommand), nameof(RunCommand), nameof(LaunchAgentCommand))]
     private CollectionPlanEntryViewModel? _selectedResult;
 
     /// <summary>True while RUN reads the websites and the model writes the analysis.</summary>
@@ -249,6 +253,163 @@ public partial class CollectionPlanWindowViewModel : ViewModelBase, INoteContext
         }
         var result = slug.ToString().Trim('-');
         return result.Length == 0 ? "plan" : result.Length > 60 ? result[..60] : result;
+    }
+
+    // ── LAUNCH AGENT: the web scraper agent (KAONOMI.Agent.WebScrapper) on the selected plan ──
+
+    /// <summary>The name of the process of the web scraper agent (its apphost).</summary>
+    private const string AgentProcessName = "KAONOMI.Agent.WebScrapper";
+
+    /// <summary>The web scraper agent started by LAUNCH AGENT, or null.</summary>
+    private Process? _agent;
+
+    /// <summary>True while the web scraper agent started from here runs.</summary>
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(LaunchAgentCommand), nameof(StopAgentCommand))]
+    private bool _isAgentRunning;
+
+    private bool CanLaunchAgent() => SelectedResult is { IsNew: false } && !IsAgentRunning;
+
+    /// <summary>A line the agent writes on its console: « [19:23:15] ▸ … », its marker x for an error, ! for a warning.</summary>
+    private static readonly Regex AgentLine = new(@"^\[\d\d:\d\d:\d\d\]\s*(?<mark>\S)\s+(?<text>.+)$", RegexOptions.Compiled);
+
+    /// <summary>The colors of the console (ANSI escapes), taken off the lines of the agent.</summary>
+    private static readonly Regex Ansi = new(@"\x1B\[[0-9;?]*[A-Za-z]|\x1B\][^\u0007]*\u0007", RegexOptions.Compiled);
+
+    /// <summary>
+    /// LAUNCH AGENT: starts the web scraper agent (KAONOMI.Agent.WebScrapper, <c>dotnet run -- --once --plan &lt;id&gt;</c>)
+    /// on the selected plan as it is saved on the server, active or not: it visits the URLs of its websites, keeps a
+    /// screenshot and the pictures of each page (Pictures/kaonomi/webscrapper), cuts the pages into paragraphs with
+    /// their entities and saves them (indices webpage and webparagraph). The steps of the agent are shown in the log of
+    /// the window, its whole output goes to ~/kaonomi/logs/WebScrapper.log.
+    /// </summary>
+    [RelayCommand(CanExecute = nameof(CanLaunchAgent))]
+    private async Task LaunchAgentAsync()
+    {
+        var entry = SelectedResult!;
+        IsError = false;
+        if (entry.IsDirty && !await ConfirmAsync($"\"{entry.Title}\" has unsaved changes: the agent reads the plan as it is saved on the server. Launch anyway?", "Launch"))
+            return;
+
+        var folder = Path.Combine(ProcessWindowViewModel.FindProjects(), AgentProcessName);
+        if (!File.Exists(Path.Combine(folder, AgentProcessName + ".csproj")))
+        {
+            Fail($"The web scraper agent was not found ({folder})");
+            return;
+        }
+        if (Process.GetProcessesByName(AgentProcessName).Length > 0)
+        {
+            Fail("The web scraper agent is already running (started from /process or a terminal): stop it first");
+            return;
+        }
+        var info = ProcessWindowViewModel.Dotnet(folder, "run", "--", "--once", "--plan", entry.Id!);
+        if (info is null)
+        {
+            Fail("dotnet was not found: install the .NET 8 SDK");
+            return;
+        }
+        // The agent writes its console in UTF-8 (the markers ▸ ✓ ·).
+        info.StandardOutputEncoding = System.Text.Encoding.UTF8;
+        info.StandardErrorEncoding = System.Text.Encoding.UTF8;
+
+        RunLog = string.Empty;
+        var lines = new ConcurrentQueue<(bool Error, string Text)>();
+        var errors = new List<string>();
+        StreamWriter? log = null;
+        var logPath = Path.Combine(ProcessWindowViewModel.LogsDirectory, "WebScrapper.log");
+        try
+        {
+            Directory.CreateDirectory(ProcessWindowViewModel.LogsDirectory);
+            log = new StreamWriter(logPath, append: true) { AutoFlush = true };
+            log.WriteLine($"──── {DateTime.Now:yyyy-MM-dd HH:mm:ss} · started from the collection plan window: --once --plan {entry.Id} ({entry.Title}) ────");
+            var writer = log;
+            void Received(string? data)
+            {
+                if (data is null)
+                    return;
+                lock (writer)
+                    writer.WriteLine(data);
+                var clean = Ansi.Replace(data, string.Empty).Trim();
+                if (AgentLine.Match(clean) is { Success: true } m)
+                    lines.Enqueue((m.Groups["mark"].Value == "x", m.Groups["text"].Value.Trim()));
+            }
+
+            _agent = new Process { StartInfo = info, EnableRaisingEvents = true };
+            _agent.OutputDataReceived += (_, e) => Received(e.Data);
+            _agent.ErrorDataReceived += (_, e) => Received(e.Data);
+            if (!_agent.Start())
+                throw new InvalidOperationException("the process did not start");
+            _agent.BeginOutputReadLine();
+            _agent.BeginErrorReadLine();
+            IsAgentRunning = true;
+            Status = $"Web scraper agent started on \"{entry.Title}\" (building it the first time takes a moment)…";
+            Log($"▶ Web scraper agent on \"{entry.Title}\" (output in {logPath})");
+            ActivityLog.Info("Collection", $"Web scraper agent launched on {entry.Id} ({entry.Title})");
+
+            // The steps of the agent shown as they come; the window stays responsive.
+            string? summary = null;
+            while (!_agent.HasExited)
+            {
+                await Task.Delay(400);
+                summary = Drain(lines) ?? summary;
+            }
+            await _agent.WaitForExitAsync();
+            summary = Drain(lines) ?? summary;
+
+            var code = _agent.ExitCode;
+            var nothingSaved = summary is null || summary.StartsWith("Saved 0 page", StringComparison.Ordinal);
+            IsError = (code != 0 && summary is null) || (errors.Count > 0 && nothingSaved);
+            Status = (summary is not null
+                    ? $"Web scraper agent done: {summary}"
+                    : code == 0 ? "Web scraper agent stopped" : $"Web scraper agent ended with code {code} (see {logPath})")
+                + (errors.Count > 0 ? $" · {errors.Count} error(s): {errors[0]}" : string.Empty);
+            Log((IsError ? "✕ " : "■ ") + Status);
+        }
+        catch (Exception ex) when (ex is System.ComponentModel.Win32Exception or IOException or InvalidOperationException)
+        {
+            Fail($"The web scraper agent could not be started: {ex.Message}");
+        }
+        finally
+        {
+            log?.Dispose();
+            _agent?.Dispose();
+            _agent = null;
+            IsAgentRunning = false;
+        }
+
+        // The new lines of the agent in the log (its errors kept); the summary of its run when it came ("Run done: Saved …").
+        string? Drain(ConcurrentQueue<(bool Error, string Text)> queue)
+        {
+            string? done = null;
+            while (queue.TryDequeue(out var line))
+            {
+                if (line.Text.StartsWith("Run done:", StringComparison.Ordinal))
+                    done = line.Text["Run done:".Length..].Trim();
+                if (line.Error)
+                    errors.Add(line.Text);
+                Log((line.Error ? "✕ " : "· ") + line.Text);
+                Status = line.Text;
+            }
+            return done;
+        }
+    }
+
+    /// <summary>Stops the web scraper agent started by LAUNCH AGENT (what it saved stays).</summary>
+    [RelayCommand(CanExecute = nameof(IsAgentRunning))]
+    private void StopAgent()
+    {
+        try
+        {
+            if (_agent is { HasExited: false } agent)
+            {
+                agent.Kill(entireProcessTree: true);
+                Status = "Stopping the web scraper agent…";
+            }
+        }
+        catch (Exception ex) when (ex is InvalidOperationException or System.ComponentModel.Win32Exception)
+        {
+            Fail($"The web scraper agent could not be stopped: {ex.Message}");
+        }
     }
 
     private void Log(string line) => RunLog = RunLog.Length == 0 ? line : RunLog + "\n" + line;

@@ -32,9 +32,21 @@ public sealed class AnnotationEntry
     /// <summary>The text of the annotation.</summary>
     public string Text { get; set; } = string.Empty;
 
+    [JsonPropertyName("title")]
+    /// <summary>The title of the annotation.</summary>
+    public string Title { get; set; } = string.Empty;
+
     [JsonPropertyName("tags")]
-    /// <summary>Its tags, as hashtags in upper case (the server normalizes them).</summary>
+    /// <summary>Its tags, #TOPIC in upper case, '-' inside one (the server normalizes them).</summary>
     public List<string> Tags { get; set; } = [];
+
+    [JsonPropertyName("events")]
+    /// <summary>Its events, @EVENT in upper case, '-' inside one.</summary>
+    public List<string> Events { get; set; } = [];
+
+    [JsonPropertyName("signals")]
+    /// <summary>Its signals, !SIGNAL in upper case, '-' inside one.</summary>
+    public List<string> Signals { get; set; } = [];
 
     [JsonPropertyName("targetType")]
     /// <summary>What is annotated (<see cref="AnnotationTargetTypes"/>).</summary>

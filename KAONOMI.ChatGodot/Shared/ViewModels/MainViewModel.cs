@@ -813,7 +813,6 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     private const string FractalCommand = "/fractal";
     private const string ChessCommand = "/game:chess";
     private const string GoCommand = "/game:go";
-    private const string MarieCommand = "/game:marie";
     private const string ImmuneCommand = "/immune";
     private const string AlarmCommand = "/alarm";
     private const string AlarmsCommand = "/alarms";
@@ -859,7 +858,7 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     private static bool IsToolCommand(string text) =>
         IsCommand(text, CacheCommand) || IsCommand(text, SearchCommand) || IsCommand(text, JsonCommand) || IsCommand(text, SymbolCommand)
         || IsCommand(text, OntologyCommand) || IsCommand(text, IdeaCommand) || IsCommand(text, CalculatorCommand) || IsCommand(text, PictureCommand) || IsCommand(text, PicturesCommand) || IsCommand(text, MusicCommand) || IsCommand(text, DiaryCommand) || IsCommand(text, JournalCommand) || IsCommand(text, YoutubeCommand) || IsCommand(text, FooocusCommand) || IsCommand(text, CompletionCommand) || IsCommand(text, SystemCommand) || IsCommand(text, LogCommand) || IsCommand(text, LogsCommand) || IsCommand(text, TokenCommand) || IsCommand(text, TokensCommand)
-        || IsCommand(text, ConfigCommand) || IsCommand(text, RemoteCommand) || IsCommand(text, ProjectCommand) || IsCommand(text, IntelCommand) || IsCommand(text, CollectionPlanCommand) || IsCommand(text, Game1Command) || IsCommand(text, FractalCommand) || IsCommand(text, ChessCommand) || IsCommand(text, GoCommand) || IsCommand(text, MarieCommand) || IsCommand(text, ImmuneCommand) || IsCommand(text, AlarmCommand) || IsCommand(text, AlarmsCommand) || IsCommand(text, CalendarCommand) || IsCommand(text, IqCommand) || IsCommand(text, ActivityCommand)
+        || IsCommand(text, ConfigCommand) || IsCommand(text, RemoteCommand) || IsCommand(text, ProjectCommand) || IsCommand(text, IntelCommand) || IsCommand(text, CollectionPlanCommand) || IsCommand(text, Game1Command) || IsCommand(text, FractalCommand) || IsCommand(text, ChessCommand) || IsCommand(text, GoCommand) || IsCommand(text, ImmuneCommand) || IsCommand(text, AlarmCommand) || IsCommand(text, AlarmsCommand) || IsCommand(text, CalendarCommand) || IsCommand(text, IqCommand) || IsCommand(text, ActivityCommand)
         || IsCommand(text, RelationCommand) || IsCommand(text, FoldersCommand) || IsCommand(text, FolderCommand) || IsCommand(text, PresetCommand) || IsCommand(text, PresetsCommand)
         || IsCommand(text, ProcessCommand) || IsCommand(text, ProcessesCommand) || IsCommand(text, GatewayCommand) || IsCommand(text, WikiCommand) || IsCommand(text, BpmnCommand) || IsCommand(text, InfraCommand) || IsCommand(text, MindmapCommand) || IsCommand(text, WriteCommand) || IsCommand(text, ConsoleCommand);
 
@@ -1291,7 +1290,6 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
             + "- `/game:solitaire`: the morpion solitaire: add a point, draw a line of 4 cells through it (horizontal, vertical or diagonal), +1 per line, never over another line\n"
             + "- `/game:chess`: a game of chess against the LLM: you play White on the board (click a piece then its square, or drag it), the model of the chat (or the one chosen in the window) plays Black from the position and the list of its legal moves; every rule applies (castling, en passant, promotion, check, checkmate, stalemate, the fifty-move rule, threefold repetition, too little material); the list of every move in algebraic notation on the side, UNDO, RESIGN, PGN (copied); `/ngame:chess` opens it in its own window\n"
             + "- `/game:go`: a game of go against the LLM: you play Black (click a point), the model of the chat (or the one chosen in the window) plays White from the board and the list of its legal points; 9×9, 13×13 or 19×19, Chinese rules (captures, no suicide, no repeated position, area scoring, komi 7.5); PASS, two passes end the play, then click the dead groups and COUNT; the list of every move on the side, UNDO, RESIGN, SGF (copied); `/ngame:go` opens it in its own window\n"
-            + "- `/game:marie`: a first-person game in a maze of 25×25 cells hunted by MarieKilleuse, who always knows the way to you and is a bit faster than you; find the exit at the far corner; green crosses give life points, yellow bolts make you twice as fast as her for 12 s, the pistol, the shotgun and the plasma gun knock her down for a while; click in the maze to play (ZQSD / WASD or arrows, the mouse to look, click or space to shoot, 1 2 3 or the wheel for the weapon, M for the map, Esc to pause); the 10 best escapes are kept; `/ngame:marie` opens it in its own window\n"
             + "- `/iq`: IQ tests: number series, matrices of shapes, words (analogies, odd one out, in the language of the chat), memory of digits, each of 10 questions harder and harder with 60 s each, or the full test (24 questions); at the end the score by test, an indicative IQ (not a measured one) and the review of every question with its explanation; the results are kept\n"
             + "- `/calendar`: the calendar: the month (◀ ▶, TODAY), each day with its events and the alarms of /alarm; a click selects a day, a double-click adds an event; each event with its title, day, start and end (or the whole day), repeat (daily, weekly, monthly, yearly), reminder (rung by the chat as the alarms, with the title said by the avatar), colour and notes\n"
             + "- `/alarm` (or `/alarms`): the alarm clock: several alarms, each with its time, its label, once on a day or weekly on the days ticked (every day, Mon–Fri, weekend; one week in 1 to 4), its ringtone (Bell, Digital, Chime, Rising; ▶ TEST), its snooze and its label said by the avatar; they ring even with the window closed: STOP (Enter) or SNOOZE (S)\n"
@@ -1577,9 +1575,6 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     /// <summary>Raised when the user types the <c>/game:go</c> command: a game of go against the LLM.</summary>
     public event Action<GoWindowViewModel, bool>? GoWindowRequested;
 
-    /// <summary>Raised when the user types the <c>/game:marie</c> command: the maze of MarieKilleuse.</summary>
-    public event Action<MarieWindowViewModel, bool>? MarieWindowRequested;
-
     /// <summary>Raised when the user types the <c>/immune</c> command: the scan for AI images and Office code.</summary>
     public event Action<ImmuneWindowViewModel, bool>? ImmuneWindowRequested;
 
@@ -1844,12 +1839,6 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
         {
             // White is played by the model selected in the chat (it can be changed in the window).
             GoWindowRequested?.Invoke(new GoWindowViewModel(_ollama, Models, SelectedModel ?? _settings.Model, _settings.Language), detached);
-            return true;
-        }
-
-        if (IsCommand(command, MarieCommand))
-        {
-            MarieWindowRequested?.Invoke(new MarieWindowViewModel(), detached);
             return true;
         }
 

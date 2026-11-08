@@ -26,7 +26,7 @@ namespace KAONOMI.Core.Helpers
             SendChatMessageAsync(baseUrl, modelName, userPrompt, systemPrompt: null);
 
         /// <summary>
-        /// Sends a request to Ollama, preceded by <paramref name="systemPrompt"/> as the system message when it is not
+        /// Sends a request to Ollama, preceded by <paramref title="systemPrompt"/> as the system message when it is not
         /// empty, and returns the text along with usage statistics.
         /// </summary>
         public static async Task<OllamaChatResult> SendChatMessageAsync(string baseUrl, string modelName, string userPrompt, string? systemPrompt)

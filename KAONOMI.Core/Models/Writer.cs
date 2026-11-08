@@ -18,7 +18,6 @@ namespace KAONOMI.Core.Models
         /// <summary>Never erased: marked deleted instead (<see cref="ISoftDeletable"/>).</summary>
         public bool isDeleted { get; set; } = false;
 
-        public string title { get; set; } = string.Empty;
         public string description { get; set; } = string.Empty;
         public string goals { get; set; } = string.Empty;
         public string audienceDescription { get; set; } = string.Empty;

@@ -7,11 +7,11 @@ namespace KAONOMI.Core.Models
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Performance measurement for an operation (durations, operation name, metadata).
+    /// Performance measurement for an operation (durations, operation title, metadata).
     /// </summary>
     public class Performance : EntityBase
     {
-        /// <summary>Logical name of the measured operation.</summary>
+        /// <summary>Logical title of the measured operation.</summary>
         public string operationName { get; set; } = string.Empty;
         /// <summary>Start time.</summary>
         public DateTime startTime { get; set; }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace KAONOMI.Chat.Models;
@@ -34,6 +35,19 @@ public sealed class TaskEntry
     [JsonPropertyName("name")]
     /// <summary>Title of the task.</summary>
     public string? Name { get; set; }
+
+    /// <summary>The title of the document (the window sets it to the name of the task).</summary>
+    [JsonPropertyName("title")]
+    public string Title { get; set; } = string.Empty;
+
+    [JsonPropertyName("tags")]
+    public List<string> Tags { get; set; } = [];
+
+    [JsonPropertyName("events")]
+    public List<string> Events { get; set; } = [];
+
+    [JsonPropertyName("signals")]
+    public List<string> Signals { get; set; } = [];
 
     [JsonPropertyName("description")]
     public string? Description { get; set; }

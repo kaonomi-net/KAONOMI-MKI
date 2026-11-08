@@ -9,8 +9,6 @@ namespace KAONOMI.Core.Models;
 /// </summary>
 public class Relation : EntityBase, ISoftDeletable, ITagged
 {
-    /// <summary>The tags: #TOPIC, !ALERT, ?QUESTION, &amp;LINK, in upper case, no space (<see cref="TagRules"/>).</summary>
-    public List<string> Tags { get; set; } = new List<string>();
 
     /// <summary>Kind of relation: "interdata" for a link between the data of windows.</summary>
     public string category { get; set; } = "interdata";
@@ -35,8 +33,6 @@ public class RelationVersion : EntityBase
     /// <summary>Nature of the link (e.g. "cause of", "same person", "illustrates", "contradicts").</summary>
     public string? nature { get; set; }
 
-    /// <summary>Title of the link.</summary>
-    public string? title { get; set; }
 
     /// <summary>Description of the link.</summary>
     public string? description { get; set; }
@@ -71,11 +67,6 @@ public class RelationEnd : EntityBase
     /// <summary>Id of the object shown in the window (an idea, a document, an image analysis…), when there is one.</summary>
     public string? objectId { get; set; }
 
-    /// <summary>
-    /// Title of the object (for an entity of the ontology its name), shown in the relation window and in the graph of
-    /// <c>/relation</c>; updated by Refresh in the relation window.
-    /// </summary>
-    public string? title { get; set; }
 
     /// <summary>What the user wrote about this end of the link.</summary>
     public string? information { get; set; }

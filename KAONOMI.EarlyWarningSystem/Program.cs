@@ -25,7 +25,7 @@ namespace KAONOMI.EarlyWarningSystem
         static private Config _config = null!;
 
         /// <summary>Loads configuration, starts the MARI host, and runs the earlywarningsystem sequence every second.</summary>
-        /// <param name="args">Command-line arguments passed to the generic host.</param>
+        /// <param title="args">Command-line arguments passed to the generic host.</param>
         static async Task Main(string[] args)
         {
             Config config = HelperConfigManager.GetFromFile<Config>("config.json")

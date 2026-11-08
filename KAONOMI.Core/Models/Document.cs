@@ -3,10 +3,12 @@ namespace KAONOMI.Core.Models;
 
 public class Document : EntityBase, ISoftDeletable, ITagged
 {
-    /// <summary>The tags: #TOPIC, !ALERT, ?QUESTION, &amp;LINK, in upper case, no space (<see cref="TagRules"/>).</summary>
-    public List<string> Tags { get; set; } = new List<string>();
+    /// <summary>A new document is named "noname" until it is given a title.</summary>
+    public Document()
+    {
+        title = "noname";
+    }
 
-    public string? title { get; set; } = "noname";
     public string? author { get; set; } 
     public string category { get; set; } // "math", "text", "physic", "webpage"
     public string? description { get; set; } 

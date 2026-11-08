@@ -315,7 +315,6 @@ public partial class Main : Control
         _vm.FractalWindowRequested += (vm, _) => Open(vm, "/fractal");
         _vm.ChessWindowRequested += (vm, _) => Open(vm, "/game:chess");
         _vm.GoWindowRequested += (vm, _) => Open(vm, "/game:go");
-        _vm.MarieWindowRequested += (vm, _) => Open(vm, "/game:marie");
         _vm.ImmuneWindowRequested += (vm, _) => Open(vm, "/immune");
         _vm.AlarmWindowRequested += (vm, _) => Open(vm, "/alarm");
         _vm.CalendarWindowRequested += (vm, _) => Open(vm, "/calendar");

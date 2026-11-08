@@ -16,8 +16,6 @@ namespace KAONOMI.Core.Models
         /// <summary>Never erased: marked deleted instead (<see cref="ISoftDeletable"/>).</summary>
         public bool isDeleted { get; set; } = false;
 
-        /// <summary>The tags: #TOPIC, !ALERT, ?QUESTION, &amp;LINK, in upper case, no space (<see cref="TagRules"/>).</summary>
-        public List<string> Tags { get; set; } = new List<string>();
 
         /// <summary>Client or server session identifier grouping related turns.</summary>
         public string SessionId { get; set; }

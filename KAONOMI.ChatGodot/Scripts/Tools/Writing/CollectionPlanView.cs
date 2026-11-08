@@ -138,6 +138,8 @@ public sealed class CollectionPlanView : IToolView
             statusRow,
             Ui.Command("🕷 RUN", vm.RunCommand, tooltip: "Read the websites of this plan (by the mode and the keywords of each URL), let the model of the chat carry out the instructions on them, and open the result as a new document of /work"),
             Bind.Visible(Ui.Command("■ CANCEL", vm.CancelRunCommand, tooltip: "Stop the run"), vm, nameof(vm.IsRunning)),
+            Ui.Command("🤖 LAUNCH AGENT", vm.LaunchAgentCommand, tooltip: "Launch the web scraper agent (KAONOMI.Agent.WebScrapper) on this plan as it is saved: it visits its URLs, keeps a screenshot and the pictures of each page (Pictures/kaonomi/webscrapper), cuts the pages into paragraphs with their entities and saves them"),
+            Bind.Visible(Ui.Command("■ STOP AGENT", vm.StopAgentCommand, tooltip: "Stop the web scraper agent (what it saved stays)"), vm, nameof(vm.IsAgentRunning)),
             Ui.Command("DELETE", vm.DeleteCommand, tooltip: "Delete this collection plan (only marked deleted on the server: isDeleted = true)"),
             Ui.Command("CLONE", vm.CloneCommand, tooltip: "Create a copy of this collection plan (new id on save)"),
             Ui.Command("DISCARD CHANGES", entry.RevertCommand),

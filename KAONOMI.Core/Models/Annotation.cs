@@ -13,21 +13,15 @@ public class Annotation : EntityBase
     public string text { get; set; } = string.Empty;
 
     /// <summary>
-    /// The tags of the annotation, each a hashtag in upper case (<c>#SOFTWARE</c>, <c>#IDEA</c>…); use
-    /// <see cref="NormalizeTag"/> to write one.
-    /// </summary>
-    public List<string> tags { get; set; } = [];
-
-    /// <summary>
     /// What is annotated: one of <see cref="AnnotationTargetTypes"/> (Entity, TextBlock, Image, ProjectItem, Idea…), or
-    /// the name of another kind of object.
+    /// the title of another kind of object.
     /// </summary>
     public string targetType { get; set; } = string.Empty;
 
     /// <summary>The id of the object annotated (the id of the entity, of the image analysis, of the idea…).</summary>
     public string? targetId { get; set; }
 
-    /// <summary>The title of the object annotated when it was annotated (its name, the title of the picture…).</summary>
+    /// <summary>The title of the object annotated when it was annotated (its title, the title of the picture…).</summary>
     public string? targetTitle { get; set; }
 
     /// <summary>For a part of an object (a block of text, a region of an image): the text or the description of that part.</summary>
@@ -48,20 +42,15 @@ public class Annotation : EntityBase
     /// </summary>
     public static string? NormalizeTag(string? tag)
     {
-        var word = tag?.Trim().TrimStart('#').Trim();
-        if (string.IsNullOrEmpty(word))
-        {
-            return null;
-        }
-        return "#" + string.Join('_', word.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries)).ToUpperInvariant();
+        return TagRules.Normalize(tag, TagRules.TagPrefix);
     }
 
-    /// <summary>Adds <paramref name="tag"/> (normalized) unless it is empty or there already.</summary>
+    /// <summary>Adds <paramref title="tag"/> (normalized) unless it is empty or there already.</summary>
     public void AddTag(string? tag)
     {
-        if (NormalizeTag(tag) is { } normalized && !tags.Contains(normalized, StringComparer.Ordinal))
+        if (NormalizeTag(tag) is { } normalized && !Tags.Contains(normalized, StringComparer.Ordinal))
         {
-            tags.Add(normalized);
+            Tags.Add(normalized);
         }
     }
 }

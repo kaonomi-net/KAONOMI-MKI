@@ -4,6 +4,7 @@ using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 using Godot;
 using KAONOMI.Chat.Models;
+using KAONOMI.Chat.Services;
 using KAONOMI.Chat.ViewModels;
 using KAONOMI.ChatGodot.Eve;
 
@@ -207,9 +208,13 @@ public sealed class EntityView : IToolView
             emotions.AddChild(Bind.Number(spin, node, property));
         }
 
+        // The title, the tags, the events and the signals of the node (see MetaTags: upper case, '-' for the spaces).
         var rightColumn = Ui.Column(8,
+            Ui.Field("Title", Ui.Line(node, nameof(node.Title), "Title of the node (besides its name)")),
             Pair(Ui.Field("Synonyms (one per line)", Ui.Lines(node, nameof(node.Synonyms), 90)),
-                Ui.Field("Tags (one per line)", Ui.Lines(node, nameof(node.Tags), 90))),
+                Ui.Field("Tags (one per line)", Ui.Lines(node, nameof(node.Tags), 90, MetaTags.TagsHint))),
+            Pair(Ui.Field("Events (one per line)", Ui.Lines(node, nameof(node.Events), 60, MetaTags.EventsHint)),
+                Ui.Field("Signals (one per line)", Ui.Lines(node, nameof(node.Signals), 60, MetaTags.SignalsHint))),
             Pair(Ui.Field("Related entities (one per line)", Ui.Lines(node, nameof(node.RelatedEntities), 60)),
                 Ui.Field("Related links (one per line)", Ui.Lines(node, nameof(node.RelatedLinks), 60))),
             Ui.Field("Emotion levels", emotions));

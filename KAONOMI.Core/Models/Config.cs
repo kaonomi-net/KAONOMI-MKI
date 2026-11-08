@@ -6,7 +6,7 @@ namespace KAONOMI.Core.Models
     public class Config
 
     {
-        /// <summary>Application name.</summary>
+        /// <summary>Application title.</summary>
         public string appName { get; set; } = "APPx";
         /// <summary>Project or logical group (e.g. "common").</summary>
         public string? projectName { get; set; } = "common";
@@ -34,14 +34,15 @@ namespace KAONOMI.Core.Models
         public ElasticServerSettings? dialogRepository { get; set; }
         /// <summary>Elasticsearch settings for admin / logs (otherwise reuse the main repository).</summary>
         public ElasticServerSettings? adminRepository { get; set; }
-        /// <summary>Default LLM model name (Ollama).</summary>
+        /// <summary>Default LLM model title (Ollama).</summary>
         public string llmmodel { get; set; } = "gemma3:4b";
         /// <summary>Target latency or threshold in milliseconds.</summary>
         public int latencyInms { get; set; } = 100;
 
         /// <summary>
         /// Folder of the NER model of the server (XLM-RoBERTa int8 in ONNX: model_quantized.onnx, tokenizer.json,
-        /// config.json); null: <c>~/kaonomi/models/ner/xlm-roberta-base-ner-hrl-int8</c>.
+        /// config.json); null: <c>~/kaonomi/models/ner/xlm-roberta-large-finetuned-conll03-english-int8</c> (or the former
+        /// <c>xlm-roberta-base-ner-hrl-int8</c> when the large one is missing).
         /// </summary>
         public string? nerModelFolder { get; set; }
 

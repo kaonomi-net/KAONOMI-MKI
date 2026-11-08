@@ -11,7 +11,7 @@ namespace KAONOMI.Metacognition
     internal class MetaCognitionCollecVAgent : VGrainBase<iMetaCognitionCollecVAgent>, iMetaCognitionCollecVAgent
     {
         /// <summary>Creates the agent with the given logger.</summary>
-        /// <param name="logger">Logger for collection operations.</param>
+        /// <param title="logger">Logger for collection operations.</param>
         public MetaCognitionCollecVAgent(ILogger<iMetaCognitionCollecVAgent> logger) : base(logger)
         {
         }

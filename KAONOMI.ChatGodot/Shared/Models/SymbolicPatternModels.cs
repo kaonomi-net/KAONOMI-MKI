@@ -47,9 +47,25 @@ public sealed class SymbolicPatternEntry
     /// <summary>Optional event identifier triggered by the pattern.</summary>
     public string? Event { get; set; }
 
+    [JsonPropertyName("title")]
+    /// <summary>Title of the pattern.</summary>
+    public string Title { get; set; } = string.Empty;
+
     [JsonPropertyName("tags")]
-    /// <summary>Tags used to classify or filter patterns.</summary>
+    /// <summary>Tags used to classify or filter patterns (#TOPIC).</summary>
     public List<string>? Tags { get; set; }
+
+    [JsonPropertyName("events")]
+    /// <summary>Events of the pattern (@EVENT); not the single <see cref="Event"/> it triggers.</summary>
+    public List<string> Events { get; set; } = [];
+
+    [JsonPropertyName("signals")]
+    /// <summary>Signals of the pattern (!SIGNAL).</summary>
+    public List<string> Signals { get; set; } = [];
+
+    /// <summary>The language of the words matched: FR, EN, DE, NL, ES, IT, PT, RU, ZH, JA, KO…</summary>
+    [JsonPropertyName("language")]
+    public string? Language { get; set; }
 
     [JsonPropertyName("isDeleted")]
     /// <summary>Soft-delete flag when the document should be hidden.</summary>

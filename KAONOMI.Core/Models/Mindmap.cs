@@ -16,8 +16,6 @@ public partial class Mindmap : EntityBase, ISoftDeletable, ITagged
     /// <summary>Never erased: marked deleted instead (<see cref="ISoftDeletable"/>).</summary>
     public bool isDeleted { get; set; } = false;
 
-    /// <summary>The title of the map: the text of its central topic.</summary>
-    public string title { get; set; } = string.Empty;
     /// <summary>The comment written with the map (free text).</summary>
     public string description { get; set; } = string.Empty;
     /// <summary>The map, as FreeMind XML.</summary>
@@ -32,8 +30,6 @@ public partial class Mindmap : EntityBase, ISoftDeletable, ITagged
     public DateTime? created { get; set; }
     /// <summary>The version of the map: 1 at its creation, one more at each save.</summary>
     public int version { get; set; }
-    /// <summary>The tags: #TOPIC, !ALERT, ?QUESTION, &amp;LINK, in upper case, no space (<see cref="TagRules"/>).</summary>
-    public List<string> Tags { get; set; } = new List<string>();
 
     /// <summary>The slug of a title, as for the pages of the wiki ("map" when nothing is left).</summary>
     public static string Slug(string? text)

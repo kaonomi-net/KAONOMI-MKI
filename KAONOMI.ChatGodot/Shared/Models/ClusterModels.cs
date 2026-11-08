@@ -103,9 +103,21 @@ public sealed class ClusterEntry
     [JsonPropertyName("path")]
     public List<ClusterPointEntry> Path { get; set; } = [];
 
-    /// <summary>The tags: #TOPIC, !ALERT, ?QUESTION, &amp;LINK (the server puts them in upper case, without a space).</summary>
+    /// <summary>The title of the cluster (besides its name).</summary>
+    [JsonPropertyName("title")]
+    public string Title { get; set; } = string.Empty;
+
+    /// <summary>The tags: #TOPIC, upper case, '-' for the spaces (<see cref="Services.MetaTags"/>).</summary>
     [JsonPropertyName("tags")]
     public List<string> Tags { get; set; } = [];
+
+    /// <summary>The events: @EVENT.</summary>
+    [JsonPropertyName("events")]
+    public List<string> Events { get; set; } = [];
+
+    /// <summary>The signals: !SIGNAL.</summary>
+    [JsonPropertyName("signals")]
+    public List<string> Signals { get; set; } = [];
 
     [JsonPropertyName("isDeleted")]
     public bool IsDeleted { get; set; }

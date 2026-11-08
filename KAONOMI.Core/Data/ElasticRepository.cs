@@ -82,10 +82,10 @@ namespace KAONOMI.Core.Data
 
 
         /// <summary>
-        /// Fuzzy / wildcard search on several fields at once (a hit on any field matches), <paramref name="size"/>
-        /// results at most; an empty term or <c>*</c> matches every document. With <paramref name="excludeFlag"/> (e.g.
+        /// Fuzzy / wildcard search on several fields at once (a hit on any field matches), <paramref title="size"/>
+        /// results at most; an empty term or <c>*</c> matches every document. With <paramref title="excludeFlag"/> (e.g.
         /// <c>isDeleted</c>), the documents where that boolean field is true are left out. With
-        /// <paramref name="wordPrefixes"/>, each word may also be the start of a word, accents ignored, or hold a typo
+        /// <paramref title="wordPrefixes"/>, each word may also be the start of a word, accents ignored, or hold a typo
         /// (see <see cref="WordQuery{TEntity}"/>).
         /// </summary>
         public IReadOnlyCollection<TEntity> Search<TEntity>(string freeText, IReadOnlyList<string> fieldNames, int size, string? excludeFlag = null,
@@ -97,9 +97,9 @@ namespace KAONOMI.Core.Data
 
         /// <summary>
         /// Loose search, for a search bar whose plain search found nothing: a document matches when
-        /// <paramref name="fieldName"/> holds at least one word of <paramref name="freeText"/> with a typo (fuzzy,
+        /// <paramref title="fieldName"/> holds at least one word of <paramref title="freeText"/> with a typo (fuzzy,
         /// <c>AUTO</c>) or as the start of one of its words, accents ignored (see <see cref="WordQuery{TEntity}"/>).
-        /// The best matches (the most words found) come first, <paramref name="size"/> results at most.
+        /// The best matches (the most words found) come first, <paramref title="size"/> results at most.
         /// </summary>
         public IReadOnlyCollection<TEntity> SearchFuzzy<TEntity>(string freeText, string fieldName, int size)
             where TEntity : EntityBase
@@ -108,7 +108,7 @@ namespace KAONOMI.Core.Data
         }
 
         /// <summary>
-        /// A loose search of <paramref name="freeText"/> in the index named <paramref name="index"/> (its prefix added),
+        /// A loose search of <paramref title="freeText"/> in the index named <paramref title="index"/> (its prefix added),
         /// whatever its documents are: every text field of its mapping is searched, a word with a typo (fuzzy,
         /// <c>AUTO</c>) or as the start of a word, accents ignored, is enough; the documents holding every word come
         /// first. Each hit gives the title, the date and the application of the document when it has them, a piece
@@ -179,8 +179,8 @@ namespace KAONOMI.Core.Data
         }
 
         /// <summary>
-        /// The documents of the index named <paramref name="index"/> dated since <paramref name="since"/>, the newest
-        /// first, <paramref name="size"/> at most, each one as a <see cref="SearchHit"/> (its title, its text, its
+        /// The documents of the index named <paramref title="index"/> dated since <paramref title="since"/>, the newest
+        /// first, <paramref title="size"/> at most, each one as a <see cref="SearchHit"/> (its title, its text, its
         /// source). An index that does not exist gives nothing.
         /// </summary>
         public IReadOnlyCollection<SearchHit> RecentIndex(string index, DateTime since, int size)
@@ -206,13 +206,13 @@ namespace KAONOMI.Core.Data
                 .Select(hit => ToSearchHit(index, hit.Id, hit.Score ?? 0, hit.Source, fields, Array.Empty<string>())).ToList();
         }
 
-        /// <summary>The text fields of the index <paramref name="name"/> from its mapping, or null when the index does not exist.</summary>
+        /// <summary>The text fields of the index <paramref title="name"/> from its mapping, or null when the index does not exist.</summary>
         /// <summary>The text fields of each index read lately (a mapping changes seldom: read again after <see cref="TextFieldsTtl"/>).</summary>
         private static readonly System.Collections.Concurrent.ConcurrentDictionary<string, (DateTime Read, List<string>? Fields)> TextFieldsCache = new();
         private static readonly TimeSpan TextFieldsTtl = TimeSpan.FromSeconds(60);
 
         /// <summary>
-        /// The text fields of the mapping of the index <paramref name="name"/> (null when the index does not exist), kept
+        /// The text fields of the mapping of the index <paramref title="name"/> (null when the index does not exist), kept
         /// for a minute: the searches of the same index do not read its mapping again each time.
         /// </summary>
         private static List<string>? TextFieldsOf(ElasticClient client, string name)
@@ -240,7 +240,7 @@ namespace KAONOMI.Core.Data
             return fields;
         }
 
-        /// <summary>The names (dotted) of the text fields of <paramref name="properties"/>, the objects walked.</summary>
+        /// <summary>The names (dotted) of the text fields of <paramref title="properties"/>, the objects walked.</summary>
         private static void CollectTextFields(IProperties? properties, string? prefix, List<string> fields)
         {
             if (properties is null)
@@ -347,14 +347,14 @@ namespace KAONOMI.Core.Data
         /// <summary>Largest number of documents returned by one search (Elasticsearch default max_result_window).</summary>
         public const int MaxResults = 10000;
 
-        /// <summary>The <paramref name="size"/> most recent logs, newest first (<see cref="iElasticRepository{TEntity}.Last"/>).</summary>
+        /// <summary>The <paramref title="size"/> most recent logs, newest first (<see cref="iElasticRepository{TEntity}.Last"/>).</summary>
         public IReadOnlyCollection<Log> Last(int size)
         {
             return LastImpl<Log>(size);
         }
 
         /// <summary>
-        /// Erases every document of <typeparamref name="TEntity"/>: its index is deleted (it is created again, empty, at
+        /// Erases every document of <typeparamref title="TEntity"/>: its index is deleted (it is created again, empty, at
         /// the next save). Returns the number of documents it held (0 when it did not exist).
         /// </summary>
         public long DeleteAll<TEntity>()
@@ -369,7 +369,7 @@ namespace KAONOMI.Core.Data
             return count.IsValid ? count.Count : 0;
         }
 
-        /// <summary>The <paramref name="size"/> most recent documents of any entity type, newest first (at most <see cref="MaxResults"/>).</summary>
+        /// <summary>The <paramref title="size"/> most recent documents of any entity type, newest first (at most <see cref="MaxResults"/>).</summary>
         public IReadOnlyCollection<TEntity> Last<TEntity>(int size)
             where TEntity : EntityBase
         {
@@ -377,8 +377,8 @@ namespace KAONOMI.Core.Data
         }
 
         /// <summary>
-        /// The <paramref name="size"/> most recent documents, newest first, without the ones where the boolean field
-        /// <paramref name="excludeFlag"/> (e.g. <c>isDeleted</c>) is true.
+        /// The <paramref title="size"/> most recent documents, newest first, without the ones where the boolean field
+        /// <paramref title="excludeFlag"/> (e.g. <c>isDeleted</c>) is true.
         /// </summary>
         public IReadOnlyCollection<TEntity> Last<TEntity>(int size, string excludeFlag)
             where TEntity : EntityBase
@@ -387,7 +387,7 @@ namespace KAONOMI.Core.Data
         }
 
         /// <summary>
-        /// The documents dated from <paramref name="from"/> (included), newest first, at most <paramref name="size"/>
+        /// The documents dated from <paramref title="from"/> (included), newest first, at most <paramref title="size"/>
         /// (capped at <see cref="MaxResults"/>).
         /// </summary>
         public IReadOnlyCollection<TEntity> Since<TEntity>(DateTimeOffset from, int size = MaxResults)
@@ -400,7 +400,7 @@ namespace KAONOMI.Core.Data
         public const int SinceAllLimit = 1_000_000;
 
         /// <summary>
-        /// All the documents dated from <paramref name="from"/> (included), newest first, without the 10,000 limit of
+        /// All the documents dated from <paramref title="from"/> (included), newest first, without the 10,000 limit of
         /// <see cref="Since{TEntity}"/>: they are read page after page (<c>search_after</c>), up to <see cref="SinceAllLimit"/>.
         /// </summary>
         public IReadOnlyCollection<TEntity> SinceAll<TEntity>(DateTimeOffset from)
@@ -415,7 +415,7 @@ namespace KAONOMI.Core.Data
             return SaveImpl(entity);
         }
 
-        /// <summary>Deletes a document by id in the index for type <typeparamref name="TEntity"/>.</summary>
+        /// <summary>Deletes a document by id in the index for type <typeparamref title="TEntity"/>.</summary>
         public bool DeleteImpl<TEntity>(string id) where TEntity : EntityBase
         {
             bool res;
@@ -467,7 +467,7 @@ namespace KAONOMI.Core.Data
             {
                 var response = client.Get<TEntity>(id, g => g.Index(index));
                 if (response.IsValid)
-                    return (true, (Object)response.Source);
+                    return (true, (Object)Migrated(response.Source));
                 if (response.ApiCall?.HttpStatusCode == 404 && response.OriginalException is null)
                     return (true, (Object)null!); // not found
                 return (false, (Object)Describe(response));
@@ -507,11 +507,11 @@ namespace KAONOMI.Core.Data
                         .MinimumShouldMatch(1)))
             );
 
-            return searchResponse.Documents;
+            return Migrated(searchResponse.Documents);
         }
 
         /// <summary>
-        /// Same query as <see cref="SearchImplField{TEntity}"/> on every field of <paramref name="fieldNames"/>, newest
+        /// Same query as <see cref="SearchImplField{TEntity}"/> on every field of <paramref title="fieldNames"/>, newest
         /// first when the term matches all. An empty or missing index gives an empty list.
         /// </summary>
         private IReadOnlyCollection<TEntity> SearchImplFields<TEntity>(string freeText, IReadOnlyList<string> fieldNames, int maxResults,
@@ -538,7 +538,7 @@ namespace KAONOMI.Core.Data
             });
 
             if (response.IsValid)
-                return response.Documents;
+                return Migrated(response.Documents);
             if (response.ApiCall?.HttpStatusCode == 404)
                 return Array.Empty<TEntity>(); // no document saved yet
             throw new InvalidOperationException($"Elasticsearch could not search the {typeof(TEntity).Name} documents: {Describe(response)}");
@@ -571,16 +571,16 @@ namespace KAONOMI.Core.Data
                     .MinimumShouldMatch(1))));
 
             if (response.IsValid)
-                return response.Documents;
+                return Migrated(response.Documents);
             if (response.ApiCall?.HttpStatusCode == 404)
                 return Array.Empty<TEntity>(); // no document saved yet
             throw new InvalidOperationException($"Elasticsearch could not search the {typeof(TEntity).Name} documents (fuzzy): {Describe(response)}");
         }
 
         /// <summary>
-        /// The query of a search expression: a term matches when one of <paramref name="fieldNames"/> holds all its
+        /// The query of a search expression: a term matches when one of <paramref title="fieldNames"/> holds all its
         /// words (fuzzy) or holds it as a part of its text; <c>and</c> becomes a bool must, <c>or</c> a bool should.
-        /// With <paramref name="wordPrefixes"/>, the term also matches when each of its words matches
+        /// With <paramref title="wordPrefixes"/>, the term also matches when each of its words matches
         /// <see cref="WordQuery{TEntity}"/> in one of the fields.
         /// </summary>
         private static QueryContainer BooleanQuery<TEntity>(BooleanSearch expression, IReadOnlyList<string> fieldNames, bool wordPrefixes = false)
@@ -613,7 +613,7 @@ namespace KAONOMI.Core.Data
         /// <summary>Runs a fuzzy query on <c>comment</c> (size 10).</summary>
         /// <summary>
         /// All documents of the index sorted by <c>date</c> (newest first; documents without a date come last),
-        /// <paramref name="size"/> of them, between 1 and <see cref="MaxResults"/>. An empty or missing index gives an
+        /// <paramref title="size"/> of them, between 1 and <see cref="MaxResults"/>. An empty or missing index gives an
         /// empty list; any other failure is reported as an exception.
         /// </summary>
         private IReadOnlyCollection<TEntity> LastImpl<TEntity>(int size, string? excludeFlag = null) where TEntity : EntityBase
@@ -629,20 +629,20 @@ namespace KAONOMI.Core.Data
 
             // Elasticsearch sorts dates to the millisecond: the final sort keeps the full precision of the dates.
             if (response.IsValid)
-                return response.Documents.OrderByDescending(d => d.date).ToList();
+                return Migrated(response.Documents).OrderByDescending(d => d.date).ToList();
             if (response.ApiCall?.HttpStatusCode == 404)
                 return Array.Empty<TEntity>(); // no document saved yet
             throw new InvalidOperationException($"Elasticsearch could not read the last {typeof(TEntity).Name} documents: {Describe(response)}");
         }
 
         /// <summary>
-        /// An advanced search: the documents matching <paramref name="freeText"/> in <paramref name="fieldNames"/> (as
+        /// An advanced search: the documents matching <paramref title="freeText"/> in <paramref title="fieldNames"/> (as
         /// <see cref="Search{TEntity}(string, IReadOnlyList{string}, int, string?, bool)"/>: and, or, ( ), "exact words";
-        /// empty or <c>*</c>: all), dated between <paramref name="from"/> and <paramref name="to"/> (both included, each
-        /// optional), whose text fields of <paramref name="exact"/> hold one of the values given (their keyword: a filter
-        /// per field, the values of a field joined by or), without the ones where <paramref name="excludeFlag"/> is true;
-        /// sorted by date (newest first, or oldest first with <paramref name="oldestFirst"/>) or, with
-        /// <paramref name="byRelevance"/> and a text, by relevance; <paramref name="size"/> of them at most.
+        /// empty or <c>*</c>: all), dated between <paramref title="from"/> and <paramref title="to"/> (both included, each
+        /// optional), whose text fields of <paramref title="exact"/> hold one of the values given (their keyword: a filter
+        /// per field, the values of a field joined by or), without the ones where <paramref title="excludeFlag"/> is true;
+        /// sorted by date (newest first, or oldest first with <paramref title="oldestFirst"/>) or, with
+        /// <paramref title="byRelevance"/> and a text, by relevance; <paramref title="size"/> of them at most.
         /// </summary>
         public IReadOnlyCollection<TEntity> SearchFiltered<TEntity>(string? freeText, IReadOnlyList<string> fieldNames, DateTime? from, DateTime? to,
             IReadOnlyDictionary<string, IReadOnlyList<string>> exact, int size, bool oldestFirst = false, bool byRelevance = false,
@@ -686,16 +686,16 @@ namespace KAONOMI.Core.Data
 
             if (response.IsValid)
                 return byRelevance && expression is not null
-                    ? response.Documents
-                    : (oldestFirst ? response.Documents.OrderBy(d => d.date) : response.Documents.OrderByDescending(d => d.date)).ToList();
+                    ? Migrated(response.Documents)
+                    : (oldestFirst ? Migrated(response.Documents).OrderBy(d => d.date) : Migrated(response.Documents).OrderByDescending(d => d.date)).ToList();
             if (response.ApiCall?.HttpStatusCode == 404)
                 return Array.Empty<TEntity>(); // no document saved yet
             throw new InvalidOperationException($"Elasticsearch could not search the {typeof(TEntity).Name} documents: {Describe(response)}");
         }
 
         /// <summary>
-        /// The documents whose text field <paramref name="fieldName"/> is exactly <paramref name="value"/> (its keyword),
-        /// newest first, <paramref name="size"/> of them at most. An empty or missing index gives an empty list; any other
+        /// The documents whose text field <paramref title="fieldName"/> is exactly <paramref title="value"/> (its keyword),
+        /// newest first, <paramref title="size"/> of them at most. An empty or missing index gives an empty list; any other
         /// failure is reported as an exception.
         /// </summary>
         public IReadOnlyCollection<TEntity> WithValue<TEntity>(string fieldName, string value, int size) where TEntity : EntityBase
@@ -710,14 +710,14 @@ namespace KAONOMI.Core.Data
                 .Sort(so => so.Field(f => f.Field("date").Order(SortOrder.Descending).Missing("_last").UnmappedType(FieldType.Date))));
 
             if (response.IsValid)
-                return response.Documents.OrderByDescending(d => d.date).ToList();
+                return Migrated(response.Documents).OrderByDescending(d => d.date).ToList();
             if (response.ApiCall?.HttpStatusCode == 404)
                 return Array.Empty<TEntity>(); // no document saved yet
             throw new InvalidOperationException($"Elasticsearch could not read the {typeof(TEntity).Name} documents of {fieldName} {value}: {Describe(response)}");
         }
 
         /// <summary>
-        /// Documents whose <c>date</c> is at or after <paramref name="from"/>, sorted by date (newest first). An empty or
+        /// Documents whose <c>date</c> is at or after <paramref title="from"/>, sorted by date (newest first). An empty or
         /// missing index gives an empty list; any other failure is reported as an exception.
         /// </summary>
         private IReadOnlyCollection<TEntity> SinceImpl<TEntity>(DateTimeOffset from, int size) where TEntity : EntityBase
@@ -732,7 +732,7 @@ namespace KAONOMI.Core.Data
                 .Sort(so => so.Field(f => f.Field("date").Order(SortOrder.Descending).UnmappedType(FieldType.Date))));
 
             if (response.IsValid)
-                return response.Documents.OrderByDescending(d => d.date).ToList();
+                return Migrated(response.Documents).OrderByDescending(d => d.date).ToList();
             if (response.ApiCall?.HttpStatusCode == 404)
                 return Array.Empty<TEntity>(); // no document saved yet
             throw new InvalidOperationException($"Elasticsearch could not read the {typeof(TEntity).Name} documents since {from:O}: {Describe(response)}");
@@ -823,7 +823,7 @@ namespace KAONOMI.Core.Data
                                                                               )
                                                                       )
                                                             );
-                entity = searchResponse3.Documents;
+                entity = Migrated(searchResponse3.Documents);
             }
             catch (Exception)
             {
@@ -832,14 +832,33 @@ namespace KAONOMI.Core.Data
             return entity;
         }
         /// <summary>
+        /// The documents read, their metadata as they are kept (<see cref="TagRules.Apply"/>): the old tags moved
+        /// (!ALERT to the signals, ?QUESTION and &amp;LINK to #TAGS, '_' to '-') without waiting for their next save.
+        /// </summary>
+        private static IReadOnlyCollection<TEntity> Migrated<TEntity>(IReadOnlyCollection<TEntity> documents) where TEntity : EntityBase
+        {
+            foreach (var document in documents)
+                if (document is not null)
+                    TagRules.Apply(document);
+            return documents;
+        }
+
+        /// <summary>One document read, its metadata as they are kept (null stays null).</summary>
+        private static TEntity? Migrated<TEntity>(TEntity? document) where TEntity : EntityBase
+        {
+            if (document is not null)
+                TagRules.Apply(document);
+            return document;
+        }
+
+        /// <summary>
         /// Indexes the document and returns its id. A failed call is retried, then reported as an exception (an empty id
         /// used to be returned silently, so that the next load of that id gave null).
         /// </summary>
         private string SaveImpl<TEntity>(TEntity entity, bool waitForSearch = false) where TEntity : EntityBase
         {
-            // The tags as they are kept: #TOPIC, !ALERT, ?QUESTION, &LINK, upper case, no space.
-            if (entity is ITagged tagged)
-                tagged.Tags = TagRules.Normalize(tagged.Tags);
+            // The metadata as they are kept: #TAG, @EVENT, !SIGNAL, upper case, '-' for the spaces (the old tags moved).
+            TagRules.Apply(entity);
             var client = CreateClient<TEntity>();
             return (string)WithRetries($"save {typeof(TEntity).Name} '{entity.id}'", () =>
             {
@@ -859,7 +878,7 @@ namespace KAONOMI.Core.Data
         private const int Attempts = 3;
 
         /// <summary>
-        /// Runs <paramref name="call"/> up to <see cref="Attempts"/> times (short pause between attempts) while it fails;
+        /// Runs <paramref title="call"/> up to <see cref="Attempts"/> times (short pause between attempts) while it fails;
         /// returns its value, or throws with the last error.
         /// </summary>
         private static Object WithRetries(string operation, Func<(bool Ok, Object Value)> call)
@@ -884,7 +903,7 @@ namespace KAONOMI.Core.Data
             ?? $"HTTP {response.ApiCall?.HttpStatusCode?.ToString() ?? "?"}";
 
         /// <summary>
-        /// Bool query of <paramref name="query"/>; with <paramref name="excludeFlag"/>, the documents where that boolean
+        /// Bool query of <paramref title="query"/>; with <paramref title="excludeFlag"/>, the documents where that boolean
         /// field is true are left out (documents without the field are kept).
         /// </summary>
         private static QueryContainer ExcludeFlag<TEntity>(QueryContainerDescriptor<TEntity> descriptor, string? excludeFlag,
@@ -898,7 +917,7 @@ namespace KAONOMI.Core.Data
             });
         }
 
-        /// <summary>Index of an entity type: prefix + type name in lower case.</summary>
+        /// <summary>Index of an entity type: prefix + type title in lower case.</summary>
         private string IndexName<TEntity>() => _ESconfig.prefix + typeof(TEntity).Name.ToLower();
 
         /// <summary>Clients already created, by server, user and index: NEST clients are thread-safe and meant to be reused.</summary>
@@ -906,7 +925,7 @@ namespace KAONOMI.Core.Data
 
         private ElasticClient CreateClient<TEntity>() where TEntity : EntityBase => CreateClient(IndexName<TEntity>());
 
-        /// <summary>The client of <paramref name="index"/> (one per index, kept).</summary>
+        /// <summary>The client of <paramref title="index"/> (one per index, kept).</summary>
         private ElasticClient CreateClient(string index)
         {
             var hasPassword = !string.IsNullOrEmpty(_ESconfig.user) && !string.IsNullOrEmpty(_ESconfig.password);
@@ -936,7 +955,7 @@ namespace KAONOMI.Core.Data
         };
 
         /// <summary>
-        /// One word of a search typed in a search bar: a word of one of <paramref name="fieldNames"/> holds it with a
+        /// One word of a search typed in a search bar: a word of one of <paramref title="fieldNames"/> holds it with a
         /// typo (fuzzy, <c>AUTO</c>), or starts with it, accents ignored (<c>bearnai</c> finds <c>béarnaise</c>).
         /// </summary>
         private static QueryContainer WordQuery<TEntity>(string word, IReadOnlyList<string> fieldNames)
@@ -953,7 +972,7 @@ namespace KAONOMI.Core.Data
             return new QueryContainerDescriptor<TEntity>().Bool(b => b.Should(clauses.ToArray()).MinimumShouldMatch(1));
         }
 
-        /// <summary>Lucene regexp of <paramref name="word"/> (lower case) where each letter matches its accented forms.</summary>
+        /// <summary>Lucene regexp of <paramref title="word"/> (lower case) where each letter matches its accented forms.</summary>
         private static string AccentFoldedPattern(string word)
         {
             var bare = new System.Text.StringBuilder();

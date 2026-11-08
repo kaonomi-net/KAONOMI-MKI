@@ -14,7 +14,7 @@ public class Preset : EntityBase, ISoftDeletable, ITagged
     /// <summary>Never erased: marked deleted instead (<see cref="ISoftDeletable"/>).</summary>
     public bool isDeleted { get; set; } = false;
 
-    /// <summary>The name of the preset (upper case, as the presets of config.yml: MARI, JARVIS…).</summary>
+    /// <summary>The title of the preset (upper case, as the presets of config.yml: MARI, JARVIS…).</summary>
     public string name { get; set; } = string.Empty;
     public string description { get; set; } = string.Empty;
     /// <summary>The French Piper voice (a voice of tts.voicesDirectory, e.g. fr_FR-siwis-medium).</summary>
@@ -35,10 +35,8 @@ public class Preset : EntityBase, ISoftDeletable, ITagged
     public string animation { get; set; } = "MARI";
     /// <summary>The personality: the text added to the system prompt (the <c>persona</c> key of config.yml); empty for none.</summary>
     public string persona { get; set; } = string.Empty;
-    /// <summary>The tags: #TOPIC, !ALERT, ?QUESTION, &amp;LINK, in upper case, no space (<see cref="TagRules"/>).</summary>
-    public List<string> Tags { get; set; } = new List<string>();
 
-    /// <summary>The name in upper case without spaces around, the effects within their ranges, the animation in upper case.</summary>
+    /// <summary>The title in upper case without spaces around, the effects within their ranges, the animation in upper case.</summary>
     public void Normalize()
     {
         name = (name ?? string.Empty).Trim().ToUpperInvariant();

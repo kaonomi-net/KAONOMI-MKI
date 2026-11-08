@@ -23,7 +23,7 @@ public partial class OntologyNodeViewModel : ViewModelBase
     [
         nameof(AppName), nameof(MachineName), nameof(UserName), nameof(Comment),
         nameof(Name), nameof(EntityType), nameof(Description), nameof(Symbol), nameof(IsOntologyClass),
-        nameof(SentencesExemples), nameof(Synonyms), nameof(Tags), nameof(RelatedLinks), nameof(RelatedEntities), nameof(Confidentiality),
+        nameof(SentencesExemples), nameof(Synonyms), nameof(Title), nameof(Tags), nameof(Events), nameof(Signals), nameof(RelatedLinks), nameof(RelatedEntities), nameof(Confidentiality),
         nameof(AngryLevel), nameof(SadLevel), nameof(HappyLevel),
         nameof(FearLevel), nameof(SurpriseLevel), nameof(DisgustLevel), nameof(StartDate), nameof(EndDate)
     ];
@@ -178,8 +178,17 @@ public partial class OntologyNodeViewModel : ViewModelBase
     /// <summary>One synonym per line.</summary>
     [ObservableProperty] private string _synonyms = string.Empty;
 
-    /// <summary>One tag per line.</summary>
+    /// <summary>The title of the node (besides its name).</summary>
+    [ObservableProperty] private string _title = string.Empty;
+
+    /// <summary>One tag per line (#TOPIC, upper case, '-' for the spaces: see <see cref="MetaTags"/>).</summary>
     [ObservableProperty] private string _tags = string.Empty;
+
+    /// <summary>One event per line (@EVENT).</summary>
+    [ObservableProperty] private string _events = string.Empty;
+
+    /// <summary>One signal per line (!SIGNAL).</summary>
+    [ObservableProperty] private string _signals = string.Empty;
 
     /// <summary>One link per line.</summary>
     [ObservableProperty] private string _relatedLinks = string.Empty;
@@ -289,7 +298,7 @@ public partial class OntologyNodeViewModel : ViewModelBase
 
     /// <summary>Case- and accent-insensitive match on every text field of the node (and its id).</summary>
     public bool MatchesText(string term) =>
-        new[] { Name, Description, Symbol, EntityType, Synonyms, Tags, SentencesExemples, Comment, RelatedLinks, RelatedEntities, Id }
+        new[] { Name, Title, Description, Symbol, EntityType, Synonyms, Tags, Events, Signals, SentencesExemples, Comment, RelatedLinks, RelatedEntities, Id }
             .Any(field => field is not null && System.Globalization.CultureInfo.InvariantCulture.CompareInfo.IndexOf(
                 field, term,
                 System.Globalization.CompareOptions.IgnoreCase | System.Globalization.CompareOptions.IgnoreNonSpace) >= 0);
@@ -533,7 +542,10 @@ public partial class OntologyNodeViewModel : ViewModelBase
             IsOntologyClass = entry.IsOntologyClass;
             SentencesExemples = JoinLines(entry.SentencesExemples);
             Synonyms = JoinLines(entry.Synonyms);
+            Title = entry.Title ?? string.Empty;
             Tags = JoinLines(entry.Tags);
+            Events = JoinLines(entry.Events);
+            Signals = JoinLines(entry.Signals);
             RelatedLinks = JoinLines(entry.RelatedLinks);
             RelatedEntities = JoinLines(entry.RelatedEntities);
             // Mapped to a drop-down value (unknown values are added to the drop-down so they are not erased).
@@ -571,7 +583,11 @@ public partial class OntologyNodeViewModel : ViewModelBase
         entry.IsOntologyClass = IsOntologyClass;
         entry.SentencesExemples = SplitLines(SentencesExemples);
         entry.Synonyms = SplitLines(Synonyms);
-        entry.Tags = SplitLines(Tags);
+        entry.Title = Title.Trim();
+        // One per line, each as the server keeps it (the words of a line joined by '-').
+        entry.Tags = MetaTags.Normalize(SplitLines(Tags), MetaTags.Tag);
+        entry.Events = MetaTags.Normalize(SplitLines(Events), MetaTags.Event);
+        entry.Signals = MetaTags.Normalize(SplitLines(Signals), MetaTags.Signal);
         entry.RelatedLinks = SplitLines(RelatedLinks);
         entry.RelatedEntities = SplitLines(RelatedEntities);
         entry.Confidentiality = Confidentiality;

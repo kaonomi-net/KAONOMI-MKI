@@ -18,8 +18,8 @@ namespace KAONOMI.Server
     public interface IDialogProcessorVAgent : IVGrain
     {
         /// <summary>Executes the main LLM call and records token usage.</summary>
-        /// <param name="c">Dialog identifier.</param>
-        /// <param name="Context">MARI execution context.</param>
+        /// <param title="c">Dialog identifier.</param>
+        /// <param title="Context">MARI execution context.</param>
         /// <returns>The dialog identifier for the next pipeline step.</returns>
         Task<string> DoProcess(string c, IExecutionContext Context);
 

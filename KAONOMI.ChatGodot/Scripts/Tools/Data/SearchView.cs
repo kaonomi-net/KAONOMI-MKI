@@ -21,7 +21,7 @@ public sealed class SearchView : IToolView
     private static readonly Dictionary<string, string> Icons = new()
     {
         ["cache"] = "🗃", ["completion"] = "☁", ["dialog"] = "💬", ["diary"] = "📓", ["document"] = "📄", ["idea"] = "💡",
-        ["imageanalysis"] = "🔬", ["intel"] = "🕵", ["ontology"] = "🌳", ["relation"] = "🕸", ["taskitem"] = "📋", ["youtubevideo"] = "📺", ["cluster"] = "◎", ["wiki"] = "📚"
+        ["imageanalysis"] = "🔬", ["intel"] = "🕵", ["ontology"] = "🌳", ["relation"] = "🕸", ["taskitem"] = "📋", ["youtubevideo"] = "📺", ["cluster"] = "◎", ["wiki"] = "📚", ["webpage"] = "🕷"
     };
 
     public Control Build(object viewModel, Shell shell)

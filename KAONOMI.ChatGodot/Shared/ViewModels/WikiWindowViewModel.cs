@@ -92,9 +92,17 @@ public sealed partial class WikiWindowViewModel : ViewModelBase, ITapeAssistant,
     [ObservableProperty]
     private string _content = string.Empty;
 
-    /// <summary>The tags, separated by spaces or commas (#TOPIC, !ALERT, ?QUESTION, &amp;LINK).</summary>
+    /// <summary>The tags (#TOPIC), separated by spaces or commas, '-' inside a tag (<see cref="MetaTags"/>).</summary>
     [ObservableProperty]
     private string _tags = string.Empty;
+
+    /// <summary>The events (@EVENT), separated by spaces or commas.</summary>
+    [ObservableProperty]
+    private string _events = string.Empty;
+
+    /// <summary>The signals (!SIGNAL), separated by spaces or commas.</summary>
+    [ObservableProperty]
+    private string _signals = string.Empty;
 
     /// <summary>Its version, its dates and its author, under the title.</summary>
     [ObservableProperty]
@@ -119,7 +127,7 @@ public sealed partial class WikiWindowViewModel : ViewModelBase, ITapeAssistant,
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)
     {
         base.OnPropertyChanged(e);
-        if (!_loading && e.PropertyName is nameof(Title) or nameof(Content) or nameof(Tags))
+        if (!_loading && e.PropertyName is nameof(Title) or nameof(Content) or nameof(Tags) or nameof(Events) or nameof(Signals))
             IsDirty = true;
     }
 
@@ -218,7 +226,9 @@ public sealed partial class WikiWindowViewModel : ViewModelBase, ITapeAssistant,
             PageId = page?.Id;
             Title = title;
             Content = content;
-            Tags = page is null ? string.Empty : string.Join(' ', page.Tags);
+            Tags = MetaTags.Format(page?.Tags);
+            Events = MetaTags.Format(page?.Events);
+            Signals = MetaTags.Format(page?.Signals);
             Info = page is null
                 ? "new page · not saved"
                 : $"version {page.Version} · {page.DateLabel}" + (page.Author.Length > 0 ? $" · {page.Author}" : string.Empty)
@@ -273,7 +283,9 @@ public sealed partial class WikiWindowViewModel : ViewModelBase, ITapeAssistant,
             Author = Environment.UserName,
             Title = title,
             Content = Content,
-            Tags = Tags.Split([' ', ',', ';', '\n'], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList()
+            Tags = MetaTags.Parse(Tags, MetaTags.Tag),
+            Events = MetaTags.Parse(Events, MetaTags.Event),
+            Signals = MetaTags.Parse(Signals, MetaTags.Signal)
         };
         IsBusy = true;
         try

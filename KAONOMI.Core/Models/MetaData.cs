@@ -11,7 +11,7 @@ namespace KAONOMI.Core.Models
     /// </summary>
     public class MetaData
     {
-        /// <summary>Metadata name.</summary>
+        /// <summary>Metadata title.</summary>
         public string Key { get; set; } = string.Empty;
         /// <summary>text value.</summary>
         public string Value_String { get; set; } = string.Empty;

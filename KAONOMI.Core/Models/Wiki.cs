@@ -20,7 +20,6 @@ public partial class Wiki : EntityBase, ISoftDeletable, ITagged
     /// <summary>Never erased: marked deleted instead (<see cref="ISoftDeletable"/>).</summary>
     public bool isDeleted { get; set; } = false;
 
-    public string title { get; set; } = string.Empty;
     /// <summary>The page, in Markdown.</summary>
     public string content { get; set; } = string.Empty;
     /// <summary>The start of its text, without formatting (set by the server).</summary>
@@ -33,11 +32,9 @@ public partial class Wiki : EntityBase, ISoftDeletable, ITagged
     public int version { get; set; }
     /// <summary>The slugs of the pages it links to (<c>wiki:slug</c> in its content; set by the server).</summary>
     public List<string> links { get; set; } = new List<string>();
-    /// <summary>The tags: #TOPIC, !ALERT, ?QUESTION, &amp;LINK, in upper case, no space (<see cref="TagRules"/>).</summary>
-    public List<string> Tags { get; set; } = new List<string>();
 
     /// <summary>
-    /// The slug of <paramref name="text"/>: lower case, no accent, words joined by '-', at most 80 characters
+    /// The slug of <paramref title="text"/>: lower case, no accent, words joined by '-', at most 80 characters
     /// ("Le serveur Kaonomi" gives "le-serveur-kaonomi"); "page" when nothing is left.
     /// </summary>
     public static string Slug(string? text)
@@ -71,7 +68,7 @@ public partial class Wiki : EntityBase, ISoftDeletable, ITagged
         summary = Summary(content);
     }
 
-    /// <summary>The start of the text of <paramref name="markdown"/> (240 characters), without pictures, links or marks.</summary>
+    /// <summary>The start of the text of <paramref title="markdown"/> (240 characters), without pictures, links or marks.</summary>
     public static string Summary(string markdown)
     {
         var text = Picture().Replace(markdown ?? string.Empty, " ");

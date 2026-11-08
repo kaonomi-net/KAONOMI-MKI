@@ -146,7 +146,8 @@ Every prerequisite and how to install it: [PREREQUISITES.md](PREREQUISITES.md) (
 | [`KAONOMI.LLMGateway`](KAONOMI.LLMGateway/README.md) | Gateway in front of Ollama (`http://localhost:11435`): Ollama and OpenAI APIs, semantic cache, router of the models by the entities of the prompt, export / import of the cached phrases, admin API `/gateway/…` |
 | `KAONOMI.LLMGateway.Tests` | Tests of the gateway: cache, entity extractor, router, end to end |
 | [`KAONOMI.ImmuneSystem`](KAONOMI.ImmuneSystem/README.md) | Console scanner (self-contained, read only, no network): AI-generated or AI-edited images (C2PA, IPTC, generator parameters), code in Office files (VBA, Excel 4.0 macros, DDE, OLE, Power Query…), browser histories (AI services visited, files downloaded); one JSON report |
-| [`KAONOMI.ChatGodot`](KAONOMI.ChatGodot/README.md) | The Kaonomi chat (Godot 4.7 .NET, EVE Online look): the chat, its voice mode, its desktop of tool windows, the journal of the activities, `/think`, the games (`/game:solitaire`, `/game:chess`, `/game:go`, `/game:marie`), `/fractal`, `/immune`, `/gateway` |
+| [`KAONOMI.ChatGodot`](KAONOMI.ChatGodot/README.md) | The Kaonomi chat (Godot 4.7 .NET, EVE Online look): the chat, its voice mode, its desktop of tool windows, the journal of the activities, `/think`, the games (`/game:solitaire`, `/game:chess`, `/game:go`), `/fractal`, `/immune`, `/gateway` |
+| [`KAONOMI.UI`](KAONOMI.UI/README.md) | The same chat in Avalonia UI, flat (no effects) with the 3D animations of the faces and JARVIS (OpenGL, the same shaders), the voice mode, the 9 themes with their animated backgrounds and the 3D relation graph. It compiles the view models and services of `KAONOMI.ChatGodot/Shared/` as they are, so every command works the same; the tools open in movable windows with a task bar |
 
 Solution file: `KAONOMI.slnx`.
 
@@ -173,6 +174,7 @@ cd KAONOMI.ACHEngine && dotnet run
 cd KAONOMI.Server && dotnet run
 cd KAONOMI.LLMGateway && dotnet run           # optional: the gateway, http://localhost:11435 → Ollama
 cd KAONOMI.ChatGodot && godot-mono --path .   # the chat (the first time: godot-mono --headless --path . --import)
+dotnet run --project KAONOMI.UI               # or the flat chat in Avalonia (no Godot needed)
 ```
 
 The server listens on `https://localhost:49165` and `http://localhost:49166`. The root path redirects to Swagger.
@@ -218,7 +220,6 @@ Every tool is described in [`KAONOMI.ChatGodot/README.md`](KAONOMI.ChatGodot/REA
 | --- | --- |
 | `/game:chess` | Chess against the LLM (you play White): every rule (castling, en passant, promotion, fifty moves, threefold repetition…), the model held to its legal moves by the structured output of Ollama, its comment for each move; UNDO, RESIGN, PGN |
 | `/game:go` | Go against the LLM (you play Black) on 9×9, 13×13 or 19×19: Chinese rules, positional superko, dead stones marked at the end, COUNT with komi 7.5; UNDO, RESIGN, SGF |
-| `/game:marie` | A first-person maze of 25×25 cells where MarieKilleuse hunts you: life, speed bonuses, three weapons, a map, the 10 best escapes kept |
 | `/fractal` | Fractal generator on the GPU: escape time (Mandelbrot, Julia, Burning Ship, Newton…, or your own formula of z and c), L-systems, IFS; palettes, zoom box, Julia of a point, SAVE as JSON, PNG |
 | `/immune` | Runs `KAONOMI.ImmuneSystem` from the chat: the scan animated as an immune cell, live counters and findings, then the report (overview charts, AI images, Office code, browsing) and the reports kept |
 | `/alarm` | Alarm clock: several alarms, once on a day or weekly on the days ticked (every day, Mon–Fri, weekend; one week in 1 to 4), 4 ringtones made by the code, snooze, the label said by the avatar; they ring even with the window closed (STOP / SNOOZE) |
@@ -228,7 +229,7 @@ Every tool is described in [`KAONOMI.ChatGodot/README.md`](KAONOMI.ChatGodot/REA
 | `/collectionplan` 🕷 RUN | Carries out a collection plan: the web scraper reads the sites (fixed, explore, random; robots.txt followed), pictures each page, the vision model reads the pictures, the chat model applies the instructions with the sources cited; the result opens as a `/work` document |
 | Voice mode | A command line above the microphone (prompts and `/tools` typed there), the windows shown one at a time at 90 % of the screen (◀ ▶ between them, ⏬ puts them in a row at the bottom), the desktop back as it was afterwards |
 
-`/ngame:chess`, `/ngame:go`, `/ngame:marie` and `/nimmune` open the same tool in its own window.
+`/ngame:chess`, `/ngame:go` and `/nimmune` open the same tool in its own window.
 
 ## Main API
 
@@ -323,11 +324,7 @@ on the left and the chat on the right; here every one is shown full size.
   </tr>
   <tr>
     <td><img src="docs/screenshots/game-solitaire.jpg" alt="/game:solitaire" /><br /><sub><b><code>/game:solitaire</code></b>: the morpion solitaire and its scores</sub></td>
-    <td><img src="docs/screenshots/game-marie.jpg" alt="/game:marie" /><br /><sub><b><code>/game:marie</code></b>: the maze of MarieKilleuse, in first person</sub></td>
-  </tr>
-  <tr>
     <td><img src="docs/screenshots/fractal.jpg" alt="/fractal" /><br /><sub><b><code>/fractal</code></b>: the fractal generator on the GPU</sub></td>
-    <td></td>
   </tr>
 </table>
 

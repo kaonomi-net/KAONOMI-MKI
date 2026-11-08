@@ -29,9 +29,9 @@ namespace KAONOMI.Server.Ner
     /// The NER of the server, in three layers: the rules (URL, EMAIL, IP, DATE, TIME, MONEY, PERCENT, PHONE, NUMBER,
     /// FILE, HASHTAG, MENTION, CODE, PROGRAMMING_LANGUAGE, MATH; the extractor of KAONOMI.LLMGateway, its source shared),
     /// the model XLM-RoBERTa int8 (PERSON, ORG, LOC, in context) and the dictionary of the ontology (every type of it).
-    /// An entity of the model that is a name of the ontology takes the type and the id of the ontology
-    /// ("xlmr+ontology"); a name of the ontology the model did not see is added ("ontology"); a rule never covers a
-    /// name. The ontology is read again every 10 minutes. Without the model (its folder missing), the rules and the
+    /// An entity of the model that is a title of the ontology takes the type and the id of the ontology
+    /// ("xlmr+ontology"); a title of the ontology the model did not see is added ("ontology"); a rule never covers a
+    /// title. The ontology is read again every 10 minutes. Without the model (its folder missing), the rules and the
     /// ontology still answer, with a warning.
     /// </summary>
     public sealed class NerService
@@ -46,7 +46,7 @@ namespace KAONOMI.Server.Ner
             EntityTypes.ProgrammingLanguage, EntityTypes.Math
         ];
 
-        /// <summary>The rules that hold their text whole: no name is looked for inside them.</summary>
+        /// <summary>The rules that hold their text whole: no title is looked for inside them.</summary>
         private static readonly HashSet<string> ContainerTypes =
             [EntityTypes.Url, EntityTypes.Email, EntityTypes.File, EntityTypes.Code, EntityTypes.Ip, EntityTypes.Hashtag, EntityTypes.Mention];
 
@@ -77,9 +77,23 @@ namespace KAONOMI.Server.Ner
             }
         }
 
-        /// <summary>Where the model is when config.json does not say (nerModelFolder).</summary>
-        public static string DefaultModelFolder =>
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "kaonomi", "models", "ner", "xlm-roberta-base-ner-hrl-int8");
+        /// <summary>The folder of the NER models: ~/kaonomi/models/ner.</summary>
+        private static string ModelsFolder => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "kaonomi", "models", "ner");
+
+        /// <summary>
+        /// Where the model is when config.json does not say (nerModelFolder):
+        /// FacebookAI/xlm-roberta-large-finetuned-conll03-english (int8), or the former Davlan/xlm-roberta-base-ner-hrl
+        /// when the large one has not been exported (Ner/export/ner_export.py).
+        /// </summary>
+        public static string DefaultModelFolder
+        {
+            get
+            {
+                var large = Path.Combine(ModelsFolder, "xlm-roberta-large-finetuned-conll03-english-int8");
+                var former = Path.Combine(ModelsFolder, "xlm-roberta-base-ner-hrl-int8");
+                return Directory.Exists(large) || !Directory.Exists(former) ? large : former;
+            }
+        }
 
         /// <summary>The service of the server, made at the first call (the model loaded then, in about a second).</summary>
         public static NerService Get(Config config)
@@ -91,9 +105,9 @@ namespace KAONOMI.Server.Ner
         /// <summary>The time of a short sentence after the start, in milliseconds (0 without the model).</summary>
         public double ModelWarmMs { get; }
 
-        public string ModelName => _model is null ? "none" : $"Davlan/xlm-roberta-base-ner-hrl int8 ({_model.ModelFile})";
+        public string ModelName => _model is null ? "none" : $"{_model.ModelId} int8 ({_model.ModelFile})";
 
-        /// <summary>The entities of <paramref name="text"/> of the types <paramref name="types"/> (all when empty).</summary>
+        /// <summary>The entities of <paramref title="text"/> of the types <paramref title="types"/> (all when empty).</summary>
         public NerResult Extract(string? text, IReadOnlyCollection<string>? types = null)
         {
             var watch = Stopwatch.StartNew();
@@ -107,15 +121,15 @@ namespace KAONOMI.Server.Ner
             var rules = _rules.Extract(text).Where(r => RuleTypes.Contains(r.Type))
                 .Select(r => new NerEntity { text = r.Text, type = r.Type, start = r.Start, end = r.Start + r.Length, score = 1, source = "rule" })
                 .ToList();
-            // A URL, an e-mail, a file, code… hold no name: "kaonomi" of https://www.kaonomi.net is the URL only.
+            // A URL, an e-mail, a file, code… hold no title: "kaonomi" of https://www.kaonomi.net is the URL only.
             var containers = rules.Where(r => ContainerTypes.Contains(r.type)).ToList();
             bool Inside(NerEntity e) => containers.Any(c => c.start <= e.start && e.end <= c.end);
             var names = (_model?.Extract(text) ?? []).Where(e => !Inside(e)).ToList();
             var known = gazetteer.Find(text).Where(e => !Inside(e)).ToList();
 
-            // A name of the model that a name of the ontology covers whole (the same, or longer: "Université de Paris" for
-            // "Paris") takes its place, its type and its id. A name of the ontology inside a longer name of the model is
-            // not that name: "Olaf" (the OLAF, the anti-fraud office) in "Olaf Scholz" leaves Olaf Scholz a person.
+            // A title of the model that a title of the ontology covers whole (the same, or longer: "Université de Paris" for
+            // "Paris") takes its place, its type and its id. A title of the ontology inside a longer title of the model is
+            // not that title: "Olaf" (the OLAF, the anti-fraud office) in "Olaf Scholz" leaves Olaf Scholz a person.
             foreach (var name in names)
             {
                 var match = known.Where(k => k.start <= name.start && name.end <= k.end)
@@ -130,12 +144,12 @@ namespace KAONOMI.Server.Ner
                 name.ontologyName = match.ontologyName;
                 name.source = "xlmr+ontology";
             }
-            // Two names of the model inside the same name of the ontology are that name once.
+            // Two names of the model inside the same title of the ontology are that title once.
             names = names.GroupBy(n => (n.start, n.end)).Select(g => g.OrderByDescending(n => n.score).First()).ToList();
             var entities = new List<NerEntity>(containers);
             entities.AddRange(names);
             entities.AddRange(known.Where(k => !names.Any(n => n.start < k.end && k.start < n.end)));
-            // The other rules (a date, an amount…) where no name already is.
+            // The other rules (a date, an amount…) where no title already is.
             foreach (var rule in rules.Where(r => !ContainerTypes.Contains(r.type)))
                 if (!entities.Any(e => e.start < rule.end && rule.start < e.end))
                     entities.Add(rule);

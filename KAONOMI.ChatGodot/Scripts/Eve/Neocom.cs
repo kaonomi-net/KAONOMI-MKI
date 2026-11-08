@@ -38,7 +38,6 @@ public partial class Neocom : PanelContainer
         ("/fractal", "❄", "Fractal generator"),
         ("/game:chess", "♞", "Chess against the LLM"),
         ("/game:go", "⚫", "Go against the LLM"),
-        ("/game:marie", "🔪", "MarieKilleuse: the maze"),
         ("/immune", "🧬", "Immune system: AI images and Office code"),
         ("/alarm", "⏰", "Alarm clock"),
         ("/calendar", "📅", "Calendar"),
