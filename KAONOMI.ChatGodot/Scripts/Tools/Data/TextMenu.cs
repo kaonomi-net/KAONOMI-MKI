@@ -74,6 +74,8 @@ internal static class TextMenu
             new("Paste", editable, () => Run(TextEdit.MenuItems.Paste), "⌘V"),
             new("Select all", edit.Text.Length > 0, () => Run(TextEdit.MenuItems.SelectAll), "⌘A"),
             null,
+            new(VoiceDictation.IsOpenOn(edit) ? "🎤 Stop voice dictation" : "🎤 Voice dictation", editable, () => VoiceDictation.Toggle(edit)),
+            null,
             new("📝 Annotate selection…", hasSelection, () =>
                 Annotations.Open(edit, AnnotationTarget.Text(selection.Trim(), Shell.Current?.WindowOf(edit)?.Title ?? "Chat"))),
             null,

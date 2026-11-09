@@ -76,20 +76,26 @@ public static class Eve
     private static SystemFont? _body;
     private static FontVariation? _display;
 
-    /// <summary>The text: the font of the theme, of the system (the emoji from <see cref="Emoji"/>).</summary>
+    /// <summary>The font of the whole chat, whatever the theme: Arial (the fonts of the theme only when it is missing).</summary>
+    public const string DefaultFont = "Arial";
+
+    /// <summary><see cref="DefaultFont"/> first, then <paramref name="names"/> (the fonts of the theme) in case it is missing.</summary>
+    public static string[] WithDefault(string[] names) => [DefaultFont, .. names.Where(n => !string.Equals(n, DefaultFont, StringComparison.OrdinalIgnoreCase))];
+
+    /// <summary>The text: Arial (else the font of the theme), of the system (the emoji from <see cref="Emoji"/>).</summary>
     public static SystemFont Body => _body ??= new SystemFont
     {
-        FontNames = Current.BodyFonts,
+        FontNames = WithDefault(Current.BodyFonts),
         FontWeight = 400,
         Antialiasing = TextServer.FontAntialiasing.Gray,
         Hinting = TextServer.Hinting.Light,
         Fallbacks = [Emoji]
     };
 
-    /// <summary>The headers: the display font of the theme, semi-bold, spaced.</summary>
+    /// <summary>The headers: Arial (else the display font of the theme), semi-bold, spaced.</summary>
     public static FontVariation Display => _display ??= new FontVariation
     {
-        BaseFont = new SystemFont { FontNames = Current.DisplayFonts, FontWeight = Current.DisplayWeight, Fallbacks = [Emoji] },
+        BaseFont = new SystemFont { FontNames = WithDefault(Current.DisplayFonts), FontWeight = Current.DisplayWeight, Fallbacks = [Emoji] },
         SpacingGlyph = 2
     };
 

@@ -59,7 +59,11 @@ public sealed class ImageAnalysisView : IToolView
             if (texture is not null && !fitted)
             {
                 fitted = true;
-                FitLater(canvas, scroller, vm);
+                // At its real size when asked (scrolled in the window), else the whole picture in view.
+                if (vm.OpenAtActualSize)
+                    vm.Zoom = 1;
+                else
+                    FitLater(canvas, scroller, vm);
             }
         });
         pictureCard.AddChild(holder);

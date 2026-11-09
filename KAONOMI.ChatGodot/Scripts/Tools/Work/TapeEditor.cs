@@ -1693,7 +1693,9 @@ public partial class TapeEditor : Control
                 _ => 0
             };
 
-            // Pieces of one run (tabs are spaces, not drawn).
+            // Pieces of one run, one word each with the spaces after it (tabs are spaces, not drawn): each word drawn
+            // where its caret places were measured. A whole run drawn at once drifts from them along the line (a space
+            // measured alone is a little wider than in the text), and the caret showed a character too far right.
             var k2 = from;
             while (k2 < to)
             {
@@ -1704,7 +1706,8 @@ public partial class TapeEditor : Control
                 }
                 var run = runOf[k2];
                 var start = k2;
-                while (k2 < to && runOf[k2] == run && text[k2] != '\t')
+                while (k2 < to && runOf[k2] == run && text[k2] != '\t'
+                       && !(k2 > start && char.IsWhiteSpace(text[k2 - 1]) && !char.IsWhiteSpace(text[k2])))
                     k2++;
                 var style = styles[run];
                 line.Pieces.Add(new Piece

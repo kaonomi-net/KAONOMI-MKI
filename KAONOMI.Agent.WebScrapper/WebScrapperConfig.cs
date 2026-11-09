@@ -8,9 +8,6 @@ namespace KAONOMI.Agent.WebScrapper
     /// </summary>
     public sealed class WebScrapperConfig : Config
     {
-        /// <summary>Minutes between two runs over the collection plans.</summary>
-        public int scrapeIntervalMinutes { get; set; } = 60;
-
         /// <summary>A page visited less than this many hours ago is not visited again.</summary>
         public double revisitHours { get; set; } = 24;
 

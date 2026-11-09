@@ -105,6 +105,13 @@ public sealed class DeckWindow
     /// <summary>When the window was last used (the cards at the back are ordered by it).</summary>
     internal ulong LastUsed { get; set; }
 
+    /// <summary>
+    /// When the user last used the window (milliseconds of <see cref="Time.GetTicksMsec"/>): a click, a key, the wheel
+    /// or a drag in it, its opening, a double-click on its card. Its animations do not count. The windows not used for
+    /// <see cref="WindowDeck.IdleCloseSeconds"/> close by themselves.
+    /// </summary>
+    internal ulong LastInput { get; set; } = Time.GetTicksMsec();
+
     /// <summary>True while the window is flat in front.</summary>
     public bool IsFront { get; internal set; }
 
@@ -131,12 +138,11 @@ public partial class WindowDeck : Control
     private readonly List<DeckWindow> _windows = [];
     private readonly Control _layer = new() { MouseFilter = MouseFilterEnum.Ignore };
     private readonly Node _holder = new() { Name = "Hidden" };
-    private readonly TextureRect _wallpaper = new()
-    {
-        ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
-        StretchMode = TextureRect.StretchModeEnum.KeepAspectCovered,
-        MouseFilter = MouseFilterEnum.Ignore
-    };
+    /// <summary>
+    /// The wallpaper: drawn by the application behind everything (the bar of commands, the desktop and the chat), given
+    /// here to show the picture chosen and to hide it on the stage. Null: none.
+    /// </summary>
+    public TextureRect? WallpaperRect { get; init; }
     private SubViewportContainer _sceneContainer = null!;
     private SubViewport _scene = null!;
     private Camera3D _camera = null!;
@@ -151,6 +157,12 @@ public partial class WindowDeck : Control
 
     /// <summary>The window in front, or null.</summary>
     public DeckWindow? Front => _front;
+
+    /// <summary>
+    /// A window not used for this many seconds closes by itself (<c>windowIdleCloseSeconds</c> of config.yml; 0: never).
+    /// A window with changes not saved is kept.
+    /// </summary>
+    public int IdleCloseSeconds { get; set; } = 300;
 
     /// <summary>Raised when the window in front changes.</summary>
     public event Action<DeckWindow?>? FrontChanged;
@@ -172,9 +184,7 @@ public partial class WindowDeck : Control
         MouseFilter = MouseFilterEnum.Stop;
         ClipContents = true;
 
-        // The wallpaper, behind the cards and the windows.
-        _wallpaper.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-        AddChild(_wallpaper);
+        // The wallpaper is behind the whole application (see WallpaperRect): the desktop only shows the picture in it.
         ShowWallpaper();
 
         // The 3D scene of the cards, behind the window in front, its background transparent (space shows through).
@@ -182,7 +192,9 @@ public partial class WindowDeck : Control
         container.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
         AddChild(container);
         _sceneContainer = container;
-        _scene = new SubViewport { OwnWorld3D = true, TransparentBg = true, Msaa3D = Viewport.Msaa.Msaa4X, HandleInputLocally = false };
+        // 2x MSAA is enough for the edges of the cards (4x cost a full-size multisampled buffer at every frame). The scene
+        // renders only while a card is shown (see _Process).
+        _scene = new SubViewport { OwnWorld3D = true, TransparentBg = true, Msaa3D = Viewport.Msaa.Msaa2X, HandleInputLocally = false };
         container.AddChild(_scene);
         _camera = new Camera3D { Fov = FieldOfView, Current = true };
         _scene.AddChild(_camera);
@@ -225,17 +237,71 @@ public partial class WindowDeck : Control
 
     public override void _ExitTree() => Wallpaper.Changed -= ShowWallpaper;
 
-    private void ShowWallpaper() => _wallpaper.Texture = Wallpaper.Load();
+    private void ShowWallpaper()
+    {
+        if (WallpaperRect is { } wallpaper && IsInstanceValid(wallpaper))
+            wallpaper.Texture = Wallpaper.Load();
+    }
+
+    /// <summary>Seconds between two refreshes of a card at the back (one card each time, in turn).</summary>
+    private const double CardRefreshInterval = 0.15;
+
+    /// <summary>The card refreshed last (they are refreshed in turn).</summary>
+    private int _refreshIndex;
+
+    /// <summary>The cards at the back, refreshed in turn (kept to spare an allocation at each tick).</summary>
+    private readonly List<DeckWindow> _backCards = [];
+
+    /// <summary>Seconds until the next look for windows not used for too long.</summary>
+    private double _idleCheck = 5;
 
     public override void _Process(double delta)
     {
-        // The cards at the back show their window as it is now, a few times a second.
+        if (_carousel)
+            StepCarousel((float)delta);
+        _idleCheck -= delta;
+        if (_idleCheck <= 0)
+        {
+            _idleCheck = 5;
+            CloseIdleWindows();
+        }
+
+        // The 3D scene renders only while a card is shown (at the back, flying, or on the ring): with every window in
+        // front it costs nothing.
+        var cardsShown = false;
+        foreach (var window in _windows)
+            if (window.Card is { Visible: true })
+            {
+                cardsShown = true;
+                break;
+            }
+        var sceneMode = cardsShown ? SubViewport.UpdateMode.Always : SubViewport.UpdateMode.Disabled;
+        if (_scene.RenderTargetUpdateMode != sceneMode)
+            _scene.RenderTargetUpdateMode = sceneMode;
+        if (_sceneContainer.Visible != cardsShown)
+            _sceneContainer.Visible = cardsShown;
+
+        // The cards at the back show their window as it is now: one card every CardRefreshInterval, in turn (the cost
+        // stays the same however many windows there are), and the card under the pointer each time.
         _refresh += delta;
-        if (_refresh < 0.4)
+        if (_refresh < CardRefreshInterval)
             return;
         _refresh = 0;
-        foreach (var window in _windows.Where(w => !w.IsFront && w.Motion is null))
-            window.Viewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Once;
+        _backCards.Clear();
+        foreach (var window in _windows)
+            if (!window.IsFront && window.Motion is null)
+            {
+                _backCards.Add(window);
+                // Back from a flight (rendered at every frame for it): one more picture, then it stops.
+                if (window.Viewport.RenderTargetUpdateMode == SubViewport.UpdateMode.Always)
+                    window.Viewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Once;
+            }
+        if (_backCards.Count == 0)
+            return;
+        _refreshIndex = (_refreshIndex + 1) % _backCards.Count;
+        _backCards[_refreshIndex].Viewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Once;
+        if (_hovered is { IsFront: false } hovered)
+            hovered.Viewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Once;
     }
 
     // ── Opening and closing ──
@@ -249,14 +315,19 @@ public partial class WindowDeck : Control
     /// </summary>
     public DeckWindow Open(string key, string title, string icon, Control content, Vector2 size, object? viewModel = null)
     {
+        if (_carousel)
+            LeaveCarousel(restore: false);
         if (Find(key) is { } existing)
         {
             if (!content.IsInsideTree())
                 content.QueueFree();
+            existing.LastInput = Time.GetTicksMsec();
             BringToFront(existing);
             return existing;
         }
         var window = new DeckWindow(key, title, icon, content, viewModel);
+        // Every click, key, wheel or drag in the window counts as a use (see LastInput).
+        window.Viewport.AddChild(new UseWatcher(window, () => _front));
         // Moved or resized by hand, a window in full size is no longer in full size.
         window.Frame.Moved += delta => { Unmaximize(window); Place(window, Clamp(new Rect2(window.Rect.Position + delta, window.Rect.Size))); };
         window.Frame.Resized += delta => { Unmaximize(window); Place(window, Clamp(new Rect2(window.Rect.Position, (window.Rect.Size + delta).Max(window.MinSize)))); };
@@ -412,6 +483,8 @@ public partial class WindowDeck : Control
     /// <summary>Brings <paramref name="window"/> to the front: its card flies forward, the window in front goes back.</summary>
     public void BringToFront(DeckWindow window)
     {
+        if (_carousel)
+            LeaveCarousel(restore: false);
         if (_stage)
         {
             ShowOnStage(window);
@@ -684,7 +757,8 @@ public partial class WindowDeck : Control
         _beforeStage.Clear();
         foreach (var window in _windows)
             _beforeStage[window] = (window.Rect, window.IsFront);
-        _wallpaper.Visible = false;
+        if (WallpaperRect is { } hidden && IsInstanceValid(hidden))
+            hidden.Visible = false;
         _sceneContainer.Visible = false;
         // The empty stage lets the clicks through to the animation (a double-click on it leaves the voice mode).
         MouseFilter = MouseFilterEnum.Ignore;
@@ -705,7 +779,8 @@ public partial class WindowDeck : Control
         _stageMotion?.Kill();
         _stageMotion = null;
         ClearShelf();
-        _wallpaper.Visible = true;
+        if (WallpaperRect is { } wallpaperBack && IsInstanceValid(wallpaperBack))
+            wallpaperBack.Visible = true;
         _sceneContainer.Visible = true;
         MouseFilter = MouseFilterEnum.Stop;
         PlaceStageArrows();
@@ -1239,6 +1314,9 @@ public partial class WindowDeck : Control
     /// <summary>Places the cards at the back, the most recently used in the middle of the front row.</summary>
     private void Arrange(bool animate)
     {
+        // The ring of /windows places the cards itself.
+        if (_carousel)
+            return;
         // In the order the windows were opened (the cards keep their place in the row).
         var back = _windows.Where(w => !w.IsFront && w.Card is not null).ToList();
         for (var i = 0; i < back.Count; i++)
@@ -1248,7 +1326,7 @@ public partial class WindowDeck : Control
             var card = window.Card!;
             if (window.CardLabel is null)
                 CreateLabel(window);
-            window.CardLabel!.Position = new Vector3(0, card.Mesh is QuadMesh q ? q.Size.Y / 2 + 0.35f : 1, 0.01f);
+            window.CardLabel!.Position = new Vector3(0, card.Mesh is QuadMesh q ? q.Size.Y / 2 + 0.25f : 1, 0.01f);
             if (!animate || window.Motion is not null && window.IsFront)
             {
                 if (!window.IsFront)
@@ -1282,20 +1360,35 @@ public partial class WindowDeck : Control
         window.CardMaterial = material;
     }
 
+    /// <summary>The longest title shown above a card at the back (longer ones end with …).</summary>
+    private const int CardTitleLength = 32;
+
+    /// <summary>
+    /// The title of a card at the back: above its top edge, facing the camera whatever the lean of the card, about 16
+    /// pixels high on the screen at the distance of the row, outlined, hidden where a nearer card covers it.
+    /// </summary>
     private void CreateLabel(DeckWindow window)
     {
+        var title = window.Title.Length > CardTitleLength ? window.Title[..(CardTitleLength - 1)].TrimEnd() + "…" : window.Title;
         var label = new Label3D
         {
-            Text = $"{window.Icon}  {window.Title}",
-            FontSize = 40,
-            PixelSize = Scale * 0.5f,
-            Modulate = Eve.Text with { A = 0.85f },
-            OutlineModulate = Eve.IsLight ? new Color(1, 1, 1, 0.9f) : new Color(0, 0, 0, 0.8f),
-            OutlineSize = 8,
+            Text = $"{window.Icon}  {title}",
+            FontSize = 48,
+            // The row is about 3.8 times as far as the front: 48 × 1.3 × Scale ≈ 16 pixels there.
+            PixelSize = Scale * 1.3f,
+            // White with a black outline, whatever the theme.
+            Modulate = Colors.White,
+            OutlineModulate = new Color(0, 0, 0, 0.95f),
+            OutlineSize = 14,
             Font = Eve.Display,
             Shaded = false,
             DoubleSided = true,
-            NoDepthTest = false
+            Billboard = BaseMaterial3D.BillboardModeEnum.Enabled,
+            VerticalAlignment = VerticalAlignment.Bottom,
+            // Hidden where a nearer card covers it.
+            NoDepthTest = false,
+            RenderPriority = 20,
+            OutlineRenderPriority = 19
         };
         window.Card!.AddChild(label);
         window.CardLabel = label;
@@ -1376,11 +1469,31 @@ public partial class WindowDeck : Control
         return null;
     }
 
+    /// <summary>Where the left button went down on a card at the back (null: not on a card, or the drag was used).</summary>
+    private Vector2? _cardPress;
+
+    /// <summary>A drag from a card at the back this share of the width of the desktop: to the right /windows, to the left /mosaic.</summary>
+    private const float CarouselDragShare = 0.2f;
+
     public override void _GuiInput(InputEvent e)
     {
         switch (e)
         {
             case InputEventMouseMotion motion:
+                // A card held and dragged over 20 % of the desktop: to the right the ring of /windows, to the left the
+                // windows side by side of /mosaic.
+                if (_cardPress is { } pressedAt && (motion.ButtonMask & MouseButtonMask.Left) != 0
+                    && Math.Abs(motion.Position.X - pressedAt.X) >= Size.X * CarouselDragShare)
+                {
+                    var right = motion.Position.X > pressedAt.X;
+                    _cardPress = null;
+                    if (right)
+                        EnterCarousel();
+                    else
+                        Mosaic();
+                    AcceptEvent();
+                    break;
+                }
                 var hovered = CardAt(motion.Position);
                 if (hovered != _hovered)
                 {
@@ -1393,13 +1506,44 @@ public partial class WindowDeck : Control
                         GrowTo(hovered, HoverGrowth);
                     _hovered = hovered;
                     MouseDefaultCursorShape = hovered is null ? CursorShape.Arrow : CursorShape.PointingHand;
-                    TooltipText = hovered is null ? string.Empty : $"{hovered.Title} · click: bring to the front · right click: close";
+                    TooltipText = hovered is null ? string.Empty : _carousel
+                        ? $"{hovered.Title} · click: bring to the front · right click: close"
+                        : $"{hovered.Title} · double-click: bring to the front · hold and drag to the right: /windows, to the left: /mosaic · right click: close";
                 }
                 break;
+            case InputEventMouseButton { Pressed: true, ButtonIndex: MouseButton.WheelUp or MouseButton.WheelDown } wheel when _carousel:
+                NudgeCarousel(wheel.ButtonIndex == MouseButton.WheelUp ? 1 : -1);
+                AcceptEvent();
+                break;
+            case InputEventMouseButton { ButtonIndex: MouseButton.Left, Pressed: false }:
+                _cardPress = null;
+                break;
             case InputEventMouseButton { Pressed: true, ButtonIndex: MouseButton.Left } click:
-                // One click on a card brings its window back to the front.
-                if (CardAt(click.Position) is { } window)
-                    BringToFront(window);
+                // In the row at the bottom, a double-click on a card brings its window back to the front (a single click
+                // only starts a drag: to the right, it opens /windows). On the ring, one click on a card brings it to the
+                // front, a click beside the cards puts the windows back as they were.
+                var clicked = CardAt(click.Position);
+                if (_carousel)
+                {
+                    if (clicked is not null)
+                    {
+                        clicked.LastInput = Time.GetTicksMsec();
+                        BringToFront(clicked);
+                    }
+                    else
+                        LeaveCarousel(restore: true);
+                }
+                else if (clicked is not null)
+                {
+                    if (click.DoubleClick)
+                    {
+                        _cardPress = null;
+                        clicked.LastInput = Time.GetTicksMsec();
+                        BringToFront(clicked);
+                    }
+                    else
+                        _cardPress = click.Position;
+                }
                 AcceptEvent();
                 break;
             case InputEventMouseButton { Pressed: true, ButtonIndex: MouseButton.Right } click:
@@ -1410,6 +1554,345 @@ public partial class WindowDeck : Control
                 AcceptEvent();
                 break;
         }
+    }
+
+    // ── Windows not used: closed by themselves ──
+
+    /// <summary>
+    /// Closes the windows the user has not used for <see cref="IdleCloseSeconds"/> (a click, a key, the wheel or a drag in
+    /// them, their opening, a double-click on their card; their animations do not count). Kept: a window with changes not
+    /// saved, and every window while the ring of /windows turns or the stage of the voice mode is shown.
+    /// </summary>
+    private void CloseIdleWindows()
+    {
+        if (IdleCloseSeconds <= 0 || _carousel || _stage || _windows.Count == 0)
+            return;
+        var now = Time.GetTicksMsec();
+        var limit = (ulong)IdleCloseSeconds * 1000;
+        foreach (var window in _windows.ToList())
+        {
+            if (now - window.LastInput < limit)
+                continue;
+            if (window.ViewModel is KAONOMI.Chat.ViewModels.IUnsavedChanges { IsDirty: true })
+                continue;
+            ActivityLog.Info("Desktop", $"Window {window.Key} closed: not used for {IdleCloseSeconds} s");
+            Close(window);
+        }
+    }
+
+    /// <summary>
+    /// In the viewport of a window: every click, wheel or drag in it marks the window as used, and a key when it is the
+    /// window in front (the keys may reach the viewports of the other windows too).
+    /// </summary>
+    private sealed partial class UseWatcher : Node
+    {
+        private readonly DeckWindow _window;
+        private readonly Func<DeckWindow?> _front;
+
+        public UseWatcher(DeckWindow window, Func<DeckWindow?> front)
+        {
+            _window = window;
+            _front = front;
+        }
+
+        public override void _Input(InputEvent e)
+        {
+            var used = e switch
+            {
+                InputEventKey { Pressed: true } => _front() == _window,
+                InputEventMouseButton { Pressed: true } or InputEventMouseMotion { ButtonMask: not 0 } or InputEventScreenTouch
+                    or InputEventPanGesture or InputEventMagnifyGesture => true,
+                _ => false
+            };
+            if (used)
+                _window.LastInput = Time.GetTicksMsec();
+        }
+    }
+
+    // ── /mosaic: every window in front, side by side over the whole desktop ──
+
+    /// <summary>The space between two windows of the mosaic, and around them.</summary>
+    private const float MosaicGap = 8;
+
+    /// <summary>
+    /// /mosaic: every window comes to the front (those at the back, faded or in full size too) and they share the whole
+    /// desktop as a grid, as the old versions of Windows did with "Tile windows": as many columns as gives cells close to
+    /// 4:3, the last row stretched to fill the width. A window smaller than its content scrolls. False when it cannot be
+    /// done (no window, or the stage of the voice mode).
+    /// </summary>
+    public bool Mosaic()
+    {
+        if (_stage || _windows.Count == 0)
+            return false;
+        if (_carousel)
+            LeaveCarousel(restore: false);
+        var windows = _windows.ToList();
+        var count = windows.Count;
+        var area = FullRect;
+        // Columns giving cells close to 4:3 on this desktop.
+        var columns = (int)Math.Clamp(Math.Ceiling(Math.Sqrt(count * (area.Size.X / Math.Max(1, area.Size.Y)) / (4f / 3f))), 1, count);
+        var rows = (int)Math.Ceiling(count / (double)columns);
+        var cellHeight = (area.Size.Y - MosaicGap * (rows + 1)) / rows;
+        var delay = 0.0;
+        for (var i = 0; i < count; i++)
+        {
+            var window = windows[i];
+            var row = i / columns;
+            var column = i % columns;
+            var inRow = row == rows - 1 ? count - row * columns : columns;
+            var cellWidth = (area.Size.X - MosaicGap * (inRow + 1)) / inRow;
+            var cell = new Rect2(
+                new Vector2(area.Position.X + MosaicGap + column * (cellWidth + MosaicGap), area.Position.Y + MosaicGap + row * (cellHeight + MosaicGap)).Round(),
+                new Vector2(cellWidth, cellHeight).Floor());
+            Unmaximize(window);
+            if (window.IsFront)
+            {
+                Unfade(window, animate: true);
+                // From where it is to its cell, moved and scaled as a picture (its content is laid out and its viewport
+                // resized once, at the end, not at every frame).
+                var container = window.Container;
+                var from = new Rect2(container.Position, container.Size);
+                var scale = new Vector2(cell.Size.X / Math.Max(1, from.Size.X), cell.Size.Y / Math.Max(1, from.Size.Y));
+                container.PivotOffset = Vector2.Zero;
+                var tween = CreateTween().SetParallel().SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.InOut);
+                tween.TweenProperty(container, "position", cell.Position, Duration);
+                tween.TweenProperty(container, "scale", scale, Duration);
+                tween.Chain().TweenCallback(Callable.From(() =>
+                {
+                    if (!IsInstanceValid(container))
+                        return;
+                    container.Scale = Vector2.One;
+                    if (window.IsFront)
+                        Place(window, cell);
+                }));
+            }
+            else
+            {
+                // From the back to its cell, one after the other.
+                window.Rect = cell;
+                GetTree().CreateTimer(delay).Timeout += () =>
+                {
+                    if (_windows.Contains(window) && !window.IsFront && !_carousel && !_stage)
+                        BringToFront(window);
+                };
+                delay += 0.06;
+            }
+        }
+        return true;
+    }
+
+    // ── /windows: every window on a ring turning in 3D ──
+
+    /// <summary>True while the windows turn on the ring of /windows.</summary>
+    private bool _carousel;
+
+    /// <summary>The turn of the ring (radians), and the turn still to add from the wheel or the arrows.</summary>
+    private float _carouselAngle, _carouselNudge;
+
+    /// <summary>Seconds since the ring appeared (the cards fly to it in the first <see cref="CarouselIntro"/>).</summary>
+    private float _carouselTime;
+
+    /// <summary>Seconds left before the ring turns by itself again (after the wheel or the arrows).</summary>
+    private float _carouselPause;
+
+    /// <summary>Where each card was when the ring appeared (it flies from there to its place on the ring).</summary>
+    private readonly Dictionary<DeckWindow, Transform3D> _carouselFrom = [];
+
+    /// <summary>The windows in front before the ring, in the order they were used (put back by Escape).</summary>
+    private List<DeckWindow> _carouselFront = [];
+
+    private const float CarouselSpeed = 0.32f;
+    private const float CarouselIntro = 0.75f;
+
+    /// <summary>True while the windows turn on the ring of /windows.</summary>
+    public bool InCarousel => _carousel;
+
+    /// <summary>
+    /// /windows: the windows on the ring, or back as they were when they already are. False when it cannot be shown (no
+    /// window, or the stage of the voice mode).
+    /// </summary>
+    public bool ToggleCarousel()
+    {
+        if (_carousel)
+        {
+            LeaveCarousel(restore: true);
+            return true;
+        }
+        return EnterCarousel();
+    }
+
+    /// <summary>
+    /// Every window becomes a card on a ring turning around a vertical axis, seen from a little above: each one comes
+    /// from the back (small, far and dim) to the front (large, near and lit) in turn, in perspective. The windows in
+    /// front fly from their place to the ring.
+    /// </summary>
+    public bool EnterCarousel()
+    {
+        if (_carousel || _stage || _windows.Count == 0)
+            return false;
+        _carouselFront = _windows.Where(w => w.IsFront).OrderBy(w => w.LastUsed).ToList();
+        foreach (var window in _carouselFront)
+            SendToBack(window, raise: false);
+        SetFront(null);
+        _carousel = true;
+        _carouselFrom.Clear();
+        foreach (var window in _windows)
+        {
+            window.Motion?.Kill();
+            window.Motion = null;
+            if (window.Card is null)
+                continue;
+            window.Card.Visible = true;
+            if (window.CardLabel is null)
+                CreateLabel(window);
+            window.CardLabel!.Position = new Vector3(0, window.Card.Mesh is QuadMesh q ? q.Size.Y / 2 + 0.35f : 1, 0.01f);
+            _carouselFrom[window] = window.Pose;
+        }
+        _carouselTime = 0;
+        _carouselNudge = 0;
+        _carouselPause = 0;
+        // The window used last starts in front.
+        var cards = CarouselCards();
+        var last = cards.OrderByDescending(w => w.LastUsed).FirstOrDefault();
+        _carouselAngle = last is null || cards.Count == 0 ? 0 : -cards.IndexOf(last) * Mathf.Tau / cards.Count;
+        StepCarousel(0);
+        return true;
+    }
+
+    /// <summary>
+    /// The ring goes: the cards go back to their row at the bottom; with <paramref name="restore"/>, the windows that were
+    /// in front come back to the front, one after the other.
+    /// </summary>
+    public void LeaveCarousel(bool restore)
+    {
+        if (!_carousel)
+            return;
+        _carousel = false;
+        foreach (var window in _windows)
+        {
+            window.GrowMotion?.Kill();
+            window.Grow = 1;
+            window.CardMaterial?.SetShaderParameter("hover", 0f);
+            if (window.CardMaterial is { } material)
+                material.RenderPriority = 0;
+        }
+        _hovered = null;
+        Arrange(animate: true);
+        if (!restore)
+            return;
+        var delay = 0.05;
+        foreach (var window in _carouselFront)
+        {
+            GetTree().CreateTimer(delay).Timeout += () =>
+            {
+                if (_windows.Contains(window) && !window.IsFront && !_carousel)
+                    BringToFront(window);
+            };
+            delay += 0.07;
+        }
+    }
+
+    /// <summary>Turns the ring by <paramref name="steps"/> cards (the wheel, ← →); it waits a moment before turning by itself.</summary>
+    private void NudgeCarousel(int steps)
+    {
+        var count = Math.Max(1, CarouselCards().Count);
+        _carouselNudge += steps * Mathf.Tau / count;
+        _carouselPause = 3;
+    }
+
+    /// <summary>The cards on the ring, in the order the windows were opened.</summary>
+    private List<DeckWindow> CarouselCards() => _windows.Where(w => !w.IsFront && w.Card is not null).ToList();
+
+    /// <summary>The ring turned by <paramref name="delta"/> seconds: each card at its place, lit by how near it is.</summary>
+    private void StepCarousel(float delta)
+    {
+        var cards = CarouselCards();
+        if (cards.Count == 0)
+        {
+            LeaveCarousel(restore: false);
+            return;
+        }
+        _carouselTime += delta;
+        if (_carouselPause > 0)
+            _carouselPause -= delta;
+        else
+            _carouselAngle += CarouselSpeed * delta;
+        // The wheel and the arrows: the turn asked, eased in.
+        var step = _carouselNudge * Math.Min(1, delta * 7);
+        _carouselAngle += step;
+        _carouselNudge -= step;
+
+        var intro = Math.Clamp(_carouselTime / CarouselIntro, 0, 1);
+        intro = 1 - MathF.Pow(1 - intro, 3);
+        for (var i = 0; i < cards.Count; i++)
+        {
+            var window = cards[i];
+            var theta = _carouselAngle + i * Mathf.Tau / cards.Count;
+            var pose = CarouselPose(window, theta, cards.Count);
+            if (intro < 1 && _carouselFrom.TryGetValue(window, out var from))
+                pose = Blend(from, pose, intro);
+            SetPose(window, pose);
+            // Lit in front, dim at the back; the nearest drawn above the others.
+            var near = (MathF.Cos(theta) + 1) / 2;
+            if (window != _hovered)
+                window.CardMaterial?.SetShaderParameter("light", Mathf.Lerp(0.28f, 1f, near * near));
+            if (window.CardMaterial is { } material && window != _hovered)
+                material.RenderPriority = (int)(near * 8);
+        }
+    }
+
+    /// <summary>
+    /// The place of a card on the ring at the angle <paramref name="theta"/> (0: nearest, in front): around a vertical
+    /// axis behind the front of the desktop, the ring tilted (the near side higher, the far side lower), each card
+    /// facing out of the ring and scaled to about half the height of the desktop.
+    /// </summary>
+    private Transform3D CarouselPose(DeckWindow window, float theta, int count)
+    {
+        var s = Scale;
+        var rect = window.Rect.Size;
+        // The card at about half the height of the desktop at the front distance (and never wider than 45 % of it).
+        var k = Math.Min(0.52f * Size.Y / Math.Max(1, rect.Y), 0.45f * Size.X / Math.Max(1, rect.X));
+        var width = rect.X * s * k;
+        // A ring wide enough for the cards side by side, never too small.
+        var radius = Math.Max(FrontDistance * 0.75f, count * width * 1.15f / Mathf.Tau);
+        var nearest = FrontDistance * 1.25f;
+        var centerZ = -(nearest + radius);
+        var x = radius * MathF.Sin(theta);
+        var z = centerZ + radius * MathF.Cos(theta);
+        // Seen from a little below: the near side higher, the far side lower.
+        var y = -FrontDistance * 0.06f + radius * 0.22f * MathF.Cos(theta);
+        var basis = new Basis(Vector3.Up, theta).Scaled(Vector3.One * k);
+        return new Transform3D(basis, new Vector3(x, y, z));
+    }
+
+    public override void _Input(InputEvent e)
+    {
+        if (!_carousel || e is not InputEventKey { Pressed: true } key)
+            return;
+        switch (key.Keycode)
+        {
+            case Key.Escape:
+                LeaveCarousel(restore: true);
+                break;
+            case Key.Left:
+                NudgeCarousel(-1);
+                break;
+            case Key.Right:
+                NudgeCarousel(1);
+                break;
+            case Key.Enter or Key.KpEnter:
+                // The card nearest the front comes to the front.
+                var cards = CarouselCards();
+                var nearest = cards.Select((w, i) => (w, near: MathF.Cos(_carouselAngle + i * Mathf.Tau / cards.Count))).OrderByDescending(c => c.near).FirstOrDefault().w;
+                if (nearest is not null)
+                    BringToFront(nearest);
+                else
+                    LeaveCarousel(restore: true);
+                break;
+            default:
+                return;
+        }
+        GetViewport().SetInputAsHandled();
     }
 
     /// <summary>

@@ -498,6 +498,9 @@ public sealed partial class MusicPlayerView : IToolView
             if (_vm is null)
                 return;
             var target = (float)Math.Clamp(_vm.IsPlaying ? _vm.Level : 0, 0, 1);
+            // Silent and settled: nothing moves, nothing is drawn again.
+            if (target <= 0 && _level <= 0.0001f && _peak <= 0.0001f && !_vm.IsPlaying)
+                return;
             // Rise fast, fall slowly.
             _level = target > _level ? Mathf.Lerp(_level, target, 0.6f) : Mathf.MoveToward(_level, target, (float)delta * 1.2f);
             if (_level >= _peak)

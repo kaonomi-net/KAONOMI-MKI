@@ -15,7 +15,6 @@
   "latencyMs": 1,
   "ollamaUrl": "http://localhost:11435",
 
-  "scrapeIntervalMinutes": 60,
   "runBudgetMinutes": 8,
   "revisitHours": 24,
   "maxPagesPerUrl": 20,

@@ -2,7 +2,7 @@
 
 # KAONOMI.Agent.WebScrapper
 
-Background host of the **web scraper**: the M-A-R-I agents (collect → analysis → actions) visit the web pages of the
+One-shot host of the **web scraper**, started on demand (it never runs in a loop): the M-A-R-I agents (collect → analysis → actions) visit the web pages of the
 active **collection plans**, keep a screenshot and the pictures of each page, cut its text into paragraphs and extract
 the entities of each paragraph with the NER of the Kaonomi server.
 
@@ -13,18 +13,19 @@ cd KAONOMI.Agent.WebScrapper
 dotnet run
 ```
 
-A run every `scrapeIntervalMinutes` (60 by default); Ctrl+C stops the loop.
+One run, then the host stops. It is started on demand: **LAUNCH AGENT** of the collection plan window of the chat
+(`--plan <id>`), WebScrapper in `/process` (the active collection plans), or a terminal. Ctrl+C stops the run.
 
 | Argument | Effect |
 | --- | --- |
-| `--once` | One run, then the host stops |
+| `--once` | Still accepted, changes nothing (every run is one run) |
 | `--url <url>` | Visits this URL instead of the collection plans (repeatable) |
 | `--mode fixed\|explore\|random` | Mode of the `--url` URLs (fixed by default) |
 | `--keywords "a,b"` | Keywords of the `--url` URLs |
-| `--plan <id>` | Visits this collection plan now, active or not, pages visited recently included (the **LAUNCH AGENT** button of the collection plan window runs `--once --plan <id>`) |
+| `--plan <id>` | Visits this collection plan now, active or not, pages visited recently included (the **LAUNCH AGENT** button of the collection plan window runs `--plan <id>`) |
 
 ```bash
-dotnet run -- --once --url "https://fr.wikipedia.org/wiki/Commission_europ%C3%A9enne"
+dotnet run -- --url "https://fr.wikipedia.org/wiki/Commission_europ%C3%A9enne"
 ```
 
 Needs: the search engine (`http://localhost:9200`), MongoDB for the cluster (`mongodb://localhost:27017`), the Kaonomi
@@ -52,7 +53,7 @@ For each page:
 
 ## Configuration
 
-`config.json` next to the executable: the usual Kaonomi settings and `scrapeIntervalMinutes`, `runBudgetMinutes`,
+`config.json` next to the executable: the usual Kaonomi settings and `runBudgetMinutes`,
 `revisitHours`, `maxPagesPerUrl`, `maxDepth`, `randomPages`, `maxImagesPerPage`, `minImageBytes`,
 `minParagraphLength`, `pageTimeoutSeconds`, `delayBetweenPagesMs`, `respectRobotsTxt`, `browserChannel`, `userAgent`,
 `outputFolder` (empty: `Pictures/kaonomi/webscrapper`).

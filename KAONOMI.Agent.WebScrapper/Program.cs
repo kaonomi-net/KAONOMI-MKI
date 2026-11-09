@@ -15,12 +15,13 @@ namespace KAONOMI.Agent.WebScrapper
     using Microsoft.Extensions.Logging;
 
     /// <summary>
-    /// Console host of the web scraper: runs the webscrapper sequence (collect the URLs of the active collection plans →
-    /// visit the pages → save them) every <see cref="WebScrapperConfig.scrapeIntervalMinutes"/> minutes.
-    /// Command line: <c>--once</c> runs once and stops; <c>--url &lt;url&gt;</c> (repeatable) visits these URLs instead of
-    /// the collection plans, in the mode of <c>--mode fixed|explore|random</c> (fixed by default), with the keywords of
-    /// <c>--keywords "a,b"</c>; <c>--plan &lt;id&gt;</c> visits that collection plan now (active or not; with --once, what
-    /// the Launch agent button of the collection plan window does).
+    /// Console host of the web scraper, one-shot: started on demand (LAUNCH AGENT of the collection plan window of the
+    /// chat, /process, a terminal), it runs the webscrapper sequence once (collect the URLs → visit the pages → save them)
+    /// and stops. It never runs in a loop.
+    /// Command line: <c>--url &lt;url&gt;</c> (repeatable) visits these URLs instead of the collection plans, in the mode
+    /// of <c>--mode fixed|explore|random</c> (fixed by default), with the keywords of <c>--keywords "a,b"</c>;
+    /// <c>--plan &lt;id&gt;</c> visits that collection plan now, active or not (what LAUNCH AGENT does); without them,
+    /// the active collection plans. <c>--once</c>, from before, is still accepted (it changes nothing).
     /// </summary>
     internal class Program
     {
@@ -31,7 +32,7 @@ namespace KAONOMI.Agent.WebScrapper
             var config = HelperConfigManager.GetFromFile<WebScrapperConfig>("config.json")
                 ?? throw new InvalidOperationException("config.json could not be loaded.");
             var appName = config.appName;
-            var (request, once, hostArgs) = ParseArguments(args);
+            var (request, hostArgs) = ParseArguments(args);
 
             HelperConsoleTheme.PlaceOnSmallestScreen(slot: 6, slotCount: 7);
             HelperConsoleTheme.Start(config.appName, config.appDescription, config.appDocumentationUrl, config.consoleTheme);
@@ -75,23 +76,16 @@ namespace KAONOMI.Agent.WebScrapper
             };
 
             await host.StartAsync(cts.Token);
-            HelperConsoleTheme.Info(once ? "One run, then stop." : $"A run every {config.scrapeIntervalMinutes} min. Press Ctrl+C to stop.");
+            HelperConsoleTheme.Info("One run, then stop.");
 
             try
             {
                 var handler = host.Services.GetRequiredService<IMARIExecutionHandler>();
-                var input = SequenceJson.Write(request);
-                do
-                {
-                    await ExecuteSequenceAsync(handler, sequence.Uid, appName, input);
-                    if (once)
-                        break;
-                    await Task.Delay(TimeSpan.FromMinutes(Math.Max(1, config.scrapeIntervalMinutes)), cts.Token);
-                } while (!cts.IsCancellationRequested);
-            }
-            catch (OperationCanceledException)
-            {
-                HelperConsoleTheme.Info("Sequence loop stopped.");
+                var run = ExecuteSequenceAsync(handler, sequence.Uid, appName, SequenceJson.Write(request));
+                // Ctrl+C stops the run (what was saved stays).
+                await Task.WhenAny(run, Task.Delay(Timeout.Infinite, cts.Token));
+                if (!run.IsCompleted)
+                    HelperConsoleTheme.Info("Run stopped (Ctrl+C).");
             }
             finally
             {
@@ -99,18 +93,17 @@ namespace KAONOMI.Agent.WebScrapper
             }
         }
 
-        /// <summary>The URLs, mode and keywords of the command line, --once, and the arguments left for the host.</summary>
-        private static (ScrapeRequest Request, bool Once, string[] HostArgs) ParseArguments(string[] args)
+        /// <summary>The URLs, plan, mode and keywords of the command line, and the arguments left for the host.</summary>
+        private static (ScrapeRequest Request, string[] HostArgs) ParseArguments(string[] args)
         {
             var request = new ScrapeRequest();
-            var once = false;
             var rest = new List<string>();
             for (var i = 0; i < args.Length; i++)
             {
                 switch (args[i])
                 {
                     case "--once":
-                        once = true;
+                        // From when the agent ran in a loop: every run is one run now.
                         break;
                     case "--url" when i + 1 < args.Length:
                         request.urls.Add(args[++i]);
@@ -129,7 +122,7 @@ namespace KAONOMI.Agent.WebScrapper
                         break;
                 }
             }
-            return (request, once, rest.ToArray());
+            return (request, rest.ToArray());
         }
 
         /// <summary>Runs the webscrapper sequence once and logs success or failure.</summary>

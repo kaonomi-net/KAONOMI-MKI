@@ -261,9 +261,15 @@ public partial class BusyPopup : Control
             QueueFree();
     }
 
+    private int _shownSeconds = -1;
+
     public override void _Process(double delta)
     {
+        // Written once a second (not at every frame).
         var seconds = (int)((Time.GetTicksMsec() - _started) / 1000);
+        if (seconds == _shownSeconds)
+            return;
+        _shownSeconds = seconds;
         _elapsed.Text = seconds < 60 ? $"{seconds} s" : $"{seconds / 60} min {seconds % 60:00} s";
     }
 

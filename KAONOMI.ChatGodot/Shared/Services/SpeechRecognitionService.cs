@@ -177,10 +177,67 @@ public sealed class SpeechRecognitionService : IDisposable
     /// Stops recording and returns the text spoken, in <paramref name="language"/> (fr, de, en); empty when nothing
     /// was said.
     /// </summary>
-    public async Task<string> StopAndTranscribeAsync(string language, CancellationToken cancellationToken = default)
+    public Task<string> StopAndTranscribeAsync(string language, CancellationToken cancellationToken = default) =>
+        TranscribeRecordedAsync(StopRecording(), _rate, language, cancellationToken);
+
+    /// <summary>
+    /// Takes the speech recorded so far and returns its text, while the microphone goes on recording (the next words
+    /// start a new recording): the continuous dictation cuts its speech this way at each pause.
+    /// </summary>
+    public Task<string> TakeAndTranscribeAsync(string language, CancellationToken cancellationToken = default)
     {
-        var recorded = StopRecording();
-        var rate = _rate;
+        float[] recorded;
+        lock (_samplesLock)
+        {
+            recorded = _samples.ToArray();
+            _samples.Clear();
+        }
+        return TranscribeRecordedAsync(recorded, _rate, language, cancellationToken);
+    }
+
+    /// <summary>Forgets what was recorded so far (silence), while the microphone goes on recording.</summary>
+    public void Discard()
+    {
+        lock (_samplesLock)
+            _samples.Clear();
+    }
+
+    /// <summary>The length recorded since <see cref="Start"/> (or since the last take or discard).</summary>
+    public TimeSpan Recorded
+    {
+        get
+        {
+            lock (_samplesLock)
+                return _rate > 0 ? TimeSpan.FromSeconds(_samples.Count / (double)_rate) : TimeSpan.Zero;
+        }
+    }
+
+    /// <summary>
+    /// The peak level (full scale 1) of what was recorded so far, and of its last <paramref name="recent"/> only: a
+    /// recent peak far under the whole one is a pause after speech.
+    /// </summary>
+    public (float Whole, float Recent) Peaks(TimeSpan recent)
+    {
+        lock (_samplesLock)
+        {
+            var from = Math.Max(0, _samples.Count - (int)(_rate * recent.TotalSeconds));
+            float whole = 0, last = 0;
+            for (var i = 0; i < _samples.Count; i++)
+            {
+                var level = Math.Abs(_samples[i]);
+                whole = Math.Max(whole, level);
+                if (i >= from)
+                    last = Math.Max(last, level);
+            }
+            return (whole, last);
+        }
+    }
+
+    /// <summary>Under this peak level a recording is silence (see the constant of the same meaning).</summary>
+    public static float Silence => SilencePeak;
+
+    private async Task<string> TranscribeRecordedAsync(float[] recorded, int rate, string language, CancellationToken cancellationToken)
+    {
         if (rate <= 0 || recorded.Length < rate * MinimumSpeech.TotalSeconds)
         {
             ActivityLog.Info("Speech", $"Too short to be speech: {recorded.Length} samples at {rate} Hz");

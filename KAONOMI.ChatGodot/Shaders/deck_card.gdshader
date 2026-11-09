@@ -1,7 +1,7 @@
 // A window sent to the back of the desktop: its live picture on a card in 3D, dimmed and cooled with the depth, a
 // hairline cyan edge, brighter when the pointer is over it. "light" (0 to 1) goes to 1 as the card comes to the front.
 shader_type spatial;
-render_mode unshaded, cull_disabled, depth_draw_opaque, blend_mix;
+render_mode unshaded, cull_disabled, depth_draw_always, blend_mix;
 
 uniform sampler2D picture : source_color, filter_linear_mipmap;
 uniform float light = 0.55;

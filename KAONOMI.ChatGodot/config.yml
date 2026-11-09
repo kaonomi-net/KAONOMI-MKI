@@ -17,6 +17,10 @@ mongoEngineAddress: localhost:27017
 llmGatewayUrl: http://localhost:11435
 byeStopsEngines: off
 
+# A window of the desktop not used for this many seconds (no click, key, wheel or drag in it; its animations do not
+# count) closes by itself; a window with changes not saved is kept. 0 never closes them.
+windowIdleCloseSeconds: 300
+
 # Language of the application (e.g. FR, EN).
 language: FR
 

@@ -121,6 +121,12 @@ public partial class ImageAnalysisViewModel : ViewModelBase, INoteContextProvide
     public string ImagePath { get; }
     public string FileName => Path.GetFileName(ImagePath);
 
+    /// <summary>
+    /// True: the picture opens at its real size (zoom 100 %, scrolled in its window) instead of fitted to the window
+    /// (the pictures of the web scraper results).
+    /// </summary>
+    public bool OpenAtActualSize { get; set; }
+
     /// <summary>The title of the picture, typed by the user (by default its file name); saved with the analysis.</summary>
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(Title))]

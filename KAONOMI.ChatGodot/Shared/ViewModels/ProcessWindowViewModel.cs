@@ -161,7 +161,7 @@ public sealed partial class ProcessWindowViewModel : ViewModelBase, INoteContext
         yield return new ManagedProcess
         {
             Name = "WebScrapper", Group = "Agents",
-            Description = "KAONOMI.Agent.WebScrapper · the web pages of the active collection plans: screenshots, pictures, paragraphs and their entities (an agent of the silo: needs the server; runs from its own folder)",
+            Description = "KAONOMI.Agent.WebScrapper · one run over the web pages of the active collection plans (screenshots, pictures, paragraphs and their entities), then it stops; LAUNCH AGENT of /collectionplan runs it on one plan (an agent of the silo: needs the server; runs from its own folder)",
             Pattern = @"KAONOMI\.Agent\.WebScrapper($|/bin/|\\bin\\)",
             Start = () => Dotnet(Path.Combine(ProjectsDirectory, "KAONOMI.Agent.WebScrapper"), "run")
         };

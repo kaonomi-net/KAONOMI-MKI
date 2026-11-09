@@ -23,12 +23,35 @@ public partial class Dropdown : Button
         ClipText = true;
         FocusMode = FocusModeEnum.None;
         MouseDefaultCursorShape = CursorShape.PointingHand;
-        AddThemeStyleboxOverride("normal", Eve.Eve.Box(Eve.Eve.Field, Eve.Eve.Edge with { A = 0.5f }, 6));
-        AddThemeStyleboxOverride("hover", Eve.Eve.Box(Eve.Eve.Cyan with { A = 0.1f }, Eve.Eve.Cyan with { A = 0.8f }, 6));
+        // A rounded pop-up button in the manner of macOS: a light face, a hairline edge, a soft shadow, the chevron on the right.
+        StyleBoxFlat Face(float edge)
+        {
+            var box = new StyleBoxFlat
+            {
+                BgColor = Eve.Eve.IsLight ? Colors.White : new Color(1, 1, 1, 0.08f),
+                BorderColor = Eve.Eve.IsLight ? new Color(0, 0, 0, edge) : new Color(1, 1, 1, edge),
+                AntiAliasing = true,
+                ShadowColor = new Color(0, 0, 0, Eve.Eve.IsLight ? 0.06f : 0.2f),
+                ShadowSize = 1,
+                ShadowOffset = new Vector2(0, 1)
+            };
+            box.SetBorderWidthAll(1);
+            box.SetCornerRadiusAll(6);
+            box.ContentMarginLeft = 8;
+            box.ContentMarginRight = 22;
+            box.ContentMarginTop = box.ContentMarginBottom = 2;
+            return box;
+        }
+        AddThemeStyleboxOverride("normal", Face(0.14f));
+        AddThemeStyleboxOverride("hover", Face(0.26f));
+        AddThemeStyleboxOverride("pressed", Face(0.32f));
+        AddThemeStyleboxOverride("focus", new StyleBoxEmpty());
+        AddThemeFontSizeOverride("font_size", 11);
         AddThemeColorOverride("font_color", Eve.Eve.TextBright);
-        var arrow = Eve.Eve.Text_("▾", Eve.Eve.Muted, 12);
+        AddThemeColorOverride("font_hover_color", Eve.Eve.TextBright);
+        var arrow = Eve.Eve.Text_("⌄", Eve.Eve.Muted, 11);
         arrow.SetAnchorsAndOffsetsPreset(LayoutPreset.RightWide);
-        arrow.OffsetLeft = -18;
+        arrow.OffsetLeft = -16;
         arrow.OffsetRight = -6;
         arrow.VerticalAlignment = VerticalAlignment.Center;
         arrow.MouseFilter = MouseFilterEnum.Ignore;

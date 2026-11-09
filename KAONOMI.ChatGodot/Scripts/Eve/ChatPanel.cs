@@ -34,10 +34,22 @@ public partial class ChatPanel : PanelContainer
     private double _tickerOffset;
     private bool _stickToBottom = true;
 
+    /// <summary>The width of the chat (open).</summary>
+    private const float FullWidth = 460;
+
+    /// <summary>The share of the chat still seen when it is slid to the right.</summary>
+    private const float TuckedShare = 0.1f;
+
+    /// <summary>The frame of the content: it keeps its whole width while the chat narrows, what is past it is cut.</summary>
+    private Control _slide = null!;
+    private Control _content = null!;
+    private bool _tucked;
+    private Tween? _tuckMotion;
+
     public ChatPanel(MainViewModel viewModel)
     {
         _vm = viewModel;
-        CustomMinimumSize = new Vector2(460, 0);
+        CustomMinimumSize = new Vector2(FullWidth, 0);
         var box = Eve.Box(Eve.Panel, Eve.Edge with { A = 0f }, 0, 0);
         box.BorderWidthLeft = 1;
         box.BorderColor = Eve.Edge with { A = 0.6f };
@@ -48,7 +60,12 @@ public partial class ChatPanel : PanelContainer
     {
         var column = new VBoxContainer();
         column.AddThemeConstantOverride("separation", 0);
-        AddChild(column);
+        // The content in a frame that cuts it: slid to the right, the chat narrows and its left edge only stays in view.
+        _slide = new Control { ClipContents = true, MouseFilter = MouseFilterEnum.Ignore };
+        AddChild(_slide);
+        _slide.AddChild(column);
+        _content = column;
+        _slide.Resized += FitContent;
         column.AddChild(BuildHeader());
         column.AddChild(BuildAvatar());
         column.AddChild(BuildTicker());
@@ -122,14 +139,24 @@ public partial class ChatPanel : PanelContainer
         FullChatChanged();
     }
 
+    /// <summary>The second shown by the clock (the clock, the date and the next alarm are written once a second).</summary>
+    private long _shownSecond = -1;
+
     public override void _Process(double delta)
     {
         var now = DateTime.Now;
-        _clock.Text = now.ToString("HH:mm:ss");
-        _date.Text = now.ToString("ddd d MMM yyyy").ToUpperInvariant();
-        // The next alarm of /alarm within a day, beside the date.
-        if (KAONOMI.Chat.Services.AlarmClock.Shared.Upcoming(now).FirstOrDefault() is { Alarm: not null } next && next.Ring - now < TimeSpan.FromDays(1))
-            _date.Text += $"  ·  ⏰ {next.Ring:HH:mm}";
+        var second = now.Ticks / TimeSpan.TicksPerSecond;
+        if (second != _shownSecond)
+        {
+            _shownSecond = second;
+            _clock.Text = now.ToString("HH:mm:ss");
+            var date = now.ToString("ddd d MMM yyyy").ToUpperInvariant();
+            // The next alarm of /alarm within a day, beside the date.
+            if (KAONOMI.Chat.Services.AlarmClock.Shared.Upcoming(now).FirstOrDefault() is { Alarm: not null } next && next.Ring - now < TimeSpan.FromDays(1))
+                date += $"  ·  ⏰ {next.Ring:HH:mm}";
+            if (_date.Text != date)
+                _date.Text = date;
+        }
         // The ticker scrolls from right to left.
         if (_ticker.Visible && _ticker.Text.Length > 0)
         {
@@ -143,9 +170,48 @@ public partial class ChatPanel : PanelContainer
 
     // ── Header: title, clock, server ──
 
+    /// <summary>The content at the whole width of the chat (even while it is narrowed), at the height of the frame.</summary>
+    private void FitContent()
+    {
+        _content.Position = Vector2.Zero;
+        _content.Size = new Vector2(Math.Max(_slide.Size.X, FullWidth - 1), _slide.Size.Y);
+    }
+
+    /// <summary>True while the chat is slid to the right (only its left edge in view).</summary>
+    public bool IsTucked => _tucked;
+
+    /// <summary>
+    /// A double-click on the bar at the top of the chat: it slides to the right of the screen, 90 % of its width hidden
+    /// (the desktop takes the room), or comes back.
+    /// </summary>
+    public void ToggleTucked() => SetTucked(!_tucked, animate: true);
+
+    private void SetTucked(bool tucked, bool animate)
+    {
+        _tucked = tucked;
+        _tuckMotion?.Kill();
+        var width = tucked ? FullWidth * TuckedShare : FullWidth;
+        if (!animate)
+        {
+            CustomMinimumSize = new Vector2(width, 0);
+            return;
+        }
+        _tuckMotion = CreateTween().SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.InOut);
+        _tuckMotion.TweenProperty(this, "custom_minimum_size:x", width, 0.35);
+    }
+
     private Control BuildHeader()
     {
-        var panel = new PanelContainer();
+        var panel = new PanelContainer { MouseFilter = MouseFilterEnum.Stop, TooltipText = "Double-click: slide the chat to the right of the screen (again: back)" };
+        // A double-click on the bar slides the chat aside (the clock keeps its own: the alarm clock).
+        panel.GuiInput += e =>
+        {
+            if (e is InputEventMouseButton { DoubleClick: true, ButtonIndex: MouseButton.Left })
+            {
+                panel.AcceptEvent();
+                ToggleTucked();
+            }
+        };
         var box = Eve.Box(Eve.Header, Eve.Edge with { A = 0f }, 0, 0);
         box.BorderWidthBottom = 1;
         box.BorderColor = Eve.Edge with { A = 0.6f };
@@ -248,6 +314,9 @@ public partial class ChatPanel : PanelContainer
     /// <summary>The voice mode: the animation on the whole screen with a microphone; it comes back here when it ends.</summary>
     public void EnterVoiceMode()
     {
+        // The voice mode takes the whole chat: back to its width first.
+        if (_tucked)
+            SetTucked(false, animate: false);
         if (_voiceMode is { } shown && GodotObject.IsInstanceValid(shown) && !shown.IsQueuedForDeletion())
             return;
         if (_avatarStage.GetChildCount() == 0 || Shell.Current.Root is not Control root)

@@ -26,6 +26,15 @@ public partial class Main : Control
     private ChatSettings _settings = null!;
     private ChatPanel _chat = null!;
     private ShaderMaterial _space = null!;
+
+    /// <summary>The wallpaper, over the background of the theme and under the whole interface (the chat included).</summary>
+    private TextureRect _wallpaper = null!;
+
+    /// <summary>The background of the theme (its picture and its animated shader): not drawn while the wallpaper covers it.</summary>
+    private readonly System.Collections.Generic.List<CanvasItem> _themeBackground = [];
+
+    /// <summary>The last voice level given to the shader of the background (set only when it changes).</summary>
+    private float _energy = -1;
     private Control _ui = null!;
     private double _serverCheck, _tickerRefresh = 60, _layoutSave = 20;
 
@@ -164,7 +173,13 @@ public partial class Main : Control
         _ui.AddChild(row);
         _neocom = new Neocom();
         row.AddChild(_neocom);
-        _deck = new WindowDeck { SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        _deck = new WindowDeck
+        {
+            SizeFlagsHorizontal = SizeFlags.ExpandFill,
+            WallpaperRect = _wallpaper,
+            // The windows not used for windowIdleCloseSeconds of config.yml close by themselves.
+            IdleCloseSeconds = ChatSettings.Load().WindowIdleCloseSeconds
+        };
         row.AddChild(_deck);
         _chat = new ChatPanel(_vm);
         row.AddChild(_chat);
@@ -278,6 +293,7 @@ public partial class Main : Control
                 };
                 picture.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
                 _ui.AddChild(picture);
+                _themeBackground.Add(picture);
             }
             else
                 GD.PushWarning($"The picture of the theme {path} could not be read");
@@ -286,6 +302,18 @@ public partial class Main : Control
         var background = new ColorRect { Material = _space, MouseFilter = MouseFilterEnum.Ignore };
         background.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
         _ui.AddChild(background);
+        _themeBackground.Add(background);
+
+        // The wallpaper on the whole surface of the application, under the bar of commands, the desktop and the chat
+        // (the desktop puts the picture chosen in it, and hides it on the stage).
+        _wallpaper = new TextureRect
+        {
+            ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
+            StretchMode = TextureRect.StretchModeEnum.KeepAspectCovered,
+            MouseFilter = MouseFilterEnum.Ignore
+        };
+        _wallpaper.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+        _ui.AddChild(_wallpaper);
     }
 
     /// <summary>Every request of the chat to open a tool opens its window on the desktop.</summary>
@@ -352,6 +380,16 @@ public partial class Main : Control
         });
         _vm.SetupRequested += () => Bind.OnMain(OpenSetup);
         _vm.ThinkRequested += () => Bind.OnMain(OpenThink);
+        _vm.MosaicRequested += () => Bind.OnMain(() =>
+        {
+            if (!_deck.Mosaic())
+                _vm.Status = _deck.Windows.Count == 0 ? "/mosaic: no window open" : "/mosaic: not while the windows are on the stage (voice mode)";
+        });
+        _vm.WindowsRequested += () => Bind.OnMain(() =>
+        {
+            if (!_deck.ToggleCarousel())
+                _vm.Status = _deck.Windows.Count == 0 ? "/windows: no window open" : "/windows: not while the windows are on the stage (voice mode)";
+        });
         _vm.AudioSettingsRequested += () => Bind.OnMain(() => AudioSettings.Open(this));
         _vm.CloseAllRequested += () => Bind.OnMain(() => _ = _shell.Deck.RequestCloseAllAsync());
         _vm.ExitCountdown += remaining => Bind.OnMain(() => ShowCountdown(remaining));
@@ -392,7 +430,17 @@ public partial class Main : Control
         if (_space is null)
             return;
         AvaloniaBridge.Pump();
-        _space.SetShaderParameter("energy", Math.Clamp(_vm.SpeechLevel, 0, 1));
+        // The background of the theme is not drawn under a wallpaper (its full-screen shader cost every frame for nothing).
+        var covered = IsInstanceValid(_wallpaper) && _wallpaper.Visible && _wallpaper.Texture is not null;
+        foreach (var item in _themeBackground)
+            if (IsInstanceValid(item) && item.Visible == covered)
+                item.Visible = !covered;
+        var energy = (float)Math.Round(Math.Clamp(_vm.SpeechLevel, 0, 1), 2);
+        if (Math.Abs(energy - _energy) > 0.001f)
+        {
+            _energy = energy;
+            _space.SetShaderParameter("energy", energy);
+        }
         _serverCheck += delta;
         if (_serverCheck > 5)
         {

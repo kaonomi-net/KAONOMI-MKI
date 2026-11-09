@@ -255,6 +255,16 @@ public partial class CollectionPlanWindowViewModel : ViewModelBase, INoteContext
         return result.Length == 0 ? "plan" : result.Length > 60 ? result[..60] : result;
     }
 
+    // ── RESULTS: what the web scraper agent saved for the selected plan ──
+
+    /// <summary>
+    /// The window of the results of the web scraper agent for <paramref name="entry"/> (its pages, screenshots, pictures
+    /// and text, read in the search engine); its pictures open in the image analysis at their real size.
+    /// </summary>
+    public WebScrapeResultsWindowViewModel CreateResults(CollectionPlanEntryViewModel entry) =>
+        new(ChatSettings.Load().SearchEngineUrl, entry.Id ?? string.Empty, entry.Title,
+            path => new ImageAnalysisViewModel(path, _assistant, _ollama, _visionModel));
+
     // ── LAUNCH AGENT: the web scraper agent (KAONOMI.Agent.WebScrapper) on the selected plan ──
 
     /// <summary>The name of the process of the web scraper agent (its apphost).</summary>
@@ -277,7 +287,7 @@ public partial class CollectionPlanWindowViewModel : ViewModelBase, INoteContext
     private static readonly Regex Ansi = new(@"\x1B\[[0-9;?]*[A-Za-z]|\x1B\][^\u0007]*\u0007", RegexOptions.Compiled);
 
     /// <summary>
-    /// LAUNCH AGENT: starts the web scraper agent (KAONOMI.Agent.WebScrapper, <c>dotnet run -- --once --plan &lt;id&gt;</c>)
+    /// LAUNCH AGENT: starts the web scraper agent (KAONOMI.Agent.WebScrapper, <c>dotnet run -- --plan &lt;id&gt;</c>: one run, then it stops)
     /// on the selected plan as it is saved on the server, active or not: it visits the URLs of its websites, keeps a
     /// screenshot and the pictures of each page (Pictures/kaonomi/webscrapper), cuts the pages into paragraphs with
     /// their entities and saves them (indices webpage and webparagraph). The steps of the agent are shown in the log of
@@ -302,7 +312,7 @@ public partial class CollectionPlanWindowViewModel : ViewModelBase, INoteContext
             Fail("The web scraper agent is already running (started from /process or a terminal): stop it first");
             return;
         }
-        var info = ProcessWindowViewModel.Dotnet(folder, "run", "--", "--once", "--plan", entry.Id!);
+        var info = ProcessWindowViewModel.Dotnet(folder, "run", "--", "--plan", entry.Id!);
         if (info is null)
         {
             Fail("dotnet was not found: install the .NET 8 SDK");
@@ -321,7 +331,7 @@ public partial class CollectionPlanWindowViewModel : ViewModelBase, INoteContext
         {
             Directory.CreateDirectory(ProcessWindowViewModel.LogsDirectory);
             log = new StreamWriter(logPath, append: true) { AutoFlush = true };
-            log.WriteLine($"──── {DateTime.Now:yyyy-MM-dd HH:mm:ss} · started from the collection plan window: --once --plan {entry.Id} ({entry.Title}) ────");
+            log.WriteLine($"──── {DateTime.Now:yyyy-MM-dd HH:mm:ss} · started from the collection plan window: --plan {entry.Id} ({entry.Title}) ────");
             var writer = log;
             void Received(string? data)
             {

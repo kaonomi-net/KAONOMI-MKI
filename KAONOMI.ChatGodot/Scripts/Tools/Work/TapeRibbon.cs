@@ -50,9 +50,9 @@ internal sealed class TapeRibbon
     private readonly Func<string, string> _cropDirectory;
 
     // The ribbon controls the toolbar keeps in step with the caret (null while their group is not built).
-    private readonly Dropdown _fontBox = new() { CustomMinimumSize = new Vector2(170, 0), TooltipText = "Font of the selection" };
-    private readonly Dropdown _sizeBox = new() { CustomMinimumSize = new Vector2(64, 0), TooltipText = "Size of the selection" };
-    private readonly Dropdown _paragraphBox = new() { CustomMinimumSize = new Vector2(150, 0), TooltipText = "Style of the paragraph: Normal, Title, Subtitle, Heading 1, 2, 3 (Ctrl / ⌘ + Alt / ⌥ + 1, 2, 3; 0 for Normal)" };
+    private readonly Dropdown _fontBox = new() { CustomMinimumSize = new Vector2(150, 22), TooltipText = "Font of the selection" };
+    private readonly Dropdown _sizeBox = new() { CustomMinimumSize = new Vector2(54, 22), TooltipText = "Size of the selection" };
+    private readonly Dropdown _paragraphBox = new() { CustomMinimumSize = new Vector2(124, 22), TooltipText = "Style of the paragraph: Normal, Title, Subtitle, Heading 1, 2, 3 (Ctrl / ⌘ + Alt / ⌥ + 1, 2, 3; 0 for Normal)" };
     private readonly List<string> _fonts = [];
     private List<int> _sizes = [.. Sizes];
     private bool _hasFont, _hasStyles;
@@ -107,29 +107,33 @@ internal sealed class TapeRibbon
     // ───────────── Ribbon ─────────────
 
     /// <summary>
-    /// The ribbon: its tabs as a segmented line (the one in use underlined in cyan), under it the groups of the tab side
-    /// by side (scrolled sideways when the window is narrow) over the 3D shelf (<see cref="RibbonShelf"/>) that draws a
-    /// slab of glass under every big tool.
+    /// The ribbon, in the manner of a toolbar of macOS: its tabs as a segmented control in the middle (the one in use a
+    /// light pill), under it the groups of the tab side by side, separated by hairlines (scrolled sideways when the window
+    /// is narrow); compact tools that only show a soft fill under the pointer.
     /// </summary>
     public Control Build(params (string Name, Control[] Groups)[] tabs) => Build(null, tabs);
 
     /// <summary>The ribbon, with <paramref name="trailing"/> (the status of the window) at the right of its tabs.</summary>
     public Control Build(Control? trailing, params (string Name, Control[] Groups)[] tabs)
     {
-        var strips = tabs.Select(tab => (Control)Ui.Row(6, tab.Groups)).ToArray();
-        var shelf = new RibbonShelf();
+        var strips = tabs.Select(tab => (Control)Ui.Row(2, tab.Groups)).ToArray();
         var holder = new MarginContainer();
-        holder.AddChild(shelf);
         for (var i = 0; i < strips.Length; i++)
         {
             strips[i].Visible = i == 0;
             holder.AddChild(strips[i]);
-            foreach (var tool in strips[i].FindChildren("*", "Button", recursive: true, owned: false))
-                if (tool is Button button && button.HasMeta("tile"))
-                    shelf.Track(button);
         }
         var tabButtons = new List<Button>();
+        // The tabs as a segmented control: a rounded groove, the tab in use a raised pill in it.
+        var segments = Ui.Row(0);
+        var segmented = new PanelContainer { SizeFlagsVertical = Control.SizeFlags.ShrinkCenter };
+        var groove = MacBox(Eve.Eve.IsLight ? new Color(0, 0, 0, 0.065f) : new Color(1, 1, 1, 0.07f), 7, 2, 2);
+        segmented.AddThemeStyleboxOverride("panel", groove);
+        segmented.AddChild(segments);
         var line = Ui.Row(2);
+        line.AddChild(Ui.Spring());
+        line.AddChild(segmented);
+        line.AddChild(Ui.Spring());
         Control panel = null!;
         // The window of the ribbon is kept wide enough to show the widest tab whole (measured once the ribbon is in
         // the tree, and again when a tab is chosen: a hidden strip may not know its size yet).
@@ -155,109 +159,128 @@ internal sealed class TapeRibbon
         for (var i = 0; i < tabs.Length; i++)
         {
             var index = i;
-            var tab = new Button { Text = tabs[i].Name.ToUpperInvariant(), FocusMode = Control.FocusModeEnum.None, MouseDefaultCursorShape = Control.CursorShape.PointingHand, CustomMinimumSize = new Vector2(0, 26) };
-            tab.AddThemeFontOverride("font", Eve.Eve.Display);
+            var tab = new Button { Text = tabs[i].Name, FocusMode = Control.FocusModeEnum.None, MouseDefaultCursorShape = Control.CursorShape.PointingHand, CustomMinimumSize = new Vector2(72, 20) };
+            tab.AddThemeFontOverride("font", Eve.Eve.Body);
             tab.AddThemeFontSizeOverride("font_size", 11);
             tab.Pressed += () => Select(index);
             tabButtons.Add(tab);
-            line.AddChild(tab);
+            segments.AddChild(tab);
         }
         if (trailing is not null)
         {
-            line.AddChild(Ui.Spring());
             trailing.SizeFlagsVertical = Control.SizeFlags.ShrinkCenter;
             line.AddChild(trailing);
         }
         Select(0);
-        var ribbonScroll = new ScrollContainer { HorizontalScrollMode = ScrollContainer.ScrollMode.Auto, VerticalScrollMode = ScrollContainer.ScrollMode.Disabled, CustomMinimumSize = new Vector2(0, 100) };
+        var ribbonScroll = new ScrollContainer { HorizontalScrollMode = ScrollContainer.ScrollMode.Auto, VerticalScrollMode = ScrollContainer.ScrollMode.Disabled, CustomMinimumSize = new Vector2(0, 66) };
         ribbonScroll.AddChild(holder);
 
-        // The ribbon: a sheet of glass (the desk shows through it), a hairline of light along its top and under it.
+        // The toolbar: a light unified bar, a hairline under it.
         panel = new PanelContainer();
-        var box = Eve.Eve.Box(Eve.Eve.IsLight ? new Color(1, 1, 1, 0.5f) : new Color(1, 1, 1, 0.035f), Eve.Eve.Edge with { A = 0f }, 0, 0);
-        box.BorderWidthTop = 1;
+        var box = Eve.Eve.Box(Eve.Eve.IsLight ? new Color(0.965f, 0.965f, 0.97f, 0.92f) : new Color(1, 1, 1, 0.04f), Eve.Eve.Edge with { A = 0f }, 0, 0);
         box.BorderWidthBottom = 1;
-        box.BorderColor = Eve.Eve.IsLight ? new Color(1, 1, 1, 0.8f) : new Color(1, 1, 1, 0.12f);
-        box.ContentMarginLeft = box.ContentMarginRight = 10;
-        box.ContentMarginTop = 4;
-        box.ContentMarginBottom = 6;
+        box.BorderColor = Eve.Eve.IsLight ? new Color(0, 0, 0, 0.1f) : new Color(1, 1, 1, 0.1f);
+        box.ContentMarginLeft = box.ContentMarginRight = 8;
+        box.ContentMarginTop = 5;
+        box.ContentMarginBottom = 4;
         panel.AddThemeStyleboxOverride("panel", box);
-        panel.AddChild(Ui.Column(4, line, ribbonScroll));
+        panel.AddChild(Ui.Column(5, line, ribbonScroll));
         panel.Ready += () => Callable.From(Fit).CallDeferred();
         ApplyZoom();
         UpdateToolbar();
         return panel;
     }
 
-    /// <summary>A tab of the ribbon: spaced capitals, the one in use in cyan with a line of light under it.</summary>
+    /// <summary>A segment of the tabs: the one in use a raised pill (white, a soft shadow), the others plain text.</summary>
     private static void TabLook(Button tab, bool active)
     {
-        var normal = Eve.Eve.Box(new Color(0, 0, 0, 0), Eve.Eve.Cyan with { A = 0f }, 0, 0);
-        normal.ContentMarginLeft = normal.ContentMarginRight = 12;
-        normal.ContentMarginTop = 4;
-        normal.ContentMarginBottom = 4;
         var ink = Eve.Eve.TextBright;
+        StyleBoxFlat look;
         if (active)
         {
-            normal.BorderWidthBottom = 1;
-            normal.BorderColor = ink with { A = 0.7f };
+            look = MacBox(Eve.Eve.IsLight ? Colors.White : new Color(1, 1, 1, 0.16f), 5, 12, 2);
+            look.ShadowColor = new Color(0, 0, 0, Eve.Eve.IsLight ? 0.14f : 0.35f);
+            look.ShadowSize = 2;
+            look.ShadowOffset = new Vector2(0, 1);
         }
-        var hover = Eve.Eve.Box(ink with { A = 0.05f }, ink with { A = 0f }, 0, 0);
-        hover.ContentMarginLeft = hover.ContentMarginRight = 12;
-        hover.ContentMarginTop = 4;
-        hover.ContentMarginBottom = 4;
-        hover.BorderWidthBottom = 1;
-        hover.BorderColor = ink with { A = active ? 0.7f : 0.3f };
-        hover.SetCornerRadiusAll(6);
-        tab.AddThemeStyleboxOverride("normal", normal);
+        else
+            look = MacBox(new Color(0, 0, 0, 0), 5, 12, 2);
+        var hover = active ? look : MacBox(HoverFill, 5, 12, 2);
+        tab.AddThemeStyleboxOverride("normal", look);
         tab.AddThemeStyleboxOverride("hover", hover);
-        tab.AddThemeStyleboxOverride("pressed", hover);
-        tab.AddThemeColorOverride("font_color", active ? ink : Eve.Eve.Muted);
+        tab.AddThemeStyleboxOverride("pressed", look);
+        tab.AddThemeStyleboxOverride("focus", new StyleBoxEmpty());
+        tab.AddThemeColorOverride("font_color", active ? ink : Eve.Eve.Text);
         tab.AddThemeColorOverride("font_hover_color", ink);
         tab.AddThemeColorOverride("font_pressed_color", ink);
     }
 
-    /// <summary>A group of the ribbon: its tools in a rounded well of glass, its name in small capitals under it.</summary>
+    /// <summary>The soft fill of a tool under the pointer, and while it is pressed or on (grey, as on macOS).</summary>
+    private static Color HoverFill => Eve.Eve.IsLight ? new Color(0, 0, 0, 0.06f) : new Color(1, 1, 1, 0.08f);
+
+    private static Color PressFill => Eve.Eve.IsLight ? new Color(0, 0, 0, 0.13f) : new Color(1, 1, 1, 0.17f);
+
+    /// <summary>A rounded box without edge: <paramref name="radius"/>, margins across and up and down.</summary>
+    private static StyleBoxFlat MacBox(Color back, int radius, int across, int upDown)
+    {
+        var box = new StyleBoxFlat { BgColor = back, AntiAliasing = true };
+        box.SetCornerRadiusAll(radius);
+        box.ContentMarginLeft = box.ContentMarginRight = across;
+        box.ContentMarginTop = box.ContentMarginBottom = upDown;
+        return box;
+    }
+
+    /// <summary>The looks of a tool: nothing at rest, a soft fill under the pointer, a deeper one pressed or on.</summary>
+    private static void ToolLook(Button button, int radius)
+    {
+        button.AddThemeStyleboxOverride("normal", MacBox(new Color(0, 0, 0, 0), radius, 4, 2));
+        button.AddThemeStyleboxOverride("hover", MacBox(HoverFill, radius, 4, 2));
+        button.AddThemeStyleboxOverride("pressed", MacBox(PressFill, radius, 4, 2));
+        button.AddThemeStyleboxOverride("hover_pressed", MacBox(PressFill, radius, 4, 2));
+        button.AddThemeStyleboxOverride("disabled", MacBox(new Color(0, 0, 0, 0), radius, 4, 2));
+        button.AddThemeStyleboxOverride("focus", new StyleBoxEmpty());
+    }
+
+    /// <summary>A group of the ribbon: its tools side by side, its name small and grey under them, a hairline after it.</summary>
     public static Control Group(string name, bool last, params Control[] tools)
     {
         foreach (var tool in tools)
             tool.SizeFlagsVertical = Control.SizeFlags.ShrinkCenter;
-        var row = Ui.Row(4, tools);
+        var row = Ui.Row(2, tools);
         row.SizeFlagsVertical = Control.SizeFlags.ExpandFill;
         row.Alignment = BoxContainer.AlignmentMode.Center;
-        var well = new PanelContainer { MouseFilter = Control.MouseFilterEnum.Ignore };
-        // Frosted glass: a faint white fill, a brighter edge along the top where the light catches it.
-        var box = Eve.Eve.Box(Eve.Eve.IsLight ? new Color(1, 1, 1, 0.4f) : new Color(1, 1, 1, 0.03f), new Color(1, 1, 1, Eve.Eve.IsLight ? 0.7f : 0.08f), 6, 1);
-        box.SetCornerRadiusAll(12);
-        well.AddThemeStyleboxOverride("panel", box);
-        well.AddChild(row);
-        well.SizeFlagsVertical = Control.SizeFlags.ExpandFill;
-        var label = Eve.Eve.Caption(name, Eve.Eve.Muted, 9);
+        var label = Eve.Eve.Text_(name, Eve.Eve.Muted, 9);
         label.HorizontalAlignment = HorizontalAlignment.Center;
-        var column = Ui.Column(3, well, label);
-        column.CustomMinimumSize = new Vector2(0, 90);
-        return Ui.Margin(column, 2, 2, 2, 0);
+        var column = Ui.Column(1, row, label);
+        column.CustomMinimumSize = new Vector2(0, 62);
+        var group = Ui.Row(0, Ui.Margin(column, 6, 0, 6, 0));
+        if (!last)
+        {
+            var hairline = new ColorRect
+            {
+                Color = Eve.Eve.IsLight ? new Color(0, 0, 0, 0.1f) : new Color(1, 1, 1, 0.1f),
+                CustomMinimumSize = new Vector2(1, 0),
+                MouseFilter = Control.MouseFilterEnum.Ignore
+            };
+            group.AddChild(Ui.Margin(hairline, 0, 6, 0, 14));
+        }
+        return group;
     }
 
     /// <summary>A big tool: its icon above its name.</summary>
     public static Button BigTool(string icon, string label, string tooltip, Action? action = null, Color? iconColor = null)
     {
-        var button = new Button { TooltipText = tooltip, CustomMinimumSize = new Vector2(62, 62), FocusMode = Control.FocusModeEnum.None, MouseDefaultCursorShape = Control.CursorShape.PointingHand };
-        // The slab of glass under the tool is drawn by the 3D shelf of the ribbon: the button itself draws nothing.
-        button.SetMeta("tile", true);
-        button.AddThemeStyleboxOverride("normal", new StyleBoxEmpty());
-        button.AddThemeStyleboxOverride("hover", new StyleBoxEmpty());
-        button.AddThemeStyleboxOverride("pressed", new StyleBoxEmpty());
-        button.AddThemeStyleboxOverride("focus", new StyleBoxEmpty());
-        var glyph = Eve.Eve.Text_(icon, iconColor ?? Eve.Eve.TextBright, 22);
+        var button = new Button { TooltipText = tooltip, FocusMode = Control.FocusModeEnum.None, MouseDefaultCursorShape = Control.CursorShape.PointingHand };
+        ToolLook(button, 6);
+        var glyph = Eve.Eve.Text_(icon, iconColor ?? Eve.Eve.TextBright, 16);
         glyph.HorizontalAlignment = HorizontalAlignment.Center;
-        var name = Eve.Eve.Text_(label, Eve.Eve.Text, 11);
+        var name = Eve.Eve.Text_(label, Eve.Eve.Text, 10);
         name.HorizontalAlignment = HorizontalAlignment.Center;
         name.Name = "Label";
-        var width = Math.Max(Eve.Eve.Body.GetStringSize(label, HorizontalAlignment.Left, -1, 11).X, Eve.Eve.Body.GetStringSize(icon, HorizontalAlignment.Left, -1, 22).X);
-        button.CustomMinimumSize = new Vector2(Math.Max(56, width + 14), 62);
+        var width = Math.Max(Eve.Eve.Body.GetStringSize(label, HorizontalAlignment.Left, -1, 10).X, Eve.Eve.Body.GetStringSize(icon, HorizontalAlignment.Left, -1, 16).X);
+        button.CustomMinimumSize = new Vector2(Math.Max(40, width + 12), 42);
         button.SizeFlagsVertical = Control.SizeFlags.ShrinkCenter;
-        var column = Ui.Column(2, glyph, name);
+        var column = Ui.Column(0, glyph, name);
         column.Alignment = BoxContainer.AlignmentMode.Center;
         column.MouseFilter = Control.MouseFilterEnum.Ignore;
         glyph.MouseFilter = name.MouseFilter = Control.MouseFilterEnum.Ignore;
@@ -273,21 +296,12 @@ internal sealed class TapeRibbon
     /// <summary>A small tool of the font and paragraph groups.</summary>
     public static Button SmallTool(string text, string tooltip, Action action, bool toggle = false, Font? font = null)
     {
-        var button = new Button { Text = text, TooltipText = tooltip, ToggleMode = toggle, CustomMinimumSize = new Vector2(32, 28), FocusMode = Control.FocusModeEnum.None, MouseDefaultCursorShape = Control.CursorShape.PointingHand };
+        var button = new Button { Text = text, TooltipText = tooltip, ToggleMode = toggle, CustomMinimumSize = new Vector2(24, 22), FocusMode = Control.FocusModeEnum.None, MouseDefaultCursorShape = Control.CursorShape.PointingHand };
         if (font is not null)
             button.AddThemeFontOverride("font", font);
-        // A pill: nothing at rest, a touch of glass under the pointer, cyan while on or pressed.
-        StyleBoxFlat Pill(Color back, Color edge)
-        {
-            var box = Eve.Eve.Box(back, edge, 4, 1);
-            box.SetCornerRadiusAll(8);
-            return box;
-        }
-        button.AddThemeStyleboxOverride("normal", Pill(new Color(0, 0, 0, 0), new Color(0, 0, 0, 0)));
-        button.AddThemeStyleboxOverride("hover", Pill(new Color(1, 1, 1, Eve.Eve.IsLight ? 0.6f : 0.12f), new Color(1, 1, 1, Eve.Eve.IsLight ? 0.9f : 0.3f)));
-        button.AddThemeStyleboxOverride("pressed", Pill(Eve.Eve.TextBright with { A = 0.14f }, Eve.Eve.TextBright with { A = 0.45f }));
-        button.AddThemeStyleboxOverride("hover_pressed", Pill(Eve.Eve.TextBright with { A = 0.2f }, Eve.Eve.TextBright with { A = 0.55f }));
-        button.AddThemeStyleboxOverride("focus", new StyleBoxEmpty());
+        button.AddThemeFontSizeOverride("font_size", 12);
+        // Nothing at rest, a soft grey fill under the pointer, a deeper one while on or pressed.
+        ToolLook(button, 5);
         button.AddThemeColorOverride("font_pressed_color", Eve.Eve.TextBright);
         button.AddThemeColorOverride("font_hover_pressed_color", Eve.Eve.TextBright);
         button.Pressed += action;
@@ -297,14 +311,7 @@ internal sealed class TapeRibbon
     /// <summary>A big tool lit in cyan while its state is on (the link at the caret, the crop frame shown).</summary>
     public static void SetOn(Button button, bool on)
     {
-        if (on)
-        {
-            var box = Eve.Eve.Box(Eve.Eve.TextBright with { A = 0.1f }, Eve.Eve.TextBright with { A = 0.4f }, 4, 1);
-            box.SetCornerRadiusAll(10);
-            button.AddThemeStyleboxOverride("normal", box);
-        }
-        else
-            button.AddThemeStyleboxOverride("normal", new StyleBoxEmpty());
+        button.AddThemeStyleboxOverride("normal", MacBox(on ? PressFill : new Color(0, 0, 0, 0), 6, 4, 2));
     }
 
     /// <summary>Font: family, size, B I U S, color, clear.</summary>
@@ -340,14 +347,14 @@ internal sealed class TapeRibbon
         strike = SmallTool("a̶b̶", "Strikethrough", () => _editor.ApplyStyle(s => s with { Strike = strike.ButtonPressed }), true);
         (_bold, _italic, _underline, _strike) = (bold, italic, underline, strike);
         var color = SmallTool("A", "Font color of the selection", () => { }, font: new SystemFont { FontNames = Eve.Eve.Body.FontNames, FontWeight = 800 });
-        _colorBar = new ColorRect { Color = WorkPalette.DefaultText, CustomMinimumSize = new Vector2(16, 3), MouseFilter = Control.MouseFilterEnum.Ignore };
+        _colorBar = new ColorRect { Color = WorkPalette.DefaultText, CustomMinimumSize = new Vector2(12, 2), MouseFilter = Control.MouseFilterEnum.Ignore };
         _colorBar.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.CenterBottom);
-        _colorBar.Position = new Vector2(7, 23);
+        _colorBar.Position = new Vector2(6, 18);
         color.AddChild(_colorBar);
         color.Pressed += () => ShowColorFlyout(color);
         var clear = SmallTool("A✕", "Clear all formatting of the selection (font, size, styles, color)", () => _editor.ApplyStyle(_ => TapeStyle.Plain));
         clear.AddThemeColorOverride("font_color", Eve.Eve.Red);
-        return Group("Font", last, Ui.Column(4, Ui.Row(4, _fontBox, _sizeBox), Ui.Row(1, bold, italic, underline, strike, color, clear)));
+        return Group("Font", last, Ui.Column(3, Ui.Row(4, _fontBox, _sizeBox), Ui.Row(1, bold, italic, underline, strike, color, clear)));
     }
 
     /// <summary>Paragraph: left, centered, right.</summary>
@@ -427,7 +434,7 @@ internal sealed class TapeRibbon
             Zoom = 1;
             ApplyZoom();
         });
-        _zoomLabel.CustomMinimumSize = new Vector2(64, 28);
+        _zoomLabel.CustomMinimumSize = new Vector2(50, 22);
         _zoomIn = SmallTool("+", "Zoom in the page (Ctrl / ⌘ + wheel up)", () => StepZoom(1));
         return Group("Zoom", last, _zoomOut, _zoomLabel, _zoomIn);
     }
@@ -633,6 +640,9 @@ internal sealed class TapeRibbon
         items.Add(new Overlay.MenuItem("Cut", _editor.HasSelectedContent, () => _editor.Copy(cut: true), shortcut + "X"));
         items.Add(new Overlay.MenuItem("Copy", _editor.HasSelectedContent, () => _editor.Copy(cut: false), shortcut + "C"));
         items.Add(new Overlay.MenuItem("Paste", true, _editor.Paste, shortcut + "V"));
+        items.Add(null);
+        items.Add(new Overlay.MenuItem(Data.VoiceDictation.IsOpenOn(_editor) ? "🎤 Stop voice dictation" : "🎤 Voice dictation", true,
+            () => Data.VoiceDictation.Toggle(_editor)));
         _overlay.Menu(items, _editor.GlobalPosition - _overlay.GlobalPosition + at);
     }
 

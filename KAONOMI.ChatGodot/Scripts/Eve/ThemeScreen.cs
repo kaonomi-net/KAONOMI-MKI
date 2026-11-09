@@ -148,7 +148,7 @@ public static class ThemeScreen
             var label = new Label { Text = text, MouseFilter = Control.MouseFilterEnum.Ignore };
             label.AddThemeColorOverride("font_color", color);
             label.AddThemeFontSizeOverride("font_size", size);
-            label.AddThemeFontOverride("font", new SystemFont { FontNames = palette.DisplayFonts, FontWeight = palette.DisplayWeight });
+            label.AddThemeFontOverride("font", new SystemFont { FontNames = Eve.WithDefault(palette.DisplayFonts), FontWeight = palette.DisplayWeight });
             return label;
         }
         var chip = new PanelContainer { MouseFilter = Control.MouseFilterEnum.Ignore, SizeFlagsHorizontal = Control.SizeFlags.ShrinkBegin };

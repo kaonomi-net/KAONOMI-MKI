@@ -36,7 +36,7 @@ public sealed class CollectionPlanView : IToolView
         var left = Ui.Column(0, Ui.FillHeight(Ui.Scroll(list)), empty);
         left.CustomMinimumSize = new Vector2(300, 0);
 
-        var editor = Ui.Swap(vm, nameof(vm.SelectedResult), value => value is CollectionPlanEntryViewModel entry ? Editor(vm, entry) : null);
+        var editor = Ui.Swap(vm, nameof(vm.SelectedResult), value => value is CollectionPlanEntryViewModel entry ? Editor(vm, entry, shell) : null);
 
         var page = Ui.Column(6, Ui.Toolbar(search), Ui.SplitH(left, editor, 340),
             WritingUi.StatusBar(vm, nameof(vm.Status), (System.ComponentModel.INotifyPropertyChanged)vm.SearchCommand));
@@ -118,7 +118,7 @@ public sealed class CollectionPlanView : IToolView
     }
 
     /// <summary>The editor of the selected collection plan.</summary>
-    private static Control Editor(CollectionPlanWindowViewModel vm, CollectionPlanEntryViewModel entry)
+    private static Control Editor(CollectionPlanWindowViewModel vm, CollectionPlanEntryViewModel entry, Shell shell)
     {
         var dot = Bind.Visible(Eve.Eve.Text_("●", Eve.Eve.Red, 10), entry, nameof(entry.IsError));
         var status = Ui.Label(entry, nameof(entry.Status), Eve.Eve.Text, 12);
@@ -140,6 +140,7 @@ public sealed class CollectionPlanView : IToolView
             Bind.Visible(Ui.Command("■ CANCEL", vm.CancelRunCommand, tooltip: "Stop the run"), vm, nameof(vm.IsRunning)),
             Ui.Command("🤖 LAUNCH AGENT", vm.LaunchAgentCommand, tooltip: "Launch the web scraper agent (KAONOMI.Agent.WebScrapper) on this plan as it is saved: it visits its URLs, keeps a screenshot and the pictures of each page (Pictures/kaonomi/webscrapper), cuts the pages into paragraphs with their entities and saves them"),
             Bind.Visible(Ui.Command("■ STOP AGENT", vm.StopAgentCommand, tooltip: "Stop the web scraper agent (what it saved stays)"), vm, nameof(vm.IsAgentRunning)),
+            Results(vm, entry, shell),
             Ui.Command("DELETE", vm.DeleteCommand, tooltip: "Delete this collection plan (only marked deleted on the server: isDeleted = true)"),
             Ui.Command("CLONE", vm.CloneCommand, tooltip: "Create a copy of this collection plan (new id on save)"),
             Ui.Command("DISCARD CHANGES", entry.RevertCommand),
@@ -157,6 +158,23 @@ public sealed class CollectionPlanView : IToolView
             Websites(entry),
             Ui.Field("Comment", Ui.Lines(entry, nameof(entry.Comment), 44)));
         return Ui.Column(8, Ui.Margin(header, 8, 4, 8, 0), Ui.Margin(RunLog(vm), 8, 0, 8, 0), Eve.Eve.Separator(), Ui.FillHeight(Ui.Scroll(Ui.Margin(fields, 8, 0, 12, 12))));
+    }
+
+    /// <summary>
+    /// 🗂 RESULTS: the window of what the web scraper agent saved for the plan (its pages, their screenshots, pictures and
+    /// text), one per plan; enabled once the plan is saved (it has an id).
+    /// </summary>
+    private static Button Results(CollectionPlanWindowViewModel vm, CollectionPlanEntryViewModel entry, Shell shell)
+    {
+        var button = Ui.Action("🗂 RESULTS", () =>
+        {
+            if (entry.IsNew)
+                return;
+            var results = vm.CreateResults(entry);
+            shell.Open(results, $"ScraperResults:{entry.Id}", results.Title);
+        }, tooltip: "See what the web scraper agent saved for this plan: its pages, their screenshots, pictures and text (a picture opens in the image analysis at its real size)");
+        button.Disabled = entry.IsNew;
+        return button;
     }
 
     /// <summary>What RUN does, one line per page read and per step, the last one in view (shown once a run started).</summary>

@@ -127,6 +127,13 @@ public sealed class ChatSettings
     /// <summary>Address of KAONOMI.MongoEngine (<c>mongoEngineAddress</c> in config.yml), stopped by <c>/bye</c> after the search engine.</summary>
     public string MongoEngineAddress { get; set; } = "localhost:27017";
 
+    [JsonPropertyName("windowIdleCloseSeconds")]
+    /// <summary>
+    /// A window of the desktop not used for this many seconds closes by itself (<c>windowIdleCloseSeconds</c> in
+    /// config.yml, 300 by default; 0: never). Its animations do not count as a use; a window with changes not saved is kept.
+    /// </summary>
+    public int WindowIdleCloseSeconds { get; set; } = 300;
+
     [JsonPropertyName("byeStopsEngines")]
     /// <summary><c>/bye</c> stops the search engine, then the Mongo engine, before the chat closes (<c>byeStopsEngines</c> in config.yml).</summary>
     public bool ByeStopsEngines { get; set; } = true;
@@ -562,6 +569,11 @@ public sealed class ChatSettings
             if (!string.IsNullOrWhiteSpace(document.LlmGatewayUrl) && Uri.TryCreate(document.LlmGatewayUrl.Trim(), UriKind.Absolute, out _))
                 settings.LlmGatewayUrl = document.LlmGatewayUrl.Trim();
 
+            if (!string.IsNullOrWhiteSpace(document.WindowIdleCloseSeconds)
+                && int.TryParse(document.WindowIdleCloseSeconds.Trim(), System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var idleSeconds)
+                && idleSeconds >= 0)
+                settings.WindowIdleCloseSeconds = idleSeconds;
+
             if (!string.IsNullOrWhiteSpace(document.ByeStopsEngines))
                 settings.ByeStopsEngines = document.ByeStopsEngines.Trim().ToLowerInvariant() is not ("false" or "off" or "no" or "0");
 
@@ -959,6 +971,8 @@ public sealed class ChatSettings
 
         /// <summary>Read as text so that on / off work as well as true / false.</summary>
         public string? ByeStopsEngines { get; set; }
+
+        public string? WindowIdleCloseSeconds { get; set; }
 
         public StreamingSection? Streaming { get; set; }
 

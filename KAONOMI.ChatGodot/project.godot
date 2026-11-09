@@ -9,6 +9,7 @@ config/name="KAONOMI"
 config/description="Kaonomi chat, EVE Online edition (Godot)"
 run/main_scene="res://Scenes/Main.tscn"
 config/icon="res://icon.png"
+run/max_fps=60
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 
 [display]

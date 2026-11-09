@@ -41,6 +41,12 @@ public static class AvaloniaBridge
         typeof(Avalonia.Threading.Dispatcher).GetMethod("PromoteTimers", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
         ?? typeof(Avalonia.Threading.Dispatcher).GetMethod("OnOSTimer", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
+    /// <summary>The timers of the dispatcher promoted without arguments (built once: no reflection at every frame).</summary>
+    private static readonly Action<Avalonia.Threading.Dispatcher>? Promote =
+        PromoteTimers is { } method && method.GetParameters().Length == 0
+            ? (Action<Avalonia.Threading.Dispatcher>)Delegate.CreateDelegate(typeof(Action<Avalonia.Threading.Dispatcher>), method)
+            : null;
+
     /// <summary>Runs the work posted on the Avalonia dispatcher and its timers due (called at every frame).</summary>
     public static void Pump()
     {
@@ -48,8 +54,7 @@ public static class AvaloniaBridge
             return;
         try
         {
-            if (PromoteTimers is { } promote && promote.GetParameters().Length == 0)
-                promote.Invoke(Avalonia.Threading.Dispatcher.UIThread, null);
+            Promote?.Invoke(Avalonia.Threading.Dispatcher.UIThread);
             Avalonia.Threading.Dispatcher.UIThread.RunJobs();
         }
         catch (Exception ex)
