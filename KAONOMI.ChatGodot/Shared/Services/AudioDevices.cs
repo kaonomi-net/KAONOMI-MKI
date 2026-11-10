@@ -46,6 +46,9 @@ public static class AudioDevices
     /// <summary>The microphone chosen, or the default one when it is not there any more (<see cref="PortAudio.NoDevice"/>: none).</summary>
     public static int InputDevice() => Find(Input, input: true);
 
+    /// <summary>The microphone named <paramref name="name"/> (null or empty: the default one of the system), or the default one when it is not there.</summary>
+    public static int InputDevice(string? name) => Find(name, input: true);
+
     /// <summary>The output chosen, or the default one when it is not there any more (<see cref="PortAudio.NoDevice"/>: none).</summary>
     public static int OutputDevice() => Find(Output, input: false);
 

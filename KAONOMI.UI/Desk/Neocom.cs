@@ -24,6 +24,7 @@ public sealed class Neocom : Border
         ("/idea", "💡", "Ideas"),
         ("/journal", "📓", "Journal"),
         ("/wiki", "📚", "Wiki"),
+        ("/interview", "🎙", "Interviews"),
         ("/bpmnai", "🔀", "AIMN (from BPMN) diagrams"),
         ("/infra", "🏗", "Infrastructure diagrams"),
         ("/mindmap", "🧠", "Mind maps"),

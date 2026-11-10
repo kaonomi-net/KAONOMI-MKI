@@ -24,6 +24,7 @@ public partial class Neocom : PanelContainer
         ("/idea", "💡", "Ideas"),
         ("/journal", "📓", "Journal"),
         ("/wiki", "📚", "Wiki"),
+        ("/interview", "🎙", "Interviews"),
         ("/bpmnai", "🔀", "AIMN (from BPMN) diagrams"),
         ("/infra", "🏗", "Infrastructure diagrams"),
         ("/mindmap", "🧠", "Mind maps"),

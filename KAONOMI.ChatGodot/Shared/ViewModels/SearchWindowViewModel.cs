@@ -23,7 +23,7 @@ public partial class SearchWindowViewModel : ViewModelBase
 
     /// <summary>The indices the search can look into (the ones of the server).</summary>
     public static readonly string[] AllIndices =
-        ["cache", "completion", "dialog", "diary", "document", "idea", "imageanalysis", "intel", "ontology", "relation", "taskitem", "youtubevideo", "cluster", "wiki", "bpmn", "infra", "mindmap", "ghostwriter", "webpage"];
+        ["cache", "completion", "dialog", "diary", "document", "idea", "imageanalysis", "intel", "ontology", "relation", "taskitem", "youtubevideo", "cluster", "wiki", "bpmn", "infra", "mindmap", "ghostwriter", "webpage", "interview", "interviewparagraph"];
 
     /// <summary>
     /// Opens a hit of the index <c>webpage</c> (a page saved by the web scraper agent): its screenshot with the viewer

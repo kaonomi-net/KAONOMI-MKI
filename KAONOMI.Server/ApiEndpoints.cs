@@ -698,6 +698,60 @@ namespace KAONOMI.Server
             // DELETE /wiki/{id}: marks the page deleted (isDeleted = true); returns its id, or "-1" with the error message.
             app.MapDelete("/wiki/{id}", (string id) => Task.FromResult(SoftDelete(() => session.WikiDelete(id))));
 
+            // ── Interviews (/interview in the chat): the interview (the person, the notes, the recordings) and its transcription, one document per paragraph; never erased ──
+
+            // GET /interview/{id}: loads an interview by its id (404 when it does not exist or is deleted).
+            app.MapGet("/interview/{id}", (string id) =>
+            {
+                Interview result = session.InterviewGet(id);
+                return result is null ? Results.NotFound() : Results.Ok(result);
+            });
+
+            // GET /interview/{id}/paragraphs: the paragraphs of its transcription, by recording then by rank.
+            app.MapGet("/interview/{id}/paragraphs", (string id) => Task.FromResult(session.InterviewParagraphs(id)));
+
+            // PUT /interview and POST /interview/update: save an interview (created, or a new version of it); return its id, or "-1" with the error message.
+            // Each save runs the NER (the one of POST /ner) on its notes and gathers the entities of its transcription: "entities" of the interview.
+            app.MapPut("/interview", (Interview p) => Task.FromResult(SoftDelete(() => session.InterviewSave(WithEntities(session, p)))));
+            app.MapPost("/interview/update", (Interview p) => Task.FromResult(SoftDelete(() => session.InterviewSave(WithEntities(session, p)))));
+
+            // POST /interview/search: free-text search on the person, the notes and the tags (body: SearchCriterias; "*" or empty: the newest ones).
+            app.MapPost("/interview/search", (SearchCriterias p) =>
+            {
+                var size = p.size > 0 ? p.size : 50;
+                return Task.FromResult(session.InterviewsSearch(p.term ?? "*", size));
+            });
+
+            // POST /interview/last: the "size" interviews changed last, newest first ("term" is ignored).
+            app.MapPost("/interview/last", (SearchCriterias p) =>
+            {
+                var size = p.size > 0 ? p.size : 50;
+                return Task.FromResult(session.InterviewsLast(size));
+            });
+
+            // PUT /interviewparagraph: saves one paragraph of a transcription (the live transcription), its id made of its interview, recording and rank.
+            // The entities of its text (the NER) are stored with it.
+            app.MapPut("/interviewparagraph", (InterviewParagraph p) => Task.FromResult(SoftDelete(() => session.InterviewParagraphSave(WithEntities(session, p)))));
+
+            // POST /interview/transcript: saves the transcription of one recording, paragraph by paragraph, in place of the one stored;
+            // each paragraph with the entities of its text.
+            app.MapPost("/interview/transcript", (InterviewTranscript p) => Task.FromResult(SoftDelete(() =>
+            {
+                foreach (var paragraph in p?.paragraphs ?? new List<InterviewParagraph>())
+                {
+                    WithEntities(session, paragraph);
+                }
+                var saved = session.InterviewTranscriptSave(p);
+                if (saved.ReturnedId is not (null or "-1"))
+                {
+                    RememberTranscript(p.interviewId, Path.GetFileName(p.audioFile ?? string.Empty), p.paragraphs.SelectMany(x => x.entities ?? new List<NerEntity>()).ToList());
+                }
+                return saved;
+            })));
+
+            // DELETE /interview/{id}: marks the interview and its paragraphs deleted (isDeleted = true); returns its id, or "-1" with the error message.
+            app.MapDelete("/interview/{id}", (string id) => Task.FromResult(SoftDelete(() => session.InterviewDelete(id))));
+
             // ── BPMN: the BPMN 2.0 diagrams of the chat (/bpmn), one document each (its XML and a comment), its id the slug of its title; never erased ──
 
             // GET /bpmn/{id}: loads a diagram by its slug (404 when it does not exist or is deleted).
@@ -1754,6 +1808,109 @@ namespace KAONOMI.Server
         }
 
         /// <summary>A soft delete asked by a DELETE: its result, or the error as a result.</summary>
+        /// <summary>The paragraph with the entities the NER finds in its text (kept as they are when the NER fails: the paragraph is saved anyway).</summary>
+        private static InterviewParagraph WithEntities(SessionManager session, InterviewParagraph paragraph)
+        {
+            // A paragraph sent back with its entities (its emotions stored after an analysis) is not read again: its text does not change.
+            if (paragraph is null || string.IsNullOrWhiteSpace(paragraph.text) || paragraph.entities is { Count: > 0 })
+            {
+                return paragraph;
+            }
+            try
+            {
+                paragraph.entities = Ner.NerService.Get(session.Config).Extract(paragraph.text).entities;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("NER of an interview paragraph: " + ex.Message);
+                paragraph.entities ??= new List<NerEntity>();
+            }
+            return paragraph;
+        }
+
+        /// <summary>
+        /// The entities of the transcriptions saved lately, by interview then by recording: an interview saved right
+        /// after its transcription takes them from here, the search engine not showing the new paragraphs yet.
+        /// </summary>
+        private static readonly System.Collections.Concurrent.ConcurrentDictionary<string, (DateTime At, Dictionary<string, List<NerEntity>> Files)> RecentTranscripts = new();
+
+        private static void RememberTranscript(string interviewId, string audioFile, List<NerEntity> entities)
+        {
+            if (string.IsNullOrWhiteSpace(interviewId))
+            {
+                return;
+            }
+            foreach (var old in RecentTranscripts.Where(r => DateTime.UtcNow - r.Value.At > TimeSpan.FromMinutes(10)).Select(r => r.Key).ToList())
+            {
+                RecentTranscripts.TryRemove(old, out _);
+            }
+            RecentTranscripts.AddOrUpdate(interviewId.Trim(),
+                _ => (DateTime.UtcNow, new Dictionary<string, List<NerEntity>> { [audioFile] = entities }),
+                (_, recent) =>
+                {
+                    lock (recent.Files)
+                    {
+                        recent.Files[audioFile] = entities;
+                    }
+                    return (DateTime.UtcNow, recent.Files);
+                });
+        }
+
+        /// <summary>Pictures, links and marks of the Markdown of the notes, taken away before the NER reads them.</summary>
+        private static readonly System.Text.RegularExpressions.Regex NotesMarkup =
+            new(@"!\[[^\]]*\]\([^)]*\)|\]\([^)]*\)|\*\*\[\d{2}:\d{2}:\d{2}\]\*\*|[*_#`>\[\]|~]+|<[^>]+>", System.Text.RegularExpressions.RegexOptions.Compiled);
+
+        /// <summary>
+        /// The interview with its entities: the ones the NER finds in its notes (paragraph by paragraph) and the ones
+        /// stored with the paragraphs of its transcription, each once with its count. When the NER fails the entities
+        /// sent are kept: the interview is saved anyway.
+        /// </summary>
+        private static Interview WithEntities(SessionManager session, Interview interview)
+        {
+            if (interview is null)
+            {
+                return interview;
+            }
+            try
+            {
+                var ner = Ner.NerService.Get(session.Config);
+                var found = new List<NerEntity>();
+                foreach (var block in (interview.content ?? string.Empty).Split("\n\n", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+                {
+                    var text = NotesMarkup.Replace(block, " ").Trim();
+                    if (text.Length > 0)
+                    {
+                        found.AddRange(ner.Extract(text).entities);
+                    }
+                }
+                if (!string.IsNullOrWhiteSpace(interview.id))
+                {
+                    // The recordings transcribed in the last minutes: their entities as they were just saved.
+                    var recent = new Dictionary<string, List<NerEntity>>();
+                    if (RecentTranscripts.TryGetValue(interview.id.Trim(), out var remembered))
+                    {
+                        lock (remembered.Files)
+                        {
+                            recent = new Dictionary<string, List<NerEntity>>(remembered.Files);
+                        }
+                    }
+                    found.AddRange(recent.Values.SelectMany(e => e));
+                    foreach (var paragraph in session.InterviewParagraphs(interview.id).Where(x => !recent.ContainsKey(x.audioFile ?? string.Empty)))
+                    {
+                        // A paragraph stored before the NER was run on it is read now.
+                        found.AddRange(paragraph.entities is { Count: > 0 } ? paragraph.entities : ner.Extract(paragraph.text).entities);
+                    }
+                }
+                interview.entities = InterviewEntity.Merge(found);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("NER of an interview: " + ex.Message);
+                interview.entities ??= new List<InterviewEntity>();
+            }
+            return interview;
+        }
+
         private static ServiceReturn SoftDelete(Func<ServiceReturn> mark)
         {
             try

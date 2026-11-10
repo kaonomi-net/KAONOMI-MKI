@@ -145,6 +145,20 @@ public static class SearchOpener
                     await vm.OpenPageAsync(hit.Id);
                     break;
                 }
+                case "interview":
+                case "interviewparagraph":
+                {
+                    // An interview, or a paragraph of its transcription: the interview opens.
+                    if (InterviewWindowViewModel.InterviewIdOf(hit) is not { Length: > 0 } interviewId)
+                    {
+                        search.Status = "This paragraph does not name its interview";
+                        return;
+                    }
+                    var vm = await OpenToolAsync<InterviewWindowViewModel>(shell, "/interview");
+                    if (vm is null) break;
+                    await vm.OpenInterviewAsync(interviewId);
+                    break;
+                }
                 case "bpmn":
                 {
                     var vm = await OpenToolAsync<BpmnWindowViewModel>(shell, "/bpmnai");

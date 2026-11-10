@@ -205,6 +205,78 @@ public sealed class KaonomiAssistantService
                ?? throw new HttpRequestException("The Kaonomi server returned an empty response.");
     }
 
+    // ── Interviews (/interview): the interview, and its transcription paragraph by paragraph ──
+
+    /// <summary>Loads an interview via <c>GET /interview/{id}</c>; null when it does not exist.</summary>
+    public async Task<InterviewEntry?> GetInterviewAsync(string id, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.GetAsync($"interview/{Uri.EscapeDataString(id)}", cancellationToken);
+        if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            return null;
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<InterviewEntry>(cancellationToken);
+    }
+
+    /// <summary>The paragraphs of the transcription of an interview via <c>GET /interview/{id}/paragraphs</c>, by recording then by rank.</summary>
+    public async Task<IReadOnlyList<InterviewParagraphEntry>> GetInterviewParagraphsAsync(string id, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.GetAsync($"interview/{Uri.EscapeDataString(id)}/paragraphs", cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<List<InterviewParagraphEntry>>(cancellationToken) ?? [];
+    }
+
+    /// <summary>Saves an interview via <c>POST /interview/update</c> (created, or a new version of it).</summary>
+    public async Task<ServiceReturn> SaveInterviewAsync(InterviewEntry entry, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.PostJsonAsync("interview/update", entry, cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<ServiceReturn>(cancellationToken)
+               ?? throw new HttpRequestException("The Kaonomi server returned an empty response.");
+    }
+
+    /// <summary>Searches the interviews via <c>POST /interview/search</c> (the person, the notes, the tags).</summary>
+    public async Task<IReadOnlyList<InterviewEntry>> SearchInterviewsAsync(string term, int size, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.PostJsonAsync("interview/search", new CacheSearchRequest { Term = term, Size = size }, cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<List<InterviewEntry>>(cancellationToken) ?? [];
+    }
+
+    /// <summary>The <paramref name="size"/> interviews changed last via <c>POST /interview/last</c>.</summary>
+    public async Task<IReadOnlyList<InterviewEntry>> GetLastInterviewsAsync(int size, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.PostJsonAsync("interview/last", new CacheSearchRequest { Term = "*", Size = size }, cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<List<InterviewEntry>>(cancellationToken) ?? [];
+    }
+
+    /// <summary>Saves one paragraph of a transcription via <c>PUT /interviewparagraph</c> (the live transcription).</summary>
+    public async Task<ServiceReturn> SaveInterviewParagraphAsync(InterviewParagraphEntry paragraph, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.PutJsonAsync("interviewparagraph", paragraph, cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<ServiceReturn>(cancellationToken)
+               ?? throw new HttpRequestException("The Kaonomi server returned an empty response.");
+    }
+
+    /// <summary>Saves the transcription of one recording via <c>POST /interview/transcript</c>, in place of the one stored.</summary>
+    public async Task<ServiceReturn> SaveInterviewTranscriptAsync(InterviewTranscriptRequest transcript, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.PostJsonAsync("interview/transcript", transcript, cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<ServiceReturn>(cancellationToken)
+               ?? throw new HttpRequestException("The Kaonomi server returned an empty response.");
+    }
+
+    /// <summary>Marks an interview and its paragraphs deleted via <c>DELETE /interview/{id}</c> (nothing is erased).</summary>
+    public async Task<ServiceReturn> DeleteInterviewAsync(string id, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.DeleteAsync($"interview/{Uri.EscapeDataString(id)}", cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<ServiceReturn>(cancellationToken)
+               ?? throw new HttpRequestException("The Kaonomi server returned an empty response.");
+    }
+
     // ── Wiki (the pages of the wiki of Kaonomi, /wiki) ──
 
     /// <summary>Loads a page of the wiki via <c>GET /wiki/{id}</c>; null when it does not exist.</summary>

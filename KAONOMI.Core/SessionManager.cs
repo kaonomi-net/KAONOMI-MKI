@@ -647,7 +647,7 @@ using System.Threading.Tasks;
 
         /// <summary>The indices <c>POST /search</c> looks into when none is asked.</summary>
         public static readonly string[] SearchableIndices =
-            ["cache", "completion", "dialog", "diary", "document", "idea", "imageanalysis", "intel", "ontology", "relation", "taskitem", "youtubevideo", "cluster", "wiki", "bpmn", "infra", "mindmap", "ghostwriter", "detectedentity", "detectedsymbol", "detectedtag", "detectedintel", "detectedevent", "detectedsignal", "webpage", "webparagraph"];
+            ["cache", "completion", "dialog", "diary", "document", "idea", "imageanalysis", "intel", "ontology", "relation", "taskitem", "youtubevideo", "cluster", "wiki", "bpmn", "infra", "mindmap", "ghostwriter", "detectedentity", "detectedsymbol", "detectedtag", "detectedintel", "detectedevent", "detectedsignal", "webpage", "webparagraph", "interview", "interviewparagraph"];
 
         /// <summary>
         /// The indices asked that may be searched: the ones of <see cref="SearchableIndices"/> only (all of them when
@@ -1304,6 +1304,187 @@ using System.Threading.Tasks;
 
         /// <summary>Marks a page of the wiki deleted (isDeleted = true): a page is never erased.</summary>
         public ServiceReturn WikiDelete(string id) => MarkDeleted<Wiki>(ElasticSearchServer, Wiki.Slug(id), "Wiki page");
+
+        // ── Interviews (/interview in the chat): the interview, and its transcription paragraph by paragraph ──
+
+        private static readonly string[] InterviewSearchFields =
+            ["title", "firstName", "lastName", "address", "email", "phone", "documentNumber", "content", "summary", "summaryNote", "tags"];
+
+        /// <summary>
+        /// Saves an interview (normalised: its title the name of the person, its summary): created when it does not
+        /// exist, else a new version of it (its version one more, its date of creation kept).
+        /// </summary>
+        public ServiceReturn InterviewSave(Interview interview)
+        {
+            ServiceReturn ret = new ServiceReturn();
+            if (_config == null || ElasticSearchServer == null)
+            {
+                throw new Exception("Config not done");
+            }
+            try
+            {
+                interview.Normalize();
+                var existing = (Interview)ElasticSearchServer.Load<Interview>(interview.id);
+                var now = DateTime.UtcNow;
+                interview.created = existing is not null ? existing.created ?? existing.date : now;
+                interview.version = existing is not null ? existing.version + 1 : 1;
+                interview.date = now;
+                interview.isDeleted = false;
+                var retid = ElasticSearchServer.Save(interview);
+                ret.Message = retid + " id created. Interview well saved (version " + interview.version + ")";
+                ret.ReturnedId = retid;
+                ret.Success = true;
+            }
+            catch (Exception ex)
+            {
+                ret.Message = "Error : " + ex.Message;
+                Console.WriteLine(ex.ToString());
+                ret.ReturnedId = "-1";
+                ret.Success = false;
+            }
+            return ret;
+        }
+
+        /// <summary>Loads an interview by its id (null when it does not exist or is deleted).</summary>
+        public Interview InterviewGet(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return null;
+            }
+            var interview = (Interview)ElasticSearchServer.Load<Interview>(id);
+            return interview is { isDeleted: false } ? interview : null;
+        }
+
+        /// <summary>Searches the interviews on the person (name, address, email, phone, document number), the notes and the tags (<c>*</c> or empty: the newest ones), the deleted ones left out.</summary>
+        public List<Interview> InterviewsSearch(string term, int size)
+        {
+            return ElasticSearchServer.Search<Interview>(term, InterviewSearchFields, size, nameof(Interview.isDeleted)).ToList();
+        }
+
+        /// <summary>The <paramref title="size"/> interviews changed last, newest first, the deleted ones left out.</summary>
+        public List<Interview> InterviewsLast(int size)
+        {
+            return ElasticSearchServer.Last<Interview>(size, nameof(Interview.isDeleted)).ToList();
+        }
+
+        /// <summary>The paragraphs of the transcription of an interview, by recording then by rank, the deleted ones left out.</summary>
+        public List<InterviewParagraph> InterviewParagraphs(string interviewId)
+        {
+            if (string.IsNullOrWhiteSpace(interviewId) || ElasticSearchServer == null)
+            {
+                return new List<InterviewParagraph>();
+            }
+            return ElasticSearchServer.WithValue<InterviewParagraph>(nameof(InterviewParagraph.interviewId), interviewId, 10000)
+                .Where(p => !p.isDeleted && p.interviewId == interviewId)
+                .OrderBy(p => p.audioFile, StringComparer.Ordinal)
+                .ThenBy(p => p.index)
+                .ToList();
+        }
+
+        /// <summary>The paragraph made ready to be saved: its id from its interview, recording and rank, its title the person.</summary>
+        private static void Prepare(InterviewParagraph paragraph)
+        {
+            paragraph.interviewId = (paragraph.interviewId ?? string.Empty).Trim();
+            paragraph.audioFile = Path.GetFileName((paragraph.audioFile ?? string.Empty).Trim());
+            paragraph.text = (paragraph.text ?? string.Empty).Trim();
+            paragraph.person = (paragraph.person ?? string.Empty).Trim();
+            paragraph.id = InterviewParagraph.IdOf(paragraph.interviewId, paragraph.audioFile, paragraph.index);
+            if (string.IsNullOrWhiteSpace(paragraph.title))
+            {
+                paragraph.title = paragraph.person.Length > 0 ? "Interview · " + paragraph.person : "Interview";
+            }
+            paragraph.isDeleted = false;
+        }
+
+        /// <summary>Saves (creates or overwrites) one paragraph of a transcription, index <c>interviewparagraph</c> (the live transcription: one at a time).</summary>
+        public ServiceReturn InterviewParagraphSave(InterviewParagraph paragraph)
+        {
+            if (string.IsNullOrWhiteSpace(paragraph.interviewId))
+            {
+                return new ServiceReturn { ReturnedId = "-1", Success = false, Message = "The paragraph has no interview (interviewId)" };
+            }
+            Prepare(paragraph);
+            return SaveInData(paragraph, "Interview paragraph");
+        }
+
+        /// <summary>
+        /// Saves the transcription of one recording of an interview, paragraph by paragraph, in place of the one
+        /// stored: the paragraphs of that recording that are no longer in it are marked deleted.
+        /// </summary>
+        public ServiceReturn InterviewTranscriptSave(InterviewTranscript transcript)
+        {
+            ServiceReturn ret = new ServiceReturn();
+            if (_config == null || ElasticSearchServer == null)
+            {
+                throw new Exception("Config not done");
+            }
+            if (transcript is null || string.IsNullOrWhiteSpace(transcript.interviewId))
+            {
+                return new ServiceReturn { ReturnedId = "-1", Success = false, Message = "The transcription has no interview (interviewId)" };
+            }
+            try
+            {
+                var interviewId = transcript.interviewId.Trim();
+                var audioFile = Path.GetFileName((transcript.audioFile ?? string.Empty).Trim());
+                var now = DateTime.UtcNow;
+                var saved = new HashSet<string>();
+                var rank = 0;
+                foreach (var paragraph in (transcript.paragraphs ?? new List<InterviewParagraph>()).Where(p => !string.IsNullOrWhiteSpace(p?.text)))
+                {
+                    paragraph.interviewId = interviewId;
+                    paragraph.audioFile = audioFile;
+                    paragraph.index = rank++;
+                    Prepare(paragraph);
+                    if (paragraph.date == default)
+                    {
+                        paragraph.date = now;
+                    }
+                    saved.Add(ElasticSearchServer.Save(paragraph));
+                }
+                var removed = 0;
+                foreach (var old in InterviewParagraphs(interviewId).Where(p => p.audioFile == audioFile && !saved.Contains(p.id)))
+                {
+                    old.isDeleted = true;
+                    ElasticSearchServer.Save(old);
+                    removed++;
+                }
+                ret.ReturnedId = interviewId;
+                ret.Success = true;
+                ret.Message = $"{saved.Count} paragraph(s) saved for {audioFile}" + (removed > 0 ? $", {removed} older one(s) marked deleted" : string.Empty);
+            }
+            catch (Exception ex)
+            {
+                ret.Message = "Error : " + ex.Message;
+                Console.WriteLine(ex.ToString());
+                ret.ReturnedId = "-1";
+                ret.Success = false;
+            }
+            return ret;
+        }
+
+        /// <summary>Marks an interview deleted (isDeleted = true), and the paragraphs of its transcription with it: nothing is erased, the WAV files stay.</summary>
+        public ServiceReturn InterviewDelete(string id)
+        {
+            var ret = MarkDeleted<Interview>(ElasticSearchServer, id, "Interview");
+            if (ret.ReturnedId is null or "-1")
+            {
+                return ret;
+            }
+            try
+            {
+                foreach (var paragraph in InterviewParagraphs(id))
+                {
+                    paragraph.isDeleted = true;
+                    ElasticSearchServer.Save(paragraph);
+                }
+            }
+            catch (Exception ex)
+            {
+                ret.Message += " (its paragraphs could not be marked deleted: " + ex.Message + ")";
+            }
+            return ret;
+        }
 
         private static readonly string[] BpmnSearchFields = ["title", "description", "summary", "elements", "tags", "author"];
 
