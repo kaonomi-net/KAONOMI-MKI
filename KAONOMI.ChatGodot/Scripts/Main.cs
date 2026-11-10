@@ -356,6 +356,7 @@ public partial class Main : Control
         _vm.GatewayWindowRequested += (vm, _) => Open(vm, "/gateway");
         _vm.WikiWindowRequested += (vm, _) => Open(vm, "/wiki");
         _vm.InterviewWindowRequested += (vm, _) => Open(vm, "/interview");
+        _vm.CvWindowRequested += (vm, _) => Open(vm, "/cv");
         _vm.BpmnWindowRequested += (vm, _) => Open(vm, "/bpmnai");
         _vm.InfraWindowRequested += (vm, _) => Open(vm, "/infra");
         _vm.MindmapWindowRequested += (vm, _) => Open(vm, "/mindmap");

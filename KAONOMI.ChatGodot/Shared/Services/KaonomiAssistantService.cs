@@ -277,6 +277,52 @@ public sealed class KaonomiAssistantService
                ?? throw new HttpRequestException("The Kaonomi server returned an empty response.");
     }
 
+    // ── CVs (/cv) ──
+
+    /// <summary>Loads a CV via <c>GET /cv/{id}</c>; null when it does not exist.</summary>
+    public async Task<CvEntry?> GetCvAsync(string id, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.GetAsync($"cv/{Uri.EscapeDataString(id)}", cancellationToken);
+        if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            return null;
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<CvEntry>(cancellationToken);
+    }
+
+    /// <summary>Saves a CV via <c>POST /cv/update</c> (created, or a new version of it).</summary>
+    public async Task<ServiceReturn> SaveCvAsync(CvEntry entry, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.PostJsonAsync("cv/update", entry, cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<ServiceReturn>(cancellationToken)
+               ?? throw new HttpRequestException("The Kaonomi server returned an empty response.");
+    }
+
+    /// <summary>Searches the CVs via <c>POST /cv/search</c> (the person, the summary, the skills, the experiences…).</summary>
+    public async Task<IReadOnlyList<CvEntry>> SearchCvsAsync(string term, int size, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.PostJsonAsync("cv/search", new CacheSearchRequest { Term = term, Size = size }, cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<List<CvEntry>>(cancellationToken) ?? [];
+    }
+
+    /// <summary>The <paramref name="size"/> CVs changed last via <c>POST /cv/last</c>.</summary>
+    public async Task<IReadOnlyList<CvEntry>> GetLastCvsAsync(int size, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.PostJsonAsync("cv/last", new CacheSearchRequest { Term = "*", Size = size }, cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<List<CvEntry>>(cancellationToken) ?? [];
+    }
+
+    /// <summary>Marks a CV deleted via <c>DELETE /cv/{id}</c> (nothing is erased).</summary>
+    public async Task<ServiceReturn> DeleteCvAsync(string id, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.DeleteAsync($"cv/{Uri.EscapeDataString(id)}", cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<ServiceReturn>(cancellationToken)
+               ?? throw new HttpRequestException("The Kaonomi server returned an empty response.");
+    }
+
     // ── Wiki (the pages of the wiki of Kaonomi, /wiki) ──
 
     /// <summary>Loads a page of the wiki via <c>GET /wiki/{id}</c>; null when it does not exist.</summary>

@@ -698,6 +698,36 @@ namespace KAONOMI.Server
             // DELETE /wiki/{id}: marks the page deleted (isDeleted = true); returns its id, or "-1" with the error message.
             app.MapDelete("/wiki/{id}", (string id) => Task.FromResult(SoftDelete(() => session.WikiDelete(id))));
 
+            // ── CVs (/cv in the chat): the person, the summary, the educations, the experiences, the skills, the creations; never erased ──
+
+            // GET /cv/{id}: loads a CV by its id (404 when it does not exist or is deleted).
+            app.MapGet("/cv/{id}", (string id) =>
+            {
+                Cv result = session.CvGet(id);
+                return result is null ? Results.NotFound() : Results.Ok(result);
+            });
+
+            // PUT /cv and POST /cv/update: save a CV (created, or a new version of it); return its id, or "-1" with the error message.
+            app.MapPut("/cv", (Cv p) => Task.FromResult(SoftDelete(() => session.CvSave(p))));
+            app.MapPost("/cv/update", (Cv p) => Task.FromResult(SoftDelete(() => session.CvSave(p))));
+
+            // POST /cv/search: free-text search on the person, the summary, the skills, the experiences, the educations and the creations (body: SearchCriterias; "*" or empty: the newest ones).
+            app.MapPost("/cv/search", (SearchCriterias p) =>
+            {
+                var size = p.size > 0 ? p.size : 50;
+                return Task.FromResult(session.CvsSearch(p.term ?? "*", size));
+            });
+
+            // POST /cv/last: the "size" CVs changed last, newest first ("term" is ignored).
+            app.MapPost("/cv/last", (SearchCriterias p) =>
+            {
+                var size = p.size > 0 ? p.size : 50;
+                return Task.FromResult(session.CvsLast(size));
+            });
+
+            // DELETE /cv/{id}: marks the CV deleted (isDeleted = true); returns its id, or "-1" with the error message.
+            app.MapDelete("/cv/{id}", (string id) => Task.FromResult(SoftDelete(() => session.CvDelete(id))));
+
             // ── Interviews (/interview in the chat): the interview (the person, the notes, the recordings) and its transcription, one document per paragraph; never erased ──
 
             // GET /interview/{id}: loads an interview by its id (404 when it does not exist or is deleted).

@@ -647,7 +647,7 @@ using System.Threading.Tasks;
 
         /// <summary>The indices <c>POST /search</c> looks into when none is asked.</summary>
         public static readonly string[] SearchableIndices =
-            ["cache", "completion", "dialog", "diary", "document", "idea", "imageanalysis", "intel", "ontology", "relation", "taskitem", "youtubevideo", "cluster", "wiki", "bpmn", "infra", "mindmap", "ghostwriter", "detectedentity", "detectedsymbol", "detectedtag", "detectedintel", "detectedevent", "detectedsignal", "webpage", "webparagraph", "interview", "interviewparagraph"];
+            ["cache", "completion", "dialog", "diary", "document", "idea", "imageanalysis", "intel", "ontology", "relation", "taskitem", "youtubevideo", "cluster", "wiki", "bpmn", "infra", "mindmap", "ghostwriter", "detectedentity", "detectedsymbol", "detectedtag", "detectedintel", "detectedevent", "detectedsignal", "webpage", "webparagraph", "interview", "interviewparagraph", "cv"];
 
         /// <summary>
         /// The indices asked that may be searched: the ones of <see cref="SearchableIndices"/> only (all of them when
@@ -1304,6 +1304,75 @@ using System.Threading.Tasks;
 
         /// <summary>Marks a page of the wiki deleted (isDeleted = true): a page is never erased.</summary>
         public ServiceReturn WikiDelete(string id) => MarkDeleted<Wiki>(ElasticSearchServer, Wiki.Slug(id), "Wiki page");
+
+        // ── CVs (/cv in the chat) ──
+
+        private static readonly string[] CvSearchFields =
+            ["title", "lastName", "firstName", "email", "phone", "addressCity", "addressCountry", "summary", "skills", "adaptation",
+             "experiences.company", "experiences.position", "experiences.description", "experiences.technologies",
+             "educations.institution", "educations.degree", "educations.fieldOfStudy", "educations.description",
+             "creations.title", "creations.description", "tags"];
+
+        /// <summary>
+        /// Saves a CV (normalised: its title the name of the person when none is given): created when it does not
+        /// exist, else a new version of it (its version one more, its date of creation kept).
+        /// </summary>
+        public ServiceReturn CvSave(Cv cv)
+        {
+            ServiceReturn ret = new ServiceReturn();
+            if (_config == null || ElasticSearchServer == null)
+            {
+                throw new Exception("Config not done");
+            }
+            try
+            {
+                cv.Normalize();
+                var existing = (Cv)ElasticSearchServer.Load<Cv>(cv.id);
+                var now = DateTime.UtcNow;
+                cv.Created = existing is not null ? existing.Created ?? existing.date : now;
+                cv.Version = existing is not null ? existing.Version + 1 : 1;
+                cv.date = now;
+                cv.isDeleted = false;
+                var retid = ElasticSearchServer.Save(cv);
+                ret.Message = retid + " id created. CV well saved (version " + cv.Version + ")";
+                ret.ReturnedId = retid;
+                ret.Success = true;
+            }
+            catch (Exception ex)
+            {
+                ret.Message = "Error : " + ex.Message;
+                Console.WriteLine(ex.ToString());
+                ret.ReturnedId = "-1";
+                ret.Success = false;
+            }
+            return ret;
+        }
+
+        /// <summary>Loads a CV by its id (null when it does not exist or is deleted).</summary>
+        public Cv CvGet(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return null;
+            }
+            var cv = (Cv)ElasticSearchServer.Load<Cv>(id);
+            return cv is { isDeleted: false } ? cv : null;
+        }
+
+        /// <summary>Searches the CVs on the person, the summary, the skills, the experiences, the educations and the creations (<c>*</c> or empty: the newest ones), the deleted ones left out.</summary>
+        public List<Cv> CvsSearch(string term, int size)
+        {
+            return ElasticSearchServer.Search<Cv>(term, CvSearchFields, size, nameof(Cv.isDeleted)).ToList();
+        }
+
+        /// <summary>The <paramref title="size"/> CVs changed last, newest first, the deleted ones left out.</summary>
+        public List<Cv> CvsLast(int size)
+        {
+            return ElasticSearchServer.Last<Cv>(size, nameof(Cv.isDeleted)).ToList();
+        }
+
+        /// <summary>Marks a CV deleted (isDeleted = true): a CV is never erased.</summary>
+        public ServiceReturn CvDelete(string id) => MarkDeleted<Cv>(ElasticSearchServer, id, "CV");
 
         // ── Interviews (/interview in the chat): the interview, and its transcription paragraph by paragraph ──
 

@@ -158,6 +158,13 @@ public static class SearchOpener
                     await vm.OpenInterviewAsync(interviewId);
                     break;
                 }
+                case "cv":
+                {
+                    var vm = await OpenToolAsync<CvWindowViewModel>(shell, "/cv");
+                    if (vm is null) break;
+                    await vm.OpenCvAsync(hit.Id);
+                    break;
+                }
                 case "bpmn":
                 {
                     var vm = await OpenToolAsync<BpmnWindowViewModel>(shell, "/bpmnai");

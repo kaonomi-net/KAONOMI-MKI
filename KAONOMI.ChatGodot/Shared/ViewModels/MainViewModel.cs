@@ -798,6 +798,7 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     private const string PresetsCommand = "/presets";
     private const string WikiCommand = "/wiki";
     private const string InterviewCommand = "/interview";
+    private const string CvCommand = "/cv";
     private const string BpmnCommand = "/bpmnai";
     private const string InfraCommand = "/infra";
     private const string MindmapCommand = "/mindmap";
@@ -863,7 +864,7 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
         || IsCommand(text, OntologyCommand) || IsCommand(text, IdeaCommand) || IsCommand(text, CalculatorCommand) || IsCommand(text, PictureCommand) || IsCommand(text, PicturesCommand) || IsCommand(text, MusicCommand) || IsCommand(text, DiaryCommand) || IsCommand(text, JournalCommand) || IsCommand(text, YoutubeCommand) || IsCommand(text, FooocusCommand) || IsCommand(text, CompletionCommand) || IsCommand(text, SystemCommand) || IsCommand(text, LogCommand) || IsCommand(text, LogsCommand) || IsCommand(text, TokenCommand) || IsCommand(text, TokensCommand)
         || IsCommand(text, ConfigCommand) || IsCommand(text, RemoteCommand) || IsCommand(text, ProjectCommand) || IsCommand(text, IntelCommand) || IsCommand(text, CollectionPlanCommand) || IsCommand(text, Game1Command) || IsCommand(text, FractalCommand) || IsCommand(text, ChessCommand) || IsCommand(text, GoCommand) || IsCommand(text, ImmuneCommand) || IsCommand(text, AlarmCommand) || IsCommand(text, AlarmsCommand) || IsCommand(text, CalendarCommand) || IsCommand(text, IqCommand) || IsCommand(text, ActivityCommand)
         || IsCommand(text, RelationCommand) || IsCommand(text, FoldersCommand) || IsCommand(text, FolderCommand) || IsCommand(text, PresetCommand) || IsCommand(text, PresetsCommand)
-        || IsCommand(text, ProcessCommand) || IsCommand(text, ProcessesCommand) || IsCommand(text, GatewayCommand) || IsCommand(text, WikiCommand) || IsCommand(text, InterviewCommand) || IsCommand(text, BpmnCommand) || IsCommand(text, InfraCommand) || IsCommand(text, MindmapCommand) || IsCommand(text, WriteCommand) || IsCommand(text, ConsoleCommand);
+        || IsCommand(text, ProcessCommand) || IsCommand(text, ProcessesCommand) || IsCommand(text, GatewayCommand) || IsCommand(text, WikiCommand) || IsCommand(text, InterviewCommand) || IsCommand(text, CvCommand) || IsCommand(text, BpmnCommand) || IsCommand(text, InfraCommand) || IsCommand(text, MindmapCommand) || IsCommand(text, WriteCommand) || IsCommand(text, ConsoleCommand);
 
     /// <summary>Recognises <c>/n&lt;tool&gt;</c> (e.g. <c>/ncache</c>) and returns the tool command (<c>/cache</c>).</summary>
     private static bool TryParseDetachedCommand(string text, out string command)
@@ -1320,6 +1321,7 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
             + "- `/project`: kanban of the tasks: a column per status (todo, coding, test, check, deploy, archived; backlog first when there are some), each task in a card with its title and its type (bug, change, agent, infra)\n"
             + "- `/bnp`: the chatbot answers \"Let's go\" and the presentation Pictures/kaonomi/presentation/Digitribe-AI.pptx starts in full screen (PowerPoint, else Keynote)\n"
             + "- `/interview`: the interviews, stored in the search engine (searched on the left): the person interviewed (last name, first name, address, email, phone, passport or identity card number), the notes written with the editor of /work, and the recordings: ⏺ Record writes the microphone into a WAV file of ~/kaonomi/audio/interview; when it stops, Whisper transcribes it, a paragraph for what is said between two silences of a second or more, each paragraph stored in the search engine (found by /search); 🎙 Live writes the paragraphs while the person speaks; 📝 Transcribe does a recording again, ⤵ Insert puts the transcription in the notes; `/ninterview` opens it in its own window\n"
+            + "- `/cv`: the CVs, stored in the search engine (searched on the left): the person, a summary, the experiences, the educations, the skills and the creations, with the CV as it reads beside; ✨ has the model of the chat write a text from the CV (the summary, a description, the skills; ↶ puts the former text back); ⧉ CLONE copies the CV into a new one and, in a popup, asks the adaptation to make: the model rewrites the copy for it (the employers, the schools and the dates stay); 📄 WORD and 📕 PDF export the CV in a modern look (Documents/kaonomi/cv); `/ncv` opens it in its own window\n"
             + "- `/wiki`: the wiki of Kaonomi: its pages stored in the search engine (searched on the left, the pages linking to the one open under them), each written with the editor of the journal (formatting, pictures copied into Pictures/kaonomi/wiki, links, code); a link to another page is wiki:slug (Insert › Wiki), following it opens the page or starts it; ◀ back, ⌂ home, SAVE (a new version each time), DELETE; `/nwiki` opens it in its own window\n"
             + "- `/bpmnai`: AIMN (from BPMN), the editor of diagrams of AI processes in the BPMN 2.0 notation, with the basic elements (start events, plain, message, timer or EventCollector; end events; task, user task, agent, virtual agent, sub-process; exclusive, parallel and inclusive gateways; data object, SearchEngine, Graphbase, Database, Vector Database, RAG, LLM, MODEL, REST API, MCP, text annotation) joined by sequence flows and associations: an element dragged from the palette is placed where it is dropped (or the palette then a click), the → handle of the selection dragged onto another joins them, double-click renames, right click for the menu, ⌫ deletes, ⌘Z undoes; saved as BPMN 2.0 XML (with its diagram interchange) in ~/kaonomi/bpmn, opened from any .bpmn file, PNG (in Pictures/kaonomi/bpmn) and COPY XML; a comment is written with the diagram, and ☁ SAVE puts it (XML and comment) in the search engine (the bpmn index, a new version each time), where the diagrams are searched and opened again (found by `/search` too); `/nbpmnai` opens it in its own window\n"
             + "- `/infra`: the editor of infrastructure diagrams, the window of /bpmnai with in its palette an LLM on the cloud, the LLM Gateway, a DGX Spark, an NVIDIA Jetson Nano, a PC, a Mac Studio, a MacBook Pro, a Mac mini, a server, a rack server, a Raspberry Pi, an Arduino, the Pepper robot, a tablet, a smartphone, a camera, a Wi-Fi camera, a microphone, a sensor (and text annotations), joined by links (named after the network or the protocol); same gestures as /bpmnai; saved as BPMN 2.0 XML in ~/kaonomi/infra, PNG in Pictures/kaonomi/infra, and in the search engine (the infra index, a new version each time; found by `/search` too); `/ninfra` opens it in its own window\n"
@@ -1628,6 +1630,9 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
 
     /// <summary>Raised by <c>/interview</c>: the interviews, recorded as WAV and transcribed paragraph by paragraph into the search engine.</summary>
     public event Action<InterviewWindowViewModel, bool>? InterviewWindowRequested;
+
+    /// <summary>Raised by <c>/cv</c>: the CVs, written with the help of the model of the chat, cloned and rewritten for a purpose.</summary>
+    public event Action<CvWindowViewModel, bool>? CvWindowRequested;
 
     /// <summary>Raised by <c>/bpmnai</c>: AIMN (from BPMN), the editor of diagrams of AI processes in the BPMN 2.0 notation.</summary>
     public event Action<BpmnWindowViewModel, bool>? BpmnWindowRequested;
@@ -1968,6 +1973,12 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
         if (IsCommand(command, ConsoleCommand))
         {
             ConsoleWindowRequested?.Invoke(new ConsoleWindowViewModel(), detached);
+            return true;
+        }
+
+        if (IsCommand(command, CvCommand))
+        {
+            CvWindowRequested?.Invoke(new CvWindowViewModel(_assistant, _ollama, () => SelectedModel ?? _settings.Model, () => VoiceLanguage), detached);
             return true;
         }
 
