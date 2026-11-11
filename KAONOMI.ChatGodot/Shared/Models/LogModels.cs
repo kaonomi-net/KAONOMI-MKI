@@ -15,6 +15,10 @@ public sealed class LogEntry
     [JsonPropertyName("appName")]
     public string AppName { get; set; } = "KAONOMI.Chat";
 
+    /// <summary>The project the document is attached to (the id of a <c>Project</c>, chosen by its name in the header of the window), or null.</summary>
+    [JsonPropertyName("projectId")]
+    public string? ProjectId { get; set; }
+
     [JsonPropertyName("id")]
     public string Id { get; set; } = Guid.NewGuid().ToString();
 

@@ -66,9 +66,10 @@ public sealed class KaonomiAssistantService
         string model,
         IReadOnlyList<AssistantMessage> messages,
         CancellationToken cancellationToken = default,
-        string? sessionId = null)
+        string? sessionId = null,
+        bool regenerate = false)
     {
-        var request = new AssistantRequest { Model = model, Messages = messages, Stream = false, SessionId = sessionId };
+        var request = new AssistantRequest { Model = model, Messages = messages, Stream = false, SessionId = sessionId, Regenerate = regenerate };
 
         using var response = await _httpClient.PostJsonAsync("aiassistant", request, cancellationToken);
         await EnsureSuccessAsync(response, cancellationToken);
@@ -298,6 +299,51 @@ public sealed class KaonomiAssistantService
         using var response = await _httpClient.PostJsonAsync("cv/last", new CacheSearchRequest { Term = "*", Size = size }, cancellationToken);
         await EnsureSuccessAsync(response, cancellationToken);
         return await response.Content.ReadJsonAsync<List<CvEntry>>(cancellationToken) ?? [];
+    }
+
+    /// <summary>Searches the projects via <c>POST /project/search</c> (name, description, goals, tags, comment; "*": the newest ones).</summary>
+    public async Task<IReadOnlyList<ProjectEntry>> SearchProjectsAsync(string term, int size, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.PostJsonAsync("project/search", new CacheSearchRequest { Term = term, Size = size }, cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<List<ProjectEntry>>(cancellationToken) ?? [];
+    }
+
+    /// <summary>Loads a project via <c>GET /project/{id}</c>; null when the server has none.</summary>
+    public async Task<ProjectEntry?> GetProjectAsync(string id, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.GetAsync($"project/{Uri.EscapeDataString(id)}", cancellationToken);
+        if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            return null;
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<ProjectEntry>(cancellationToken);
+    }
+
+    /// <summary>Creates a project via <c>PUT /project</c>.</summary>
+    public async Task<ServiceReturn> CreateProjectAsync(ProjectEntry entry, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.PutJsonAsync("project", entry, cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<ServiceReturn>(cancellationToken)
+               ?? throw new HttpRequestException("The Kaonomi server returned an empty response.");
+    }
+
+    /// <summary>Updates a project via <c>POST /project/update</c>.</summary>
+    public async Task<ServiceReturn> UpdateProjectAsync(ProjectEntry entry, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.PostJsonAsync("project/update", entry, cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<ServiceReturn>(cancellationToken)
+               ?? throw new HttpRequestException("The Kaonomi server returned an empty response.");
+    }
+
+    /// <summary>Marks a project deleted via <c>DELETE /project/{id}</c> (nothing is erased).</summary>
+    public async Task<ServiceReturn> DeleteProjectAsync(string id, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.DeleteAsync($"project/{Uri.EscapeDataString(id)}", cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<ServiceReturn>(cancellationToken)
+               ?? throw new HttpRequestException("The Kaonomi server returned an empty response.");
     }
 
     /// <summary>Marks a CV deleted via <c>DELETE /cv/{id}</c> (nothing is erased).</summary>
@@ -615,6 +661,18 @@ public sealed class KaonomiAssistantService
         using var response = await _httpClient.PostJsonAsync("cachebuilder/search", new CacheSearchRequest { Term = term, Size = size }, cancellationToken);
         await EnsureSuccessAsync(response, cancellationToken);
         return await response.Content.ReadJsonAsync<List<CacheBuilderEntry>>(cancellationToken) ?? [];
+    }
+
+    /// <summary>
+    /// Writes the document of a recording of /recorder in the search engine via <c>POST /audiorecord/update</c> (created
+    /// the first time, written over afterwards: its id is the one of the document).
+    /// </summary>
+    public async Task<ServiceReturn> SaveAudioRecordAsync(RecorderInfo info, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.PostJsonAsync("audiorecord/update", info, cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<ServiceReturn>(cancellationToken)
+               ?? throw new HttpRequestException("The Kaonomi server returned an empty response.");
     }
 
     /// <summary>Loads a cache builder via <c>GET /cachebuilder/{id}</c>; null when the server returns nothing.</summary>

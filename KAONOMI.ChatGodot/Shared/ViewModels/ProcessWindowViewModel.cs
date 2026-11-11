@@ -289,7 +289,21 @@ public sealed partial class ProcessWindowViewModel : ViewModelBase, INoteContext
         if (OperatingSystem.IsWindows())
         {
             var name = pattern.Split('(')[0].Replace(@"\.", ".");
-            return Process.GetProcesses().Where(p => p.ProcessName.Equals(name, StringComparison.OrdinalIgnoreCase)).Select(p => p.Id).ToList();
+            // By name, on the thread pool, each handle released: not a snapshot of every process of the machine per
+            // managed process (eleven of them, every three seconds).
+            return await Task.Run(() =>
+            {
+                var found = Process.GetProcessesByName(name);
+                try
+                {
+                    return found.Select(p => p.Id).ToList();
+                }
+                finally
+                {
+                    foreach (var process in found)
+                        process.Dispose();
+                }
+            }, ct);
         }
         var (code, output) = await RunAsync("pgrep", ["-f", pattern], ct);
         if (code != 0)

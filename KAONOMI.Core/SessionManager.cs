@@ -380,7 +380,17 @@ using System.Threading.Tasks;
                 Type = type,
             };
 
-            return ElasticSearchAdmin.Save<Log>(log);
+            // A log that cannot be written (the repository of the logs unreachable, a document refused) never stops
+            // what it logs: the dialog agents call this at every step, and one in a catch would hide the real error.
+            try
+            {
+                return ElasticSearchAdmin.Save<Log>(log);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[{type}] {appName}: {comment} (log not saved: {ex.Message})");
+                return "-1";
+            }
         }
 
         /// <summary>Creates a detailed <see cref="Log"/> then delegates to <see cref="LogSave(Log)"/>.</summary>
@@ -1247,6 +1257,146 @@ using System.Threading.Tasks;
             context.date = DateTime.UtcNow;
             return ElasticSearchServer.Save(context);
         }
+
+        // ── Projects (/project in the chat: a name, a description, goals, tags) ──
+
+        private static readonly string[] ProjectSearchFields = ["name", "description", "goals", "tags", "comment"];
+
+        /// <summary>Saves a project (a new one, or a new version of it); the date is set when missing.</summary>
+        public ServiceReturn ProjectSave(Project project)
+        {
+            ServiceReturn ret = new ServiceReturn();
+            if (_config == null || ElasticSearchServer == null)
+            {
+                throw new Exception("Config not done");
+            }
+            if (string.IsNullOrWhiteSpace(project.name))
+            {
+                ret.Message = "Error : a project needs a name";
+                ret.ReturnedId = "-1";
+                ret.Success = false;
+                return ret;
+            }
+            if (project.date == default)
+            {
+                project.date = DateTime.UtcNow;
+            }
+            if (project.startDate == default)
+            {
+                project.startDate = DateTime.Today;
+            }
+            if (project.endDate is { } end && end < project.startDate)
+            {
+                ret.Message = "Error : the end of a project cannot be before its start";
+                ret.ReturnedId = "-1";
+                ret.Success = false;
+                return ret;
+            }
+            project.name = project.name.Trim();
+            project.goals = (project.goals ?? new List<string>()).Where(g => !string.IsNullOrWhiteSpace(g)).Select(g => g.Trim()).ToList();
+            try
+            {
+                var retid = ElasticSearchServer.Save(project);
+                ret.Message = retid + " id created. Project well saved";
+                ret.ReturnedId = retid;
+                ret.Success = true;
+            }
+            catch (Exception ex)
+            {
+                ret.Message = "Error : " + ex.Message;
+                Console.WriteLine(ex.ToString());
+                ret.ReturnedId = "-1";
+                ret.Success = false;
+            }
+            return ret;
+        }
+
+        /// <summary>Loads a project by id (null when it does not exist).</summary>
+        public Project ProjectGet(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return null;
+            }
+            return (Project)ElasticSearchServer.Load<Project>(id);
+        }
+
+        /// <summary>Searches the projects on their name, description, goals, tags and comment (<c>*</c> or empty: the newest ones), the deleted ones left out.</summary>
+        public List<Project> ProjectsSearch(string term, int size)
+        {
+            return ElasticSearchServer.Search<Project>(term, ProjectSearchFields, size, nameof(Project.isDeleted), wordPrefixes: true).ToList();
+        }
+
+        /// <summary>The most recent projects, newest first, the deleted ones left out.</summary>
+        public List<Project> ProjectsLast(int size)
+        {
+            return ElasticSearchServer.Last<Project>(size, nameof(Project.isDeleted)).ToList();
+        }
+
+        /// <summary>Marks a project deleted (isDeleted = true): it is never erased.</summary>
+        public ServiceReturn ProjectDelete(string id) => MarkDeleted<Project>(ElasticSearchServer, id, "Project");
+
+        // ── Audio records (the recordings of /recorder in the chat: their metadata and everything done to them) ──
+
+        private static readonly string[] AudioRecordSearchFields =
+            ["title", "project", "file", "source", "comment", "annotations.text", "actions.annotation", "actions.details", "selections.name", "samples.name", "samples.annotation"];
+
+        /// <summary>Saves an audio record (a new one, or a new version of its document: the chat writes it again at each change); the date is set when missing.</summary>
+        public ServiceReturn AudioRecordSave(AudioRecord record)
+        {
+            ServiceReturn ret = new ServiceReturn();
+            if (_config == null || ElasticSearchServer == null)
+            {
+                throw new Exception("Config not done");
+            }
+            if (record.date == default)
+            {
+                record.date = DateTime.UtcNow;
+            }
+            try
+            {
+                var retid = ElasticSearchServer.Save(record);
+                ret.Message = retid + " id created. Audio record well saved";
+                ret.ReturnedId = retid;
+                ret.Success = true;
+            }
+            catch (Exception ex)
+            {
+                ret.Message = "Error : " + ex.Message;
+                Console.WriteLine(ex.ToString());
+                ret.ReturnedId = "-1";
+                ret.Success = false;
+            }
+            return ret;
+        }
+
+        /// <summary>Loads an audio record by id (null when it does not exist).</summary>
+        public AudioRecord AudioRecordGet(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return null;
+            }
+            return (AudioRecord)ElasticSearchServer.Load<AudioRecord>(id);
+        }
+
+        /// <summary>
+        /// Searches the audio records on their title, project, file, notes, the annotations of their manipulations, the
+        /// names of their selections and samples (<c>*</c> or empty: the newest ones), the deleted ones left out.
+        /// </summary>
+        public List<AudioRecord> AudioRecordsSearch(string term, int size)
+        {
+            return ElasticSearchServer.Search<AudioRecord>(term, AudioRecordSearchFields, size, nameof(AudioRecord.isDeleted), wordPrefixes: true).ToList();
+        }
+
+        /// <summary>The <paramref title="size"/> most recent audio records, newest first, the deleted ones left out.</summary>
+        public List<AudioRecord> AudioRecordsLast(int size)
+        {
+            return ElasticSearchServer.Last<AudioRecord>(size, nameof(AudioRecord.isDeleted)).ToList();
+        }
+
+        /// <summary>Marks an audio record deleted (isDeleted = true): it is never erased.</summary>
+        public ServiceReturn AudioRecordDelete(string id) => MarkDeleted<AudioRecord>(ElasticSearchServer, id, "Audio record");
 
         // ── Cache builders (prompts and their completions written by hand, /cache in the chat) ──
 

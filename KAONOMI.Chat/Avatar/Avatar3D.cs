@@ -231,7 +231,20 @@ public sealed class Avatar3D : OpenGlControlBase
         }
         g.BindVertexArray(0);
         g.UseProgram(0);
-        RequestNextFrameRendering();
+        ScheduleNextFrame();
+    }
+
+    /// <summary>
+    /// The next frame, 30 times a second at most: asked at the end of each frame without a pause, the animation was
+    /// drawn (and the whole window composed again) at the rate of the screen, even with nothing to show.
+    /// </summary>
+    private static readonly TimeSpan FrameInterval = TimeSpan.FromMilliseconds(33);
+    private Action? _nextFrame;
+
+    private void ScheduleNextFrame()
+    {
+        _nextFrame ??= () => Avalonia.Threading.DispatcherTimer.RunOnce(RequestNextFrameRendering, FrameInterval);
+        Avalonia.Threading.Dispatcher.UIThread.Post(_nextFrame);
     }
 
     protected override void OnOpenGlDeinit(GlInterface gl)

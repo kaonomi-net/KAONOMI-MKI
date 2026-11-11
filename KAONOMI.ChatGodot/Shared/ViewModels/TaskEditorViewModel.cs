@@ -12,11 +12,17 @@ using KAONOMI.Chat.Services;
 namespace KAONOMI.Chat.ViewModels;
 
 /// <summary>
-/// Editor of a task, opened by a double-click on its card in the kanban (<c>/project</c>): Save writes it
+/// Editor of a task, opened by a double-click on its card in the kanban (<c>/kanban</c>): Save writes it
 /// (<c>POST /task/update</c>), Delete marks it deleted (<c>DELETE /task/{id}</c>), both close the popup.
 /// </summary>
-public partial class TaskEditorViewModel : ViewModelBase, INoteContextProvider
+public partial class TaskEditorViewModel : ViewModelBase, INoteContextProvider, IProjectDocument
 {
+    /// <summary>The project of the task (shown and chosen by its name in the header of the window); written with the task by Save.</summary>
+    [ObservableProperty]
+    private string? _projectId;
+
+    public bool HasProjectDocument => true;
+
     /// <inheritdoc />
     public string NoteWindowName => "Task";
 
@@ -55,6 +61,7 @@ public partial class TaskEditorViewModel : ViewModelBase, INoteContextProvider
         _legal = task.LegalConstraints ?? string.Empty;
         _data = task.DataConstraints ?? string.Empty;
         _comment = task.Comment ?? string.Empty;
+        _projectId = task.ProjectId;
     }
 
     /// <summary>Asks the user to confirm (message, confirm label); set by the view.</summary>
@@ -67,7 +74,7 @@ public partial class TaskEditorViewModel : ViewModelBase, INoteContextProvider
     public IReadOnlyList<string> Types => Union(["bug", "change", "agent", "infra"], Type);
 
     /// <summary>Statuses offered (the status of the task first when it is another one).</summary>
-    public IReadOnlyList<string> Statuses => Union(["backlog", .. ProjectWindowViewModel.Statuses], TaskStatus);
+    public IReadOnlyList<string> Statuses => Union(["backlog", .. KanbanWindowViewModel.Statuses], TaskStatus);
 
     /// <summary>When the task was created (who and where are kept but never shown).</summary>
     public string Origin => _task.Date?.LocalDateTime.ToString("g") ?? string.Empty;
@@ -134,6 +141,7 @@ public partial class TaskEditorViewModel : ViewModelBase, INoteContextProvider
         _task.LegalConstraints = Legal.Trim();
         _task.DataConstraints = Data.Trim();
         _task.Comment = Comment.Trim();
+        _task.ProjectId = ProjectId;
         IsError = false;
         Status = "Saving…";
         try

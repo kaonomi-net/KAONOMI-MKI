@@ -27,6 +27,11 @@ public sealed class AssistantRequest
     [JsonPropertyName("sessionId")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? SessionId { get; init; }
+
+    /// <summary>True when the last question is asked again (its answer was disliked): the new answer replaces that exchange in the context of the server.</summary>
+    [JsonPropertyName("regenerate")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public bool Regenerate { get; init; }
 }
 
 /// <summary>One chat turn in the assistant API (role and content).</summary>

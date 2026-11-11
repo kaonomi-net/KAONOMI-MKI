@@ -8,7 +8,7 @@ using KAONOMI.UI.Desk;
 namespace KAONOMI.UI.Tools.Writing;
 
 /// <summary>
-/// The editor of a task of the kanban (/project, a double-click on a card), in a window of its own: title, type, status,
+/// The editor of a task of the kanban (/kanban, a double-click on a card), in a window of its own: title, type, status,
 /// description, start, end, security, legal and data constraints, comment, the origin of the task, the status; Delete
 /// (marks the task deleted, confirmed), Cancel (Escape) and Save (⌘/Ctrl S) close the window.
 /// </summary>

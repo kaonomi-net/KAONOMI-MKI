@@ -129,15 +129,21 @@ public sealed class SpeechRecognitionService : IDisposable
         ActivityLog.Info("Speech", "The microphone opened after it was given up: closed at once");
     }
 
+    /// <summary>The frames of the last audio callback, reused from one callback to the next.</summary>
+    private float[] _audioBuffer = [];
+
     private StreamCallbackResult OnAudio(IntPtr input, IntPtr output, uint frameCount, ref StreamCallbackTimeInfo timeInfo,
         StreamCallbackFlags statusFlags, IntPtr userData)
     {
         if (input == IntPtr.Zero || frameCount == 0)
             return StreamCallbackResult.Continue;
-        var buffer = new float[frameCount];
-        Marshal.Copy(input, buffer, 0, (int)frameCount);
+        // One buffer for the whole recording (grown when the callback brings more frames): no allocation on the audio thread.
+        var count = (int)frameCount;
+        if (_audioBuffer.Length < count)
+            _audioBuffer = new float[count];
+        Marshal.Copy(input, _audioBuffer, 0, count);
         lock (_samplesLock)
-            _samples.AddRange(buffer);
+            _samples.AddRange(new ArraySegment<float>(_audioBuffer, 0, count));
         return StreamCallbackResult.Continue;
     }
 

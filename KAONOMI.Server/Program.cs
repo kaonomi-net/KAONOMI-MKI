@@ -25,7 +25,6 @@ namespace KAONOMI.Server
         static private SessionManager _session;
         static private Config _config;
         static private string _defaultModel;
-        static private string _idDialog;
 
         /// <summary>Port of the Orleans dashboard (self-hosted by the silo, separate from the Swagger/REST ports).</summary>
         private const int DashboardPort = 8090;
@@ -113,7 +112,7 @@ namespace KAONOMI.Server
 
             app.MapPost("/aiassistant", async (DialogGenericRequest d, [FromServices] IMARIExecutionHandler handler) =>
             {
-                DialogGenericResponse k = new DialogGenericResponse();
+                string newid = null;
                 try
                 {
                     Dialog dialog = new Dialog();
@@ -123,24 +122,35 @@ namespace KAONOMI.Server
                     dialog.request = d;
                     // The conversation of the request: the detections are linked to it, and its context is kept.
                     dialog.SessionId = string.IsNullOrWhiteSpace(d.sessionId) ? dialog.SessionId : d.sessionId.Trim();
-                    string newid = _session.DialogSave(dialog);
+                    newid = _session.DialogSave(dialog);
 
-                    _idDialog = newid;
-
+                    // The id goes straight to the sequence (not through a field shared by every request).
                     var result = await handler.Sequence<string>(jsonProcessSeq.Uid)
-                                           .SetInput(_idDialog)
+                                           .SetInput(newid)
                                            .RunAsync<string>();
 
                     var content = result.SafeGetResult();
                     _session.LogSave("Sequence executed", AppName, "INFO");
                     dialog = _session.DialogGet(newid);
-                    k = dialog.response;
+                    // The sequence ended without an answer (an agent failed before the processor): said as an error,
+                    // not as an empty answer.
+                    if (dialog?.response?.choices is not { Count: > 0 })
+                    {
+                        _session.LogSave($"Sequence executed without an answer (dialog {newid})", AppName, "ERROR");
+                        return Results.Problem(detail: $"The dialog sequence gave no answer (dialog {newid}): see the logs of the server.",
+                            statusCode: StatusCodes.Status500InternalServerError, title: "No answer");
+                    }
+                    return Results.Ok(dialog.response);
                 }
                 catch (Exception ex)
                 {
-                    _session.LogSave("Sequence executed with Error", AppName, "ERROR");
+                    // The cause is logged (the log itself never throws) and given to the client: an empty answer with
+                    // 200 told nothing, neither to the user nor in the logs.
+                    Console.WriteLine(ex.ToString());
+                    _session.LogSave($"Sequence executed with Error (dialog {newid ?? "not saved"}): {ex}", AppName, "ERROR");
+                    return Results.Problem(detail: ex.Message, statusCode: StatusCodes.Status500InternalServerError,
+                        title: "The dialog sequence failed");
                 }
-                return k;
             });
 
             app.MapApiEndpoints(_session);

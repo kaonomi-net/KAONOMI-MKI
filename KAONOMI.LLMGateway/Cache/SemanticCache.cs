@@ -273,22 +273,50 @@ public sealed class SemanticCache : IDisposable
         }
     }
 
+    /// <summary>cache.json without indentation: its vectors are thousands of numbers, one per line otherwise.</summary>
+    private static readonly JsonSerializerOptions FileJson = new(GatewaySettings.Json) { WriteIndented = false };
+
+    private readonly object _saveLock = new();
+
+    /// <summary>
+    /// Writes the cache to its file when it changed. Called by a timer: one save at a time (a tick that finds the
+    /// one before still writing leaves), the entries are only copied under the lock of the cache (the requests do not
+    /// wait for the file), and a failure (the file held by an antivirus, a full disk) is logged and tried again at the
+    /// next tick: an exception out of a timer would end the process.
+    /// </summary>
     public void Save()
     {
-        if (_file is null)
+        if (_file is null || !Monitor.TryEnter(_saveLock))
             return;
-        string json;
-        lock (_lock)
+        try
         {
-            if (!_dirty)
-                return;
-            _dirty = false;
-            json = JsonSerializer.Serialize(_entries, GatewaySettings.Json);
+            CacheEntry[] entries;
+            lock (_lock)
+            {
+                if (!_dirty)
+                    return;
+                _dirty = false;
+                entries = _entries.ToArray();
+            }
+            try
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(_file)!);
+                var temporary = _file + ".tmp";
+                using (var stream = File.Create(temporary))
+                    JsonSerializer.Serialize(stream, entries, FileJson);
+                File.Move(temporary, _file, overwrite: true);
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or NotSupportedException)
+            {
+                lock (_lock)
+                    _dirty = true;
+                Console.WriteLine($"[cache] not saved ({ex.Message}): tried again in a few seconds");
+            }
         }
-        Directory.CreateDirectory(Path.GetDirectoryName(_file)!);
-        var temporary = _file + ".tmp";
-        File.WriteAllText(temporary, json);
-        File.Move(temporary, _file, overwrite: true);
+        finally
+        {
+            Monitor.Exit(_saveLock);
+        }
     }
 
     private void Expire(CacheSettings settings, DateTimeOffset now)

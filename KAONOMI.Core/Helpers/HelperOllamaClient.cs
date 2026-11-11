@@ -94,7 +94,7 @@ namespace KAONOMI.Core.Helpers
             }
             catch (Exception ex)
             {
-                return new OllamaChatResult { Content = $"[Kaonomi Error] : {ex.Message}" };
+                return new OllamaChatResult { Content = $"[Kaonomi Error] : {ex.Message}", Error = ex.Message };
             }
         }
 
@@ -118,7 +118,11 @@ namespace KAONOMI.Core.Helpers
                 var text = await response.Content.ReadAsStringAsync();
                 stopwatch.Stop();
                 if (!response.IsSuccessStatusCode)
-                    return new OllamaChatResult { Content = $"[Kaonomi Error] : LM Studio responded {(int)response.StatusCode} ({response.ReasonPhrase}): {text}" };
+                    return new OllamaChatResult
+                    {
+                        Content = $"[Kaonomi Error] : LM Studio responded {(int)response.StatusCode} ({response.ReasonPhrase}): {text}",
+                        Error = $"LM Studio responded {(int)response.StatusCode} ({response.ReasonPhrase})"
+                    };
 
                 using var document = System.Text.Json.JsonDocument.Parse(text);
                 var root = document.RootElement;
@@ -149,7 +153,7 @@ namespace KAONOMI.Core.Helpers
             }
             catch (Exception ex)
             {
-                return new OllamaChatResult { Content = $"[Kaonomi Error] : {ex.Message}" };
+                return new OllamaChatResult { Content = $"[Kaonomi Error] : {ex.Message}", Error = ex.Message };
             }
         }
 

@@ -20,8 +20,12 @@ public partial class IntelEntryViewModel : ViewModelBase
         nameof(AppName), nameof(MachineName), nameof(UserName), nameof(Comment), nameof(IntelTitle),
         nameof(IncludedEntities), nameof(ExcludedEntities), nameof(TriggerLevel), nameof(Instructions), nameof(IsFuzzy),
         nameof(Locations), nameof(Times), nameof(RelatedEntities), nameof(Questions),
-        nameof(Tags), nameof(Events), nameof(Signals)
+        nameof(Tags), nameof(Events), nameof(Signals), nameof(ProjectId)
     ];
+
+    /// <summary>The project the intel is attached to (the id of a project, chosen by its name in the header of the window), or null.</summary>
+    [ObservableProperty]
+    private string? _projectId;
 
     private readonly KaonomiAssistantService _assistant;
     private IntelEntry _entry;
@@ -279,6 +283,7 @@ public partial class IntelEntryViewModel : ViewModelBase
             Tags = Lines(entry.Tags);
             Events = Lines(entry.Events);
             Signals = Lines(entry.Signals);
+            ProjectId = entry.ProjectId;
             IsDirty = false;
             IsError = false;
         }
@@ -295,6 +300,7 @@ public partial class IntelEntryViewModel : ViewModelBase
         Date = _entry.Date,
         IsDeleted = _entry.IsDeleted,
         AppName = AppName,
+        ProjectId = ProjectId,
         MachineName = MachineName,
         UserName = UserName,
         Comment = Comment,

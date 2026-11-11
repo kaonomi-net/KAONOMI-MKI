@@ -36,13 +36,47 @@ public static class HttpJson
         return await response.Content.ReadJsonAsync<T>(cancellationToken);
     }
 
-    /// <summary>Reads the JSON of <paramref name="content"/>.</summary>
+    /// <summary>Above this size (bytes), an answer is deserialized on the thread pool, not on the thread of the caller.</summary>
+    private const int LargeAnswer = 16 * 1024;
+
+    /// <summary>
+    /// Reads the JSON of <paramref name="content"/>. The body is already in memory when it gets here (the handlers
+    /// of the services buffer it), so reading it would run on the thread of the caller, the one of the interface: a
+    /// large answer (a list of documents, pictures in base64) is deserialized on the thread pool instead.
+    /// </summary>
     public static async Task<T?> ReadJsonAsync<T>(this HttpContent content, CancellationToken cancellationToken = default)
     {
-        await using var stream = await content.ReadAsStreamAsync(cancellationToken);
-        return await JsonSerializer.DeserializeAsync<T>(stream, Options, cancellationToken);
+        var bytes = await content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false);
+        if (bytes.Length == 0)
+            return default;
+        return bytes.Length < LargeAnswer
+            ? JsonSerializer.Deserialize<T>(bytes, Options)
+            : await Task.Run(() => JsonSerializer.Deserialize<T>(bytes, Options), cancellationToken).ConfigureAwait(false);
     }
 
-    private static StringContent Content<T>(T value) =>
-        new(JsonSerializer.Serialize(value, Options), Encoding.UTF8, "application/json");
+    private static HttpContent Content<T>(T value) => new JsonBody<T>(value);
+
+    /// <summary>
+    /// A JSON body written straight to the request when it is sent: the handlers of the services send on the thread
+    /// pool, so a large body (pictures in base64) is no longer serialized, then copied, on the thread of the interface.
+    /// </summary>
+    private sealed class JsonBody<T> : HttpContent
+    {
+        private readonly T _value;
+
+        public JsonBody(T value)
+        {
+            _value = value;
+            Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json") { CharSet = "utf-8" };
+        }
+
+        protected override Task SerializeToStreamAsync(Stream stream, System.Net.TransportContext? context) =>
+            JsonSerializer.SerializeAsync(stream, _value, Options);
+
+        protected override bool TryComputeLength(out long length)
+        {
+            length = 0;
+            return false;
+        }
+    }
 }

@@ -22,6 +22,8 @@ public sealed class VoiceMode : Grid
     private readonly Action _closed;
     private bool _spaceDown;
 
+    private readonly Action<bool> _onSpeaking;
+
     public VoiceMode(ChatPanel chat, MainViewModel vm, Action closed)
     {
         _chat = chat;
@@ -48,7 +50,8 @@ public sealed class VoiceMode : Grid
                 : vm.IsSpeakingOrPreparing ? ("SPEAKING", Ui.Accent)
                 : ("HOLD 🎤 OR THE SPACE BAR TO SPEAK", Ui.Muted);
         }, nameof(MainViewModel.IsListening), nameof(MainViewModel.IsTranscribing), nameof(MainViewModel.IsAwaitingAnswer));
-        vm.SpeakingChanged += _ => Ui.OnMain(() => listening.Text = vm.IsSpeakingOrPreparing ? "SPEAKING" : listening.Text);
+        _onSpeaking = _ => Ui.OnMain(() => listening.Text = vm.IsSpeakingOrPreparing ? "SPEAKING" : listening.Text);
+        vm.SpeakingChanged += _onSpeaking;
         var info = Ui.Column(4, listening, state);
         info.Margin = new Thickness(0, 0, 0, 16);
         SetRow(info, 1);
@@ -158,6 +161,8 @@ public sealed class VoiceMode : Grid
     public void Leave()
     {
         _chat.AvatarChanged -= Show;
+        // The chat lives on: without this, each voice mode entered would stay in memory, still called by it.
+        _vm.SpeakingChanged -= _onSpeaking;
         _stage.Children.Clear();
         _chat.GiveBackAvatar();
         _closed();

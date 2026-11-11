@@ -102,7 +102,7 @@ namespace KAONOMI.Server
                 {
                     var question = Knowledge.ContextManager.Question(dialog.PromptUserText, bare: true);
                     var entities = await Task.Run(() => Ner.NerService.Get(config).Extract(question, types: null).entities);
-                    context = Knowledge.ContextManager.Render(kept, Knowledge.ContextManager.EntityNames(entities), config, question);
+                    context = Knowledge.ContextManager.Render(kept, Knowledge.ContextManager.EntityNames(entities), config, dialog.request?.regenerate == true ? question : null);
                 }
             }
             catch (Exception ex)
@@ -135,9 +135,17 @@ namespace KAONOMI.Server
                         role = "assistant"
                     },
                     index = 0,
-                    finish_reason = "stop"
+                    // A failure of the model is said as one ("error"): the message shown is not an answer. The agents
+                    // that follow and the client tell them apart (nothing is kept in the context of the conversation).
+                    finish_reason = response.Error is null ? "stop" : "error"
                 }
             };
+            if (response.Error is not null)
+            {
+                session.LogSave($"The model gave no answer ({config.ollamaUrl}, {selectedModel}): {response.Error}", appName, "ERROR");
+                dialog.response.model = dialog.request.model;
+                return;
+            }
 
             // The model that answered (the gateway may have routed the request to another one than the model asked).
             dialog.response.model = string.IsNullOrWhiteSpace(response.Model) ? dialog.request.model : response.Model;

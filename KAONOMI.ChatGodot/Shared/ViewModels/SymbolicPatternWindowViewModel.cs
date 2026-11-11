@@ -12,8 +12,30 @@ using KAONOMI.Chat.Services;
 namespace KAONOMI.Chat.ViewModels;
 
 /// <summary>Search and edit UI for Kaonomi symbolic pattern documents.</summary>
-public partial class SymbolicPatternWindowViewModel : ViewModelBase, INoteContextProvider
+public partial class SymbolicPatternWindowViewModel : ViewModelBase, INoteContextProvider, IProjectDocument
 {
+    /// <summary>The project of the pattern selected (shown and chosen by its name in the header of the window).</summary>
+    public string? ProjectId
+    {
+        get => SelectedResult?.ProjectId;
+        set
+        {
+            if (SelectedResult is { } selected && selected.ProjectId != value)
+            {
+                selected.ProjectId = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    public bool HasProjectDocument => SelectedResult is not null;
+
+    partial void OnSelectedResultChanged(SymbolicPatternEntryViewModel? value)
+    {
+        OnPropertyChanged(nameof(ProjectId));
+        OnPropertyChanged(nameof(HasProjectDocument));
+    }
+
     private const int PageSize = 10;
 
     private readonly KaonomiAssistantService _assistant;

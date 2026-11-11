@@ -128,8 +128,7 @@ public sealed partial class SpeechService : IDisposable
         if (!IsAvailable)
             return;
 
-        var sentences = Sentences(markdown);
-        if (sentences.Count == 0)
+        if (string.IsNullOrWhiteSpace(markdown))
             return;
 
         var cancellation = new CancellationTokenSource();
@@ -142,7 +141,10 @@ public sealed partial class SpeechService : IDisposable
         {
             try
             {
-                await SpeakAsync(sentences, cancellation.Token);
+                // Cut here, on the thread pool: the Markdown of a long answer goes through a dozen regular expressions.
+                var sentences = Sentences(markdown);
+                if (sentences.Count > 0)
+                    await SpeakAsync(sentences, cancellation.Token);
             }
             finally
             {
@@ -278,7 +280,10 @@ public sealed partial class SpeechService : IDisposable
         Horrify(file, _horror, _pitch);
         RaisePitch(file, _pitch);
         var levels = LoudnessEnvelope(file);
-        if (AudioDevices.Output is not null && await PlayOnChosenOutputAsync(file, levels, cancellationToken))
+        // PortAudio plays on the output chosen with /audiosettings, and on the default one when none is chosen. On
+        // Windows it is tried first in both cases: the player of the system is there a PowerShell started for each
+        // sentence (hundreds of milliseconds before each one); it stays the fallback when PortAudio cannot play.
+        if ((AudioDevices.Output is not null || OperatingSystem.IsWindows()) && await PlayOnChosenOutputAsync(file, levels, cancellationToken))
             return;
         var start = OperatingSystem.IsWindows()
             ? new ProcessStartInfo("powershell", ["-NoProfile", "-Command", $"(New-Object Media.SoundPlayer '{file.Replace("'", "''")}').PlaySync()"])

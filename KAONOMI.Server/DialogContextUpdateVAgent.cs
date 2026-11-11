@@ -99,8 +99,10 @@ namespace KAONOMI.Server
                 session.LogSave("No session in the request: no context kept", appName, "INFO");
                 return;
             }
-            var completion = dialog.response?.choices?.FirstOrDefault()?.message?.content;
-            if (string.IsNullOrWhiteSpace(completion) || dialog.request is null)
+            var choice = dialog.response?.choices?.FirstOrDefault();
+            var completion = choice?.finish_reason == "error" ? null : choice?.message?.content;
+            // A failure of the model comes back as a text (« [Kaonomi Error] : … »): it is not an exchange to remember.
+            if (string.IsNullOrWhiteSpace(completion) || dialog.request is null || completion.TrimStart().StartsWith("[Kaonomi Error]", StringComparison.Ordinal))
             {
                 session.LogSave("No answer: the context is left as it is", appName, "INFO");
                 return;
@@ -120,7 +122,7 @@ namespace KAONOMI.Server
                 var context = session.DialogContextGet(dialog.SessionId) ?? new DialogContext { id = dialog.SessionId.Trim(), appName = appName };
                 context.userName = dialog.userName;
                 context.machineName = dialog.machineName;
-                var note = Knowledge.ContextManager.AddTurn(context, dialog.id, question, completion, names, config);
+                var note = Knowledge.ContextManager.AddTurn(context, dialog.id, question, completion, names, config, dialog.request.regenerate);
                 session.DialogContextSave(context);
                 session.LogSave($"Context of {dialog.SessionId}: {note}", appName, "INFO");
             }

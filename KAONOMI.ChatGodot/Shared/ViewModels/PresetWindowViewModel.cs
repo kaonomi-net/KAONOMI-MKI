@@ -24,8 +24,15 @@ namespace KAONOMI.Chat.ViewModels;
 /// system prompt becoming the system prompt of the chat (the SYSTEM PROMPT box).
 /// config.yml keeps only the default preset: it is listed as such and edited in <c>/config</c>.
 /// </summary>
-public partial class PresetWindowViewModel : ViewModelBase, INoteContextProvider, IUnsavedChanges
+public partial class PresetWindowViewModel : ViewModelBase, INoteContextProvider, IUnsavedChanges, IProjectDocument
 {
+    /// <summary>The project of the preset edited (the id of a project, chosen by its name in the header of the window), or null; written by SAVE.</summary>
+    [ObservableProperty]
+    private string? _projectId;
+
+    /// <summary>A preset is always being edited: the one chosen, or a new one.</summary>
+    public bool HasProjectDocument => true;
+
     private readonly MainViewModel? _chat;
     private readonly KaonomiAssistantService? _server;
     /// <summary>True while the fields are filled from a preset: no "not saved" for each of them.</summary>
@@ -205,7 +212,7 @@ public partial class PresetWindowViewModel : ViewModelBase, INoteContextProvider
         if (_loading)
             return;
         if (e.PropertyName is nameof(Name) or nameof(Description) or nameof(Voice) or nameof(Pitch) or nameof(Speed) or nameof(Robot)
-            or nameof(Vibrato) or nameof(Assistant) or nameof(Horror) or nameof(Persona) or nameof(Animation))
+            or nameof(Vibrato) or nameof(Assistant) or nameof(Horror) or nameof(Persona) or nameof(Animation) or nameof(ProjectId))
             IsDirty = true;
     }
 
@@ -227,6 +234,7 @@ public partial class PresetWindowViewModel : ViewModelBase, INoteContextProvider
             Horror = Math.Clamp(entry.Horror, 0, 1);
             Animation = Enum.TryParse<SceneAnimation>(entry.Animation, ignoreCase: true, out var animation) ? animation : SceneAnimation.Mari;
             Persona = entry.Persona;
+            ProjectId = entry.ProjectId;
             IsDirty = false;
         }
         finally
@@ -251,6 +259,7 @@ public partial class PresetWindowViewModel : ViewModelBase, INoteContextProvider
         {
             Name = string.Empty;
             Description = string.Empty;
+            ProjectId = null;
             if (start is not null)
             {
                 if (!string.IsNullOrWhiteSpace(start.Voice) && !InstalledVoices.Contains(start.Voice))
@@ -313,6 +322,7 @@ public partial class PresetWindowViewModel : ViewModelBase, INoteContextProvider
         entry.Horror = Math.Round(Horror, 2);
         entry.Animation = Animation.ToString().ToUpperInvariant();
         entry.Persona = Persona.Trim();
+        entry.ProjectId = ProjectId;
         IsBusy = true;
         try
         {

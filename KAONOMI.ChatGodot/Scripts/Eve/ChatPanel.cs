@@ -32,6 +32,8 @@ public partial class ChatPanel : PanelContainer
     private Button _mic = null!;
     private Label _ticker = null!;
     private double _tickerOffset;
+    private bool _tickerHasText;
+    private float _tickerWidth = -1;
     private bool _stickToBottom = true;
 
     /// <summary>The width of the chat (open).</summary>
@@ -158,11 +160,13 @@ public partial class ChatPanel : PanelContainer
                 _date.Text = date;
         }
         // The ticker scrolls from right to left.
-        if (_ticker.Visible && _ticker.Text.Length > 0)
+        // Its text and its width are read when it changes, not at each frame (each read crosses into the engine).
+        if (_tickerHasText && _ticker.Visible)
         {
             _tickerOffset -= delta * 60;
-            var width = _ticker.GetMinimumSize().X;
-            if (_tickerOffset < -width)
+            if (_tickerWidth < 0)
+                _tickerWidth = _ticker.GetMinimumSize().X;
+            if (_tickerOffset < -_tickerWidth)
                 _tickerOffset = _ticker.GetParentControl().Size.X;
             _ticker.Position = new Vector2((float)_tickerOffset, 3);
         }
@@ -420,7 +424,13 @@ public partial class ChatPanel : PanelContainer
         _ticker.AddThemeColorOverride("font_color", Eve.Text);
         band.AddChild(_ticker);
         Bind.Visible(band, _vm, nameof(MainViewModel.HasTickerItems));
-        void Fill() => _ticker.Text = string.Join("      ", _vm.TickerItems.Select(t => $"{(t.HasArrow ? t.Arrow + " " : string.Empty)}{t.Text}"));
+        void Fill()
+        {
+            _ticker.Text = string.Join("      ", _vm.TickerItems.Select(t => $"{(t.HasArrow ? t.Arrow + " " : string.Empty)}{t.Text}"));
+            // Measured again at the next frame it scrolls (see _Process).
+            _tickerHasText = _ticker.Text.Length > 0;
+            _tickerWidth = -1;
+        }
         System.Collections.Specialized.NotifyCollectionChangedEventHandler changed = (_, _) => Bind.OnMain(() =>
         {
             if (IsInstanceValid(_ticker))
@@ -764,7 +774,7 @@ public partial class MessageView : PanelContainer
             like.Visible = dislike.Visible = message.CanEvaluate;
             like.Modulate = message.IsLiked ? Eve.Green : Colors.White;
             dislike.Modulate = message.IsDisliked ? Eve.Red : Colors.White;
-        });
+        }, nameof(ChatMessageViewModel.CanEvaluate), nameof(ChatMessageViewModel.IsLiked), nameof(ChatMessageViewModel.IsDisliked));
         header.AddChild(like);
         header.AddChild(dislike);
         var copy = Small("⧉", "Copy to the clipboard");

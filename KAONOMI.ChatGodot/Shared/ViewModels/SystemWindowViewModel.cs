@@ -43,7 +43,11 @@ public partial class SystemWindowViewModel : ViewModelBase, INoteContextProvider
     public const int HistoryLength = 60;
 
     /// <summary>Seconds between two sendings of the measures to <c>PUT /systemlog</c>.</summary>
-    public const int SystemLogSeconds = 5;
+    public const int SystemLogSeconds = 30;
+
+    private static readonly SolidColorBrush CoolBrush = new(Color.Parse("#3DBB4A"));
+    private static readonly SolidColorBrush WarmBrush = new(Color.Parse("#F28C38"));
+    private static readonly SolidColorBrush HotBrush = new(Color.Parse("#E81123"));
 
     private readonly KaonomiAssistantService? _assistant;
 
@@ -254,8 +258,8 @@ public partial class SystemWindowViewModel : ViewModelBase, INoteContextProvider
         try
         {
             var entries = await Task.Run(() => BuildSystemLog(sample), cancellationToken);
-            foreach (var entry in entries)
-                await _assistant!.SaveSystemLogAsync(entry, cancellationToken);
+            // Sent together, not one after the other (about ten requests each time).
+            await Task.WhenAll(entries.Select(entry => _assistant!.SaveSystemLogAsync(entry, cancellationToken)));
 
             _systemLogNote = $" · sent to /systemlog at {DateTime.Now:HH:mm:ss}";
             if (_systemLogWorking != true)
@@ -390,7 +394,8 @@ public partial class SystemWindowViewModel : ViewModelBase, INoteContextProvider
             : "🌡 " + string.Join("  ", temperatures.Select(t => $"{t.Celsius} °C"));
         GpuTemperatureTip = string.Join("\n", temperatures.Select(t => $"{t.Name}: {t.Celsius} °C"));
         var hottest = temperatures.Max(t => t.Celsius);
-        GpuTemperatureBrush = new SolidColorBrush(Color.Parse(hottest < 70 ? "#3DBB4A" : hottest < 85 ? "#F28C38" : "#E81123"));
+        // The same brush as long as the level is the same: a new one every second would redraw the label each time.
+        GpuTemperatureBrush = hottest < 70 ? CoolBrush : hottest < 85 ? WarmBrush : HotBrush;
 
         // Temperature graph: the hottest card, 0–100 °C.
         var hottestCard = temperatures.First(t => t.Celsius == hottest);

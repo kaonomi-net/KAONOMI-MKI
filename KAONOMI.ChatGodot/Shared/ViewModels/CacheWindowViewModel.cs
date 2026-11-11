@@ -25,8 +25,30 @@ public sealed record CacheLanguage(string Code, string Name)
 /// /cache: the cache builders of the server (<c>CacheBuilder</c>: prompts and their completions written by hand),
 /// searched, added and edited. The newest ones are listed when the window opens and when the search box is empty.
 /// </summary>
-public partial class CacheWindowViewModel : ViewModelBase, INoteContextProvider
+public partial class CacheWindowViewModel : ViewModelBase, INoteContextProvider, IProjectDocument
 {
+    /// <summary>The project of the document selected (shown and chosen by its name in the header of the window).</summary>
+    public string? ProjectId
+    {
+        get => SelectedResult?.ProjectId;
+        set
+        {
+            if (SelectedResult is { } selected && selected.ProjectId != value)
+            {
+                selected.ProjectId = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    public bool HasProjectDocument => SelectedResult is not null;
+
+    partial void OnSelectedResultChanged(CacheEntryViewModel? value)
+    {
+        OnPropertyChanged(nameof(ProjectId));
+        OnPropertyChanged(nameof(HasProjectDocument));
+    }
+
     private const int PageSize = 50;
 
     private readonly KaonomiAssistantService _assistant;
@@ -514,6 +536,7 @@ public partial class CacheWindowViewModel : ViewModelBase, INoteContextProvider
                 {
                     Date = DateTimeOffset.Now,
                     AppName = "KAONOMI.Chat",
+                    ProjectId = source.ProjectId,
                     MachineName = Environment.MachineName,
                     UserName = Environment.UserName,
                     Title = title,

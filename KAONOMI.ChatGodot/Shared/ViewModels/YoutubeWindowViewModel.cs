@@ -54,8 +54,15 @@ public partial class YoutubeVideoItemViewModel : ObservableObject
 /// title and description from YouTube, the video is added with <c>PUT /youtubevideo</c>; the saved videos are listed
 /// (newest first, or a search on their title and description) and opened in the browser.
 /// </summary>
-public partial class YoutubeWindowViewModel : ViewModelBase, INoteContextProvider
+public partial class YoutubeWindowViewModel : ViewModelBase, INoteContextProvider, IProjectDocument
 {
+    /// <summary>The project the video of the editor is attached to (the id of a project, chosen by its name in the header of the window), or null; written by the next save.</summary>
+    [ObservableProperty]
+    private string? _projectId;
+
+    /// <summary>The editor always holds a video (a saved one, or a new one).</summary>
+    public bool HasProjectDocument => true;
+
     /// <inheritdoc />
     public string NoteWindowName => "YouTube";
 
@@ -185,6 +192,7 @@ public partial class YoutubeWindowViewModel : ViewModelBase, INoteContextProvide
         Title = entry.Title ?? string.Empty;
         Description = entry.Description ?? string.Empty;
         Comment = entry.Comment ?? string.Empty;
+        ProjectId = entry.ProjectId;
         Author = string.Empty;
         Thumbnail = value.Thumbnail;
         if (value.Thumbnail is null)
@@ -290,6 +298,7 @@ public partial class YoutubeWindowViewModel : ViewModelBase, INoteContextProvide
             Id = EditingId,
             Date = SelectedVideo?.Entry.Id == EditingId ? SelectedVideo?.Entry.Date : null,
             AppName = "KAONOMI.Chat",
+            ProjectId = ProjectId,
             MachineName = Environment.MachineName,
             UserName = Environment.UserName,
             VideoId = videoId,
@@ -332,6 +341,7 @@ public partial class YoutubeWindowViewModel : ViewModelBase, INoteContextProvide
         EditingId = null;
         _fetchedId = _fetchedTitle = _fetchedDescription = null;
         Url = Title = Description = Comment = Author = string.Empty;
+        ProjectId = null;
         Thumbnail = null;
         SetStatus("Paste the address of a YouTube video");
     }

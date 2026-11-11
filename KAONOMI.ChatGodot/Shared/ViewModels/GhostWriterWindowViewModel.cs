@@ -25,8 +25,15 @@ namespace KAONOMI.Chat.ViewModels;
 /// <c>ghostwriter</c> index, its id the slug of its title, a new version at each save), where the writings are searched
 /// (<see cref="SearchCommand"/>) and opened again.
 /// </summary>
-public sealed partial class GhostWriterWindowViewModel : ViewModelBase, IDisposable, IUnsavedChanges
+public sealed partial class GhostWriterWindowViewModel : ViewModelBase, IDisposable, IUnsavedChanges, IProjectDocument
 {
+    /// <summary>The project the writing is attached to (the id of a project, chosen by its name in the header of the window), or null; saved with it, and with the entries of its journal.</summary>
+    [ObservableProperty]
+    private string? _projectId;
+
+    /// <summary>The window always holds a writing.</summary>
+    public bool HasProjectDocument => true;
+
     private readonly KaonomiAssistantService _server;
     /// <summary>True while a writing is being loaded: the values set then are not changes.</summary>
     private bool _loading;
@@ -512,6 +519,7 @@ public sealed partial class GhostWriterWindowViewModel : ViewModelBase, IDisposa
         WriterJournal.Add(_server, new WriterJournalEntry
         {
             AppName = "KAONOMI.Chat",
+            ProjectId = ProjectId,
             MachineName = Environment.MachineName,
             UserName = Environment.UserName,
             WritingId = WritingId ?? GhostWriterEntry.Slug(title),
@@ -593,7 +601,7 @@ public sealed partial class GhostWriterWindowViewModel : ViewModelBase, IDisposa
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)
     {
         base.OnPropertyChanged(e);
-        if (e.PropertyName is nameof(Title) or nameof(Description) or nameof(Goals) or nameof(AudienceDescription) or nameof(Author) or nameof(Style) or nameof(WritingSummary))
+        if (e.PropertyName is nameof(Title) or nameof(Description) or nameof(Goals) or nameof(AudienceDescription) or nameof(Author) or nameof(Style) or nameof(WritingSummary) or nameof(ProjectId))
             Touched();
     }
 
@@ -797,6 +805,7 @@ public sealed partial class GhostWriterWindowViewModel : ViewModelBase, IDisposa
         Author = entry.Author;
         Style = entry.Style;
         WritingSummary = entry.Summary ?? string.Empty;
+        ProjectId = entry.ProjectId;
         // A Clear does not give the items it removes: they are let go first (else they are kept, and a change of one of
         // them would mark the writing opened now as changed).
         Unwatch(Actors);
@@ -843,6 +852,7 @@ public sealed partial class GhostWriterWindowViewModel : ViewModelBase, IDisposa
     {
         Id = WritingId ?? GhostWriterEntry.Slug(Title),
         AppName = "KAONOMI.Chat",
+        ProjectId = ProjectId,
         MachineName = Environment.MachineName,
         UserName = Environment.UserName,
         Title = Title.Trim(),

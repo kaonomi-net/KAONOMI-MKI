@@ -29,8 +29,56 @@ namespace KAONOMI.Chat.ViewModels;
 /// speaks. Each paragraph is a document of the <c>interviewparagraph</c> index, found by <c>/search</c>.
 /// </summary>
 /// <remarks>The entities (the NER of the server, at each save) and the deep text analysis are in InterviewWindowViewModel.Analysis.cs.</remarks>
-public sealed partial class InterviewWindowViewModel : ViewModelBase, ITapeAssistant, INoteContextProvider, IDisposable, IUnsavedChanges
+public sealed partial class InterviewWindowViewModel : ViewModelBase, ITapeAssistant, INoteContextProvider, IDisposable, IUnsavedChanges, IProjectDocument
 {
+    /// <summary>
+    /// The project of the interview open (chosen by its name in the header of the window), or null; saved with the
+    /// interview, and with the paragraphs of its transcription.
+    /// </summary>
+    [ObservableProperty]
+    private string? _projectId;
+
+    /// <summary>An interview is always open (a new one when none was chosen).</summary>
+    public bool HasProjectDocument => true;
+
+    /// <summary>The paragraphs shown for the recording <paramref name="file"/>, by rank, with the project of the interview: what is stored for it.</summary>
+    private List<InterviewParagraphEntry> TranscriptOf(string file)
+    {
+        var paragraphs = Paragraphs.Where(p => p.AudioFile == file).OrderBy(p => p.Index).ToList();
+        foreach (var paragraph in paragraphs)
+            paragraph.ProjectId = ProjectId;
+        return paragraphs;
+    }
+
+    /// <summary>
+    /// After a save: the paragraphs stored that still have another project than the interview are stored again with
+    /// its project. Only the recordings whose paragraphs shown are all stored ones (a transcription cancelled is not
+    /// stored by this).
+    /// </summary>
+    private async Task StoreParagraphProjectsAsync()
+    {
+        foreach (var file in Paragraphs.Where(p => p.ProjectId != ProjectId).Select(p => p.AudioFile).Distinct().ToList())
+        {
+            if (Paragraphs.Any(p => p.AudioFile == file && string.IsNullOrEmpty(p.Id)))
+                continue;
+            try
+            {
+                var result = await _server.SaveInterviewTranscriptAsync(new InterviewTranscriptRequest
+                {
+                    InterviewId = InterviewId,
+                    AudioFile = file,
+                    Paragraphs = TranscriptOf(file)
+                });
+                if (result.ReturnedId is null or "-1")
+                    ActivityLog.Error("Interview", $"Project of the paragraphs of {file} not stored: {result.Message ?? "no answer"}");
+            }
+            catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException or JsonException)
+            {
+                ActivityLog.Error("Interview", $"Project of the paragraphs of {file} not stored: {ex.Message}");
+            }
+        }
+    }
+
     private readonly KaonomiAssistantService _server;
     private readonly WritingAssistant _writing;
     private readonly OllamaModelService? _ollama;
@@ -243,7 +291,7 @@ public sealed partial class InterviewWindowViewModel : ViewModelBase, ITapeAssis
     {
         base.OnPropertyChanged(e);
         if (!_loading && e.PropertyName is nameof(FirstName) or nameof(LastName) or nameof(Address) or nameof(Email) or nameof(Phone)
-                or nameof(DocumentType) or nameof(DocumentNumber) or nameof(Content))
+                or nameof(DocumentType) or nameof(DocumentNumber) or nameof(Content) or nameof(ProjectId))
             IsDirty = true;
     }
 
@@ -357,6 +405,7 @@ public sealed partial class InterviewWindowViewModel : ViewModelBase, ITapeAssis
         {
             InterviewId = interview?.Id ?? Guid.NewGuid().ToString();
             IsNew = interview is null;
+            ProjectId = interview?.ProjectId;
             FirstName = interview?.FirstName ?? string.Empty;
             LastName = interview?.LastName ?? string.Empty;
             Address = interview?.Address ?? string.Empty;
@@ -419,6 +468,7 @@ public sealed partial class InterviewWindowViewModel : ViewModelBase, ITapeAssis
         {
             Id = InterviewId,
             AppName = "KAONOMI.Chat",
+            ProjectId = ProjectId,
             MachineName = Environment.MachineName,
             UserName = Environment.UserName,
             Title = PersonName,
@@ -459,6 +509,8 @@ public sealed partial class InterviewWindowViewModel : ViewModelBase, ITapeAssis
             if (saved is not null)
                 SetEntities(saved.Entities);
             RefreshResults();
+            // Its paragraphs follow it when its project changed.
+            await StoreParagraphProjectsAsync();
             // Its summary note, written after the save (in the background) when its text changed.
             if (summarise)
                 _ = UpdateSummaryAsync();
@@ -689,6 +741,7 @@ public sealed partial class InterviewWindowViewModel : ViewModelBase, ITapeAssis
     private InterviewParagraphEntry NewParagraph(string file, int index, string text, SpeechSegment segment) => new()
     {
         AppName = "KAONOMI.Chat",
+        ProjectId = ProjectId,
         MachineName = Environment.MachineName,
         UserName = Environment.UserName,
         Date = DateTimeOffset.UtcNow,
@@ -844,7 +897,7 @@ public sealed partial class InterviewWindowViewModel : ViewModelBase, ITapeAssis
     /// <summary>Stores the paragraphs shown for <paramref name="recording"/> in the search engine, in place of the ones stored for it.</summary>
     private async Task StoreTranscriptAsync(InterviewRecordingEntry recording)
     {
-        var paragraphs = Paragraphs.Where(p => p.AudioFile == recording.FileName).OrderBy(p => p.Index).ToList();
+        var paragraphs = TranscriptOf(recording.FileName);
         try
         {
             var result = await _server.SaveInterviewTranscriptAsync(new InterviewTranscriptRequest

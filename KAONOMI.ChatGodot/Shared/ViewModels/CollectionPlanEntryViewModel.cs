@@ -19,8 +19,12 @@ public partial class CollectionPlanEntryViewModel : ViewModelBase
     private static readonly HashSet<string> EditableProperties =
     [
         nameof(AppName), nameof(MachineName), nameof(UserName), nameof(Comment), nameof(Name), nameof(Description),
-        nameof(Project), nameof(Instructions), nameof(IsActive)
+        nameof(Project), nameof(Instructions), nameof(IsActive), nameof(ProjectId)
     ];
+
+    /// <summary>The project the plan is attached to (the id of a project, chosen by its name in the header of the window), or null.</summary>
+    [ObservableProperty]
+    private string? _projectId;
 
     private readonly KaonomiAssistantService _assistant;
     private CollectionPlanEntry _entry;
@@ -245,6 +249,7 @@ public partial class CollectionPlanEntryViewModel : ViewModelBase
             Project = entry.Project ?? string.Empty;
             Instructions = entry.Instructions ?? string.Empty;
             IsActive = entry.IsActive;
+            ProjectId = entry.ProjectId;
             Websites.Clear();
             foreach (var website in entry.Websites ?? [])
                 Websites.Add(new CollectionPlanWebsiteViewModel(website, WebsiteChanged));
@@ -264,6 +269,7 @@ public partial class CollectionPlanEntryViewModel : ViewModelBase
         Date = _entry.Date,
         IsDeleted = _entry.IsDeleted,
         AppName = AppName,
+        ProjectId = ProjectId,
         MachineName = MachineName,
         UserName = UserName,
         Comment = Comment,

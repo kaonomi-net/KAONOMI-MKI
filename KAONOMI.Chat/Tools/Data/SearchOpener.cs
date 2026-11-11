@@ -77,7 +77,7 @@ public static class SearchOpener
                 }
                 case "taskitem":
                 {
-                    var vm = await OpenToolAsync<ProjectWindowViewModel>(shell, "/project");
+                    var vm = await OpenToolAsync<KanbanWindowViewModel>(shell, "/kanban");
                     if (vm is null) break;
                     await vm.ReloadAfterChangeAsync();
                     var card = vm.Columns.SelectMany(c => c.Cards).FirstOrDefault(c => c.Task.Id == hit.Id);

@@ -30,6 +30,9 @@ public sealed class DeckWindow
             Msaa2D = Godot.Viewport.Msaa.Disabled
         };
         Frame = new EveFrame(title, icon, content);
+        // A window of a document: the field of its project, chosen by its name, at the top of the window.
+        if (viewModel is KAONOMI.Chat.ViewModels.IProjectDocument document)
+            ProjectPicker.Attach(Frame, document);
         Viewport.AddChild(Frame);
         Container = new SubViewportContainer { Stretch = true, MouseFilter = Control.MouseFilterEnum.Stop };
     }

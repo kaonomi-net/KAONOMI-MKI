@@ -12,8 +12,30 @@ using KAONOMI.Chat.Services;
 namespace KAONOMI.Chat.ViewModels;
 
 /// <summary>List, search, creation and edition of ideas (<c>/idea</c>, <c>/nidea</c> in its own window).</summary>
-public partial class IdeaWindowViewModel : ViewModelBase, INoteContextProvider
+public partial class IdeaWindowViewModel : ViewModelBase, INoteContextProvider, IProjectDocument
 {
+    /// <summary>The project of the idea selected (shown and chosen by its name in the header of the window).</summary>
+    public string? ProjectId
+    {
+        get => SelectedResult?.ProjectId;
+        set
+        {
+            if (SelectedResult is { } selected && selected.ProjectId != value)
+            {
+                selected.ProjectId = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    public bool HasProjectDocument => SelectedResult is not null;
+
+    partial void OnSelectedResultChanged(IdeaEntryViewModel? value)
+    {
+        OnPropertyChanged(nameof(ProjectId));
+        OnPropertyChanged(nameof(HasProjectDocument));
+    }
+
     private const int PageSize = 100;
 
     private readonly KaonomiAssistantService _assistant;
@@ -175,8 +197,8 @@ public partial class IdeaWindowViewModel : ViewModelBase, INoteContextProvider
 
     private void OnSaved(IdeaEntryViewModel idea) => RefreshCategories();
 
-    /// <summary>A /project window on the same assistant, for an idea sent there as a new task.</summary>
-    public ProjectWindowViewModel CreateProjectWindow() => new(_assistant);
+    /// <summary>A /kanban window on the same assistant, for an idea sent there as a new task.</summary>
+    public KanbanWindowViewModel CreateKanbanWindow() => new(_assistant);
 
     /// <summary>Rebuilds the category suggestions from the listed ideas.</summary>
     private void RefreshCategories()

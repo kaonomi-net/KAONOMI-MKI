@@ -483,10 +483,17 @@ public sealed partial class GatewayWindowViewModel : ViewModelBase, IDisposable
     private static bool SameItems(IEnumerable<string> shown, IEnumerable<string> models) =>
         shown.Skip(1).SequenceEqual(models);
 
+    /// <summary>
+    /// The items of <paramref name="target"/> made those of <paramref name="items"/>; nothing when they already are
+    /// (the window is refreshed every few seconds and most often shows the same rows: each change rebuilds its row).
+    /// </summary>
     private static void Replace<T>(ObservableCollection<T> target, IEnumerable<T> items)
     {
+        var list = items as IReadOnlyList<T> ?? items.ToList();
+        if (target.Count == list.Count && target.SequenceEqual(list))
+            return;
         target.Clear();
-        foreach (var item in items)
+        foreach (var item in list)
             target.Add(item);
     }
 

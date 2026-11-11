@@ -25,8 +25,15 @@ namespace KAONOMI.Chat.ViewModels;
 /// pages that link to the one open are listed under the pages. SAVE creates the page or saves a new version of it,
 /// DELETE marks it deleted. The pictures inserted are copied into Pictures/kaonomi/wiki.
 /// </summary>
-public sealed partial class WikiWindowViewModel : ViewModelBase, ITapeAssistant, INoteContextProvider, IDisposable, IUnsavedChanges
+public sealed partial class WikiWindowViewModel : ViewModelBase, ITapeAssistant, INoteContextProvider, IDisposable, IUnsavedChanges, IProjectDocument
 {
+    /// <summary>The project the page open is attached to (the id of a project, chosen by its name in the header of the window), or null; saved with the page.</summary>
+    [ObservableProperty]
+    private string? _projectId;
+
+    /// <summary>The window always holds a page (the one open, or a new one).</summary>
+    public bool HasProjectDocument => true;
+
     /// <summary>The slug of the home page of the wiki.</summary>
     public const string HomeSlug = "kaonomi";
 
@@ -127,7 +134,7 @@ public sealed partial class WikiWindowViewModel : ViewModelBase, ITapeAssistant,
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)
     {
         base.OnPropertyChanged(e);
-        if (!_loading && e.PropertyName is nameof(Title) or nameof(Content) or nameof(Tags) or nameof(Events) or nameof(Signals))
+        if (!_loading && e.PropertyName is nameof(Title) or nameof(Content) or nameof(Tags) or nameof(Events) or nameof(Signals) or nameof(ProjectId))
             IsDirty = true;
     }
 
@@ -229,6 +236,7 @@ public sealed partial class WikiWindowViewModel : ViewModelBase, ITapeAssistant,
             Tags = MetaTags.Format(page?.Tags);
             Events = MetaTags.Format(page?.Events);
             Signals = MetaTags.Format(page?.Signals);
+            ProjectId = page?.ProjectId;
             Info = page is null
                 ? "new page · not saved"
                 : $"version {page.Version} · {page.DateLabel}" + (page.Author.Length > 0 ? $" · {page.Author}" : string.Empty)
@@ -278,6 +286,7 @@ public sealed partial class WikiWindowViewModel : ViewModelBase, ITapeAssistant,
         {
             Id = PageId ?? WikiPageEntry.Slug(title),
             AppName = "KAONOMI.Chat",
+            ProjectId = ProjectId,
             MachineName = Environment.MachineName,
             UserName = Environment.UserName,
             Author = Environment.UserName,

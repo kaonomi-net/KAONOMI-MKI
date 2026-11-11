@@ -17,8 +17,13 @@ public partial class IdeaEntryViewModel : ViewModelBase
 {
     private static readonly HashSet<string> EditableProperties =
     [
-        nameof(IdeaTitle), nameof(IdeaDescription), nameof(Category), nameof(Tags), nameof(Events), nameof(Signals), nameof(Comment)
+        nameof(IdeaTitle), nameof(IdeaDescription), nameof(Category), nameof(Tags), nameof(Events), nameof(Signals), nameof(Comment),
+        nameof(ProjectId)
     ];
+
+    /// <summary>The project the idea is attached to (the id of a project, chosen by its name in the header of the window), or null.</summary>
+    [ObservableProperty]
+    private string? _projectId;
 
     private readonly KaonomiAssistantService _assistant;
     private IdeaEntry _entry;
@@ -220,6 +225,7 @@ public partial class IdeaEntryViewModel : ViewModelBase
             Events = string.Join(Environment.NewLine, entry.Events ?? []);
             Signals = string.Join(Environment.NewLine, entry.Signals ?? []);
             Comment = entry.Comment ?? string.Empty;
+            ProjectId = entry.ProjectId;
             IsDirty = false;
             IsError = false;
         }
@@ -235,6 +241,7 @@ public partial class IdeaEntryViewModel : ViewModelBase
         Id = _entry.Id,
         Date = _entry.Date,
         AppName = _entry.AppName,
+        ProjectId = ProjectId,
         MachineName = _entry.MachineName,
         UserName = _entry.UserName,
         IdeaTitle = IdeaTitle.Trim(),

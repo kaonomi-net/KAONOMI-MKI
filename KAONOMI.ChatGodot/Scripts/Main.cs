@@ -178,7 +178,7 @@ public partial class Main : Control
             SizeFlagsHorizontal = SizeFlags.ExpandFill,
             WallpaperRect = _wallpaper,
             // The windows not used for windowIdleCloseSeconds of config.yml close by themselves.
-            IdleCloseSeconds = ChatSettings.Load().WindowIdleCloseSeconds
+            IdleCloseSeconds = _settings.WindowIdleCloseSeconds
         };
         row.AddChild(_deck);
         _chat = new ChatPanel(_vm);
@@ -332,6 +332,8 @@ public partial class Main : Control
         _vm.FooocusWindowRequested += (vm, _) => Open(vm, "/fooocus");
         _vm.YoutubeWindowRequested += (vm, _) => Open(vm, "/youtube");
         _vm.MusicWindowRequested += (vm, _) => Open(vm, "/music");
+        _vm.RecorderWindowRequested += (vm, _) => Open(vm, "/recorder");
+        _vm.ProjectWindowRequested += (vm, _) => Open(vm, "/project");
         _vm.PictureWindowRequested += (vm, _) => Open(vm, "/pictures");
         _vm.CalculatorWindowRequested += (vm, _) => Open(vm, "/work");
         _vm.IdeaWindowRequested += (vm, _) => Open(vm, "/idea");
@@ -349,7 +351,7 @@ public partial class Main : Control
         _vm.IqWindowRequested += (vm, _) => Open(vm, "/iq");
         _vm.ActivityWindowRequested += (vm, _) => Open(vm, ActivityJournal.Command);
         _vm.FoldersWindowRequested += (vm, _) => Open(vm, "/folders");
-        _vm.ProjectWindowRequested += (vm, _) => Open(vm, "/project");
+        _vm.KanbanWindowRequested += (vm, _) => Open(vm, "/kanban");
         _vm.RemoteWindowRequested += (vm, _) => Open(vm, "/remote");
         _vm.PresetWindowRequested += (vm, _) => Open(vm, "/preset");
         _vm.ProcessWindowRequested += (vm, _) => Open(vm, "/process");

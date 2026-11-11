@@ -24,6 +24,10 @@ public sealed class TokenUsageEntry
     [JsonPropertyName("appName")]
     public string? AppName { get; set; }
 
+    /// <summary>The project the document is attached to (the id of a <c>Project</c>, chosen by its name in the header of the window), or null.</summary>
+    [JsonPropertyName("projectId")]
+    public string? ProjectId { get; set; }
+
     [JsonPropertyName("machineName")]
     public string? MachineName { get; set; }
 

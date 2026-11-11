@@ -99,8 +99,11 @@ public static class Bind
         property.SetValue(source, value);
     }
 
+    /// <summary>The properties already looked up: every binding reads its property at each notification and each keystroke.</summary>
+    private static readonly System.Collections.Concurrent.ConcurrentDictionary<(Type Type, string Name), PropertyInfo?> Properties = new();
+
     private static PropertyInfo? Property(object source, string name) =>
-        source.GetType().GetProperty(name, BindingFlags.Public | BindingFlags.Instance);
+        Properties.GetOrAdd((source.GetType(), name), static key => key.Type.GetProperty(key.Name, BindingFlags.Public | BindingFlags.Instance));
 
     // ── Text ──
 

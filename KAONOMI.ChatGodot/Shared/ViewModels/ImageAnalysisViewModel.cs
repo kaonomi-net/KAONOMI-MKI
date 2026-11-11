@@ -52,8 +52,25 @@ public partial class ImageAnnotationViewModel : ObservableObject
 /// <c>imageanalysis</c> index of the Kaonomi server (<c>PUT /imageanalysis</c>); the analysis is read again at the next
 /// opening of the picture.
 /// </summary>
-public partial class ImageAnalysisViewModel : ViewModelBase, INoteContextProvider
+public partial class ImageAnalysisViewModel : ViewModelBase, INoteContextProvider, IProjectDocument
 {
+    /// <summary>The project the analysis is attached to (the id of a project, chosen by its name in the header of the window), or null; written by the next save.</summary>
+    public string? ProjectId
+    {
+        get => _entry.ProjectId;
+        set
+        {
+            if (_entry.ProjectId != value)
+            {
+                _entry.ProjectId = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    /// <summary>True when the analysis can be saved (the chat has a Kaonomi server).</summary>
+    public bool HasProjectDocument => _server is not null;
+
     /// <inheritdoc />
     public string NoteWindowName => "Image analysis";
 
@@ -420,6 +437,9 @@ public partial class ImageAnalysisViewModel : ViewModelBase, INoteContextProvide
             _loading = false;
         }
         OnPropertyChanged(nameof(Adjustments));
+        // The project of the analysis read: the selector of the header follows.
+        OnPropertyChanged(nameof(ProjectId));
+        OnPropertyChanged(nameof(HasProjectDocument));
         _ = RenderAsync();
     }
 
@@ -565,6 +585,8 @@ public partial class ImageAnalysisViewModel : ViewModelBase, INoteContextProvide
             ParentImagePath = ImagePath,
             Comment = item.Comment,
             AppName = "KAONOMI.Chat",
+            // A part of the picture is in the project of its picture.
+            ProjectId = _entry.ProjectId,
             MachineName = Environment.MachineName,
             UserName = Environment.UserName,
             Width = (int)Math.Round(item.Width * _entry.Width),

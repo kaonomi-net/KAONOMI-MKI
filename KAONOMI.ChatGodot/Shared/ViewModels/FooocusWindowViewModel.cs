@@ -266,7 +266,8 @@ public partial class FooocusWindowViewModel : ViewModelBase, INoteContextProvide
                 SetStatus(error, true);
                 return;
             }
-            var saved = Save(result, request);
+            // The pictures decoded from base64 and written on the thread pool (several megabytes each).
+            var saved = await Task.Run(() => Save(result, request));
             foreach (var path in saved.AsEnumerable().Reverse())
                 Images.Insert(0, new FooocusImageViewModel(path, ReadInfo(path)));
             SelectedImage = Images.FirstOrDefault();

@@ -111,15 +111,22 @@ public static class AudioDevices
 
         var position = 0;
         var done = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        // One buffer for the whole sound (grown when the callback asks more frames): nothing is allocated on the audio thread.
+        var buffer = Array.Empty<float>();
         PortAudioSharp.Stream.Callback callback = (IntPtr _, IntPtr output, uint frameCount, ref StreamCallbackTimeInfo _, StreamCallbackFlags _, IntPtr _) =>
         {
-            var buffer = new float[frameCount * channels];
+            var length = (int)frameCount * channels;
+            if (buffer.Length < length)
+                buffer = new float[length];
             var frames = (int)Math.Min(frameCount, sound.Length - position);
             for (var i = 0; i < frames; i++)
                 for (var c = 0; c < channels; c++)
                     buffer[i * channels + c] = sound[position + i];
+            // The end of the sound: silence after its last frame.
+            if (frames * channels < length)
+                Array.Clear(buffer, frames * channels, length - frames * channels);
             position += frames;
-            Marshal.Copy(buffer, 0, output, buffer.Length);
+            Marshal.Copy(buffer, 0, output, length);
             if (position < sound.Length)
                 return StreamCallbackResult.Continue;
             done.TrySetResult();

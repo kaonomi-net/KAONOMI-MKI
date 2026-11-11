@@ -684,6 +684,36 @@ public sealed class WavPlayer : IDisposable
     /// <summary>The length of the file, in seconds.</summary>
     public double Duration => _reader.Rate > 0 ? _reader.TotalFrames / (double)_reader.Rate : 0;
 
+    /// <summary>The sample rate of the file.</summary>
+    public int Rate => _reader.Rate;
+
+    /// <summary>
+    /// Applied to each sample of the file as it is played (called from the audio thread); null: the file as it is.
+    /// </summary>
+    public Func<float, float>? Filter { get; set; }
+
+    // The part of the file that is played (the whole of it by default), and whether it is played again and again.
+    private long _rangeStart;
+    private long _rangeEnd = long.MaxValue;
+    private bool _loop;
+
+    /// <summary>Where the playing ends: the end of the part, at most the end of the file.</summary>
+    private long End => Math.Min(_rangeEnd, _reader.TotalFrames);
+
+    /// <summary>
+    /// Plays only what is between <paramref name="startSeconds"/> and <paramref name="endSeconds"/>: the playing ends
+    /// there, or with <paramref name="loop"/> goes on from the start of the part, without a gap, until it is paused.
+    /// </summary>
+    public void SetRange(double startSeconds, double endSeconds, bool loop)
+    {
+        lock (_lock)
+        {
+            _rangeStart = Math.Clamp((long)(Math.Max(0, startSeconds) * _reader.Rate), 0, _reader.TotalFrames);
+            _rangeEnd = Math.Clamp((long)(Math.Max(0, endSeconds) * _reader.Rate), _rangeStart, _reader.TotalFrames);
+            _loop = loop;
+        }
+    }
+
     /// <summary>Where the playing is in the file, in seconds.</summary>
     public double Position
     {
@@ -717,7 +747,8 @@ public sealed class WavPlayer : IDisposable
             if (_chunkCount == 0)
                 return 0;
         }
-        return _chunk[_chunkAt++];
+        var sample = _chunk[_chunkAt++];
+        return Filter is { } filter ? filter(sample) : sample;
     }
 
     /// <summary>The first two samples from where the file stands.</summary>
@@ -740,10 +771,16 @@ public sealed class WavPlayer : IDisposable
             {
                 for (var i = 0; i < frameCount; i++)
                 {
-                    if (_frame >= _reader.TotalFrames)
+                    if (_frame >= End)
                     {
-                        done = true;
-                        break;
+                        // The end of the part: again from its start in a loop, else the playing is done.
+                        if (_loop && End - _rangeStart > 16)
+                            SeekLocked(_rangeStart);
+                        else
+                        {
+                            done = true;
+                            break;
+                        }
                     }
                     var value = _previous + (_next - _previous) * (float)_fraction;
                     for (var c = 0; c < _channels; c++)
@@ -784,8 +821,8 @@ public sealed class WavPlayer : IDisposable
             _stream.Stop();
         lock (_lock)
         {
-            if (_ended || _frame >= _reader.TotalFrames)
-                SeekLocked(0);
+            if (_ended || _frame >= End)
+                SeekLocked(_rangeStart);
             _ended = false;
             _running = true;
         }

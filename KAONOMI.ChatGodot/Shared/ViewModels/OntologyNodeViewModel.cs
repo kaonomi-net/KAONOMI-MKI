@@ -25,8 +25,16 @@ public partial class OntologyNodeViewModel : ViewModelBase
         nameof(Name), nameof(EntityType), nameof(Summary), nameof(Description), nameof(Symbol), nameof(IsOntologyClass),
         nameof(SentencesExemples), nameof(Synonyms), nameof(Title), nameof(Tags), nameof(Events), nameof(Signals), nameof(RelatedLinks), nameof(RelatedEntities), nameof(Confidentiality),
         nameof(AngryLevel), nameof(SadLevel), nameof(HappyLevel),
-        nameof(FearLevel), nameof(SurpriseLevel), nameof(DisgustLevel), nameof(StartDate), nameof(EndDate)
+        nameof(FearLevel), nameof(SurpriseLevel), nameof(DisgustLevel), nameof(StartDate), nameof(EndDate),
+        nameof(ProjectId)
     ];
+
+    /// <summary>The project the node is attached to (the id of a project, chosen by its name in the header of the window), or null.</summary>
+    [ObservableProperty]
+    private string? _projectId;
+
+    /// <summary>Tells the window, whose header shows the project of the node selected (also after a reload from the server).</summary>
+    partial void OnProjectIdChanged(string? value) => _owner.NotifyProjectChanged(this);
 
     private readonly OntologyWindowViewModel _owner;
     private readonly KaonomiAssistantService _assistant;
@@ -564,6 +572,7 @@ public partial class OntologyNodeViewModel : ViewModelBase
             IsDeleted = entry.IsDeleted;
             StartDate = entry.StartDate;
             EndDate = entry.EndDate;
+            ProjectId = entry.ProjectId;
             IsDirty = IsNew;
             IsError = false;
         }
@@ -606,6 +615,7 @@ public partial class OntologyNodeViewModel : ViewModelBase
         entry.IsDeleted = IsDeleted;
         entry.StartDate = StartDate?.Date;
         entry.EndDate = EndDate?.Date;
+        entry.ProjectId = ProjectId;
         return entry;
     }
 

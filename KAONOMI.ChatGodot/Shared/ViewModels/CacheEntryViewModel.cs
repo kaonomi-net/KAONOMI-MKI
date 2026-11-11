@@ -46,8 +46,12 @@ public partial class CacheEntryViewModel : ViewModelBase
     private static readonly HashSet<string> EditableProperties =
     [
         nameof(Title), nameof(Model), nameof(Language), nameof(Comment), nameof(Tags), nameof(Events), nameof(Signals),
-        nameof(RelatedEntities), nameof(ExcludedEntities), nameof(IsDeleted)
+        nameof(RelatedEntities), nameof(ExcludedEntities), nameof(IsDeleted), nameof(ProjectId)
     ];
+
+    /// <summary>The project the document is attached to (the id of a project, chosen by its name in the header of the window), or null.</summary>
+    [ObservableProperty]
+    private string? _projectId;
 
     private readonly KaonomiAssistantService _assistant;
     private CacheBuilderEntry _entry;
@@ -433,6 +437,7 @@ public partial class CacheEntryViewModel : ViewModelBase
             RelatedEntities = string.Join(Environment.NewLine, entry.RelatedEntities ?? []);
             ExcludedEntities = string.Join(Environment.NewLine, entry.ExcludedEntities ?? []);
             IsDeleted = entry.IsDeleted;
+            ProjectId = entry.ProjectId;
             OnItemsEdited();
             IsDirty = false;
             IsError = false;
@@ -460,6 +465,7 @@ public partial class CacheEntryViewModel : ViewModelBase
         Id = _entry.Id,
         Date = _entry.Date,
         AppName = _entry.AppName,
+        ProjectId = ProjectId,
         MachineName = _entry.MachineName,
         UserName = _entry.UserName,
         Comment = Comment,

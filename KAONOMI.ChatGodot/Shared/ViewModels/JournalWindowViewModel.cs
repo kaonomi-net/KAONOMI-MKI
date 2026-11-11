@@ -76,8 +76,17 @@ public sealed class JournalHistoryItem(DiaryEntry entry)
 /// locked and unlocked with its password. The previous entries stay hidden unless the history is shown (search on their
 /// text, open to read or edit, delete).
 /// </summary>
-public partial class JournalWindowViewModel : ViewModelBase, INoteContextProvider, IDisposable, ITapeAssistant, IUnsavedChanges
+public partial class JournalWindowViewModel : ViewModelBase, INoteContextProvider, IDisposable, ITapeAssistant, IUnsavedChanges, IProjectDocument
 {
+    /// <summary>The project of the entry shown (chosen by its name in the header of the window), or null; saved with the entry.</summary>
+    [ObservableProperty]
+    private string? _projectId;
+
+    /// <summary>False while the entry is locked: it cannot be saved before it is unlocked.</summary>
+    public bool HasProjectDocument => !IsLocked;
+
+    partial void OnProjectIdChanged(string? value) => IsDirty = true;
+
     private readonly KaonomiAssistantService _assistant;
 
     /// <summary>Pictures decoded for the preview, by path and width bucket (released with the window).</summary>
@@ -232,6 +241,7 @@ public partial class JournalWindowViewModel : ViewModelBase, INoteContextProvide
 
     /// <summary>True while an encrypted entry is opened but not unlocked (its text is hidden).</summary>
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HasProjectDocument))]
     [NotifyCanExecuteChangedFor(nameof(SaveCommand), nameof(UnlockCommand))]
     private bool _isLocked;
 
@@ -326,6 +336,7 @@ public partial class JournalWindowViewModel : ViewModelBase, INoteContextProvide
                 Id = EntryId,
                 Date = _entryDate,
                 AppName = "KAONOMI.Chat",
+                ProjectId = ProjectId,
                 MachineName = Environment.MachineName,
                 UserName = Environment.UserName,
                 // Encrypted here: the server (and Elasticsearch) only see the ciphertext.
@@ -378,6 +389,7 @@ public partial class JournalWindowViewModel : ViewModelBase, INoteContextProvide
         _lockedText = null;
         Text = string.Empty;
         Feeling = string.Empty;
+        ProjectId = null;
         IsDirty = false;
         OnPropertyChanged(nameof(ModeLabel));
         Status = "New entry";
@@ -421,6 +433,7 @@ public partial class JournalWindowViewModel : ViewModelBase, INoteContextProvide
         EntryId = item.Entry.Id;
         _entryDate = item.Entry.Date ?? DateTimeOffset.Now;
         Feeling = item.Entry.Feeling ?? string.Empty;
+        ProjectId = item.Entry.ProjectId;
         OnPropertyChanged(nameof(ModeLabel));
         if (JournalCrypto.IsEncrypted(item.Entry.Text))
         {

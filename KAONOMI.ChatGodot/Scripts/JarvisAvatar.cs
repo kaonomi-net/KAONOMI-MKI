@@ -38,8 +38,14 @@ public partial class JarvisAvatar : ColorRect, IAvatar
         Material = _material;
     }
 
+    // The names of the shader parameters, made once: a string given at each frame is a new StringName each time.
+    private static readonly StringName UFrame = "uFrame", UGlitch = "uGlitch", ULevel = "uLevel", ULight = "uLight";
+
     public override void _Process(double delta)
     {
+        // Nothing to compute for an animation that is not shown.
+        if (!IsVisibleInTree())
+            return;
         _time += delta;
         var frames = (float)(delta * 60);
         var scaling = GetWindow().ContentScaleFactor;
@@ -64,9 +70,9 @@ public partial class JarvisAvatar : ColorRect, IAvatar
         }
 
         var pixels = Size * scaling;
-        _material.SetShaderParameter("uFrame", new Vector3(Math.Max(1, pixels.X), Math.Max(1, pixels.Y), (float)(_time % 3600)));
-        _material.SetShaderParameter("uGlitch", new Vector3(_glitchRow, _glitchShift, 0));
-        _material.SetShaderParameter("uLevel", Math.Clamp(_level, 0, 1));
-        _material.SetShaderParameter("uLight", 0f);
+        _material.SetShaderParameter(UFrame, new Vector3(Math.Max(1, pixels.X), Math.Max(1, pixels.Y), (float)(_time % 3600)));
+        _material.SetShaderParameter(UGlitch, new Vector3(_glitchRow, _glitchShift, 0));
+        _material.SetShaderParameter(ULevel, Math.Clamp(_level, 0, 1));
+        _material.SetShaderParameter(ULight, 0f);
     }
 }

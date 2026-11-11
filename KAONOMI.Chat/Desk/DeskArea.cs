@@ -313,7 +313,18 @@ public sealed class DeskWindow : Border
 
         var body = new Grid { RowDefinitions = new RowDefinitions("Auto,*") };
         body.Children.Add(_header);
-        var holder = new Border { Child = content, ClipToBounds = true };
+        // A window of a document: the field of its project, chosen by its name, at the top of the window.
+        Control inside = content;
+        if (viewModel is KAONOMI.Chat.ViewModels.IProjectDocument document)
+        {
+            var project = ProjectPicker.Create(document);
+            DockPanel.SetDock(project, Avalonia.Controls.Dock.Top);
+            var dock = new DockPanel();
+            dock.Children.Add(project);
+            dock.Children.Add(content);
+            inside = dock;
+        }
+        var holder = new Border { Child = inside, ClipToBounds = true };
         Grid.SetRow(holder, 1);
         body.Children.Add(holder);
         var grip0 = grip;

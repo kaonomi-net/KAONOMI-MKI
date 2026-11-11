@@ -53,8 +53,15 @@ public sealed partial class CvCreationItem : ObservableObject
 /// experience, an education or a creation, the skills) and rewrites a clone of it for a purpose (⧉ Clone: a popup asks
 /// the adaptation to make). The assistance and the clone are in CvWindowViewModel.Assist.cs.
 /// </summary>
-public sealed partial class CvWindowViewModel : ViewModelBase, IUnsavedChanges
+public sealed partial class CvWindowViewModel : ViewModelBase, IUnsavedChanges, IProjectDocument
 {
+    /// <summary>The project of the CV open (chosen by its name in the header of the window), or null; saved with the CV.</summary>
+    [ObservableProperty]
+    private string? _projectId;
+
+    /// <summary>A CV is always open (a new one when none was chosen).</summary>
+    public bool HasProjectDocument => true;
+
     private readonly KaonomiAssistantService _server;
     private readonly OllamaModelService? _ollama;
     private readonly Func<string?>? _model;
@@ -223,7 +230,8 @@ public sealed partial class CvWindowViewModel : ViewModelBase, IUnsavedChanges
     private static readonly HashSet<string> Fields =
     [
         nameof(Title), nameof(LastName), nameof(FirstName), nameof(Email), nameof(Phone), nameof(LinkedInProfile), nameof(AddressStreet),
-        nameof(AddressNumber), nameof(AddressZip), nameof(AddressCity), nameof(AddressCountry), nameof(Summary), nameof(Skills), nameof(Photo)
+        nameof(AddressNumber), nameof(AddressZip), nameof(AddressCity), nameof(AddressCountry), nameof(Summary), nameof(Skills), nameof(Photo),
+        nameof(ProjectId)
     ];
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)
@@ -329,6 +337,7 @@ public sealed partial class CvWindowViewModel : ViewModelBase, IUnsavedChanges
         {
             CvId = cv?.Id ?? Guid.NewGuid().ToString();
             IsNew = cv is null;
+            ProjectId = cv?.ProjectId;
             Title = cv?.Title ?? string.Empty;
             LastName = cv?.LastName ?? string.Empty;
             FirstName = cv?.FirstName ?? string.Empty;
@@ -399,6 +408,7 @@ public sealed partial class CvWindowViewModel : ViewModelBase, IUnsavedChanges
     {
         Id = CvId,
         AppName = "KAONOMI.Chat",
+        ProjectId = ProjectId,
         MachineName = Environment.MachineName,
         UserName = Environment.UserName,
         Title = Title.Trim(),

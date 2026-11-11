@@ -20,8 +20,13 @@ public partial class SymbolicPatternEntryViewModel : ViewModelBase
     private static readonly HashSet<string> EditableProperties =
     [
         nameof(AppName), nameof(MachineName), nameof(UserName), nameof(Comment),
-        nameof(Title), nameof(Symbol), nameof(Event), nameof(Language), nameof(Tags), nameof(Events), nameof(Signals), nameof(IsDeleted)
+        nameof(Title), nameof(Symbol), nameof(Event), nameof(Language), nameof(Tags), nameof(Events), nameof(Signals), nameof(IsDeleted),
+        nameof(ProjectId)
     ];
+
+    /// <summary>The project the pattern is attached to (the id of a project, chosen by its name in the header of the window), or null.</summary>
+    [ObservableProperty]
+    private string? _projectId;
 
     private readonly KaonomiAssistantService _assistant;
     private SymbolicPatternEntry _entry;
@@ -310,6 +315,7 @@ public partial class SymbolicPatternEntryViewModel : ViewModelBase
             Events = string.Join(Environment.NewLine, entry.Events ?? []);
             Signals = string.Join(Environment.NewLine, entry.Signals ?? []);
             IsDeleted = entry.IsDeleted;
+            ProjectId = entry.ProjectId;
             IsDirty = false;
             IsError = false;
         }
@@ -325,6 +331,7 @@ public partial class SymbolicPatternEntryViewModel : ViewModelBase
         Id = _entry.Id,
         Date = _entry.Date,
         AppName = AppName,
+        ProjectId = ProjectId,
         MachineName = MachineName,
         UserName = UserName,
         Comment = Comment,

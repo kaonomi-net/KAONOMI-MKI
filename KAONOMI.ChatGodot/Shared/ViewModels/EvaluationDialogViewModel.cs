@@ -34,6 +34,13 @@ public partial class EvaluationDialogViewModel : ViewModelBase
     {
     }
 
+    /// <summary>The project of the window the answer was given in (the id of a project), sent with the evaluation; null: none.</summary>
+    public string? ProjectId
+    {
+        get => _entry.ProjectId;
+        set => _entry.ProjectId = value;
+    }
+
     /// <summary>True for a thumb down.</summary>
     public bool IsNegative => _entry.IsNegativeFeedback;
 

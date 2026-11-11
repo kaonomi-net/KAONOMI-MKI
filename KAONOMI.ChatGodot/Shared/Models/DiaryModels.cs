@@ -12,6 +12,10 @@ public sealed class DiaryEntry
     [JsonPropertyName("appName")]
     public string? AppName { get; set; }
 
+    /// <summary>The project the document is attached to (the id of a <c>Project</c>, chosen by its name in the header of the window), or null.</summary>
+    [JsonPropertyName("projectId")]
+    public string? ProjectId { get; set; }
+
     /// <summary>Left out of the body when null so that the server generates the id of a new entry.</summary>
     [JsonPropertyName("id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

@@ -19,8 +19,28 @@ namespace KAONOMI.Chat.ViewModels;
 /// Ontology management: loads every node, shows them as a tree built from <c>nodeparentId</c>,
 /// and edits, adds and soft-deletes nodes through the <c>/ontology</c> routes.
 /// </summary>
-public partial class OntologyWindowViewModel : ViewModelBase, INoteContextProvider
+public partial class OntologyWindowViewModel : ViewModelBase, INoteContextProvider, IProjectDocument
 {
+    /// <summary>The project of the node selected (shown and chosen by its name in the header of the window).</summary>
+    public string? ProjectId
+    {
+        get => SelectedNode?.ProjectId;
+        set
+        {
+            if (SelectedNode is { } selected && selected.ProjectId != value)
+                selected.ProjectId = value;
+        }
+    }
+
+    public bool HasProjectDocument => SelectedNode is not null;
+
+    /// <summary>The project of <paramref name="node"/> changed (picked, discarded or read again): the header follows when it is the node selected.</summary>
+    internal void NotifyProjectChanged(OntologyNodeViewModel node)
+    {
+        if (ReferenceEquals(node, SelectedNode))
+            OnPropertyChanged(nameof(ProjectId));
+    }
+
     private const string LogArea = "Ontology";
 
     /// <summary>Logs the outcome shown in the status bar: ERROR when the bar is in error, INFO otherwise.</summary>
@@ -564,6 +584,9 @@ public partial class OntologyWindowViewModel : ViewModelBase, INoteContextProvid
 
     partial void OnSelectedNodeChanged(OntologyNodeViewModel? value)
     {
+        OnPropertyChanged(nameof(ProjectId));
+        OnPropertyChanged(nameof(HasProjectDocument));
+
         if (value is not null && !_isRestoringSelection)
             _ = value.RefreshFromServerAsync();
 

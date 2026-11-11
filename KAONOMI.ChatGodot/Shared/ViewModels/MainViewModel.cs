@@ -37,6 +37,8 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
         _voiceLanguage = settings.SpeechLanguage;
         _ollama = new OllamaModelService(settings.OllamaUrl, settings.LlmProvider);
         _assistant = new KaonomiAssistantService(settings.ServerUrl);
+        // The projects, by name, for the selector in the header of the windows of documents.
+        ProjectCatalog.Initialize(_assistant);
         _selectedModel = settings.Model;
         // systemprompt.txt (created from config.json the first time), so that a manual change of the file is taken.
         _systemPrompt = SystemPromptStore.Load(settings.SystemPrompt);
@@ -318,13 +320,13 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
             _speech.Speak(text);
     }
 
-    private async Task SpeakAnswerAsync(string content)
+    private async Task SpeakAnswerAsync(string content, bool? withCode = null)
     {
         _speechPreparation?.Cancel();
         if (!_speech.IsAvailable)
             return;
 
-        var hasCode = CodeBlockExtractor.Extract(content).Count > 0;
+        var hasCode = withCode ?? CodeBlockExtractor.Extract(content).Count > 0;
         if (!hasCode && !QuoteLine().IsMatch(content))
         {
             _speech.Speak(content);
@@ -343,16 +345,19 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
         {
             return;
         }
-        catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException or System.Text.Json.JsonException)
+        // Whatever fails (the model unreachable, an answer that is not the JSON asked): the answer is still read, and
+        // the preparation never stays pending (the mouth of the animation would wait for it for ever).
+        catch (Exception ex) when (ex is not OperationCanceledException)
         {
             ActivityLog.Error("Speech", "Spoken summary failed: the answer is read without its code", ex);
             spoken = content;
         }
 
-        if (preparation.IsCancellationRequested)
-            return;
+        var cancelled = preparation.IsCancellationRequested;
         if (ReferenceEquals(_speechPreparation, preparation))
             _speechPreparation = null;
+        if (cancelled)
+            return;
         _speech.Speak(hasCode ? $"{spoken}\n\n{SpeechLanguage.CodeAttached(_settings.Language)}" : spoken);
     }
 
@@ -560,8 +565,10 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
         var save = _systemPromptSave = new CancellationTokenSource();
         _ = Task.Delay(SystemPromptSaveDelay, save.Token).ContinueWith(task =>
         {
+            // The text as it is now (not the one of this keystroke: a later one may have been typed meanwhile).
             if (!task.IsCanceled)
-                SystemPromptStore.Save(value);
+                SystemPromptStore.Save(SystemPrompt);
+            save.Dispose();
         }, TaskScheduler.Default);
     }
 
@@ -743,6 +750,9 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     /// <summary>Last ticker refresh outcome (null before the first one), so only changes are logged.</summary>
     private bool? _tickerState;
 
+    /// <summary>The texts of the ticker as they are shown, to tell when a refresh brings nothing new.</summary>
+    private string? _tickerSignature;
+
     /// <summary>Reloads the ticker from <c>/messageflow/last</c>; keeps the previous items when the server is unreachable.</summary>
     [RelayCommand]
     private async Task RefreshTickerAsync()
@@ -753,9 +763,17 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
             using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(15));
             var entries = await _assistant.GetLastMessageFlowsAsync("*", 100, timeout.Token);
 
-            TickerItems.Clear();
-            foreach (var entry in entries.Where(e => !string.IsNullOrWhiteSpace(e.Text)))
-                TickerItems.Add(new TickerItemViewModel(entry));
+            // Refreshed every minute and most often the same: the list (and the band that shows it) is rebuilt only
+            // when a message changed.
+            var shownEntries = entries.Where(e => !string.IsNullOrWhiteSpace(e.Text)).ToList();
+            var signature = string.Join('\u001F', shownEntries.Select(e => e.Text));
+            if (signature != _tickerSignature || TickerItems.Count != shownEntries.Count)
+            {
+                _tickerSignature = signature;
+                TickerItems.Clear();
+                foreach (var entry in shownEntries)
+                    TickerItems.Add(new TickerItemViewModel(entry));
+            }
 
             // Refreshed every minute: log the first load and the recovery after a failure, not every refresh.
             if (_tickerState != true)
@@ -790,6 +808,7 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     private const string PictureCommand = "/picture";
     private const string PicturesCommand = "/pictures";
     private const string MusicCommand = "/music";
+    private const string RecorderCommand = "/recorder";
     private const string DiaryCommand = "/diary";
     private const string JournalCommand = "/journal";
     private const string YoutubeCommand = "/youtube";
@@ -816,6 +835,7 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     private const string ProcessesCommand = "/processes";
     private const string GatewayCommand = "/gateway";
     private const string BnpCommand = "/bnp";
+    private const string KanbanCommand = "/kanban";
     private const string ProjectCommand = "/project";
     private const string IntelCommand = "/intel";
     private const string CollectionPlanCommand = "/collectionplan";
@@ -869,8 +889,8 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     /// <summary>Commands that open a tool view (a tab of the workspace window, or its own window with <c>/n</c>).</summary>
     private static bool IsToolCommand(string text) =>
         IsCommand(text, CacheCommand) || IsCommand(text, SearchCommand) || IsCommand(text, JsonCommand) || IsCommand(text, SymbolCommand)
-        || IsCommand(text, OntologyCommand) || IsCommand(text, IdeaCommand) || IsCommand(text, CalculatorCommand) || IsCommand(text, PictureCommand) || IsCommand(text, PicturesCommand) || IsCommand(text, MusicCommand) || IsCommand(text, DiaryCommand) || IsCommand(text, JournalCommand) || IsCommand(text, YoutubeCommand) || IsCommand(text, FooocusCommand) || IsCommand(text, CompletionCommand) || IsCommand(text, SystemCommand) || IsCommand(text, LogCommand) || IsCommand(text, LogsCommand) || IsCommand(text, TokenCommand) || IsCommand(text, TokensCommand)
-        || IsCommand(text, ConfigCommand) || IsCommand(text, RemoteCommand) || IsCommand(text, ProjectCommand) || IsCommand(text, IntelCommand) || IsCommand(text, CollectionPlanCommand) || IsCommand(text, Game1Command) || IsCommand(text, FractalCommand) || IsCommand(text, ChessCommand) || IsCommand(text, GoCommand) || IsCommand(text, ImmuneCommand) || IsCommand(text, AlarmCommand) || IsCommand(text, AlarmsCommand) || IsCommand(text, CalendarCommand) || IsCommand(text, IqCommand) || IsCommand(text, ActivityCommand)
+        || IsCommand(text, OntologyCommand) || IsCommand(text, IdeaCommand) || IsCommand(text, CalculatorCommand) || IsCommand(text, PictureCommand) || IsCommand(text, PicturesCommand) || IsCommand(text, MusicCommand) || IsCommand(text, RecorderCommand) || IsCommand(text, DiaryCommand) || IsCommand(text, JournalCommand) || IsCommand(text, YoutubeCommand) || IsCommand(text, FooocusCommand) || IsCommand(text, CompletionCommand) || IsCommand(text, SystemCommand) || IsCommand(text, LogCommand) || IsCommand(text, LogsCommand) || IsCommand(text, TokenCommand) || IsCommand(text, TokensCommand)
+        || IsCommand(text, ConfigCommand) || IsCommand(text, RemoteCommand) || IsCommand(text, KanbanCommand) || IsCommand(text, ProjectCommand) || IsCommand(text, IntelCommand) || IsCommand(text, CollectionPlanCommand) || IsCommand(text, Game1Command) || IsCommand(text, FractalCommand) || IsCommand(text, ChessCommand) || IsCommand(text, GoCommand) || IsCommand(text, ImmuneCommand) || IsCommand(text, AlarmCommand) || IsCommand(text, AlarmsCommand) || IsCommand(text, CalendarCommand) || IsCommand(text, IqCommand) || IsCommand(text, ActivityCommand)
         || IsCommand(text, RelationCommand) || IsCommand(text, FoldersCommand) || IsCommand(text, FolderCommand) || IsCommand(text, PresetCommand) || IsCommand(text, PresetsCommand)
         || IsCommand(text, ProcessCommand) || IsCommand(text, ProcessesCommand) || IsCommand(text, GatewayCommand) || IsCommand(text, WikiCommand) || IsCommand(text, InterviewCommand) || IsCommand(text, CvCommand) || IsCommand(text, BpmnCommand) || IsCommand(text, InfraCommand) || IsCommand(text, MindmapCommand) || IsCommand(text, WriteCommand) || IsCommand(text, ConsoleCommand);
 
@@ -1096,7 +1116,7 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     /// Asks <paramref name="model"/> the request <paramref name="history"/> through the Kaonomi server and shows its
     /// answer in the pending bubble <paramref name="answer"/> (read aloud, revealed, its stats and code).
     /// </summary>
-    private async Task AnswerAsync(string model, List<AssistantMessage> history, ChatMessageViewModel answer, CancellationToken cancellationToken)
+    private async Task AnswerAsync(string model, List<AssistantMessage> history, ChatMessageViewModel answer, CancellationToken cancellationToken, bool regenerate = false)
     {
         answer.Request = history;
         var stopwatch = Stopwatch.StartNew();
@@ -1107,7 +1127,7 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
             try
             {
                 // The prompts of a batch are answered alone: they are not a conversation.
-                response = await _assistant.SendAsync(model, history, cancellationToken, IsBatchRunning ? null : _conversationId);
+                response = await _assistant.SendAsync(model, history, cancellationToken, IsBatchRunning ? null : _conversationId, regenerate);
             }
             finally
             {
@@ -1124,6 +1144,15 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
                 return;
             }
 
+            // The model gave no answer (the server says so): its message is shown as an error, not as an answer.
+            if (string.Equals(response.Choices?.FirstOrDefault()?.FinishReason, "error", StringComparison.OrdinalIgnoreCase))
+            {
+                answer.IsError = true;
+                answer.Content = content;
+                ActivityLog.Error("Chat", $"The model gave no answer ({model}, {stopwatch.Elapsed.TotalSeconds:0.0} s): {ActivityLog.Excerpt(content)}");
+                return;
+            }
+
             answer.Model = string.IsNullOrEmpty(response.Model) ? model : response.Model;
             var stats = FormatStats(response, model, stopwatch.Elapsed);
             // CHANGE:MARI (or another preset or 3D animation) in the answer: the chat switches to it before reading it,
@@ -1131,11 +1160,13 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
             SwitchPresetFrom(content);
             // Read aloud while it is shown (not during a prompt collection).
             var spoken = PresetSwitch.Strip(content);
+            // The code of the answer, found once (its Markdown parsed once): for the voice and for the answer.
+            var snippets = CodeBlockExtractor.Extract(content);
             if (!IsBatchRunning && spoken.Length > 0)
-                _ = SpeakAnswerAsync(spoken);
+                _ = SpeakAnswerAsync(spoken, snippets.Count > 0);
             await RevealAsync(answer, content, cancellationToken);
             answer.Stats = stats;
-            answer.CodeSnippets = CodeBlockExtractor.Extract(content);
+            answer.CodeSnippets = snippets;
             // A command of a tool written in the answer (/system, /ontology…) is run once the answer is shown.
             if (!IsBatchRunning && RunCommandsOf(content) is { Count: > 0 } opened)
                 answer.Stats += " · opened " + string.Join(", ", opened);
@@ -1217,7 +1248,7 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
             Messages.Insert(index + 1, answer);
             Status = $"👎 {result.Model}: asked again to {model}";
             ActivityLog.Info("Chat", $"Disliked answer of {result.Model} asked again to {model}: {ActivityLog.Excerpt(prompt)}");
-            await AnswerAsync(model, request.ToList(), answer, CancellationToken.None);
+            await AnswerAsync(model, request.ToList(), answer, CancellationToken.None, regenerate: true);
             // The new answer cannot be sent back to the default model, and is not asked again either.
             if (answer.HasStats && !answer.IsError)
                 answer.Stats += " · asked again after 👎";
@@ -1327,10 +1358,24 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
         answer.IsRevealing = true;
         try
         {
+            // The non-empty lines shown in full, counted as the words come (not by reading the whole text again at each word).
+            var completed = 0;
+            var lineHasText = false;
             foreach (var (piece, delay) in ReadingPace.Split(content, syllable))
             {
                 shown.Append(piece);
-                if (CompletedLines(shown) >= StreamedLines)
+                foreach (var c in piece)
+                {
+                    if (c == '\n')
+                    {
+                        if (lineHasText)
+                            completed++;
+                        lineHasText = false;
+                    }
+                    else if (!char.IsWhiteSpace(c))
+                        lineHasText = true;
+                }
+                if (completed >= StreamedLines)
                     break;
 
                 answer.Content = shown.ToString();
@@ -1353,14 +1398,6 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
 
         answer.Content = content;
         answer.IsRevealing = false;
-    }
-
-    /// <summary>Non-empty lines already shown in full (ended by a line break).</summary>
-    private static int CompletedLines(System.Text.StringBuilder shown)
-    {
-        var text = shown.ToString();
-        var end = text.LastIndexOf('\n');
-        return end < 0 ? 0 : text[..end].Split('\n').Count(line => !string.IsNullOrWhiteSpace(line));
     }
 
     /// <summary>
@@ -1411,6 +1448,7 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
             + "- `/relation`: the relations drawn between windows (red string of the link icons), searched and shown as a graph laid out by forces: an element per window and object (the same object of the same type is one element, its titles put together), a link per relation with its title; a tab of the workspace (`/nrelation`: its own window)\n"
             + "- `/fooocus`: creates images from a prompt with Fooocus (styles, performance, size, number, seed, model), saved in the Pictures folder, kaonomi/fooocus; the gallery shows them, Reuse puts the settings of an image back\n"
             + "- `/youtube`: YouTube videos of Kaonomi: paste the address of a video, its title and description are read from YouTube, add it; search the saved videos (title, description) and open them in the browser\n"
+            + "- `/recorder`: opens the audio recorder (Godot chat only): the microphone recorded into ~/kaonomi/audio/<project>, with a VU meter, a spectrum analyser, the real-time formant analysis of the voice, and annotations on the moments of the recording\n"
             + "- `/music`: opens the music player (folders of music.directory in config.yml, the Music folder of the system by default; play, pause, seek, next / previous, shuffle, repeat, volume, cover and tags)\n"
             + "- `/picture` or `/pictures`: opens the picture library (folders and thumbnails of pictures.directory in config.yml, the Pictures folder of the system by default; preview, open, show in folder, rename, move to the trash)\n"
             + "- `/work`: opens a scientific calculator (keys or keyboard: + − × ÷ ^ % √ ! mod, sin cos tan and their inverses in degrees or radians, sinh cosh tanh, ln log log₂ eˣ 10ˣ ∛ |x|, π e Ans, parentheses; Enter for the result, history of the calculations)\n"
@@ -1431,7 +1469,8 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
             + "- `/immune`: the immune system: runs KAONOMI.ImmuneSystem, which lookson the machine (your home folder, the whole machine or one folder) for the images generated or edited by an AI (what they declare: Content Credentials, IPTC, the parameters of Stable Diffusion, ComfyUI, Midjourney…) and for the code in Office files (VBA and Excel 4.0 macros, DDE, OLE objects, Power Query, code written as text…), and reads the browser histories (Chrome, Edge, Brave, Arc, Firefox, Safari…) for the AI services visited (ChatGPT, Claude, Gemini, Midjourney, Suno… counted per month, no address kept) and the images and Office files downloaded; an immune cell shows the scan live, then the JSON report is shown with its key figures and charts, the AI images (thumbnails, clues, prompt) and the Office code; the reports are kept in ~/kaonomi/immune-system/reports; `/nimmune` opens it in its own window\n"
             + "- `/fractal`: the fractal generator: the classic fractals as examples (Mandelbrot and its valleys, Julia sets, Burning Ship, Tricorn, Multibrot, Newton, Phoenix, Magnet, a sine Julia set; the Koch snowflake, Sierpinski, the dragon, Hilbert, Peano and Gosper curves, plants; the Barnsley fern, Sierpinski carpet, maple leaf…), drawn live (ZOOM + / ZOOM −, ⇧ + drag: zoom on the square drawn, wheel: zoom, drag: move, right click: the Julia set of a point); make your own: a formula of z and c (`z^3 + c`, `sin(z) + c`, `fold(z)^2 + c`…) drawn by the GPU, an L-system (axiom, rules, angle, depth) or affine maps (IFS), with palettes; SAVE keeps them in ~/kaonomi/fractals, PNG in Pictures/kaonomi/fractal; `/nfractal` opens it in its own window\n"
             + "- `/folders` or `/folder`: the folders made with 📁+ in the header of a window (name, description, security level), searched as you type; a double-click on a folder opens every window kept in it (its picture and its data)\n"
-            + "- `/project`: kanban of the tasks: a column per status (todo, coding, test, check, deploy, archived; backlog first when there are some), each task in a card with its title and its type (bug, change, agent, infra)\n"
+            + "- `/project`: the projects: a name, a description, goals and tags; a search, NEW, SAVE, DELETE (marked deleted on the server, never erased)\n"
+            + "- `/kanban`: kanban of the tasks: a column per status (todo, coding, test, check, deploy, archived; backlog first when there are some), each task in a card with its title and its type (bug, change, agent, infra)\n"
             + "- `/bnp`: the chatbot answers \"Let's go\" and the presentation Pictures/kaonomi/presentation/Digitribe-AI.pptx starts in full screen (PowerPoint, else Keynote)\n"
             + "- `/interview`: the interviews, stored in the search engine (searched on the left): the person interviewed (last name, first name, address, email, phone, passport or identity card number), the notes written with the editor of /work, and the recordings: ⏺ Record writes the microphone into a WAV file of ~/kaonomi/audio/interview; when it stops, Whisper transcribes it, a paragraph for what is said between two silences of a second or more, each paragraph stored in the search engine (found by /search); 🎙 Live writes the paragraphs while the person speaks; 📝 Transcribe does a recording again, ⤵ Insert puts the transcription in the notes; `/ninterview` opens it in its own window\n"
             + "- `/cv`: the CVs, stored in the search engine (searched on the left): the person, a summary, the experiences, the educations, the skills and the creations, with the CV as it reads beside; ✨ has the model of the chat write a text from the CV (the summary, a description, the skills; ↶ puts the former text back); ⧉ CLONE copies the CV into a new one and, in a popup, asks the adaptation to make: the model rewrites the copy for it (the employers, the schools and the dates stay); 📄 WORD and 📕 PDF export the CV in a modern look (Documents/kaonomi/cv); `/ncv` opens it in its own window\n"
@@ -1665,6 +1704,12 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     /// <summary>Raised when the user types <c>/music</c> (<c>/nmusic</c>: in its own window).</summary>
     public event Action<MusicPlayerViewModel, bool>? MusicWindowRequested;
 
+    /// <summary>Raised when the user types the <c>/project</c> command (the projects; the kanban of the tasks is <c>/kanban</c>).</summary>
+    public event Action<ProjectWindowViewModel, bool>? ProjectWindowRequested;
+
+    /// <summary>Raised when the user types the <c>/recorder</c> command (the view exists in the Godot chat only).</summary>
+    public event Action<RecorderWindowViewModel, bool>? RecorderWindowRequested;
+
     /// <summary>Raised when the user types <c>/picture</c> or <c>/pictures</c> (<c>/npictures</c>: in its own window).</summary>
     public event Action<PictureLibraryViewModel, bool>? PictureWindowRequested;
 
@@ -1731,8 +1776,8 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     /// <summary>Raised when the user types the <c>/activity</c> command: the journal of the activities.</summary>
     public event Action<ActivityWindowViewModel, bool>? ActivityWindowRequested;
 
-    /// <summary>Raised when the user types the <c>/project</c> command.</summary>
-    public event Action<ProjectWindowViewModel, bool>? ProjectWindowRequested;
+    /// <summary>Raised when the user types the <c>/kanban</c> command.</summary>
+    public event Action<KanbanWindowViewModel, bool>? KanbanWindowRequested;
 
     /// <summary>Raised when the user types the <c>/remote</c> command.</summary>
     public event Action<RemoteWindowViewModel, bool>? RemoteWindowRequested;
@@ -1895,6 +1940,18 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
             return true;
         }
 
+        if (IsCommand(command, RecorderCommand))
+        {
+            // The microphone is opened by the view once it is shown: a front end without the view opens nothing.
+            if (RecorderWindowRequested is null)
+            {
+                Status = "/recorder (the audio recorder) is only in KAONOMI.ChatGodot";
+                return true;
+            }
+            RecorderWindowRequested.Invoke(new RecorderWindowViewModel(_assistant), detached);
+            return true;
+        }
+
         if (IsCommand(command, MusicCommand))
         {
             MusicWindowRequested?.Invoke(new MusicPlayerViewModel(_settings.ResolvedMusicDirectory), detached);
@@ -2029,6 +2086,12 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
         if (IsCommand(command, ProjectCommand))
         {
             ProjectWindowRequested?.Invoke(new ProjectWindowViewModel(_assistant), detached);
+            return true;
+        }
+
+        if (IsCommand(command, KanbanCommand))
+        {
+            KanbanWindowRequested?.Invoke(new KanbanWindowViewModel(_assistant), detached);
             return true;
         }
 

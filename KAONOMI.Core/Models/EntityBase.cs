@@ -39,6 +39,12 @@ namespace KAONOMI.Core.Models
         /// <summary>Free-text or descriptive label.</summary>
         public string comment { get; set; }
 
+        /// <summary>
+        /// The project the document is attached to: the id of a <see cref="Project"/> (JSON <c>projectId</c>), or null
+        /// when it belongs to none. Every document has it; the chat chooses it by the name of the project.
+        /// </summary>
+        public string? projectId { get; set; }
+
         /// <summary>The title of the document (JSON <c>title</c>).</summary>
         public string title { get; set; } = string.Empty;
 

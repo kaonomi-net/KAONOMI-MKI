@@ -13,6 +13,10 @@ public sealed class IdeaEntry
     /// <summary>Application that created the idea.</summary>
     public string? AppName { get; set; }
 
+    /// <summary>The project the document is attached to (the id of a <c>Project</c>, chosen by its name in the header of the window), or null.</summary>
+    [JsonPropertyName("projectId")]
+    public string? ProjectId { get; set; }
+
     /// <summary>Left out of the body when null so that the server generates the id of a new document.</summary>
     [JsonPropertyName("id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

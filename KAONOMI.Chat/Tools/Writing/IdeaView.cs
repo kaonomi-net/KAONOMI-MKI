@@ -12,7 +12,7 @@ namespace KAONOMI.UI.Tools.Writing;
 /// /idea: the latest ideas listed when it opens, a search (Enter, F5 or Search; empty: the latest ones), New idea (⌘/Ctrl N,
 /// the cursor in its title), the ideas on the left (date, category, badges new / modified, title, description, tags), the
 /// selected one editable on the right (title, category with the known ones, description, tags, comment) with its id, date,
-/// author, status, Delete (confirmed), → Task (a new task in /project filled from the idea), Discard changes and Save
+/// author, status, Delete (confirmed), → Task (a new task in /kanban filled from the idea), Discard changes and Save
 /// (⌘/Ctrl S).
 /// </summary>
 [ToolView(typeof(IdeaWindowViewModel), "Ideas", "💡", 1000, 680)]
@@ -88,7 +88,7 @@ public sealed class IdeaView : IToolView
             EntryParts.Identity(entry),
             EntryParts.Status(entry),
             WritingUi.Command("🗑", vm.DeleteCommand, tooltip: "Delete this idea"),
-            Ui.Button("→ TASK", () => SendToProject(vm, entry, shell), "Opens /project with a new task filled from this idea (title, description, comment), to check and create"),
+            Ui.Button("→ TASK", () => SendToKanban(vm, entry, shell), "Opens /kanban with a new task filled from this idea (title, description, comment), to check and create"),
             WritingUi.Command("DISCARD CHANGES", entry.RevertCommand),
             WritingUi.Command("SAVE", entry.SaveCommand, primary: true, tooltip: "Save the idea (Ctrl+S / ⌘S)"));
 
@@ -106,19 +106,19 @@ public sealed class IdeaView : IToolView
     }
 
     /// <summary>
-    /// Opens /project (or brings back the one already open) with its new-task form filled from the idea, as it is in the
+    /// Opens /kanban (or brings back the one already open) with its new-task form filled from the idea, as it is in the
     /// editor (saved or not): nothing is created before CREATE there.
     /// </summary>
-    private static void SendToProject(IdeaWindowViewModel vm, IdeaEntryViewModel entry, Shell shell)
+    private static void SendToKanban(IdeaWindowViewModel vm, IdeaEntryViewModel entry, Shell shell)
     {
-        const string key = "/project";
+        const string key = "/kanban";
         var open = shell.Deck.Find(key);
-        var project = open?.ViewModel as ProjectWindowViewModel ?? vm.CreateProjectWindow();
+        var project = open?.ViewModel as KanbanWindowViewModel ?? vm.CreateKanbanWindow();
         project.NewTaskFrom(entry.ToEntry());
-        if (open?.ViewModel is ProjectWindowViewModel)
+        if (open?.ViewModel is KanbanWindowViewModel)
             shell.Deck.BringToFront(open);
         else
             shell.Open(project, key);
-        entry.Status = "Sent to /project as a new task";
+        entry.Status = "Sent to /kanban as a new task";
     }
 }

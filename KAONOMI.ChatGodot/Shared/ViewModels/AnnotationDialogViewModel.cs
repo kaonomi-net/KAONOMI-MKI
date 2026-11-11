@@ -58,6 +58,9 @@ public partial class AnnotationDialogViewModel : ViewModelBase
     /// <summary>The link of that window (its command, /intel…, or its key), kept in the journal of the activities.</summary>
     public string? SourceLink { get; init; }
 
+    /// <summary>The project of the window the annotation is written in (the id of a project), saved with the annotation and its journal entry; null: none.</summary>
+    public string? ProjectId { get; set; }
+
     /// <summary>The context saved with the annotation (shown to the user before saving).</summary>
     public string Context { get; }
 
@@ -146,6 +149,7 @@ public partial class AnnotationDialogViewModel : ViewModelBase
             timeout.CancelAfter(TimeSpan.FromSeconds(30));
             var result = await _assistant.SaveAnnotationAsync(new AnnotationEntry
             {
+                ProjectId = ProjectId,
                 MachineName = Environment.MachineName,
                 UserName = Environment.UserName,
                 Text = Text.Trim(),
@@ -209,6 +213,7 @@ public partial class AnnotationDialogViewModel : ViewModelBase
             var result = await server.SaveUserActivityAsync(new UserActivityEntry
             {
                 AppName = "KAONOMI.Chat",
+                ProjectId = ProjectId,
                 MachineName = Environment.MachineName,
                 UserName = Environment.UserName,
                 Date = DateTimeOffset.Now,

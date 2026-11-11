@@ -28,8 +28,21 @@ namespace KAONOMI.Chat.ViewModels;
 /// <see cref="InfraWindowViewModel"/>): its palette then holds the machines, devices and services of an installation,
 /// joined by links; the files go to <c>~/kaonomi/infra</c> and the search engine keeps them in the <c>infra</c> index.
 /// </summary>
-public partial class BpmnWindowViewModel : ViewModelBase, IUnsavedChanges
+public partial class BpmnWindowViewModel : ViewModelBase, IUnsavedChanges, IProjectDocument
 {
+    /// <summary>The project the diagram is attached to (the id of a project, chosen by its name in the header of the window), or null; saved with it in the search engine.</summary>
+    [ObservableProperty]
+    private string? _projectId;
+
+    /// <summary>The editor always holds a diagram.</summary>
+    public bool HasProjectDocument => true;
+
+    partial void OnProjectIdChanged(string? value)
+    {
+        if (!_loading)
+            IsDirty = true;
+    }
+
     private const int UndoLimit = 100;
     private Stack<BpmnDiagram> _undo = new();
     private readonly Stack<BpmnDiagram> _redo = new();
@@ -486,6 +499,7 @@ public partial class BpmnWindowViewModel : ViewModelBase, IUnsavedChanges
         Version = 0;
         _loading = true;
         Description = string.Empty;
+        ProjectId = null;
         _loading = false;
         Selected = null;
         _undo.Clear();
@@ -536,6 +550,10 @@ public partial class BpmnWindowViewModel : ViewModelBase, IUnsavedChanges
             FilePath = path;
             DiagramId = null;
             Version = 0;
+            // A file holds no project: the diagram read from it has none.
+            _loading = true;
+            ProjectId = null;
+            _loading = false;
             Selected = null;
             _undo.Clear();
             _redo.Clear();
@@ -603,6 +621,7 @@ public partial class BpmnWindowViewModel : ViewModelBase, IUnsavedChanges
         {
             Id = DiagramId ?? BpmnEntry.Slug(title),
             AppName = "KAONOMI.Chat",
+            ProjectId = ProjectId,
             MachineName = Environment.MachineName,
             UserName = Environment.UserName,
             Author = Environment.UserName,
@@ -660,6 +679,7 @@ public partial class BpmnWindowViewModel : ViewModelBase, IUnsavedChanges
             ProcessName = diagram.Name;
             _loading = true;
             Description = entry.Description;
+            ProjectId = entry.ProjectId;
             _loading = false;
             FilePath = null;
             DiagramId = entry.Id;

@@ -671,6 +671,69 @@ namespace KAONOMI.Server
                 return result is null ? Results.NotFound() : Results.Ok(result);
             });
 
+            // ── Projects: a name, a description, goals and tags (/project in the chat; never erased) ──
+
+            // GET /project/{id}: loads one project by its document id (404 when it does not exist).
+            app.MapGet("/project/{id}", (string id) =>
+            {
+                Project result = session.ProjectGet(id);
+                return result is null ? Results.NotFound() : Results.Ok(result);
+            });
+
+            // PUT /project (create) and POST /project/update (create or overwrite): save a project; return its id, or
+            // "-1" with the error message (a project needs a name). Its tags, when it has none, are the declared tags
+            // found in its name, its description and its goals.
+            app.MapPut("/project", (Project p) => Task.FromResult(SoftDelete(() => session.ProjectSave(WithTags(session, p)))));
+            app.MapPost("/project/update", (Project p) => Task.FromResult(SoftDelete(() => session.ProjectSave(WithTags(session, p)))));
+
+            // POST /project/search: free-text search on name, description, goals, tags and comment (body: SearchCriterias; "*" or empty: the newest ones).
+            app.MapPost("/project/search", (SearchCriterias p) =>
+            {
+                var size = p.size > 0 ? p.size : 10;
+                return Task.FromResult(session.ProjectsSearch(string.IsNullOrWhiteSpace(p.term) ? "*" : p.term, size));
+            });
+
+            // POST /project/last: the "size" most recent projects, newest first ("term" is ignored).
+            app.MapPost("/project/last", (SearchCriterias p) =>
+            {
+                var size = p.size > 0 ? p.size : 10;
+                return Task.FromResult(session.ProjectsLast(size));
+            });
+
+            // DELETE /project/{id}: marks the project deleted (isDeleted = true).
+            app.MapDelete("/project/{id}", (string id) => Task.FromResult(SoftDelete(() => session.ProjectDelete(id))));
+
+            // ── Audio records: the recordings of /recorder in the chat, their metadata and everything done to them
+            // (notes, annotated manipulations, named selections, samples saved with their filters; never erased) ──
+
+            // GET /audiorecord/{id}: loads one audio record by its document id (404 when it does not exist).
+            app.MapGet("/audiorecord/{id}", (string id) =>
+            {
+                AudioRecord result = session.AudioRecordGet(id);
+                return result is null ? Results.NotFound() : Results.Ok(result);
+            });
+
+            // PUT /audiorecord and POST /audiorecord/update: save (create or overwrite) an audio record; return its id, or "-1" with the error message.
+            app.MapPut("/audiorecord", (AudioRecord p) => Task.FromResult(SoftDelete(() => session.AudioRecordSave(p))));
+            app.MapPost("/audiorecord/update", (AudioRecord p) => Task.FromResult(SoftDelete(() => session.AudioRecordSave(p))));
+
+            // POST /audiorecord/search: free-text search (body: SearchCriterias; "*" or empty: the newest ones).
+            app.MapPost("/audiorecord/search", (SearchCriterias p) =>
+            {
+                var size = p.size > 0 ? p.size : 10;
+                return Task.FromResult(session.AudioRecordsSearch(string.IsNullOrWhiteSpace(p.term) ? "*" : p.term, size));
+            });
+
+            // POST /audiorecord/last: the "size" most recent audio records, newest first ("term" is ignored).
+            app.MapPost("/audiorecord/last", (SearchCriterias p) =>
+            {
+                var size = p.size > 0 ? p.size : 10;
+                return Task.FromResult(session.AudioRecordsLast(size));
+            });
+
+            // DELETE /audiorecord/{id}: marks the audio record deleted (isDeleted = true).
+            app.MapDelete("/audiorecord/{id}", (string id) => Task.FromResult(SoftDelete(() => session.AudioRecordDelete(id))));
+
             // ── Cache builders: prompts and their completions written by hand (/cache in the chat; never erased) ──
 
             // GET /cachebuilder/{id}: loads one cache builder by its document id (404 when it does not exist).
@@ -2044,6 +2107,27 @@ namespace KAONOMI.Server
                 }
             }
             return builder;
+        }
+
+        /// <summary>
+        /// The project with its tags filled when it has none: the declared tags its name, its description and its goals
+        /// hold (see <see cref="Symbolic.TagGazetteer"/>). What the user filled is kept; a failure leaves it without tags.
+        /// </summary>
+        private static Project WithTags(SessionManager session, Project project)
+        {
+            if (project.Tags is { Count: > 0 })
+                return project;
+            try
+            {
+                var text = string.Join("\n", new[] { project.name, project.description }.Concat(project.goals ?? new List<string>()).Where(t => !string.IsNullOrWhiteSpace(t)));
+                var found = Symbolic.TagGazetteer.Get(session.Config).Find(text).Tags.Select(t => t.Tag);
+                project.Tags = TagRules.NormalizeTags(found);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Tags of a project: " + ex.Message);
+            }
+            return project;
         }
 
         private static ServiceReturn SoftDelete(Func<ServiceReturn> mark)

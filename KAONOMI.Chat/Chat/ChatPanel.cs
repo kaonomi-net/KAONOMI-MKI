@@ -70,22 +70,71 @@ public sealed class ChatPanel : Border
         Add(new Border { Padding = new Thickness(12, 4, 12, 6), Child = Ui.Bound(_vm, nameof(MainViewModel.Status), Ui.Muted, 11) }, 7);
         Child = grid;
 
-        // The clock, the next alarm, the level of the voice: every quarter of a second.
-        var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(250) };
-        timer.Tick += (_, _) => Tick();
-        timer.Start();
+        // The level of the voice every quarter of a second; the clock and the next alarm once a second.
+        _timer.Tick += (_, _) => Tick();
+        _onSpeaking = speaking => Ui.OnMain(() =>
+        {
+            if (_avatar is not null)
+                _avatar.Speaking = speaking;
+            UpdateState();
+        });
+        // The mouth opens with the words of the answer as they come.
+        _onWord = word => Ui.OnMain(() => _avatar?.Pulse(word.Length));
+        _onTicker = (_, _) => Ui.OnMain(FillTicker);
         Tick();
+    }
+
+    private readonly DispatcherTimer _timer = new() { Interval = TimeSpan.FromMilliseconds(250) };
+    private readonly Action<bool> _onSpeaking;
+    private readonly Action<string> _onWord;
+    private readonly System.Collections.Specialized.NotifyCollectionChangedEventHandler _onTicker;
+    private long _shownSecond = -1;
+
+    /// <summary>
+    /// The panel follows the chat only while it is shown: its timer and its handlers on the view model (which lives as
+    /// long as the application) are released when it leaves. A panel that was closed (the full chat of the vertical
+    /// screen) would otherwise stay in memory with its animation and its messages, its timer still running.
+    /// </summary>
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e);
+        _vm.SpeakingChanged += _onSpeaking;
+        _vm.WordStreamed += _onWord;
+        _vm.TickerItems.CollectionChanged += _onTicker;
+        FillTicker();
+        _shownSecond = -1;
+        Tick();
+        _timer.Start();
+    }
+
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        _timer.Stop();
+        _vm.SpeakingChanged -= _onSpeaking;
+        _vm.WordStreamed -= _onWord;
+        _vm.TickerItems.CollectionChanged -= _onTicker;
+        base.OnDetachedFromVisualTree(e);
     }
 
     private void Tick()
     {
+        // The level of the voice: only while it speaks (it is 0 otherwise).
+        var level = _vm.IsSpeakingOrPreparing ? Math.Clamp(_vm.SpeechLevel, 0, 1) : 0;
+        if (_voice.Value != level)
+            _voice.Value = level;
+
+        // The clock, the date and the next alarm: once a second, not at each tick.
         var now = DateTime.Now;
+        var second = now.Ticks / TimeSpan.TicksPerSecond;
+        if (second == _shownSecond)
+            return;
+        _shownSecond = second;
         _clock.Text = now.ToString("HH:mm:ss");
         var date = now.ToString("ddd d MMM yyyy").ToUpperInvariant();
         if (AlarmClock.Shared.Upcoming(now).FirstOrDefault() is { Alarm: not null } next && next.Ring - now < TimeSpan.FromDays(1))
             date += $"  ·  ⏰ {next.Ring:HH:mm}";
-        _date.Text = date;
-        _voice.Value = Math.Clamp(_vm.SpeechLevel, 0, 1);
+        if (_date.Text != date)
+            _date.Text = date;
     }
 
     // ── Header: title, server, clock ──
@@ -132,14 +181,7 @@ public sealed class ChatPanel : Border
     {
         Ui.When(_state, _vm, UpdateState, nameof(MainViewModel.IsAwaitingAnswer), nameof(MainViewModel.IsListening),
             nameof(MainViewModel.IsTranscribing), nameof(MainViewModel.SelectedPreset));
-        _vm.SpeakingChanged += speaking => Ui.OnMain(() =>
-        {
-            if (_avatar is not null)
-                _avatar.Speaking = speaking;
-            UpdateState();
-        });
-        // The mouth opens with the words of the answer as they come.
-        _vm.WordStreamed += word => Ui.OnMain(() => _avatar?.Pulse(word.Length));
+        // (The voice and the words of the answer move the animation: see OnAttachedToVisualTree.)
         Ui.When(_stage, _vm, ShowPresetAnimation, nameof(MainViewModel.SelectedPreset), nameof(MainViewModel.Animation));
         _voice.Foreground = Ui.Accent;
         _state.Margin = new Thickness(12, 0, 12, 8);
@@ -212,12 +254,15 @@ public sealed class ChatPanel : Border
 
     // ── Ticker (still text, no scrolling) ──
 
+    private readonly TextBlock _tickerText = Ui.Label(string.Empty, Ui.Text, 12);
+
+    private void FillTicker() =>
+        _tickerText.Text = string.Join("   ·   ", _vm.TickerItems.Select(t => $"{(t.HasArrow ? t.Arrow + " " : string.Empty)}{t.Text}"));
+
     private Control BuildTicker()
     {
-        var text = Ui.Label(string.Empty, Ui.Text, 12);
-        void Fill() => text.Text = string.Join("   ·   ", _vm.TickerItems.Select(t => $"{(t.HasArrow ? t.Arrow + " " : string.Empty)}{t.Text}"));
-        _vm.TickerItems.CollectionChanged += (_, _) => Ui.OnMain(Fill);
-        Fill();
+        var text = _tickerText;
+        FillTicker();
         var band = new Border { Child = text, Background = Ui.Field, Padding = new Thickness(12, 3) };
         ToolTip.SetTip(band, "The ticker (refreshed every minute)");
         return band.Visible(_vm, nameof(MainViewModel.HasTickerItems));
@@ -463,7 +508,7 @@ public sealed class MessageView : Border
             like.IsVisible = dislike.IsVisible = message.CanEvaluate;
             like.Foreground = message.IsLiked ? Ui.Green : Ui.Text;
             dislike.Foreground = message.IsDisliked ? Ui.Red : Ui.Text;
-        });
+        }, nameof(ChatMessageViewModel.CanEvaluate), nameof(ChatMessageViewModel.IsLiked), nameof(ChatMessageViewModel.IsDisliked));
         Button copy = null!;
         copy = Small("⧉", "Copy to the clipboard", () =>
         {
@@ -479,9 +524,25 @@ public sealed class MessageView : Border
         header.Children.Add(author);
 
         var body = new ContentControl();
+        var revealPending = false;
         // The answer revealed word by word is plain text; the Markdown is laid out once complete.
         Ui.When(body, message, () =>
         {
+            // While it is revealed, each word changes the text: the whole of it would be laid out again at each word
+            // (and the conversation scrolled). The latest text is shown ten times a second at most.
+            if (message.IsRevealing && !message.IsError && body.Content is SelectableTextBlock { Tag: "plain" } revealed)
+            {
+                if (revealPending)
+                    return;
+                revealPending = true;
+                DispatcherTimer.RunOnce(() =>
+                {
+                    revealPending = false;
+                    if (message.IsRevealing && ReferenceEquals(body.Content, revealed))
+                        revealed.Text = message.Content;
+                }, TimeSpan.FromMilliseconds(100));
+                return;
+            }
             var text = message.Content;
             if (message.IsError)
                 body.Content = MarkdownView.Plain(text, 13, Ui.Red);

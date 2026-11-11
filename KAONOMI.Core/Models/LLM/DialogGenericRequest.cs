@@ -23,5 +23,11 @@ namespace KAONOMI.Core.Models.LLM
         /// without it, the request is answered alone, with what its messages hold.
         /// </summary>
         public string? sessionId { get; set; }
+        /// <summary>
+        /// True when the request asks again the last question of the conversation (its answer was disliked): the new
+        /// answer replaces that exchange in the context. Without it, the same question asked twice (« continue »,
+        /// « oui ») is one more exchange.
+        /// </summary>
+        public bool regenerate { get; set; } = false;
     }
 }

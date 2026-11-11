@@ -15,8 +15,30 @@ namespace KAONOMI.Chat.ViewModels;
 /// Search, creation, cloning, edition and deletion of intels (<c>/intel</c>, <c>/nintel</c> in its own window). The
 /// search looks in every text field; an empty search lists the newest intels (shown when the window opens).
 /// </summary>
-public partial class IntelWindowViewModel : ViewModelBase, INoteContextProvider
+public partial class IntelWindowViewModel : ViewModelBase, INoteContextProvider, IProjectDocument
 {
+    /// <summary>The project of the intel selected (shown and chosen by its name in the header of the window).</summary>
+    public string? ProjectId
+    {
+        get => SelectedResult?.ProjectId;
+        set
+        {
+            if (SelectedResult is { } selected && selected.ProjectId != value)
+            {
+                selected.ProjectId = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    public bool HasProjectDocument => SelectedResult is not null;
+
+    partial void OnSelectedResultChanged(IntelEntryViewModel? value)
+    {
+        OnPropertyChanged(nameof(ProjectId));
+        OnPropertyChanged(nameof(HasProjectDocument));
+    }
+
     private const int PageSize = 50;
 
     private readonly KaonomiAssistantService _assistant;

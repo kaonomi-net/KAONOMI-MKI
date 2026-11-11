@@ -293,7 +293,7 @@ on the left and the chat on the right; here every one is shown full size.
     <td><img src="docs/screenshots/idea.jpg" alt="/idea" /><br /><sub><b><code>/idea</code></b>: the ideas, the latest ones and their editor</sub></td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/project.jpg" alt="/project" /><br /><sub><b><code>/project</code></b>: the project board, Todo to Archived</sub></td>
+    <td><img src="docs/screenshots/project.jpg" alt="/kanban" /><br /><sub><b><code>/kanban</code></b>: the project board, Todo to Archived</sub></td>
     <td><img src="docs/screenshots/completion.jpg" alt="/completion" /><br /><sub><b><code>/completion</code></b>: the completions, their filters by model, language and topic</sub></td>
   </tr>
   <tr>

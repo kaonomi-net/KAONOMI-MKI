@@ -82,8 +82,14 @@ public partial class FaceAvatar : Control, IAvatar
 
     public override void _Draw() => DrawMesh(_mesh, null);
 
+    // The names of the shader parameters, made once: a string given at each frame is a new StringName each time.
+    private static readonly StringName UMvp = "uMvp", USize = "uSize", UTime = "uTime", UOpen = "uOpen", UGlitch = "uGlitch";
+
     public override void _Process(double delta)
     {
+        // Nothing to compute for a face that is not shown (its window minimised or behind, the chat tucked).
+        if (!IsVisibleInTree())
+            return;
         _time += delta;
         var frames = (float)(delta * 60);
 
@@ -120,11 +126,11 @@ public partial class FaceAvatar : Control, IAvatar
         var mvp = new Projection(new Vector4(m.M11, m.M12, m.M13, m.M14), new Vector4(m.M21, m.M22, m.M23, m.M24),
             new Vector4(m.M31, m.M32, m.M33, m.M34), new Vector4(m.M41, m.M42, m.M43, m.M44));
 
-        _material.SetShaderParameter("uMvp", mvp);
-        _material.SetShaderParameter("uSize", size);
-        _material.SetShaderParameter("uTime", time);
-        _material.SetShaderParameter("uOpen", Math.Clamp(open, 0, 1));
-        _material.SetShaderParameter("uGlitch", new Vector3(_glitchRow, _glitchShift, 0));
+        _material.SetShaderParameter(UMvp, mvp);
+        _material.SetShaderParameter(USize, size);
+        _material.SetShaderParameter(UTime, time);
+        _material.SetShaderParameter(UOpen, Math.Clamp(open, 0, 1));
+        _material.SetShaderParameter(UGlitch, new Vector3(_glitchRow, _glitchShift, 0));
     }
 
     /// <summary>

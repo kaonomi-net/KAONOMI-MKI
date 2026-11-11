@@ -92,11 +92,11 @@ namespace KAONOMI.Server.Knowledge
         /// enough become digests (cut for good, with what they say about the entities that come back). The last question
         /// asked again replaces its exchange.
         /// </summary>
-        public static string AddTurn(DialogContext context, string dialogId, string question, string completion, IEnumerable<string> entityNames, Config config)
+        public static string AddTurn(DialogContext context, string dialogId, string question, string completion, IEnumerable<string> entityNames, Config config, bool regenerate = false)
         {
-            // The same question asked again right away (the answer was disliked and asked to another model): the new
-            // answer takes the place of the one before, it is not one more exchange.
-            if (context.turns.Count > 0 && !context.turns[^1].folded
+            // The last question asked again because its answer was disliked (the request says so): the new answer takes
+            // the place of the one before. The same words typed twice (« continue ») are one more exchange.
+            if (regenerate && context.turns.Count > 0 && !context.turns[^1].folded
                 && string.Equals(context.turns[^1].prompt, PromptCompressor.Squeeze(question), StringComparison.OrdinalIgnoreCase))
             {
                 context.turns.RemoveAt(context.turns.Count - 1);

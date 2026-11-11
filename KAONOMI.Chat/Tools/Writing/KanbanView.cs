@@ -14,20 +14,20 @@ using KAONOMI.UI.Desk;
 namespace KAONOMI.UI.Tools.Writing;
 
 /// <summary>
-/// /project: the kanban of the tasks, one column per status (its colour, its count, "No task"), a card per task (title, type
+/// /kanban: the kanban of the tasks, one column per status (its colour, its count, "No task"), a card per task (title, type
 /// badge in its colour, the description as tooltip). A card dragged to another column takes its status (the column under the
 /// pointer is outlined); a double-click on a card opens the task editor in its own window (the board is reloaded after a save
 /// or a delete). + New task (⌘/Ctrl N) shows the form of a new task on the right (title, type, status, description, start,
 /// end, security, legal and data constraints, comment) with Cancel and Create; Refresh (F5) loads the tasks again.
 /// </summary>
-[ToolView(typeof(ProjectWindowViewModel), "Projects", "📋", 1400, 820)]
-public sealed class ProjectView : IToolView
+[ToolView(typeof(KanbanWindowViewModel), "Kanban", "📋", 1400, 820)]
+public sealed class KanbanView : IToolView
 {
     private const double ColumnWidth = 180;
 
     public Control Build(object viewModel, Shell shell)
     {
-        var vm = (ProjectWindowViewModel)viewModel;
+        var vm = (KanbanWindowViewModel)viewModel;
 
         var title = Ui.Label("PROJECT · TASKS", Ui.TextBright, 15, bold: true);
         var actions = Ui.Row(8,
@@ -120,7 +120,7 @@ public sealed class ProjectView : IToolView
     }
 
     /// <summary>A column: its colour line, title and count, its cards; a card dropped on it takes its status.</summary>
-    private static Control Column(ProjectWindowViewModel vm, Shell shell, KanbanColumnViewModel column, DragState drag)
+    private static Control Column(KanbanWindowViewModel vm, Shell shell, KanbanColumnViewModel column, DragState drag)
     {
         var line = new Border { Background = column.Accent, Height = 4 };
         var count = new Border
@@ -163,7 +163,7 @@ public sealed class ProjectView : IToolView
     /// <summary>
     /// A card: its title and type badge, the description as tooltip; dragged to another column, double-click to edit its task.
     /// </summary>
-    private static Control Card(ProjectWindowViewModel vm, Shell shell, KanbanCardViewModel card, DragState drag)
+    private static Control Card(KanbanWindowViewModel vm, Shell shell, KanbanCardViewModel card, DragState drag)
     {
         var title = Ui.Label(card.Title, Ui.TextBright, 13, wrap: true);
         var badge = new Border
@@ -246,7 +246,7 @@ public sealed class ProjectView : IToolView
     }
 
     /// <summary>The form of a new task (shown while the view model is creating one).</summary>
-    private static Control NewTaskForm(ProjectWindowViewModel vm, TextBox name)
+    private static Control NewTaskForm(KanbanWindowViewModel vm, TextBox name)
     {
         var types = WritingUi.Cells(2,
             WritingUi.Field("Type", WritingUi.Choice(vm, nameof(vm.NewType), vm.Types)),

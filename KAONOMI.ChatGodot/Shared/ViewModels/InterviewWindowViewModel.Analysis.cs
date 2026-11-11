@@ -218,7 +218,7 @@ public sealed partial class InterviewWindowViewModel
                 {
                     InterviewId = InterviewId,
                     AudioFile = file,
-                    Paragraphs = Paragraphs.Where(p => p.AudioFile == file).OrderBy(p => p.Index).ToList()
+                    Paragraphs = TranscriptOf(file)
                 }, token);
                 if (result.ReturnedId is null or "-1")
                     throw new HttpRequestException("the emotions of " + file + " were not stored: " + (result.Message ?? "no answer"));
@@ -495,6 +495,8 @@ public sealed partial class InterviewWindowViewModel
                 Date = DateTime.Now,
                 DateCreated = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                 AppName = "KAONOMI.Chat",
+                // An entity made from the interview is of its project.
+                ProjectId = ProjectId,
                 MachineName = Environment.MachineName,
                 UserName = Environment.UserName
             };

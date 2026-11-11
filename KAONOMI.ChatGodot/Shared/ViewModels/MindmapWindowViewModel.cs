@@ -24,8 +24,21 @@ namespace KAONOMI.Chat.ViewModels;
 /// (the <c>mindmap</c> index: its XML, a comment, its version; its id the slug of its title), where the maps are
 /// searched (<see cref="SearchCommand"/>) and opened again.
 /// </summary>
-public sealed partial class MindmapWindowViewModel : ViewModelBase, IUnsavedChanges
+public sealed partial class MindmapWindowViewModel : ViewModelBase, IUnsavedChanges, IProjectDocument
 {
+    /// <summary>The project the map is attached to (the id of a project, chosen by its name in the header of the window), or null; saved with it in the search engine.</summary>
+    [ObservableProperty]
+    private string? _projectId;
+
+    /// <summary>The editor always holds a map.</summary>
+    public bool HasProjectDocument => true;
+
+    partial void OnProjectIdChanged(string? value)
+    {
+        if (!_loading)
+            IsDirty = true;
+    }
+
     private const int UndoLimit = 100;
     private const float LevelGap = 200;
     private const float SiblingGap = 48;
@@ -474,12 +487,13 @@ public sealed partial class MindmapWindowViewModel : ViewModelBase, IUnsavedChan
 
     // ── New, open, save ──
 
-    private void Reset(MindmapDiagram map, string? filePath, string? mapId, int version, string description)
+    private void Reset(MindmapDiagram map, string? filePath, string? mapId, int version, string description, string? projectId = null)
     {
         Map = map;
         _loading = true;
         Title = map.Title;
         Description = description;
+        ProjectId = projectId;
         _loading = false;
         FilePath = filePath;
         MapId = mapId;
@@ -591,6 +605,7 @@ public sealed partial class MindmapWindowViewModel : ViewModelBase, IUnsavedChan
         {
             Id = MapId ?? MindmapEntry.Slug(title),
             AppName = "KAONOMI.Chat",
+            ProjectId = ProjectId,
             MachineName = Environment.MachineName,
             UserName = Environment.UserName,
             Author = Environment.UserName,
@@ -642,7 +657,7 @@ public sealed partial class MindmapWindowViewModel : ViewModelBase, IUnsavedChan
                 return false;
             }
             var map = MindmapXml.Read(entry.Xml);
-            Reset(map, null, entry.Id, entry.Version, entry.Description);
+            Reset(map, null, entry.Id, entry.Version, entry.Description, entry.ProjectId);
             SetStatus($"Opened from the search engine: {entry.Title} (version {entry.Version}, {Summary})", false);
             ActivityLog.Info("Mindmap", $"Map {entry.Id} opened from the search engine (version {entry.Version})");
             return true;

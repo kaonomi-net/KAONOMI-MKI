@@ -117,6 +117,8 @@ public partial class EveFrame : PanelContainer
         scroll.AddChild(content);
         margin.AddChild(scroll);
         column.AddChild(margin);
+        _column = column;
+        _body = margin;
 
         // Resize grip at the bottom right, and every edge and corner (above the content).
         var grip = new Grip();
@@ -147,6 +149,24 @@ public partial class EveFrame : PanelContainer
         // Right after the title: before 📝 and the other standard buttons.
         _bar.MoveChild(button, _bar.GetChildCount() - 7);
         return button;
+    }
+
+    private VBoxContainer _column = null!;
+    private Control _body = null!;
+
+    /// <summary>Adds a bar of the window (the field of its project) between its header and its content.</summary>
+    public void AddTopBar(Control bar)
+    {
+        _column.AddChild(bar);
+        _column.MoveChild(bar, _body.GetIndex());
+    }
+
+    /// <summary>Adds a control of the window (the selector of its project) to its header, before the standard buttons.</summary>
+    public void AddHeaderControl(Control control)
+    {
+        control.SizeFlagsVertical = SizeFlags.ShrinkCenter;
+        _bar.AddChild(control);
+        _bar.MoveChild(control, _bar.GetChildCount() - 8);
     }
 
     /// <summary>The title shown in the header.</summary>

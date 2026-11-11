@@ -189,9 +189,15 @@ public sealed class MainWindow : Window
         _verticalChat.Closed += (_, _) =>
         {
             _verticalChat = null;
+            // The animation comes back in the chat of the main window.
+            if (_voiceMode is null)
+                _chat.GiveBackAvatar();
             _vm.Status = "Full chat closed (/fullchat opens it again)";
         };
         _verticalChat.Show();
+        // One 3D animation drawn, not two: while the full chat shows its own, the chat of the main window gives up its.
+        if (_voiceMode is null)
+            _chat.LendAvatar();
         _vm.Status = "Full chat opened on the vertical screen (Escape closes it)";
         return true;
     }
@@ -269,6 +275,7 @@ public sealed class MainWindow : Window
         void Open(object viewModel, string key) => Ui.OnMain(() => Show(() => _shell.Open(viewModel, _shell.KeyFor(key))));
         _vm.CodeWindowRequested += vm => Ui.OnMain(() => Show(() => _shell.Open(vm)));
         _vm.CacheWindowRequested += (vm, _) => Open(vm, "/cache");
+        _vm.ProjectWindowRequested += (vm, _) => Open(vm, "/project");
         _vm.SearchWindowRequested += (vm, _) => Open(vm, "/search");
         _vm.JsonClientWindowRequested += (vm, _) => Open(vm, "/json");
         _vm.SymbolicPatternWindowRequested += (vm, _) => Open(vm, "/symbol");
@@ -295,7 +302,7 @@ public sealed class MainWindow : Window
         _vm.IqWindowRequested += (vm, _) => Open(vm, "/iq");
         _vm.ActivityWindowRequested += (vm, _) => Open(vm, "/activity");
         _vm.FoldersWindowRequested += (vm, _) => Open(vm, "/folders");
-        _vm.ProjectWindowRequested += (vm, _) => Open(vm, "/project");
+        _vm.KanbanWindowRequested += (vm, _) => Open(vm, "/kanban");
         _vm.RemoteWindowRequested += (vm, _) => Open(vm, "/remote");
         _vm.PresetWindowRequested += (vm, _) => Open(vm, "/preset");
         _vm.ProcessWindowRequested += (vm, _) => Open(vm, "/process");

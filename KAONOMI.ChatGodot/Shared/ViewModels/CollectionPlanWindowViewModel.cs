@@ -21,8 +21,30 @@ namespace KAONOMI.Chat.ViewModels;
 /// <c>/ncollectionplan</c> in its own window). The search looks in every text field; an empty search lists the newest
 /// plans (shown when the window opens).
 /// </summary>
-public partial class CollectionPlanWindowViewModel : ViewModelBase, INoteContextProvider
+public partial class CollectionPlanWindowViewModel : ViewModelBase, INoteContextProvider, IProjectDocument
 {
+    /// <summary>The project of the plan selected (shown and chosen by its name in the header of the window).</summary>
+    public string? ProjectId
+    {
+        get => SelectedResult?.ProjectId;
+        set
+        {
+            if (SelectedResult is { } selected && selected.ProjectId != value)
+            {
+                selected.ProjectId = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    public bool HasProjectDocument => SelectedResult is not null;
+
+    partial void OnSelectedResultChanged(CollectionPlanEntryViewModel? value)
+    {
+        OnPropertyChanged(nameof(ProjectId));
+        OnPropertyChanged(nameof(HasProjectDocument));
+    }
+
     private const int PageSize = 50;
 
     private readonly KaonomiAssistantService _assistant;
@@ -178,6 +200,7 @@ public partial class CollectionPlanWindowViewModel : ViewModelBase, INoteContext
                 Contents = [new DocumentContent { Content = CollectionAnalyst.Tape(plan, pages, analysis, model!, vision, when, pictures, readings), Version = 1 }],
                 Date = DateTimeOffset.Now,
                 AppName = "KAONOMI.Chat",
+                ProjectId = plan.ProjectId,
                 MachineName = Environment.MachineName,
                 UserName = Environment.UserName
             };

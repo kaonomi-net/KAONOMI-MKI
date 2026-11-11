@@ -38,6 +38,9 @@ public partial class NoteDialogViewModel : ViewModelBase
     /// <summary>Context sent with the note (shown to the user before sending).</summary>
     public string Context { get; }
 
+    /// <summary>The project of the window the note is about (the id of a project), saved with the note; null: none.</summary>
+    public string? ProjectId { get; set; }
+
     /// <summary>Popup title.</summary>
     public string Title => $"Kaonomi · Note on {WindowName}";
 
@@ -74,7 +77,7 @@ public partial class NoteDialogViewModel : ViewModelBase
 
             using var timeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
             timeout.CancelAfter(TimeSpan.FromSeconds(30));
-            var result = await _assistant.CreateWhiteNoteAsync(new WhiteNoteEntry { Text = Text.Trim(), Context = Context }, timeout.Token);
+            var result = await _assistant.CreateWhiteNoteAsync(new WhiteNoteEntry { Text = Text.Trim(), Context = Context, ProjectId = ProjectId }, timeout.Token);
 
             IsError = !result.IsSuccess;
             Status = string.IsNullOrWhiteSpace(result.Message)
