@@ -1,0 +1,115 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:KAONOMI.Chat.ViewModels"
+        xmlns:v="using:KAONOMI.Chat.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="750"
+        x:Class="KAONOMI.Chat.Views.JsonClientView"
+        x:DataType="vm:JsonClientWindowViewModel">
+
+    <Design.DataContext>
+        <vm:JsonClientWindowViewModel />
+    </Design.DataContext>
+
+    <UserControl.Styles>
+        <Style Selector="TextBox.code">
+            <Setter Property="FontFamily" Value="Cascadia Mono, Consolas, Menlo, Courier New, monospace" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="AcceptsReturn" Value="True" />
+            <Setter Property="AcceptsTab" Value="True" />
+            <Setter Property="TextWrapping" Value="NoWrap" />
+            <Setter Property="VerticalContentAlignment" Value="Top" />
+        </Style>
+        <Style Selector="TextBlock.label">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Opacity" Value="0.75" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
+
+        <!-- Method + URL -->
+        <Border Grid.Row="0" Padding="12,10"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+                <ComboBox Grid.Column="0" MinWidth="100" MinHeight="36" Margin="0,0,8,0"
+                          ItemsSource="{Binding Methods}"
+                          SelectedItem="{Binding Method}" />
+                <TextBox x:Name="UrlBox" Grid.Column="1" Text="{Binding Url}"
+                         PlaceholderText="{Binding UrlPlaceholder}"
+                         VerticalContentAlignment="Center" MinHeight="36" />
+                <Panel Grid.Column="2" Margin="8,0,0,0">
+                    <Button Content="Send" Classes="accent" MinWidth="110" MinHeight="36"
+                            Command="{Binding SendCommand}"
+                            IsVisible="{Binding !SendCommand.IsRunning}" />
+                    <Button Content="Cancel" MinWidth="110" MinHeight="36"
+                            Command="{Binding SendCancelCommand}"
+                            IsVisible="{Binding SendCommand.IsRunning}" />
+                </Panel>
+                <v:AddNoteButton Grid.Column="3" Margin="8,0,0,0" />
+            </Grid>
+        </Border>
+
+        <!-- Collection / result actions -->
+        <Border Grid.Row="1" Padding="12,6"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                BorderThickness="0,0,0,1">
+            <StackPanel Orientation="Horizontal" Spacing="6">
+                <Button Content="Open request…"
+                        ToolTip.Tip="{Binding CollectionDirectory, StringFormat='Load a request from {0}'}"
+                        Click="OnOpenQueryClick" />
+                <Button Content="Save request"
+                        ToolTip.Tip="{Binding CollectionDirectory, StringFormat='Saves the method, URL and body to {0}'}"
+                        Command="{Binding SaveQueryCommand}" />
+                <Button Content="Save result"
+                        ToolTip.Tip="Saves the response to the result directory configured in config.yml"
+                        Command="{Binding SaveResultCommand}" />
+            </StackPanel>
+        </Border>
+
+        <!-- Request / response -->
+        <Grid Grid.Row="2" ColumnDefinitions="*,4,*" Margin="12,8,12,12">
+            <Grid Grid.Column="0" RowDefinitions="Auto,*" Margin="0,0,6,0">
+                <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="0,0,0,6" MinHeight="28">
+                    <TextBlock Grid.Column="0" Classes="label" Text="Request (JSON)" />
+                    <Button Grid.Column="1" Content="Format" FontSize="12" Padding="8,2"
+                            Command="{Binding FormatBodyCommand}" />
+                </Grid>
+                <TextBox Grid.Row="1" Classes="code" Text="{Binding Body}"
+                         IsEnabled="{Binding IsBodyEnabled}"
+                         PlaceholderText="Request body (ignored for GET)" />
+            </Grid>
+
+            <GridSplitter Grid.Column="1" ResizeDirection="Columns" Background="Transparent" />
+
+            <Grid Grid.Column="2" RowDefinitions="Auto,*" Margin="6,0,0,0">
+                <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="0,0,0,6" MinHeight="28">
+                    <TextBlock Grid.Column="0" Classes="label" Text="Response" />
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                        <Ellipse Width="8" Height="8" VerticalAlignment="Center"
+                                 Fill="#E81123" IsVisible="{Binding IsResponseError}" />
+                        <Ellipse Width="8" Height="8" VerticalAlignment="Center"
+                                 Fill="#16C60C" IsVisible="{Binding IsResponseSuccess}" />
+                        <TextBlock Text="{Binding ResponseStatus}" FontSize="12" />
+                    </StackPanel>
+                </Grid>
+                <TextBox Grid.Row="1" Classes="code" Text="{Binding Response}" IsReadOnly="True" />
+            </Grid>
+        </Grid>
+
+        <!-- Status bar -->
+        <Border Grid.Row="3" Padding="12,4"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <ProgressBar IsIndeterminate="True" Width="60" Height="4" VerticalAlignment="Center"
+                             IsVisible="{Binding SendCommand.IsRunning}" />
+                <Ellipse Width="8" Height="8" VerticalAlignment="Center"
+                         Fill="#E81123" IsVisible="{Binding IsError}" />
+                <TextBlock Text="{Binding Status}" FontSize="12" VerticalAlignment="Center" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

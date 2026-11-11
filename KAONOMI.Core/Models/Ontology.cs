@@ -19,6 +19,13 @@ namespace KAONOMI.Core.Models
         public string dateCreated { get; set; } = string.Empty;
         public string? name { get; set; }
         public string? EntityType { get; set; }
+        /// <summary>
+        /// The summary of the entity: what it is in one or two sentences. It is what is read first, and what is written
+        /// in the prompt of a dialog that names the entity (the full description when there is no summary).
+        /// </summary>
+        public string? summary { get; set; }
+
+        /// <summary>The full description of the entity: everything worth knowing about it, as long as needed.</summary>
         public string? description { get; set; }
         public string? nodeparentId { get; set; }
         public List<string> nodevirtualeftchildrenId { get; set; }

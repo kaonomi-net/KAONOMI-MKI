@@ -1,0 +1,206 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:KAONOMI.Chat.ViewModels"
+        xmlns:v="using:KAONOMI.Chat.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1400" d:DesignHeight="900"
+        x:Class="KAONOMI.Chat.Views.TokenDashboardView"
+        x:DataType="vm:TokenDashboardViewModel">
+
+    <UserControl.Styles>
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="12" />
+            <Setter Property="Margin" Value="4" />
+        </Style>
+        <Style Selector="TextBlock.cardTitle">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="0,0,0,6" />
+        </Style>
+        <Style Selector="TextBlock.kpi">
+            <Setter Property="FontSize" Value="26" />
+            <Setter Property="FontWeight" Value="Light" />
+        </Style>
+        <Style Selector="TextBlock.meta">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Opacity" Value="0.7" />
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        </Style>
+        <Style Selector="TextBlock.head">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Opacity" Value="0.7" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*" Margin="10">
+
+        <!-- Header: period, refresh, auto-refresh, status -->
+        <Grid ColumnDefinitions="Auto,*,Auto,Auto,Auto,Auto" Margin="4,0,4,6">
+            <TextBlock Text="Tokens dashboard" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Center" />
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" Margin="16,0,0,0" VerticalAlignment="Center">
+                <Ellipse Width="8" Height="8" Fill="#E81123" IsVisible="{Binding IsError}" VerticalAlignment="Center" />
+                <ProgressBar IsIndeterminate="True" Width="60" Height="4" IsVisible="{Binding RefreshCommand.IsRunning}"
+                             VerticalAlignment="Center" />
+                <TextBlock Text="{Binding Status}" FontSize="12" Opacity="0.8" VerticalAlignment="Center"
+                           TextTrimming="CharacterEllipsis" />
+            </StackPanel>
+            <ComboBox Grid.Column="2" ItemsSource="{Binding Periods}" SelectedItem="{Binding Period}" MinWidth="150"
+                      ToolTip.Tip="Period read with GET /tokensusage/last" />
+            <CheckBox Grid.Column="3" Content="Auto-refresh (30 s)" IsChecked="{Binding AutoRefresh}" Margin="12,0,0,0" />
+            <Button Grid.Column="4" Content="Refresh" Classes="accent" MinWidth="90" Margin="8,0,0,0"
+                    Command="{Binding RefreshCommand}" />
+            <v:AddNoteButton Grid.Column="5" Margin="8,0,0,0" />
+        </Grid>
+
+        <!-- Key figures -->
+        <UniformGrid Grid.Row="1" Columns="6">
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="cardTitle" Text="Tokens" />
+                    <TextBlock Classes="kpi" Text="{Binding TotalText}" />
+                    <TextBlock Classes="meta" Text="{Binding TotalDetails}" />
+                </StackPanel>
+            </Border>
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="cardTitle" Text="Prompt tokens" />
+                    <TextBlock Classes="kpi" Text="{Binding PromptText}" Foreground="#2B9BF4" />
+                    <TextBlock Classes="meta" Text="{Binding PromptDetails}" />
+                </StackPanel>
+            </Border>
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="cardTitle" Text="Completion tokens" />
+                    <TextBlock Classes="kpi" Text="{Binding CompletionText}" Foreground="#F28C38" />
+                    <TextBlock Classes="meta" Text="{Binding CompletionDetails}" />
+                </StackPanel>
+            </Border>
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="cardTitle" Text="LLM calls" />
+                    <TextBlock Classes="kpi" Text="{Binding CallsText}" />
+                    <TextBlock Classes="meta" Text="{Binding CallsDetails}" />
+                </StackPanel>
+            </Border>
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="cardTitle" Text="Models" />
+                    <TextBlock Classes="kpi" Text="{Binding ModelsText}" />
+                    <TextBlock Classes="meta" Text="{Binding ModelsDetails}" ToolTip.Tip="{Binding ModelsDetails}" />
+                </StackPanel>
+            </Border>
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="cardTitle" Text="Rate" />
+                    <TextBlock Classes="kpi" Text="{Binding RateText}" />
+                    <TextBlock Classes="meta" Text="{Binding RateDetails}" />
+                </StackPanel>
+            </Border>
+        </UniformGrid>
+
+        <!-- Tokens over time, by model, by application -->
+        <Grid Grid.Row="2" ColumnDefinitions="2*,*,*" Height="270">
+            <Border Classes="card">
+                <Grid RowDefinitions="Auto,*,Auto">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock Classes="cardTitle" Text="{Binding ChartTitle}" />
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10">
+                            <TextBlock Text="■ all tokens" FontSize="11" Foreground="#2B9BF4" />
+                            <TextBlock Text="■ completion" FontSize="11" Foreground="#F28C38" />
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="1" ColumnDefinitions="*,Auto">
+                        <v:UsageChart LineColor="#2B9BF4" SecondaryLineColor="#F28C38"
+                                      Values="{Binding TokensOverTime}" SecondaryValues="{Binding CompletionOverTime}"
+                                      Maximum="{Binding ChartMax}"
+                                      Capacity="{x:Static vm:TokenDashboardViewModel.Buckets}" />
+                        <TextBlock Grid.Column="1" Text="{Binding ChartMaxLabel}" FontSize="10" Opacity="0.8"
+                                   VerticalAlignment="Top" Margin="6,0,0,0" />
+                    </Grid>
+                    <Grid Grid.Row="2" ColumnDefinitions="*,*" Margin="0,4,0,0">
+                        <TextBlock Classes="meta" Text="{Binding ChartStart}" />
+                        <TextBlock Grid.Column="1" Classes="meta" Text="{Binding ChartEnd}" HorizontalAlignment="Right" />
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1" Classes="card">
+                <Grid RowDefinitions="Auto,*">
+                    <TextBlock Classes="cardTitle" Text="By model" />
+                    <ScrollViewer Grid.Row="1">
+                        <ItemsControl ItemsSource="{Binding Models}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:TokenStatViewModel">
+                                    <StackPanel Spacing="2" Margin="0,0,0,8" ToolTip.Tip="{Binding Details}">
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="12" TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Grid.Column="1" Text="{Binding TotalText}" FontSize="12" Margin="6,0,0,0" />
+                                        </Grid>
+                                        <ProgressBar Minimum="0" Maximum="100" Value="{Binding Share}" Height="6" MinHeight="6" />
+                                        <TextBlock Classes="meta" Text="{Binding Details}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="2" Classes="card">
+                <Grid RowDefinitions="Auto,*">
+                    <TextBlock Classes="cardTitle" Text="By application" />
+                    <ScrollViewer Grid.Row="1">
+                        <ItemsControl ItemsSource="{Binding Apps}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:TokenStatViewModel">
+                                    <StackPanel Spacing="2" Margin="0,0,0,6" ToolTip.Tip="{Binding Details}">
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <TextBlock Text="{Binding Name}" FontSize="11" TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Grid.Column="1" Text="{Binding TotalText}" FontSize="11" Margin="6,0,0,0" />
+                                        </Grid>
+                                        <ProgressBar Minimum="0" Maximum="100" Value="{Binding Share}" Height="5" MinHeight="5" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- LLM calls -->
+        <Border Grid.Row="3" Classes="card">
+            <Grid RowDefinitions="Auto,Auto,*">
+                <TextBlock Classes="cardTitle" Text="{Binding CallsTitle}" />
+                <Grid Grid.Row="1" ColumnDefinitions="110,280,*,120,120,120" Margin="10,0,10,4">
+                    <TextBlock Classes="head" Text="Time" />
+                    <TextBlock Grid.Column="1" Classes="head" Text="Model" />
+                    <TextBlock Grid.Column="2" Classes="head" Text="Application" />
+                    <TextBlock Grid.Column="3" Classes="head" Text="Prompt" HorizontalAlignment="Right" />
+                    <TextBlock Grid.Column="4" Classes="head" Text="Completion" HorizontalAlignment="Right" />
+                    <TextBlock Grid.Column="5" Classes="head" Text="Total" HorizontalAlignment="Right" />
+                </Grid>
+                <TextBlock Grid.Row="2" Text="No LLM call in this period" Opacity="0.6" HorizontalAlignment="Center"
+                           VerticalAlignment="Center" IsVisible="{Binding !HasCalls}" />
+                <ListBox Grid.Row="2" ItemsSource="{Binding Calls}" Background="Transparent">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="vm:TokenCallViewModel">
+                            <Grid ColumnDefinitions="110,280,*,120,120,120">
+                                <TextBlock Text="{Binding Date}" FontSize="12" FontFamily="Cascadia Mono, Consolas, Menlo, Courier New, monospace" />
+                                <TextBlock Grid.Column="1" Text="{Binding Model}" FontSize="12" TextTrimming="CharacterEllipsis" />
+                                <TextBlock Grid.Column="2" Text="{Binding App}" FontSize="12" TextTrimming="CharacterEllipsis" />
+                                <TextBlock Grid.Column="3" Text="{Binding Prompt}" FontSize="12" HorizontalAlignment="Right" Foreground="#2B9BF4" />
+                                <TextBlock Grid.Column="4" Text="{Binding Completion}" FontSize="12" HorizontalAlignment="Right" Foreground="#F28C38" />
+                                <TextBlock Grid.Column="5" Text="{Binding Total}" FontSize="12" FontWeight="SemiBold" HorizontalAlignment="Right" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

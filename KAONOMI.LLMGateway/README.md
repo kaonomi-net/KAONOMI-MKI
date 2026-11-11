@@ -9,6 +9,12 @@ changing its address only.
 cd KAONOMI.LLMGateway && dotnet run          # http://localhost:11435 → http://localhost:11434
 ```
 
+In front of LM Studio: `dotnet run -- --upstream http://localhost:1234 --provider lmstudio` (or `upstream` and
+`upstreamProvider` in `config/llmgateway.json`). LM Studio speaks the API of OpenAI only: the gateway then reads its
+models from `/v1/models`, embeds with `/v1/embeddings` (`cache.embeddingModel` is an identifier of LM Studio, e.g.
+`text-embedding-nomic-embed-text-v1.5`), answers `/v1/chat/completions`, and refuses `/api/chat` and `/api/generate`
+with a 400 (its clients are set to `llmProvider` `lmstudio`).
+
 Then point the server and the agents to it: `"ollamaUrl": "http://localhost:11435"` in their `config.json`. The chat
 drives it with `/gateway` (and starts it from `/process`).
 
@@ -26,6 +32,7 @@ The entities of the last prompt of the user are read with rules, without a model
 | `PERSON`, `PROPER_NOUN`, `HASHTAG`, `MENTION` | names |
 | `LANGUAGE` | `fr` or `en` |
 | `IMAGE` | a picture in the request |
+| `COMPLEX` | a long sentence (18 words or more) with a condition or a reason (`si`, `sinon`, `donc`, `parce que`, `if`, `because`…) and one more link (`et`, `ou`, `mais`, `and`, `or`…) |
 | any | the names of the `gazetteers` of the settings (`ORG`, `PRODUCT`…) |
 
 A rule names entities by type (`CODE`) or by type and value (`LANGUAGE:fr`, `CODE:python`). It matches when the
@@ -81,6 +88,7 @@ phrase imported with three answers is answered by the cache at once.
 | `GET`, `PUT /gateway/rules` | the rules |
 | `GET /gateway/cache?take=&search=`, `DELETE /gateway/cache[/{id}]` | the cached answers |
 | `GET /gateway/cache/phrases?search=`, `GET /gateway/cache/export?search=`, `POST /gateway/cache/import` | the phrases and their answers |
+| `POST /gateway/feedback/dislike` `{prompt, answer, model}` | a disliked answer (the 👎 of the chat): it leaves the cache; when the default model gave it, `escalationModel` in the answer names the model to ask again (`routing.escalationModel`) |
 | `GET /gateway/log?take=` | the last requests: model asked and chosen, rule, entities, cache |
 | `POST /gateway/analyze` `{prompt, model}` | what the gateway would do, without asking a model |
 | `GET /gateway/models`, `GET /gateway/entity-types`, `POST /gateway/reset` | |

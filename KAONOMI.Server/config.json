@@ -4,7 +4,7 @@
   "language": "EN",
   "category": "SERVER",
   "appDescription": "Rest Server",
-  "llmmodel": "gpt-oss:20b",
+  "llmmodel": "lfm3-omni-2b",
   "AppDocumentationUrl": "https://www.kaonomi.net",
   "consoleTheme": "matrix",
 
@@ -31,6 +31,7 @@
   },
   "latencyMs": 1,
   "ollamaUrl": "http://localhost:11435",
+  "llmProvider": "lmstudio",
   "fooocusUrl": "http://127.0.0.1:8888"
 
 

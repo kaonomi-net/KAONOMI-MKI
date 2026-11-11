@@ -94,6 +94,51 @@ The agent of the entities of the dialog sequence (`DialogEntityVAgent`) runs the
 and keeps the entities with the dialog (`Dialog.Entities`). The model and the ontology are loaded in the background
 when the server starts.
 
+**From the entities to the model.** The same agent then collects what Kaonomi knows about these entities
+(`Dialog.Knowledge`, code in `Knowledge/EntityKnowledge.cs`), and the processor (`DialogProcessorVAgent`) uses it:
+
+1. **NER**: the entities of the prompt (`DialogEntityVAgent`).
+2. **Ontology**: each entity the ontology knows is read there; its type, synonyms, summary (`summary`), full
+   `description` and dates become an item of knowledge when it has one of them. Each entity it lists as related
+   (`relatedEntities`, by name, synonym or id) and that the prompt does not name gives its summary only, once (the description the seed writes, « Cité par 3 intels : … »,
+   is not one). An entity classified SECRET or above is never written in a prompt.
+3. **Intels of the entities**: the intels are matched (weights, trigger level, excluded entities, as in the
+   pre-processing) against the prompt read with the names and the synonyms the ontology gives to its entities; an
+   intel that matches gives its instructions, places, times, related entities and questions.
+4. **Compression** (`Knowledge/PromptCompressor.cs`, rules only, no model): the knowledge is written at the end of the
+   system prompt (repeated sentences left out, each item cut to its share, at most `promptKnowledgeMaxChars`
+   characters, 3000 by default); the previous exchanges the chat writes before the question are shortened, then the
+   oldest dropped, until the whole fits `promptMaxChars` (12000 by default). The question itself is never changed.
+5. **LLM gateway**: the processor asks the model at `ollamaUrl` (the gateway when it points to it: semantic cache and
+   router). The knowledge is in the system prompt, so the gateway counts it as context and still compares the question
+   alone with its cache.
+
+**The context of a conversation.** A request may name its conversation (`sessionId`; the chat gives one per
+conversation, a new one at each start and each new conversation; a batch sends none). The server then keeps the context
+of that conversation (`DialogContext`, index `dialogcontext`, its id the id of the session; `GET
+/dialogcontext/{sessionId}` reads it):
+
+- after the answer, `DialogContextUpdateVAgent` adds the exchange (the question without the name it is addressed to,
+  the answer, and their entities, found by the NER on both);
+- before the next question, `DialogProcessorVAgent` writes this context in the place of the exchanges the chat wrote in
+  the prompt, the older an exchange the more compressed (`Knowledge/ContextManager.cs`, by rules, no model):
+
+| Level | Exchanges (config.json) | Question / answer kept |
+|---|---|---|
+| recent | the last `contextRecentTurns` (2) | as they were said |
+| short | the `contextShortTurns` before (4) | 300 / 600 characters |
+| brief | the `contextBriefTurns` before (8) | 160 / 220 characters |
+| digest | the older ones (60 at most) | 100 / 120 characters, cut for good: the original texts are dropped |
+
+An entity **comes back** when it is in two exchanges or more (the question being asked counts as one). At every level,
+the sentences that name such an entity are kept beyond the limit, up to as many characters again: what the conversation
+keeps talking about stays, the rest fades. Above `contextMaxChars` (6000), the oldest exchanges are left out. A question
+asked again right away (its answer was disliked) replaces its exchange. A request without `sessionId` is answered as
+before, with the exchanges its prompt holds.
+
+The dialog keeps what was sent (`PromptSentSystemText`, `PromptSentUserText`) and what the compression did
+(`PromptCompression`: characters before and after, items of knowledge, previous messages kept); each step is logged.
+
 **The model** is not in git. It is in `~/kaonomi/models/ner/xlm-roberta-large-finetuned-conll03-english-int8`
 (`nerModelFolder` in config.json to put it elsewhere; without it, the former `xlm-roberta-base-ner-hrl-int8` is taken
 when the large one is missing). To make it again, with Python 3.10 or later:

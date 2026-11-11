@@ -153,7 +153,7 @@ internal static class TextMenu
         if (_ollama is null)
         {
             var settings = ChatSettings.Load();
-            _ollama = new OllamaModelService(settings.OllamaUrl);
+            _ollama = new OllamaModelService(settings.OllamaUrl, settings.LlmProvider);
             if (!string.IsNullOrWhiteSpace(settings.VisionModel))
                 _visionModel = settings.VisionModel.Trim();
         }

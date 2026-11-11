@@ -65,30 +65,16 @@ public sealed class KaonomiAssistantService
     public async Task<AssistantResponse> SendAsync(
         string model,
         IReadOnlyList<AssistantMessage> messages,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        string? sessionId = null)
     {
-        var request = new AssistantRequest { Model = model, Messages = messages, Stream = false };
+        var request = new AssistantRequest { Model = model, Messages = messages, Stream = false, SessionId = sessionId };
 
         using var response = await _httpClient.PostJsonAsync("aiassistant", request, cancellationToken);
         await EnsureSuccessAsync(response, cancellationToken);
 
         return await response.Content.ReadJsonAsync<AssistantResponse>(cancellationToken)
                ?? throw new HttpRequestException("The Kaonomi server returned an empty response.");
-    }
-
-    /// <summary>Searches cached dialogs via <c>POST /cache/search</c>.</summary>
-    public async Task<IReadOnlyList<CacheEntry>> SearchCacheAsync(
-        string term,
-        int size,
-        bool fuzzy = false,
-        CancellationToken cancellationToken = default)
-    {
-        var request = new CacheSearchRequest { Term = term, Size = size, Fuzzy = fuzzy };
-
-        using var response = await _httpClient.PostJsonAsync("cache/search", request, cancellationToken);
-        await EnsureSuccessAsync(response, cancellationToken);
-
-        return await response.Content.ReadJsonAsync<List<CacheEntry>>(cancellationToken) ?? [];
     }
 
     /// <summary>
@@ -623,22 +609,50 @@ public sealed class KaonomiAssistantService
                ?? throw new HttpRequestException("The Kaonomi server returned an empty response.");
     }
 
-    /// <summary>Updates an existing cache document via <c>POST /cache/update</c>.</summary>
-    public async Task<ServiceReturn> UpdateCacheAsync(CacheEntry entry, CancellationToken cancellationToken = default)
+    /// <summary>Searches the cache builders via <c>POST /cachebuilder/search</c> (title, prompts, completions, model, comment, tags; "*": the newest ones).</summary>
+    public async Task<IReadOnlyList<CacheBuilderEntry>> SearchCacheBuildersAsync(string term, int size, CancellationToken cancellationToken = default)
     {
-        using var response = await _httpClient.PostJsonAsync("cache/update", entry, cancellationToken);
+        using var response = await _httpClient.PostJsonAsync("cachebuilder/search", new CacheSearchRequest { Term = term, Size = size }, cancellationToken);
         await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<List<CacheBuilderEntry>>(cancellationToken) ?? [];
+    }
 
+    /// <summary>Loads a cache builder via <c>GET /cachebuilder/{id}</c>; null when the server returns nothing.</summary>
+    public async Task<CacheBuilderEntry?> GetCacheBuilderAsync(string id, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.GetAsync($"cachebuilder/{Uri.EscapeDataString(id)}", cancellationToken);
+        if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            return null;
+        await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<CacheBuilderEntry>(cancellationToken);
+    }
+
+    /// <summary>Creates a cache builder via <c>PUT /cachebuilder</c>.</summary>
+    public async Task<ServiceReturn> CreateCacheBuilderAsync(CacheBuilderEntry entry, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.PutJsonAsync("cachebuilder", entry, cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
         return await response.Content.ReadJsonAsync<ServiceReturn>(cancellationToken)
                ?? throw new HttpRequestException("The Kaonomi server returned an empty response.");
     }
 
-    /// <summary>Creates a cache document via <c>PUT /cache</c>.</summary>
-    public async Task<ServiceReturn> CreateCacheAsync(CacheEntry entry, CancellationToken cancellationToken = default)
+    /// <summary>Updates a cache builder via <c>POST /cachebuilder/update</c>.</summary>
+    public async Task<ServiceReturn> UpdateCacheBuilderAsync(CacheBuilderEntry entry, CancellationToken cancellationToken = default)
     {
-        using var response = await _httpClient.PutJsonAsync("cache", entry, cancellationToken);
+        using var response = await _httpClient.PostJsonAsync("cachebuilder/update", entry, cancellationToken);
         await EnsureSuccessAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<ServiceReturn>(cancellationToken)
+               ?? throw new HttpRequestException("The Kaonomi server returned an empty response.");
+    }
 
+    /// <summary>
+    /// Publishes a saved cache builder via <c>POST /cachebuilder/{id}/publish</c>: every prompt and completion pair
+    /// becomes a document of the index <c>cache</c>.
+    /// </summary>
+    public async Task<ServiceReturn> PublishCacheBuilderAsync(string id, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.PostAsync($"cachebuilder/{Uri.EscapeDataString(id)}/publish", null, cancellationToken);
+        await EnsureSuccessAsync(response, cancellationToken);
         return await response.Content.ReadJsonAsync<ServiceReturn>(cancellationToken)
                ?? throw new HttpRequestException("The Kaonomi server returned an empty response.");
     }

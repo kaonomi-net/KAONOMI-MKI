@@ -9,7 +9,8 @@ namespace KAONOMI.LLMGateway.Entities;
 /// of code, stack traces) and the languages of programming, formulas, URLs, e-mails, IP addresses, dates and times,
 /// amounts, percentages, phone numbers, numbers, file names, hashtags and mentions, people (a title before a title),
 /// proper nouns, the names of the gazetteers of the settings (ORG, PRODUCT… any type), and the language of the prompt
-/// (fr or en). An entity covers its text: a number inside a date or an amount is not a number again.
+/// (fr or en), and whether it holds a long and complex sentence (COMPLEX: many words with "si", "et", "if", "and"…).
+/// An entity covers its text: a number inside a date or an amount is not a number again.
 /// </summary>
 public sealed partial class EntityExtractor
 {
@@ -94,6 +95,8 @@ public sealed partial class EntityExtractor
             Add(found, covered, EntityTypes.Number, m.Value.Replace(" ", "").Replace(',', '.'), m.Value, m.Index, m.Length);
 
         found.Sort((a, b) => a.Start.CompareTo(b.Start));
+        if (ComplexSentence(text) is { } complex)
+            found.Add(new Entity(EntityTypes.Complex, "long", complex, 0, 0));
         if (DetectLanguage(text) is { } spoken)
             found.Add(new Entity(EntityTypes.Language, spoken, spoken, 0, 0));
         return found;
@@ -213,6 +216,30 @@ public sealed partial class EntityExtractor
         "my", "your", "me", "please", "about", "from", "not", "have", "has", "will"
     };
 
+    /// <summary>The words a sentence must have to be a long one.</summary>
+    public const int ComplexMinWords = 18;
+
+    /// <summary>
+    /// The first long and complex sentence of the prompt (outside its code), null when it has none: at least
+    /// <see cref="ComplexMinWords"/> words, with a condition or a reason ("si", "sinon", "donc", "parce que", "if",
+    /// "because"…) and one more link, of that kind or a coordination ("et", "ou", "mais", "and", "or", "but").
+    /// "Bonjour, comment vas-tu et que fais-tu ?" is not one; a long list joined by "et" alone is not one either.
+    /// </summary>
+    public static string? ComplexSentence(string text)
+    {
+        var prose = FencedCode().Replace(text, " ");
+        foreach (var part in SentenceEnd().Split(prose))
+        {
+            var sentence = part.Trim();
+            if (sentence.Length == 0 || Word().Matches(sentence).Count < ComplexMinWords)
+                continue;
+            var conditions = Condition().Matches(sentence).Count;
+            if (conditions >= 1 && conditions + Coordination().Matches(sentence).Count >= 2)
+                return sentence;
+        }
+        return null;
+    }
+
     /// <summary>fr or en, from the small words of the prompt (outside its code); null when it cannot tell.</summary>
     public static string? DetectLanguage(string text)
     {
@@ -304,4 +331,13 @@ public sealed partial class EntityExtractor
 
     [GeneratedRegex(@"\p{L}+")]
     private static partial Regex Word();
+
+    [GeneratedRegex(@"(?<=[.!?…])\s+|\n+")]
+    private static partial Regex SentenceEnd();
+
+    [GeneratedRegex(@"(?<![\p{L}\p{N}_])(?:si|s['’]ils?|sinon|lorsque|lorsqu|quand|parce\s+qu|puisqu|puisque|car|donc|alors|bien\s+qu|tandis\s+qu|à\s+condition|pourvu\s+qu|sauf\s+si|if|unless|otherwise|when|whenever|because|since|then|therefore|although|though|whereas|while|provided\s+that)(?![\p{L}\p{N}_])", RegexOptions.IgnoreCase)]
+    private static partial Regex Condition();
+
+    [GeneratedRegex(@"(?<![\p{L}\p{N}_])(?:et|ou|mais|ni|and|or|but|nor)(?![\p{L}\p{N}_])", RegexOptions.IgnoreCase)]
+    private static partial Regex Coordination();
 }

@@ -15,7 +15,7 @@ namespace KAONOMI.ChatGodot.Tools.Knowledge;
 /// every node of the ontology (Enter searches, Esc clears; a hit opens in the editor and is selected in the tree); on
 /// the right the editor of the node: its name, path, id, parent, virtual parents and dates, its status, Clone, Add
 /// child, Discard changes and Save (Ctrl+S / ⌘S); every field: name with Auto (fills it with the model of the chat) and
-/// Cancel, entity type, symbol, confidentiality (with the minimum given by the parent), ontology class, description,
+/// Cancel, entity type, symbol, confidentiality (with the minimum given by the parent), ontology class, summary, full description,
 /// example sentences, comment, synonyms, tags, related entities and links, the six emotion levels, application, user,
 /// machine.
 /// </summary>
@@ -191,7 +191,8 @@ public sealed class EntityView : IToolView
             Pair(Ui.Field("Confidentiality (lowest to highest)", confidentiality),
                 Ui.Margin(Ui.Check("Ontology class", node, nameof(node.IsOntologyClass), "Checked: an ontology class · unchecked: an instance"), 0, 18, 0, 0)),
             Bind.Visible(Ui.Label(node, nameof(node.MinimumConfidentialityLabel), Eve.Eve.Muted, 11, wrap: true), node, nameof(node.HasMinimumConfidentiality)),
-            Ui.Field("Description", Ui.Lines(node, nameof(node.Description), 90)),
+            Ui.Field("Summary", Ui.Lines(node, nameof(node.Summary), 52, "What it is, in one or two sentences")),
+            Ui.Field("Full description", Ui.Lines(node, nameof(node.Description), 130, "Everything worth knowing about it")),
             Ui.Field("Example sentences (one per line)", Ui.Lines(node, nameof(node.SentencesExemples), 110)),
             Ui.Field("Comment", Ui.Lines(node, nameof(node.Comment), 60)));
 

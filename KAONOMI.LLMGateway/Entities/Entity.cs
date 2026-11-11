@@ -32,16 +32,18 @@ public static class EntityTypes
     public const string ProperNoun = "PROPER_NOUN";
     public const string Language = "LANGUAGE";
     public const string Image = "IMAGE";
+    /// <summary>A long sentence held together by "si", "et", "if", "and"… (its value is "long").</summary>
+    public const string Complex = "COMPLEX";
 
     public static readonly IReadOnlyList<string> Builtin =
     [
         Code, ProgrammingLanguage, Math, Url, Email, Ip, Date, Time, Money, Percent, Phone, Number, File, Hashtag, Mention,
-        Person, ProperNoun, Language, Image
+        Person, ProperNoun, Language, Image, Complex
     ];
 
     /// <summary>
     /// The types whose values must be the same in two prompts for a cached answer to be given back (the entity guard):
     /// "the capital of France" is not "the capital of Spain", 2 + 2 is not 2 + 3.
     /// </summary>
-    public static bool Guarded(string type) => type is not (Language or Image or ProgrammingLanguage);
+    public static bool Guarded(string type) => type is not (Language or Image or ProgrammingLanguage or Complex);
 }

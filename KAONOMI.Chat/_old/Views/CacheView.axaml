@@ -1,0 +1,198 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:KAONOMI.Chat.ViewModels"
+        xmlns:v="using:KAONOMI.Chat.Views"
+        xmlns:md="clr-namespace:LiveMarkdown.Avalonia;assembly=LiveMarkdown.Avalonia"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="650"
+        x:Class="KAONOMI.Chat.Views.CacheView"
+        x:DataType="vm:CacheWindowViewModel">
+
+    <Design.DataContext>
+        <vm:CacheWindowViewModel />
+    </Design.DataContext>
+
+    <UserControl.Styles>
+        <Style Selector="TextBlock.label">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Opacity" Value="0.75" />
+            <Setter Property="Margin" Value="0,12,0,4" />
+        </Style>
+        <Style Selector="TextBlock.meta">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Opacity" Value="0.6" />
+        </Style>
+        <Style Selector="Border.deleted">
+            <Setter Property="Background" Value="#33E81123" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Padding" Value="6,1" />
+        </Style>
+        <Style Selector="Border.new">
+            <Setter Property="Background" Value="#3316C60C" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Padding" Value="6,1" />
+        </Style>
+        <Style Selector="Border.dirty">
+            <Setter Property="Background" Value="#33FFB900" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Padding" Value="6,1" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Search bar -->
+        <Border Grid.Row="0" Padding="12,10"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <Grid ColumnDefinitions="*,Auto,Auto,Auto">
+                <TextBox x:Name="SearchBox" Grid.Column="0"
+                         Text="{Binding Term}"
+                         PlaceholderText="Search the cache…"
+                         VerticalContentAlignment="Center" MinHeight="36" />
+                <Button Grid.Column="1" Content="Search" Classes="accent"
+                        MinWidth="110" MinHeight="36" Margin="8,0,0,0"
+                        Command="{Binding SearchCommand}" />
+                <Button Grid.Column="2" Content="New" MinWidth="100" MinHeight="36" Margin="8,0,0,0"
+                        ToolTip.Tip="Create a new cache document"
+                        Command="{Binding NewCommand}" />
+                <v:AddNoteButton Grid.Column="3" Margin="8,0,0,0" />
+            </Grid>
+        </Border>
+
+        <!-- Results -->
+        <Grid Grid.Row="1" ColumnDefinitions="340,4,*">
+            <Panel Grid.Column="0">
+                <ListBox ItemsSource="{Binding Results}"
+                         SelectedItem="{Binding SelectedResult}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="vm:CacheEntryViewModel">
+                            <StackPanel Spacing="2" Margin="0,4">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <TextBlock Classes="meta" Text="{Binding Summary}" />
+                                    <Border Classes="deleted" IsVisible="{Binding IsDeleted}">
+                                        <TextBlock Classes="meta" Text="deleted" />
+                                    </Border>
+                                    <Border Classes="new" IsVisible="{Binding IsNew}">
+                                        <TextBlock Classes="meta" Text="new" />
+                                    </Border>
+                                    <Border Classes="dirty" IsVisible="{Binding IsDirty}">
+                                        <TextBlock Classes="meta" Text="modified" />
+                                    </Border>
+                                </StackPanel>
+                                <TextBlock Text="{Binding Prompt}" FontWeight="SemiBold"
+                                           TextWrapping="Wrap" MaxLines="2" TextTrimming="CharacterEllipsis" />
+                                <TextBlock Classes="meta" Text="{Binding Comment}" IsVisible="{Binding HasComment}"
+                                           TextTrimming="CharacterEllipsis" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <TextBlock Text="No results" Opacity="0.6"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           IsVisible="{Binding !HasResults}" IsHitTestVisible="False" />
+            </Panel>
+
+            <GridSplitter Grid.Column="1" ResizeDirection="Columns"
+                          Background="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+
+            <Grid Grid.Column="2" RowDefinitions="Auto,*"
+                  IsVisible="{Binding SelectedResult, Converter={x:Static ObjectConverters.IsNotNull}}">
+
+                <!-- Edit toolbar -->
+                <Border Grid.Row="0" Padding="16,8" DataContext="{Binding SelectedResult}"
+                        x:DataType="vm:CacheEntryViewModel"
+                        BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                        BorderThickness="0,0,0,1">
+                    <Grid ColumnDefinitions="*,Auto,Auto,Auto,Auto">
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <SelectableTextBlock Text="{Binding IdLabel}" FontSize="12" />
+                            <TextBlock Classes="meta" Text="{Binding DateLabel}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6"
+                                    VerticalAlignment="Center" Margin="0,0,12,0">
+                            <Ellipse Width="8" Height="8" VerticalAlignment="Center"
+                                     Fill="#E81123" IsVisible="{Binding IsError}" />
+                            <TextBlock Text="{Binding Status}" FontSize="12" MaxWidth="280"
+                                       TextTrimming="CharacterEllipsis" VerticalAlignment="Center"
+                                       ToolTip.Tip="{Binding Status}" />
+                        </StackPanel>
+                        <Button Grid.Column="2" Content="Clone" Margin="0,0,6,0"
+                                ToolTip.Tip="Create a copy of this document (new id on save)"
+                                Command="{Binding $parent[v:CacheView].((vm:CacheWindowViewModel)DataContext).CloneCommand}" />
+                        <Button Grid.Column="3" Content="Discard changes" Margin="0,0,6,0"
+                                Command="{Binding RevertCommand}" />
+                        <Button Grid.Column="4" Content="Save" Classes="accent" MinWidth="110"
+                                Command="{Binding SaveCommand}" />
+                    </Grid>
+                </Border>
+
+                <!-- Editable document -->
+                <ScrollViewer Grid.Row="1" Padding="16,0,16,16">
+                    <StackPanel DataContext="{Binding SelectedResult}" x:DataType="vm:CacheEntryViewModel">
+                        <Grid ColumnDefinitions="*,12,*" RowDefinitions="Auto,Auto,Auto,Auto">
+                            <TextBlock Grid.Row="0" Grid.Column="0" Classes="label" Text="Application" />
+                            <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding AppName}" />
+                            <TextBlock Grid.Row="0" Grid.Column="2" Classes="label" Text="Model" />
+                            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Model}" />
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Classes="label" Text="User" />
+                            <TextBox Grid.Row="3" Grid.Column="0" Text="{Binding UserName}" />
+                            <TextBlock Grid.Row="2" Grid.Column="2" Classes="label" Text="Machine" />
+                            <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding MachineName}" />
+                        </Grid>
+
+                        <TextBlock Classes="label" Text="Comment" />
+                        <TextBox Text="{Binding Comment}" AcceptsReturn="True" TextWrapping="Wrap" />
+
+                        <Grid ColumnDefinitions="*,12,*" RowDefinitions="Auto,Auto">
+                            <TextBlock Grid.Row="0" Grid.Column="0" Classes="label"
+                                       Text="Related entities (one per line)" />
+                            <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding RelatedEntities}"
+                                     AcceptsReturn="True" MinHeight="60" MaxHeight="140" />
+                            <TextBlock Grid.Row="0" Grid.Column="2" Classes="label"
+                                       Text="Excluded entities (one per line)" />
+                            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding ExcludedEntities}"
+                                     AcceptsReturn="True" MinHeight="60" MaxHeight="140" />
+                        </Grid>
+
+                        <CheckBox Content="Deleted" IsChecked="{Binding IsDeleted}" Margin="0,10,0,0" />
+
+                        <TextBlock Classes="label" Text="Prompt" />
+                        <TextBox Text="{Binding Prompt}" AcceptsReturn="True" TextWrapping="Wrap"
+                                 MinHeight="80" MaxHeight="260" />
+
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBlock Grid.Column="0" Classes="label" Text="Completion" />
+                            <ToggleButton x:Name="PreviewToggle" Grid.Column="1" Content="Markdown preview"
+                                          FontSize="12" Padding="8,2" Margin="0,8,0,4" />
+                        </Grid>
+                        <TextBox Text="{Binding Completion}" AcceptsReturn="True" TextWrapping="Wrap"
+                                 MinHeight="160" MaxHeight="420"
+                                 IsVisible="{Binding !#PreviewToggle.IsChecked}" />
+                        <Border Padding="8" CornerRadius="4" IsVisible="{Binding #PreviewToggle.IsChecked}"
+                                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                                BorderThickness="1">
+                            <md:MarkdownRenderer
+                                MarkdownBuilder="{Binding Completion, Converter={x:Static md:ValueConverters.ToObservableStringBuilder}}" />
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+
+        <!-- Status bar -->
+        <Border Grid.Row="2" Padding="12,4"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <ProgressBar IsIndeterminate="True" Width="60" Height="4" VerticalAlignment="Center"
+                             IsVisible="{Binding SearchCommand.IsRunning}" />
+                <Ellipse Width="8" Height="8" VerticalAlignment="Center"
+                         Fill="#E81123" IsVisible="{Binding IsError}" />
+                <TextBlock Text="{Binding Status}" FontSize="12" VerticalAlignment="Center" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

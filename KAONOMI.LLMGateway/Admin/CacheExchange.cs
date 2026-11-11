@@ -49,7 +49,7 @@ public sealed class CacheExchange
         foreach (var phrase in document.Phrases)
         {
             index++;
-            var prompt = phrase.Prompt?.Trim() ?? "";
+            var prompt = CacheQuestion.Of(phrase.Prompt).Question;
             var answers = (phrase.Answers ?? []).Where(a => !string.IsNullOrWhiteSpace(a)).Distinct().ToList();
             if (prompt.Length == 0 || answers.Count == 0)
             {

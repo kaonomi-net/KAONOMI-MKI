@@ -32,6 +32,7 @@ Shared class library for the Kaonomi platform: domain models, Elasticsearch pers
 Projects that reference Core typically load a `config.json` with:
 
 - `ollamaUrl`
+- `llmProvider` (`ollama`, or `lmstudio` when `ollamaUrl` is the address of LM Studio)
 - `llmmodel`
 - `dataRepository` / `dialogRepository` / `adminRepository` (Elasticsearch URL, user, password, prefix)
 

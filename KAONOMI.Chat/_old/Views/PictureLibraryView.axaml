@@ -1,0 +1,297 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:KAONOMI.Chat.ViewModels"
+             xmlns:v="using:KAONOMI.Chat.Views"
+             xmlns:s="using:KAONOMI.Chat.Services"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1400" d:DesignHeight="900"
+             x:Class="KAONOMI.Chat.Views.PictureLibraryView"
+             x:DataType="vm:PictureLibraryViewModel">
+
+    <Design.DataContext>
+        <vm:PictureLibraryViewModel />
+    </Design.DataContext>
+
+    <UserControl.Styles>
+        <Style Selector="TextBlock.meta">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Opacity" Value="0.65" />
+        </Style>
+        <Style Selector="TextBlock.label">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Opacity" Value="0.6" />
+            <Setter Property="Margin" Value="0,10,0,2" />
+        </Style>
+        <!-- Path: flat buttons separated by › -->
+        <Style Selector="Button.crumb">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="4,2" />
+            <Setter Property="FontSize" Value="13" />
+        </Style>
+        <!-- Folder tiles -->
+        <Style Selector="Button.folder">
+            <Setter Property="Width" Value="170" />
+            <Setter Property="Height" Value="44" />
+            <Setter Property="Margin" Value="0,0,8,8" />
+            <Setter Property="Padding" Value="10,0" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <!-- Picture tiles: no padding, rounded, highlighted when selected -->
+        <Style Selector="ListBox#PictureGrid">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="ListBox#PictureGrid > ListBoxItem">
+            <Setter Property="Padding" Value="4" />
+            <Setter Property="Margin" Value="0,0,6,6" />
+            <Setter Property="CornerRadius" Value="10" />
+        </Style>
+        <!-- Metadata over the preview -->
+        <Style Selector="Border.metaPanel">
+            <Setter Property="Background" Value="#E6121418" />
+            <Setter Property="Margin" Value="6" />
+            <Setter Property="CornerRadius" Value="8" />
+        </Style>
+        <Style Selector="Border.metaBadge">
+            <Setter Property="Background" Value="#99000000" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Padding" Value="8,3" />
+        </Style>
+        <Style Selector="Border.thumb">
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="ClipToBounds" Value="True" />
+            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundBaseLowBrush}" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Header: path, search, sort, zoom, refresh, folder -->
+        <Border Grid.Row="0" Padding="12,8"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
+                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                    <TextBlock Text="Pictures" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center" />
+                    <Button Content="↑" Padding="10,2" Command="{Binding UpCommand}" ToolTip.Tip="Parent folder" />
+                    <ItemsControl ItemsSource="{Binding Breadcrumbs}" VerticalAlignment="Center">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="s:PictureFolder">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="›" Opacity="0.5" VerticalAlignment="Center" Margin="2,0" />
+                                    <Button Classes="crumb" Content="{Binding Name}"
+                                            Command="{Binding $parent[v:PictureLibraryView].((vm:PictureLibraryViewModel)DataContext).OpenFolderCommand}"
+                                            CommandParameter="{Binding}" ToolTip.Tip="{Binding Path}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                    <Button Content="Open folder" Command="{Binding OpenFolderInSystemCommand}"
+                            ToolTip.Tip="Open this folder in the Finder / Explorer" />
+                    <Button Content="⟳" Padding="10,4" Command="{Binding RefreshCommand}" ToolTip.Tip="Read the folder again (F5)" />
+                    <v:AddNoteButton />
+                </StackPanel>
+
+                <Grid Grid.Row="1" Grid.ColumnSpan="2" ColumnDefinitions="*,Auto,Auto,Auto,180" Margin="0,8,0,0">
+                    <TextBox x:Name="SearchBox" Grid.Column="0" Text="{Binding SearchText}"
+                             PlaceholderText="Filter the pictures of this folder by name…" />
+                    <TextBlock Grid.Column="1" Text="Sort" VerticalAlignment="Center" Margin="12,0,6,0" />
+                    <ComboBox Grid.Column="2" ItemsSource="{Binding SortModes}" SelectedItem="{Binding SortMode}" MinWidth="140" />
+                    <TextBlock Grid.Column="3" Text="Size" VerticalAlignment="Center" Margin="12,0,6,0" />
+                    <Slider Grid.Column="4" Minimum="90" Maximum="320" Value="{Binding ThumbnailSize}" VerticalAlignment="Center"
+                            ToolTip.Tip="Size of the thumbnails" />
+                </Grid>
+            </Grid>
+        </Border>
+
+        <!-- Body: folders and thumbnails on the left, the selected picture on the right -->
+        <Grid Grid.Row="1" ColumnDefinitions="*,4,380">
+            <Grid Grid.Column="0" RowDefinitions="Auto,*,Auto" Margin="12,10,6,6">
+                <ScrollViewer Grid.Row="0" MaxHeight="160" IsVisible="{Binding HasFolders}">
+                    <ItemsControl ItemsSource="{Binding Folders}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="s:PictureFolder">
+                                <Button Classes="folder" ToolTip.Tip="{Binding Path}"
+                                        Command="{Binding $parent[v:PictureLibraryView].((vm:PictureLibraryViewModel)DataContext).OpenFolderCommand}"
+                                        CommandParameter="{Binding}">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <PathIcon Data="{StaticResource Icon.FolderOpen}" Width="16" Height="16" />
+                                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" MaxWidth="120"
+                                                   TextTrimming="CharacterEllipsis" />
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <Panel Grid.Row="1">
+                    <ListBox x:Name="PictureGrid" ItemsSource="{Binding Pictures}" SelectedItem="{Binding SelectedPicture}"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="vm:PictureItemViewModel">
+                                <StackPanel Width="{Binding $parent[v:PictureLibraryView].((vm:PictureLibraryViewModel)DataContext).ThumbnailSize}"
+                                            Spacing="4" ToolTip.Tip="{Binding Name}">
+                                    <Border Classes="thumb"
+                                            Height="{Binding $parent[v:PictureLibraryView].((vm:PictureLibraryViewModel)DataContext).ThumbnailSize}">
+                                        <Panel>
+                                            <Image Source="{Binding Thumbnail}" Stretch="UniformToFill" />
+                                            <TextBlock Text="{Binding Format}" FontWeight="Bold" Opacity="0.5"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                       IsVisible="{Binding !HasThumbnail}" />
+                                            <ProgressBar IsIndeterminate="True" Width="40" Height="3" VerticalAlignment="Bottom"
+                                                         Margin="0,0,0,8" IsVisible="{Binding IsLoading}" />
+                                        </Panel>
+                                    </Border>
+                                    <TextBlock Text="{Binding Name}" FontSize="11" TextTrimming="CharacterEllipsis" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <TextBlock Text="No picture here" Opacity="0.5" HorizontalAlignment="Center" VerticalAlignment="Center"
+                               IsVisible="{Binding IsEmpty}" IsHitTestVisible="False" />
+                </Panel>
+
+                <Button Grid.Row="2" Content="{Binding MoreLabel}" HorizontalAlignment="Center" Margin="0,6,0,0"
+                        IsVisible="{Binding HasMore}" Command="{Binding ShowMoreCommand}" />
+            </Grid>
+
+            <GridSplitter Grid.Column="1" ResizeDirection="Columns"
+                          Background="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+
+            <!-- Selected picture -->
+            <Grid Grid.Column="2" Margin="10" RowDefinitions="*,Auto">
+                <Border x:Name="PreviewArea" Grid.Row="0" CornerRadius="10" ClipToBounds="True"
+                        Background="{DynamicResource SystemControlBackgroundBaseLowBrush}">
+                    <Panel>
+                        <Image Source="{Binding Preview}" Stretch="Uniform" Margin="6" />
+                        <ProgressBar IsIndeterminate="True" Width="80" Height="3" IsVisible="{Binding IsPreviewLoading}" />
+                        <TextBlock Text="Select a picture" Opacity="0.5" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   IsVisible="{Binding !HasSelection}" />
+
+                        <!-- Hint: the metadata show when the mouse is over the picture -->
+                        <Border Classes="metaBadge" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="8"
+                                IsHitTestVisible="False">
+                            <Border.IsVisible>
+                                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                    <Binding Path="HasMetadata" />
+                                    <Binding ElementName="PreviewArea" Path="!IsPointerOver" />
+                                </MultiBinding>
+                            </Border.IsVisible>
+                            <TextBlock Text="ⓘ Metadata on hover" FontSize="11" Foreground="White" />
+                        </Border>
+
+                        <!-- Every metadata of the picture, over it while the mouse is there (the wheel scrolls them) -->
+                        <Border Classes="metaPanel">
+                            <Border.IsVisible>
+                                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                    <Binding Path="HasMetadata" />
+                                    <Binding ElementName="PreviewArea" Path="IsPointerOver" />
+                                </MultiBinding>
+                            </Border.IsVisible>
+                            <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                                <ItemsControl ItemsSource="{Binding Metadata}" Margin="14,10">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="s:MetadataGroup">
+                                            <StackPanel Margin="0,0,0,10">
+                                                <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="12"
+                                                           Foreground="#FFB340" Margin="0,0,0,3" />
+                                                <ItemsControl ItemsSource="{Binding Entries}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate x:DataType="s:MetadataEntry">
+                                                            <Grid ColumnDefinitions="150,*" Margin="0,1">
+                                                                <TextBlock Text="{Binding Key}" FontSize="11" Foreground="#A9AFBA"
+                                                                           TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Key}" />
+                                                                <SelectableTextBlock Grid.Column="1" Text="{Binding Value}" FontSize="11"
+                                                                                     Foreground="White" TextWrapping="Wrap" />
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Border>
+                        <!-- Previous / next -->
+                        <Button Content="‹" FontSize="22" Padding="10,2" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                Margin="6" Background="#88000000" Foreground="White" CornerRadius="18" Command="{Binding PreviousCommand}" IsVisible="{Binding HasSelection}"
+                                ToolTip.Tip="Previous picture" />
+                        <Button Content="›" FontSize="22" Padding="10,2" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                Margin="6" Background="#88000000" Foreground="White" CornerRadius="18" Command="{Binding NextCommand}" IsVisible="{Binding HasSelection}"
+                                ToolTip.Tip="Next picture" />
+                    </Panel>
+                </Border>
+
+                <StackPanel Grid.Row="1" IsVisible="{Binding HasSelection}" Margin="0,8,0,0">
+                    <SelectableTextBlock Text="{Binding SelectedPicture.Name}" FontWeight="SemiBold" TextWrapping="Wrap" />
+                    <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,2,0,0">
+                        <TextBlock Classes="meta" Text="{Binding SelectedPicture.Format}" />
+                        <TextBlock Classes="meta" Text="{Binding SelectedPicture.SizeLabel}" />
+                        <TextBlock Classes="meta" Text="{Binding SelectedPicture.DateLabel}" />
+                    </StackPanel>
+                    <TextBlock Classes="meta" Text="{Binding Dimensions}" />
+                    <SelectableTextBlock Classes="meta" Text="{Binding SelectedPicture.File.Path}" FontSize="10" TextWrapping="Wrap" />
+
+                    <TextBlock Classes="label" Text="Rename" />
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBox Text="{Binding NewName}" />
+                        <Button Grid.Column="1" Content="Rename" Margin="6,0,0,0" Command="{Binding RenameCommand}" />
+                    </Grid>
+
+                    <WrapPanel Margin="0,10,0,0" ItemSpacing="6" LineSpacing="6">
+                        <Button Content="⟲ Rotate left" Command="{Binding RotateLeftCommand}"
+                                ToolTip.Tip="Turn the picture a quarter to the left and save it ([)" />
+                        <Button Content="Rotate right ⟳" Command="{Binding RotateRightCommand}"
+                                ToolTip.Tip="Turn the picture a quarter to the right and save it (])" />
+                    </WrapPanel>
+                    <WrapPanel Margin="0,6,0,0" ItemSpacing="6" LineSpacing="6">
+                        <Button Content="Open" Classes="accent" Command="{Binding OpenInSystemCommand}"
+                                ToolTip.Tip="Open with the default application (Enter, or double-click the thumbnail)" />
+                        <Button Content="Show in folder" Command="{Binding RevealCommand}"
+                                ToolTip.Tip="Show the file in the Finder / Explorer" />
+                        <Button Content="Copy path" Click="OnCopyPathClick" />
+                        <Button Command="{Binding DeleteCommand}" ToolTip.Tip="Move to the trash (Delete)">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <PathIcon Data="{StaticResource Icon.Delete}" Width="13" Height="13" />
+                                <TextBlock Text="Trash" />
+                            </StackPanel>
+                        </Button>
+                    </WrapPanel>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <!-- Status -->
+        <Border Grid.Row="2" Padding="12,4"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Ellipse Width="8" Height="8" VerticalAlignment="Center" Fill="#E81123" IsVisible="{Binding IsError}" />
+                <TextBlock Text="{Binding Status}" FontSize="12" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding RootDirectory, StringFormat='· library: {0}'}" FontSize="12" Opacity="0.55"
+                           VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

@@ -570,12 +570,15 @@ using System.Threading.Tasks;
         /// <summary>Every entity of the ontology not marked deleted (up to <paramref title="size"/>), for the dictionary of the NER.</summary>
         public List<Ontology> OntologiesAll(int size = 10000) => ElasticSearchDialog.Last<Ontology>(size, nameof(Ontology.isDeleted)).ToList();
 
+        private static readonly string[] OntologySearchFields = ["summary", "description"];
+
         public List<Ontology> OntologiesSearch(string term, int size)
         {
             List<Ontology> results = new List<Ontology>();
             try
             {
-                results = ElasticSearchDialog.Search<Ontology>(term, "description", size).ToList<Ontology>();
+                // The summary and the full description are searched.
+                results = ElasticSearchDialog.Search<Ontology>(term, OntologySearchFields, size).ToList<Ontology>();
             }
             catch (Exception ex)
             {
@@ -1221,6 +1224,253 @@ using System.Threading.Tasks;
 
         /// <summary>Marks a preset deleted (isDeleted = true): a preset is never erased.</summary>
         public ServiceReturn PresetDelete(string id) => MarkDeleted<Preset>(ElasticSearchServer, id, "Preset");
+
+        // ── The contexts of the conversations (one per session of the chat, its id the id of the session) ──
+
+        /// <summary>The context of a conversation (null when it has none yet, or no id).</summary>
+        public DialogContext? DialogContextGet(string? sessionId)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId) || ElasticSearchServer == null)
+            {
+                return null;
+            }
+            return ElasticSearchServer.Load<DialogContext>(sessionId.Trim()) as DialogContext;
+        }
+
+        /// <summary>Saves the context of a conversation; returns its id.</summary>
+        public string DialogContextSave(DialogContext context)
+        {
+            if (_config == null || ElasticSearchServer == null)
+            {
+                throw new Exception("Config not done");
+            }
+            context.date = DateTime.UtcNow;
+            return ElasticSearchServer.Save(context);
+        }
+
+        // ── Cache builders (prompts and their completions written by hand, /cache in the chat) ──
+
+        private static readonly string[] CacheBuilderSearchFields = ["title", "prompts", "completions", "model", "language", "comment", "tags"];
+
+        /// <summary>Saves a cache builder (a new one, or a new version of its document); the date is set when missing.</summary>
+        public ServiceReturn CacheBuilderSave(CacheBuilder cacheBuilder)
+        {
+            ServiceReturn ret = new ServiceReturn();
+            if (_config == null || ElasticSearchServer == null)
+            {
+                throw new Exception("Config not done");
+            }
+            if (cacheBuilder.date == default)
+            {
+                cacheBuilder.date = DateTime.UtcNow;
+            }
+            // The language as a code in upper case (FR, EN…), null when empty.
+            cacheBuilder.language = string.IsNullOrWhiteSpace(cacheBuilder.language) ? null : cacheBuilder.language.Trim().ToUpperInvariant();
+            try
+            {
+                // What was published stays known when the client does not send it back.
+                if (cacheBuilder.publishedCacheIds == null && ElasticSearchServer.Load<CacheBuilder>(cacheBuilder.id) is CacheBuilder stored)
+                {
+                    cacheBuilder.publishedCacheIds = stored.publishedCacheIds;
+                }
+                var retid = ElasticSearchServer.Save(cacheBuilder);
+                ret.Message = retid + " id created. Cache builder well saved";
+                ret.ReturnedId = retid;
+                ret.Success = true;
+            }
+            catch (Exception ex)
+            {
+                ret.Message = "Error : " + ex.Message;
+                Console.WriteLine(ex.ToString());
+                ret.ReturnedId = "-1";
+                ret.Success = false;
+            }
+            return ret;
+        }
+
+        /// <summary>Loads a cache builder by id (null when it does not exist).</summary>
+        public CacheBuilder CacheBuilderGet(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return null;
+            }
+            return (CacheBuilder)ElasticSearchServer.Load<CacheBuilder>(id);
+        }
+
+        /// <summary>
+        /// Searches the cache builders on title, prompts, completions, model, language, comment and tags (<c>*</c> or empty: the
+        /// newest ones); the deleted ones are returned too, so that they can be restored.
+        /// </summary>
+        public List<CacheBuilder> CacheBuildersSearch(string term, int size)
+        {
+            return ElasticSearchServer.Search<CacheBuilder>(term, CacheBuilderSearchFields, size, wordPrefixes: true).ToList();
+        }
+
+        /// <summary>The <paramref title="size"/> most recent cache builders, newest first, the deleted ones included.</summary>
+        public List<CacheBuilder> CacheBuildersLast(int size)
+        {
+            return ElasticSearchServer.Last<CacheBuilder>(size).ToList();
+        }
+
+        /// <summary>A text as two pairs are compared: trimmed, the runs of spaces and line ends as one space, in lower case.</summary>
+        private static string PairText(string? text) =>
+            string.Join(' ', (text ?? string.Empty).Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries)).ToLowerInvariant();
+
+        /// <summary>
+        /// The id of the cache document of a published prompt and completion pair: always the same for the same texts
+        /// (whatever the cache builder), so that a pair published again is written over.
+        /// </summary>
+        private static string PublishedCacheId(string prompt, string completion)
+        {
+            var hash = System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(PairText(prompt) + "\n" + PairText(completion)));
+            return "cb-" + Convert.ToHexString(hash, 0, 16).ToLowerInvariant();
+        }
+
+        /// <summary>
+        /// The documents of the index <c>cache</c> whose prompt is <paramref name="prompt"/> (the same text, see
+        /// <see cref="PairText"/>), deleted ones included, whoever wrote them; none when the search fails.
+        /// </summary>
+        private List<Cache> CachesOfPrompt(string prompt)
+        {
+            try
+            {
+                var same = PairText(prompt);
+                return ElasticSearchDialog.Search<Cache>(prompt, "prompt", ElasticRepository.MaxResults).Where(c => PairText(c.prompt) == same).ToList();
+            }
+            catch (Exception)
+            {
+                // No index yet, or a prompt the search cannot take: the pair still has its own id.
+                return new List<Cache>();
+            }
+        }
+
+        /// <summary>
+        /// Publishes a cache builder in the index <c>cache</c> (the dialog repository): one <see cref="Cache"/> document
+        /// per prompt and completion pair, with the model, the entities, the title and the tags of the builder. A pair
+        /// that is already in the cache (the same prompt and the same completion, published before or written by anything
+        /// else) is written over, never added a second time; when the cache already holds it several times, one is
+        /// written over and the others are marked deleted. The pairs of the last publication that are no longer in the
+        /// builder are marked deleted. A builder marked deleted withdraws all its pairs.
+        /// </summary>
+        public ServiceReturn CacheBuilderPublish(string id)
+        {
+            ServiceReturn ret = new ServiceReturn();
+            if (_config == null || ElasticSearchServer == null || ElasticSearchDialog == null)
+            {
+                throw new Exception("Config not done");
+            }
+            try
+            {
+                if (string.IsNullOrWhiteSpace(id) || ElasticSearchServer.Load<CacheBuilder>(id) is not CacheBuilder builder)
+                {
+                    ret.ReturnedId = "-1";
+                    ret.Success = false;
+                    ret.Message = "Cache builder " + id + " not found";
+                    return ret;
+                }
+
+                var prompts = (builder.prompts ?? new List<string>()).Select(p => p?.Trim() ?? string.Empty).Where(p => p.Length > 0).Distinct().ToList();
+                var completions = (builder.completions ?? new List<string>()).Select(c => c?.Trim() ?? string.Empty).Where(c => c.Length > 0).Distinct().ToList();
+                var caches = new List<Cache>();
+                var doubles = new List<Cache>();
+                var overwritten = 0;
+                var before = (builder.publishedCacheIds ?? new List<string>()).ToHashSet();
+                if (!builder.isDeleted)
+                {
+                    foreach (var prompt in prompts)
+                    {
+                        var sameprompt = CachesOfPrompt(prompt);
+                        foreach (var completion in completions)
+                        {
+                            // The pair as the cache already holds it: that document is written over (the one of a
+                            // publication first), its doubles are withdrawn.
+                            var ownId = PublishedCacheId(prompt, completion);
+                            var existing = sameprompt.Where(c => PairText(c.completion) == PairText(completion))
+                                .OrderByDescending(c => c.id == ownId).ThenBy(c => c.isDeleted).ThenBy(c => c.date).ToList();
+                            var targetId = existing.Count > 0 ? existing[0].id : ownId;
+                            doubles.AddRange(existing.Skip(1).Where(c => !c.isDeleted));
+                            if (existing.Count > 0 || before.Contains(targetId))
+                            {
+                                overwritten++;
+                            }
+                            caches.Add(new Cache
+                            {
+                                id = targetId,
+                                date = DateTime.UtcNow,
+                                appName = builder.appName,
+                                machineName = builder.machineName,
+                                userName = builder.userName,
+                                comment = "Published from cache builder " + builder.id,
+                                title = builder.title,
+                                Tags = builder.Tags ?? new List<string>(),
+                                Events = builder.Events ?? new List<string>(),
+                                Signals = builder.Signals ?? new List<string>(),
+                                prompt = prompt,
+                                completion = completion,
+                                model = string.IsNullOrWhiteSpace(builder.model) ? "user" : builder.model,
+                                relatedEntities = builder.relatedEntities ?? new List<string>(),
+                                ExcludedEntities = builder.ExcludedEntities ?? new List<string>(),
+                                isDeleted = false
+                            });
+                        }
+                    }
+                    if (caches.Count == 0)
+                    {
+                        ret.ReturnedId = "-1";
+                        ret.Success = false;
+                        ret.Message = "Nothing to publish: at least one prompt and one completion are needed";
+                        return ret;
+                    }
+                }
+
+                // The pairs of the last publication that are gone: marked deleted, as everything of the cache.
+                var kept = caches.Select(c => c.id).ToHashSet();
+                var withdrawn = 0;
+                foreach (var old in (builder.publishedCacheIds ?? new List<string>()).Where(o => !kept.Contains(o)))
+                {
+                    if (ElasticSearchDialog.Load<Cache>(old) is Cache gone && !gone.isDeleted)
+                    {
+                        gone.isDeleted = true;
+                        ElasticSearchDialog.Save(gone);
+                        withdrawn++;
+                    }
+                }
+
+                // The doubles of a published pair leave the cache.
+                foreach (var twin in doubles.Where(d => !kept.Contains(d.id)))
+                {
+                    twin.isDeleted = true;
+                    ElasticSearchDialog.Save(twin);
+                }
+
+                // One save each: the Save of a list is lazy (nothing is written until its ids are read).
+                foreach (var cache in caches)
+                {
+                    ElasticSearchDialog.Save(cache);
+                }
+                builder.publishedCacheIds = kept.ToList();
+                ElasticSearchServer.Save(builder);
+
+                ret.ReturnedId = builder.id;
+                ret.Success = true;
+                ret.Message = caches.Count + " prompt-completion pair(s) published in the cache (" + prompts.Count + " prompt(s) x " + completions.Count + " completion(s))"
+                              + (overwritten > 0 ? ", " + overwritten + " already there and written over" : string.Empty)
+                              + (doubles.Count > 0 ? ", " + doubles.Count + " double(s) withdrawn" : string.Empty)
+                              + (withdrawn > 0 ? ", " + withdrawn + " old pair(s) withdrawn" : string.Empty);
+            }
+            catch (Exception ex)
+            {
+                ret.Message = "Error : " + ex.Message;
+                Console.WriteLine(ex.ToString());
+                ret.ReturnedId = "-1";
+                ret.Success = false;
+            }
+            return ret;
+        }
+
+        /// <summary>Marks a cache builder deleted (isDeleted = true): it is never erased.</summary>
+        public ServiceReturn CacheBuilderDelete(string id) => MarkDeleted<CacheBuilder>(ElasticSearchServer, id, "Cache builder");
 
         // ── Wiki (the pages of the wiki of Kaonomi, /wiki in the chat) ──
 

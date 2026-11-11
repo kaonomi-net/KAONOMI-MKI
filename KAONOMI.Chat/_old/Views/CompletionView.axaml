@@ -1,0 +1,157 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:KAONOMI.Chat.ViewModels"
+        xmlns:v="using:KAONOMI.Chat.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1300" d:DesignHeight="860"
+        x:Class="KAONOMI.Chat.Views.CompletionView"
+        x:DataType="vm:CompletionWindowViewModel">
+
+    <Design.DataContext>
+        <vm:CompletionWindowViewModel />
+    </Design.DataContext>
+
+    <UserControl.KeyBindings>
+        <KeyBinding Gesture="F5" Command="{Binding SearchCommand}" />
+    </UserControl.KeyBindings>
+
+    <UserControl.Styles>
+        <Style Selector="TextBlock.label">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Opacity" Value="0.75" />
+            <Setter Property="Margin" Value="0,10,0,4" />
+        </Style>
+        <Style Selector="TextBlock.meta">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Opacity" Value="0.6" />
+        </Style>
+        <Style Selector="Button.word">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="5,0" />
+            <Setter Property="Margin" Value="2,0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+        <Style Selector="Button.word:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#1A808080" />
+        </Style>
+        <Style Selector="TextBlock.status.error">
+            <Setter Property="Foreground" Value="#E5484D" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Search on the prompt and the completion -->
+        <Border Grid.Row="0" Padding="12,10" Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <Grid ColumnDefinitions="*,Auto,Auto">
+                <TextBox x:Name="SearchBox" Text="{Binding Term}" VerticalContentAlignment="Center" MinHeight="36"
+                         PlaceholderText="Search the completions (prompt and completion): and, or, ( ), &quot;exact words&quot; · empty: latest completions" />
+                <ComboBox Grid.Column="1" ItemsSource="{Binding SizeChoices}" SelectedItem="{Binding Size}" MinHeight="36"
+                          Margin="8,0,0,0" VerticalAlignment="Center" ToolTip.Tip="Largest number of completions found" />
+                <Button Grid.Column="2" Content="Search" Classes="accent" MinWidth="110" MinHeight="36" Margin="8,0,0,0"
+                        Command="{Binding SearchCommand}" />
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" ColumnDefinitions="420,4,*">
+            <!-- Results -->
+            <Panel Grid.Column="0">
+                <ListBox ItemsSource="{Binding Results}" SelectedItem="{Binding SelectedResult}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="vm:CompletionItemViewModel">
+                            <StackPanel Spacing="2" Margin="0,3">
+                                <TextBlock Text="{Binding Title}" FontWeight="SemiBold" TextWrapping="Wrap" MaxLines="2"
+                                           TextTrimming="CharacterEllipsis" />
+                                <TextBlock Classes="meta" Text="{Binding Summary}" TextTrimming="CharacterEllipsis" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <TextBlock Text="No completion" Opacity="0.5" HorizontalAlignment="Center" VerticalAlignment="Center"
+                           IsVisible="{Binding !Results.Count}" />
+            </Panel>
+            <GridSplitter Grid.Column="1" ResizeDirection="Columns" Background="Transparent" />
+
+            <Grid Grid.Column="2" RowDefinitions="Auto,*,4,1.4*" Margin="14,6,14,10">
+                <!-- Word cloud of the results, and the pie chart of their languages -->
+                <Grid Grid.Row="0" ColumnDefinitions="*,12,230">
+                    <TextBlock Classes="label" Text="MOST FREQUENT TERMS OF THE RESULTS" Margin="0,4,0,4" />
+                    <TextBlock Grid.Column="2" Classes="label" Text="LANGUAGES" Margin="0,4,0,4" />
+                </Grid>
+                <Grid Grid.Row="1" ColumnDefinitions="*,12,230">
+                <Border Grid.Column="2" CornerRadius="10" Padding="12" Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+                    <Grid RowDefinitions="*,Auto">
+                        <v:PieChart Slices="{Binding Languages}" GapBrush="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"
+                                    MinHeight="120" Margin="6" />
+                        <ItemsControl Grid.Row="1" ItemsSource="{Binding Languages}" Margin="0,8,0,0">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel HorizontalAlignment="Center" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="v:PieSlice">
+                                    <StackPanel Orientation="Horizontal" Spacing="5" Margin="5,2">
+                                        <Border Width="10" Height="10" CornerRadius="2" Background="{Binding Brush}" VerticalAlignment="Center" />
+                                        <TextBlock Text="{Binding Legend}" FontSize="12" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </Border>
+                <Border Grid.Column="0" CornerRadius="10" Padding="12" Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+                    <ScrollViewer>
+                        <ItemsControl x:Name="CloudItems" ItemsSource="{Binding Cloud}" VerticalAlignment="Center">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel HorizontalAlignment="Center" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:WordCloudItem">
+                                    <Button Classes="word" ToolTip.Tip="{Binding Tip}"
+                                            Command="{Binding $parent[ItemsControl].((vm:CompletionWindowViewModel)DataContext).SearchTermCommand}"
+                                            CommandParameter="{Binding Term}">
+                                        <TextBlock Text="{Binding Term}" FontSize="{Binding FontSize}" Foreground="{Binding Brush}"
+                                                   FontWeight="SemiBold" />
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Border>
+                </Grid>
+                <GridSplitter Grid.Row="2" ResizeDirection="Rows" Background="Transparent" />
+
+                <!-- The selected completion -->
+                <Grid Grid.Row="3" RowDefinitions="Auto,Auto,Auto,Auto,*">
+                    <Grid ColumnDefinitions="*,Auto" Margin="0,8,0,0">
+                        <TextBlock Classes="meta" Text="{Binding SelectedResult.Summary}" VerticalAlignment="Center" />
+                        <Button Grid.Column="1" Content="Delete" Command="{Binding DeleteCommand}"
+                                ToolTip.Tip="Delete this completion from Kaonomi" />
+                    </Grid>
+                    <TextBlock Grid.Row="1" Classes="label" Text="PROMPT" />
+                    <TextBox Grid.Row="2" Text="{Binding SelectedResult.Entry.Prompt, Mode=OneWay}" IsReadOnly="True"
+                             TextWrapping="Wrap" MaxHeight="120" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                    <TextBlock Grid.Row="3" Classes="label" Text="COMPLETION" />
+                    <TextBox Grid.Row="4" Text="{Binding SelectedResult.Entry.Completion, Mode=OneWay}" IsReadOnly="True"
+                             TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Border Grid.Row="2" Padding="12,6" Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <ProgressBar IsIndeterminate="True" Width="60" IsVisible="{Binding IsBusy}" VerticalAlignment="Center" />
+                <TextBlock Classes="status" Classes.error="{Binding IsError}" Text="{Binding Status}" FontSize="12"
+                           TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

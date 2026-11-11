@@ -80,6 +80,29 @@ public sealed partial class LexicalEmbedder : IEmbedder
     private static partial Regex Word();
 }
 
+/// <summary>
+/// An embedding model of LM Studio, through the API of OpenAI (<c>POST /v1/embeddings</c>), the vector made of unit
+/// length. <paramref name="upstream"/> is the address without /v1.
+/// </summary>
+public sealed class OpenAiEmbedder(HttpClient http, string upstream, string model) : IEmbedder
+{
+    public string Name => "openai:" + model;
+
+    public async Task<float[]> EmbedAsync(string text, CancellationToken cancellationToken)
+    {
+        using var response = await http.PostAsJsonAsync($"{upstream.TrimEnd('/')}/v1/embeddings", new { model, input = text }, cancellationToken);
+        response.EnsureSuccessStatusCode();
+        using var document = await JsonDocument.ParseAsync(await response.Content.ReadAsStreamAsync(cancellationToken), cancellationToken: cancellationToken);
+        var first = document.RootElement.GetProperty("data")[0].GetProperty("embedding");
+        var vector = new float[first.GetArrayLength()];
+        var i = 0;
+        foreach (var value in first.EnumerateArray())
+            vector[i++] = value.GetSingle();
+        LexicalEmbedder.Normalize(vector);
+        return vector;
+    }
+}
+
 /// <summary>An embedding model of Ollama (<c>POST /api/embed</c>), the vector made of unit length.</summary>
 public sealed class OllamaEmbedder(HttpClient http, string upstream, string model) : IEmbedder
 {

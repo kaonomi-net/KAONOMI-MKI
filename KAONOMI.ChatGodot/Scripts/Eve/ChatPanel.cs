@@ -855,6 +855,10 @@ public partial class MessageView : PanelContainer
     private static void Evaluate(ChatMessageViewModel message, MainViewModel chat, bool negative)
     {
         var evaluation = chat.CreateEvaluation(message, negative);
+        // A thumb down on an answer of the default model: out of the cache of the gateway, and asked again to the
+        // escalation model (while the popup asks what was wrong).
+        if (negative)
+            _ = chat.RetryDislikedAsync(message);
         if (Shell.Current.Open(evaluation) is { } window)
             window.Closed += () =>
             {

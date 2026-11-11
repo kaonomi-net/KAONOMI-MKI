@@ -106,7 +106,7 @@ public partial class Main : Control
         // The windows open at the last close (in front or at the back) come back, once the desktop has its size.
         GetTree().CreateTimer(0.3).Timeout += RestoreDesktop;
 
-        // --command=/cache;/json runs those commands one after the other.
+        // --command=/search;/json runs those commands one after the other.
         if (Argument("--command=") is { } commands)
             foreach (var command in commands.Trim('"').Split(';', StringSplitOptions.RemoveEmptyEntries))
                 CallDeferred(MethodName.RunStartCommand, command.Trim());
@@ -322,10 +322,10 @@ public partial class Main : Control
         // The key of the window: the tool's own, or the one of a clone being made (/wiki#2).
         void Open(object viewModel, string key) => Bind.OnMain(() => _shell.Open(viewModel, _shell.KeyFor(key)));
         _vm.CodeWindowRequested += vm => Bind.OnMain(() => _shell.Open(vm));
-        _vm.CacheWindowRequested += (vm, _) => Open(vm, "/cache");
         _vm.SearchWindowRequested += (vm, _) => Open(vm, "/search");
         _vm.JsonClientWindowRequested += (vm, _) => Open(vm, "/json");
         _vm.SymbolicPatternWindowRequested += (vm, _) => Open(vm, "/symbol");
+        _vm.CacheWindowRequested += (vm, _) => Open(vm, "/cache");
         _vm.OntologyWindowRequested += (vm, _) => Open(vm, "/ontology");
         _vm.JournalWindowRequested += (vm, _) => Open(vm, "/journal");
         _vm.CompletionWindowRequested += (vm, _) => Open(vm, "/completion");

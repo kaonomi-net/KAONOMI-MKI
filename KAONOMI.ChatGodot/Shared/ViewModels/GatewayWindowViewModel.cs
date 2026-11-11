@@ -347,7 +347,7 @@ public sealed partial class GatewayWindowViewModel : ViewModelBase, IDisposable
                 return;
             IsOnline = true;
             var uptime = TimeSpan.FromSeconds(status.UptimeSeconds);
-            Summary = $"{Address} → {status.Upstream} {(status.UpstreamOk ? "✓" : "✗ (Ollama not reached)")} · {status.Requests} request(s) · up {(int)uptime.TotalHours}h{uptime.Minutes:00}";
+            Summary = $"{Address} → {status.Upstream} {(status.UpstreamOk ? "✓" : "✗ (not reached)")} · {status.Requests} request(s) · up {(int)uptime.TotalHours}h{uptime.Minutes:00}";
             var cache = status.Cache;
             CacheSummary = $"{cache.Entries} answer(s) · {cache.Hits} hit(s), {cache.Misses} miss(es), {cache.HitRate:P0} · {TimeSpan.FromMilliseconds(cache.SavedMs).TotalSeconds:0} s saved";
             EmbedderNote = $"Embeddings: {status.EmbedderNote}";

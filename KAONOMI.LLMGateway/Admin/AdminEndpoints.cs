@@ -9,6 +9,9 @@ namespace KAONOMI.LLMGateway.Admin;
 /// <summary>The body of POST /gateway/analyze: a prompt, the model asked, and a system prompt (optional).</summary>
 public sealed record AnalyzeRequest(string Prompt, string? Model, string? System);
 
+/// <summary>An answer the user disliked: the prompt as it was sent, the answer, and the model the client believes answered.</summary>
+public sealed record DislikeRequest(string? Prompt, string? Answer, string? Model);
+
 /// <summary>
 /// The API to drive the gateway (the window /gateway of the chat uses it), under <c>/gateway</c>:
 /// <list type="bullet">
@@ -18,6 +21,8 @@ public sealed record AnalyzeRequest(string Prompt, string? Model, string? System
 /// <item><c>GET cache?take=&amp;search=</c>, <c>DELETE cache</c>, <c>DELETE cache/{id}</c>: the answers kept.</item>
 /// <item><c>GET log?take=</c>: the last requests, what was routed and cached.</item>
 /// <item><c>POST analyze</c>: what the gateway would do with a prompt (entities, model, closest cached prompt), without asking a model.</item>
+/// <item><c>POST feedback/dislike</c> <c>{prompt, answer, model}</c>: the disliked answer leaves the cache; when the
+/// default model gave it, <c>escalationModel</c> names the model to ask again.</item>
 /// <item><c>GET models</c>, <c>GET entity-types</c>, <c>POST reset</c> (forgets the settings changed at run time).</item>
 /// </list>
 /// </summary>
@@ -36,6 +41,7 @@ public static class AdminEndpoints
                 name = "KAONOMI.LLMGateway",
                 port = g.Settings.Port,
                 upstream = g.Settings.Upstream,
+                upstreamProvider = g.Settings.UpstreamIsOpenAi ? "lmstudio" : "ollama",
                 upstreamOk = g.UpstreamOk,
                 started = g.Started,
                 uptimeSeconds = (long)(DateTimeOffset.UtcNow - g.Started).TotalSeconds,
@@ -69,6 +75,9 @@ public static class AdminEndpoints
             if (update.Routing is { } routing)
             {
                 routing.Rules = g.RoutingSettings.Rules;
+                // A client that does not know the escalation model (it sends none) keeps the one in place.
+                if (string.IsNullOrWhiteSpace(routing.EscalationModel))
+                    routing.EscalationModel = g.RoutingSettings.EscalationModel;
                 g.SetRoutingSettings(routing);
             }
             return Results.Ok(new { cache = g.CacheSettings, routing = Without(g.RoutingSettings) });
@@ -113,15 +122,50 @@ public static class AdminEndpoints
 
         api.MapDelete("/cache/{id}", (Gateway g, string id) => g.Cache.Remove(id) ? Results.Ok(new { removed = 1 }) : Results.NotFound());
 
+        api.MapPost("/feedback/dislike", (Gateway g, DislikeRequest request) =>
+        {
+            var prompt = request.Prompt ?? "";
+            // The cache keeps the question of the prompt (see CacheQuestion); the entries kept before that hold the whole prompt.
+            var removed = g.Cache.RemoveInteraction(CacheQuestion.Of(prompt).Question, request.Answer ?? "")
+                .Concat(g.Cache.RemoveInteraction(prompt, request.Answer ?? "")).ToList();
+            // Who answered: the model of the cached interaction, else the last request of the log for this prompt, else
+            // what the client says.
+            var answeredBy = removed.Select(e => e.Model).FirstOrDefault(m => m != SemanticCache.Any)
+                             ?? g.Log.Last(200).FirstOrDefault(r => r.Status == 200 && r.Prompt == RequestLog.Excerpt(prompt))?.Model
+                             ?? request.Model?.Trim() ?? "";
+            var routing = g.RoutingSettings;
+            var target = routing.EscalationModel.Trim();
+            var installed = g.InstalledModels;
+            string? escalation = null;
+            string reason;
+            if (target.Length == 0)
+                reason = "no escalation model set (routing.escalationModel)";
+            else if (!SameModel(answeredBy, routing.DefaultModel))
+                reason = $"answered by {(answeredBy.Length == 0 ? "an unknown model" : answeredBy)}, not by the default model {routing.DefaultModel}";
+            else if (SameModel(target, routing.DefaultModel))
+                reason = "the escalation model is the default model";
+            else if (installed.Count > 0 && !ModelRouter.IsInstalled(installed, target))
+                reason = $"{target} is not installed";
+            else
+            {
+                escalation = target;
+                reason = $"answered by the default model {routing.DefaultModel}: ask {target}";
+            }
+            Console.WriteLine($"[dislike] {removed.Count} answer(s) out of the cache · {reason}");
+            return Results.Ok(new { removed = removed.Count, model = answeredBy, escalationModel = escalation, reason });
+        });
+
         api.MapGet("/log", (Gateway g, int? take) => Results.Ok(g.Log.Last(take ?? 100)));
 
         api.MapPost("/analyze", async (Gateway g, AnalyzeRequest request, CancellationToken cancellationToken) =>
         {
             var entities = g.Extractor.Extract(request.Prompt);
             var decision = g.Router.Route(request.Model, entities);
-            var parts = LlmRequest.ContextPartsFor(request.System);
-            var (embedder, vector) = await g.EmbedAsync(request.Prompt, cancellationToken);
-            var signature = EntityExtractor.Signature(entities);
+            // As the proxy does: the cache compares the question of the prompt, its previous exchanges are context.
+            var (question, discussion) = CacheQuestion.Of(request.Prompt);
+            string[] parts = discussion is null ? LlmRequest.ContextPartsFor(request.System) : [.. LlmRequest.ContextPartsFor(request.System), "discussion:" + discussion];
+            var (embedder, vector) = await g.EmbedAsync(question, cancellationToken);
+            var signature = EntityExtractor.Signature(question == request.Prompt ? entities : g.Extractor.Extract(question));
             var lookup = g.Cache.Find(decision.Model, SemanticCache.ContextKey(parts), embedder.Name, vector, signature, count: false);
             return Results.Ok(new
             {
@@ -164,11 +208,19 @@ public static class AdminEndpoints
 
     private static object Without(RoutingSettings routing) => new
     {
-        routing.Enabled, routing.OverrideRequested, routing.DefaultModel, rules = routing.Rules.Count
+        routing.Enabled, routing.OverrideRequested, routing.DefaultModel, routing.EscalationModel, rules = routing.Rules.Count
     };
+
+    /// <summary>The same model, with or without the :latest of Ollama.</summary>
+    private static bool SameModel(string a, string b)
+    {
+        static string Bare(string name) => name.Trim().EndsWith(":latest", StringComparison.OrdinalIgnoreCase) ? name.Trim()[..^7] : name.Trim();
+        return a.Trim().Length > 0 && string.Equals(Bare(a), Bare(b), StringComparison.OrdinalIgnoreCase);
+    }
 
     private static RoutingSettings Copy(RoutingSettings routing) => new()
     {
-        Enabled = routing.Enabled, OverrideRequested = routing.OverrideRequested, DefaultModel = routing.DefaultModel, Rules = routing.Rules
+        Enabled = routing.Enabled, OverrideRequested = routing.OverrideRequested, DefaultModel = routing.DefaultModel,
+        EscalationModel = routing.EscalationModel, Rules = routing.Rules
     };
 }

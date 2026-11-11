@@ -1,0 +1,51 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:md="clr-namespace:LiveMarkdown.Avalonia;assembly=LiveMarkdown.Avalonia"
+             xmlns:tm="clr-namespace:TextMateSharp.Grammars;assembly=TextMateSharp.Grammars"
+             x:Class="KAONOMI.Chat.App"
+             Name="Kaonomi.net - Multi Agents Chatbot"
+             RequestedThemeVariant="Default">
+             <!-- Name: the name of the application in the macOS menu bar and its menu (About, Hide, Quit). -->
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="avares://LiveMarkdown.Avalonia/Styles.axaml" />
+
+        <Style Selector="md|CodeBlock">
+            <Setter Property="ColorTheme" Value="{DynamicResource MarkdownCodeTheme}" />
+        </Style>
+    </Application.Styles>
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://LiveMarkdown.Avalonia/Defaults.axaml" />
+                <ResourceInclude Source="avares://KAONOMI.Chat/Themes/Icons.axaml" />
+                <ResourceInclude Source="avares://KAONOMI.Chat/Themes/Band.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- LiveMarkdown defaults are dark-only; these follow the system theme. -->
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <Color x:Key="ForegroundColor">#1B1B1B</Color>
+                    <Color x:Key="BorderColor">#26000000</Color>
+                    <Color x:Key="CardBackgroundColor">#08000000</Color>
+                    <Color x:Key="SecondaryCardBackgroundColor">#F7F7F7</Color>
+                    <Color x:Key="CodeInlineColor">#A31515</Color>
+                    <Color x:Key="QuoteBorderColor">#0078D4</Color>
+                    <tm:ThemeName x:Key="MarkdownCodeTheme">LightPlus</tm:ThemeName>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <Color x:Key="ForegroundColor">#F2F2F2</Color>
+                    <Color x:Key="BorderColor">#3DFFFFFF</Color>
+                    <Color x:Key="CardBackgroundColor">#15FFFFFF</Color>
+                    <Color x:Key="SecondaryCardBackgroundColor">#1E1E1E</Color>
+                    <Color x:Key="CodeInlineColor">#D7BA7D</Color>
+                    <Color x:Key="QuoteBorderColor">#D7BA7D</Color>
+                    <tm:ThemeName x:Key="MarkdownCodeTheme">DarkPlus</tm:ThemeName>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -19,6 +19,14 @@ public sealed class AssistantRequest
     [JsonPropertyName("stream")]
     /// <summary>When true, the server may stream tokens (currently unused by the client).</summary>
     public bool Stream { get; init; }
+
+    /// <summary>
+    /// The id of the conversation: the server keeps the context of each conversation (its exchanges, the older the
+    /// more compressed) and writes it before the question. Left out when null: the request is answered alone.
+    /// </summary>
+    [JsonPropertyName("sessionId")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? SessionId { get; init; }
 }
 
 /// <summary>One chat turn in the assistant API (role and content).</summary>

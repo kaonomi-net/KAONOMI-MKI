@@ -121,6 +121,8 @@ namespace KAONOMI.Server
                     dialog.machineName = Environment.MachineName;
                     dialog.date = DateTime.Now;
                     dialog.request = d;
+                    // The conversation of the request: the detections are linked to it, and its context is kept.
+                    dialog.SessionId = string.IsNullOrWhiteSpace(d.sessionId) ? dialog.SessionId : d.sessionId.Trim();
                     string newid = _session.DialogSave(dialog);
 
                     _idDialog = newid;

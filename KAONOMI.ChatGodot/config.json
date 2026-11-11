@@ -1,6 +1,6 @@
 {
-  "ollamaUrl": "http://localhost:11434",
-  "llmmodel": "mistral-small3.2:latest",
+  "ollamaUrl": "http://localhost:1234",
+  "llmmodel": "lfm3-omni-2b",
   "systemPrompt": "You are Kaonomi, a helpful assistant. Answer in the user's language.",
   "consoleTheme": "matrix"
 }

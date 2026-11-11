@@ -8,6 +8,32 @@ public sealed class GatewaySettings
 {
     public int Port { get; set; } = 11435;
     public string Upstream { get; set; } = "http://localhost:11434";
+
+    /// <summary>
+    /// The API of <see cref="Upstream"/>: "ollama", or "lmstudio" for LM Studio (http://localhost:1234), which speaks
+    /// the API of OpenAI only ("openai" is the same).
+    /// </summary>
+    public string UpstreamProvider { get; set; } = "ollama";
+
+    /// <summary>True when the upstream speaks the API of OpenAI only (LM Studio), false for Ollama.</summary>
+    [JsonIgnore]
+    public bool UpstreamIsOpenAi =>
+        UpstreamProvider.Trim().Replace("-", "").Replace("_", "").Replace(" ", "").ToLowerInvariant() is "lmstudio" or "openai" or "openaicompatible";
+
+    /// <summary>The name of the upstream for the messages: "LM Studio" or "Ollama".</summary>
+    [JsonIgnore]
+    public string UpstreamName => UpstreamIsOpenAi ? "LM Studio" : "Ollama";
+
+    /// <summary><see cref="Upstream"/> without its last / nor a /v1 given with it: the paths of the requests come after.</summary>
+    [JsonIgnore]
+    public string UpstreamBase
+    {
+        get
+        {
+            var url = Upstream.Trim().TrimEnd('/');
+            return url.EndsWith("/v1", StringComparison.OrdinalIgnoreCase) ? url[..^3] : url;
+        }
+    }
     public string DataDirectory { get; set; } = "~/kaonomi/llmgateway";
     public CacheSettings Cache { get; set; } = new();
     public RoutingSettings Routing { get; set; } = new();
@@ -76,5 +102,10 @@ public sealed class RoutingSettings
     public bool Enabled { get; set; } = true;
     public bool OverrideRequested { get; set; } = true;
     public string DefaultModel { get; set; } = "gpt-oss:20b";
+    /// <summary>
+    /// The model an answer of <see cref="DefaultModel"/> that the user disliked is asked again to
+    /// (<c>POST /gateway/feedback/dislike</c>); empty: a disliked answer is only taken out of the cache.
+    /// </summary>
+    public string EscalationModel { get; set; } = "";
     public List<Routing.RouteRule> Rules { get; set; } = [];
 }

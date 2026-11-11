@@ -235,6 +235,53 @@ public class GatewayEndToEndTests : IAsyncLifetime
     }
 
     [Fact]
+    public async Task A_phrase_given_to_the_cache_answers_the_question_as_the_chat_sends_it()
+    {
+        var settings = await _client.GetFromJsonAsync<JsonObject>("/gateway/settings");
+        var cache = settings!["cache"]!.AsObject();
+        cache["minAnswers"] = 3;
+        await _client.PutAsJsonAsync("/gateway/settings", new JsonObject { ["cache"] = cache.DeepClone() });
+
+        // One answer only, written for every model: it is trusted, minAnswers does not hold for it.
+        var file = new { phrases = new[] { new { prompt = "How do I factory reset my smartphone?", model = "*", answers = new[] { "Open Settings, then Reset." } } } };
+        await _client.PostAsJsonAsync("/gateway/cache/import", file);
+
+        // The chat addresses the question to its preset, and may write the previous exchanges before it.
+        var calls = _calls;
+        foreach (var prompt in new[]
+                 {
+                     "KAONOMI please how do I factory reset my smartphone ?",
+                     "Discussions précédentes :\n\nUtilisateur : hello\n\nKaonomi : Hi!\n\nNouvelle question de l'utilisateur :\nKAONOMI please how do I factory reset my smartphone?"
+                 })
+        {
+            var response = await _client.PostAsJsonAsync("/api/chat", Chat("general", prompt));
+            Assert.Equal("HIT", response.Headers.GetValues("X-Gateway-Cache").Single());
+            Assert.Equal("Open Settings, then Reset.", (await response.Content.ReadFromJsonAsync<JsonObject>())!["message"]!["content"]!.GetValue<string>());
+        }
+        Assert.Equal(calls, _calls);
+
+        // An answer the model gave after previous exchanges is not given back after other ones.
+        cache["minAnswers"] = 1;
+        await _client.PutAsJsonAsync("/gateway/settings", new JsonObject { ["cache"] = cache.DeepClone() });
+        string After(string said) => $"Discussions précédentes :\n\nUtilisateur : {said}\n\nKaonomi : ok\n\nNouvelle question de l'utilisateur :\nKAONOMI please and what about the other one";
+        Assert.Equal("MISS", (await _client.PostAsJsonAsync("/api/chat", Chat("general", After("my phone")))).Headers.GetValues("X-Gateway-Cache").Single());
+        Assert.Equal("MISS", (await _client.PostAsJsonAsync("/api/chat", Chat("general", After("my car")))).Headers.GetValues("X-Gateway-Cache").Single());
+        Assert.Equal("HIT", (await _client.PostAsJsonAsync("/api/chat", Chat("general", After("my phone")))).Headers.GetValues("X-Gateway-Cache").Single());
+    }
+
+    [Theory]
+    [InlineData("KAONOMI please Salut", "Salut", false)]
+    [InlineData("HAL 9000 please open the door", "open the door", false)]
+    [InlineData("Could you please help me?", "Could you please help me?", false)]
+    [InlineData("Discussions précédentes :\n\nUtilisateur : a\n\nKaonomi : b\n\nNouvelle question de l'utilisateur :\nJARVIS please et ensuite ?", "et ensuite ?", true)]
+    public void The_question_of_a_prompt_is_what_the_cache_compares(string prompt, string question, bool history)
+    {
+        var (found, discussion) = KAONOMI.LLMGateway.Cache.CacheQuestion.Of(prompt);
+        Assert.Equal(question, found);
+        Assert.Equal(history, discussion is not null);
+    }
+
+    [Fact]
     public async Task A_phrase_written_by_hand_holds_for_every_model_and_context()
     {
         var settings = await _client.GetFromJsonAsync<JsonObject>("/gateway/settings");

@@ -23,7 +23,7 @@ namespace KAONOMI.ChatGodot.Eve;
 /// <code>
 /// main screen=0 x=120 y=80 width=2400 height=1300 mode=windowed
 /// window /journal x=310 y=60 width=920 height=780 front
-/// window /cache x=4 y=4 width=700 height=500 back
+/// window /search x=4 y=4 width=700 height=500 back
 /// window /work x=40 y=40 width=1000 height=700 front maximized
 /// </code>
 /// </summary>

@@ -26,15 +26,6 @@ public static class SearchOpener
         {
             switch (hit.Index)
             {
-                case "cache":
-                {
-                    var vm = await OpenToolAsync<CacheWindowViewModel>(shell, "/cache");
-                    if (vm is null) break;
-                    vm.Term = title;
-                    await vm.SearchCommand.ExecuteAsync(null);
-                    vm.SelectedResult = vm.Results.FirstOrDefault(r => r.Id == hit.Id) ?? vm.SelectedResult;
-                    break;
-                }
                 case "completion":
                 {
                     var vm = await OpenToolAsync<CompletionWindowViewModel>(shell, "/completion");

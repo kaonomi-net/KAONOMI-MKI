@@ -35,7 +35,7 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     {
         _settings = settings;
         _voiceLanguage = settings.SpeechLanguage;
-        _ollama = new OllamaModelService(settings.OllamaUrl);
+        _ollama = new OllamaModelService(settings.OllamaUrl, settings.LlmProvider);
         _assistant = new KaonomiAssistantService(settings.ServerUrl);
         _selectedModel = settings.Model;
         // systemprompt.txt (created from config.json the first time), so that a manual change of the file is taken.
@@ -615,7 +615,7 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     private bool _isConnected;
 
     [ObservableProperty]
-    private string _status = "Connecting to Ollama…";
+    private string _status = "Connecting to the model server…";
 
     /// <summary>Maximum number of inputs kept for Up / Down recall.</summary>
     private const int InputHistoryLimit = 200;
@@ -705,7 +705,7 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     [RelayCommand]
     private async Task RefreshModelsAsync()
     {
-        Status = "Connecting to Ollama…";
+        Status = $"Connecting to {_ollama.ProviderName}…";
         try
         {
             var models = await _ollama.ListModelsAsync();
@@ -718,17 +718,19 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
             SelectedModel = PickModel(models, current) ?? PickModel(models, _settings.Model) ?? models.FirstOrDefault();
             IsConnected = true;
             Status = models.Count == 0
-                ? "Ollama connected, but no model is installed (ollama pull <model>)"
-                : $"Ollama connected · {models.Count} model(s)";
-            ActivityLog.Info("Chat", $"Ollama models loaded from {OllamaUrl}: {models.Count} ({string.Join(", ", models)})");
+                ? _ollama.IsOpenAi
+                    ? "LM Studio connected, but no model is listed (download one in LM Studio)"
+                    : "Ollama connected, but no model is installed (ollama pull <model>)"
+                : $"{_ollama.ProviderName} connected · {models.Count} model(s)";
+            ActivityLog.Info("Chat", $"{_ollama.ProviderName} models loaded from {OllamaUrl}: {models.Count} ({string.Join(", ", models)})");
         }
         // Run from a command (Execute): any exception left would end the process. A non-JSON answer (proxy, wrong URL)
         // is NotSupportedException / JsonException, not HttpRequestException.
         catch (Exception ex)
         {
             IsConnected = false;
-            Status = $"Ollama unreachable at {OllamaUrl}";
-            ActivityLog.Error("Chat", $"Ollama unreachable at {OllamaUrl}", ex);
+            Status = $"{_ollama.ProviderName} unreachable at {OllamaUrl}";
+            ActivityLog.Error("Chat", $"{_ollama.ProviderName} unreachable at {OllamaUrl}", ex);
         }
     }
 
@@ -773,6 +775,12 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     }
 
     private const string CacheCommand = "/cache";
+    /// <summary>
+    /// The id of the conversation shown, sent with each prompt: the server keeps the context of the conversation
+    /// under it (the older exchanges more and more compressed). A new one at each start and each new conversation.
+    /// </summary>
+    private string _conversationId = Guid.NewGuid().ToString("N");
+
     private const string SearchCommand = "/search";
     private const string JsonCommand = "/json";
     private const string SymbolCommand = "/symbol";
@@ -866,7 +874,41 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
         || IsCommand(text, RelationCommand) || IsCommand(text, FoldersCommand) || IsCommand(text, FolderCommand) || IsCommand(text, PresetCommand) || IsCommand(text, PresetsCommand)
         || IsCommand(text, ProcessCommand) || IsCommand(text, ProcessesCommand) || IsCommand(text, GatewayCommand) || IsCommand(text, WikiCommand) || IsCommand(text, InterviewCommand) || IsCommand(text, CvCommand) || IsCommand(text, BpmnCommand) || IsCommand(text, InfraCommand) || IsCommand(text, MindmapCommand) || IsCommand(text, WriteCommand) || IsCommand(text, ConsoleCommand);
 
-    /// <summary>Recognises <c>/n&lt;tool&gt;</c> (e.g. <c>/ncache</c>) and returns the tool command (<c>/cache</c>).</summary>
+    /// <summary>The most tools one answer opens: an answer that lists the commands must not open them all.</summary>
+    private const int MaxCommandsPerAnswer = 3;
+
+    /// <summary>A word starting with "/" that is not part of a path or a URL (nothing but a space or punctuation before it).</summary>
+    private static readonly System.Text.RegularExpressions.Regex CommandInText =
+        new(@"(?<![\w/:.\\])/[A-Za-z?][\w:]*", System.Text.RegularExpressions.RegexOptions.Compiled);
+
+    /// <summary>
+    /// Runs the commands of tools written in an answer of the assistant (« ouvre /system », « regarde dans
+    /// /ontology »): each one opens its window, as if the user had typed it; returns the commands run. Only the
+    /// commands that open a tool are run (<see cref="IsToolCommand"/>): never /bye, /killall, /closeall or a theme.
+    /// The same command once, <see cref="MaxCommandsPerAnswer"/> at most; the code blocks of the answer are not read.
+    /// </summary>
+    private List<string> RunCommandsOf(string answer)
+    {
+        var opened = new List<string>();
+        // Code is not prose: a path or an option written there is not a command of the chat.
+        var prose = System.Text.RegularExpressions.Regex.Replace(answer, "```.*?```", " ", System.Text.RegularExpressions.RegexOptions.Singleline);
+        foreach (System.Text.RegularExpressions.Match match in CommandInText.Matches(prose))
+        {
+            var command = match.Value.TrimEnd(':').ToLowerInvariant();
+            if (opened.Contains(command) || !IsToolCommand(command))
+                continue;
+            if (opened.Count >= MaxCommandsPerAnswer)
+                break;
+            if (OpenTool(command, detached: false))
+            {
+                opened.Add(command);
+                ActivityLog.Info("Chat", $"Command {command} found in the answer: run");
+            }
+        }
+        return opened;
+    }
+
+    /// <summary>Recognises <c>/n&lt;tool&gt;</c> (e.g. <c>/njson</c>) and returns the tool command (<c>/json</c>).</summary>
     private static bool TryParseDetachedCommand(string text, out string command)
     {
         var trimmed = text.Trim();
@@ -1047,6 +1089,16 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
         OnPropertyChanged(nameof(HasNoMessages));
         ActivityLog.Info("Chat", $"Prompt sent to {model} ({prompt.Length} chars): {ActivityLog.Excerpt(prompt)}");
 
+        await AnswerAsync(model, history, answer, cancellationToken);
+    }
+
+    /// <summary>
+    /// Asks <paramref name="model"/> the request <paramref name="history"/> through the Kaonomi server and shows its
+    /// answer in the pending bubble <paramref name="answer"/> (read aloud, revealed, its stats and code).
+    /// </summary>
+    private async Task AnswerAsync(string model, List<AssistantMessage> history, ChatMessageViewModel answer, CancellationToken cancellationToken)
+    {
+        answer.Request = history;
         var stopwatch = Stopwatch.StartNew();
         try
         {
@@ -1054,7 +1106,8 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
             AssistantResponse response;
             try
             {
-                response = await _assistant.SendAsync(model, history, cancellationToken);
+                // The prompts of a batch are answered alone: they are not a conversation.
+                response = await _assistant.SendAsync(model, history, cancellationToken, IsBatchRunning ? null : _conversationId);
             }
             finally
             {
@@ -1071,6 +1124,7 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
                 return;
             }
 
+            answer.Model = string.IsNullOrEmpty(response.Model) ? model : response.Model;
             var stats = FormatStats(response, model, stopwatch.Elapsed);
             // CHANGE:MARI (or another preset or 3D animation) in the answer: the chat switches to it before reading it,
             // so that the answer is said with the new voice; the marker itself is not read.
@@ -1082,6 +1136,9 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
             await RevealAsync(answer, content, cancellationToken);
             answer.Stats = stats;
             answer.CodeSnippets = CodeBlockExtractor.Extract(content);
+            // A command of a tool written in the answer (/system, /ontology…) is run once the answer is shown.
+            if (!IsBatchRunning && RunCommandsOf(content) is { Count: > 0 } opened)
+                answer.Stats += " · opened " + string.Join(", ", opened);
             ActivityLog.Info("Chat", $"Answer received ({answer.Stats}, {content.Length} chars): {ActivityLog.Excerpt(content)}");
 
             // No code window during a prompt collection (the code stays in the answer and can still be opened from it).
@@ -1112,6 +1169,62 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
         finally
         {
             answer.IsPending = false;
+        }
+    }
+
+    /// <summary>The gateway in front of the models (llmGatewayUrl): told of the disliked answers.</summary>
+    private LlmGatewayClient? _gateway;
+
+    /// <summary>
+    /// A thumb down on <paramref name="disliked"/>: KAONOMI.LLMGateway takes that interaction out of its cache and,
+    /// when its default model gave the answer, names the model to ask again (routing.escalationModel): the same
+    /// request is then sent to it, and its answer shown under the disliked one. Nothing happens when the gateway is
+    /// not running, or when the answer came from another model. An answer is asked again once.
+    /// </summary>
+    public async Task RetryDislikedAsync(ChatMessageViewModel disliked)
+    {
+        if (!disliked.CanEvaluate || disliked.AskedAgain || disliked.Request is not { Count: > 0 } request)
+            return;
+        var prompt = request.LastOrDefault(m => m.Role == "user")?.Content ?? string.Empty;
+        disliked.AskedAgain = true;
+        try
+        {
+            GatewayDislikeResult? result;
+            try
+            {
+                _gateway ??= new LlmGatewayClient(_settings.LlmGatewayUrl);
+                using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+                result = await _gateway.DislikeAsync(prompt, disliked.Content, disliked.Model, timeout.Token);
+            }
+            catch (Exception ex) when (ex is HttpRequestException or OperationCanceledException or System.Text.Json.JsonException or NotSupportedException)
+            {
+                disliked.AskedAgain = false;
+                ActivityLog.Info("Chat", $"Dislike not sent to the LLM gateway at {_settings.LlmGatewayUrl} ({ex.Message}): the answer is not asked again");
+                return;
+            }
+
+            ActivityLog.Info("Chat", $"Dislike sent to the LLM gateway: {result?.Removed ?? 0} answer(s) out of its cache · {result?.Reason}");
+            if (result?.EscalationModel is not { Length: > 0 } model)
+            {
+                disliked.AskedAgain = false;
+                return;
+            }
+
+            var index = Messages.IndexOf(disliked);
+            if (index < 0)
+                return;
+            var answer = new ChatMessageViewModel(ChatRole.Assistant) { IsPending = true, AskedAgain = false };
+            Messages.Insert(index + 1, answer);
+            Status = $"👎 {result.Model}: asked again to {model}";
+            ActivityLog.Info("Chat", $"Disliked answer of {result.Model} asked again to {model}: {ActivityLog.Excerpt(prompt)}");
+            await AnswerAsync(model, request.ToList(), answer, CancellationToken.None);
+            // The new answer cannot be sent back to the default model, and is not asked again either.
+            if (answer.HasStats && !answer.IsError)
+                answer.Stats += " · asked again after 👎";
+        }
+        catch (Exception ex)
+        {
+            ActivityLog.Error("Chat", "Disliked answer not asked again", ex);
         }
     }
 
@@ -1289,8 +1402,8 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
         const string answer =
             "**Commands**\n\n"
             + "- `/help` or `/?`: shows this list\n"
-            + "- `/cache`: opens the cache search / edit window\n"
             + "- `/json`: opens the HTTP JSON client\n"
+            + "- `/cache`: opens the cache builder window (add and edit prompts with their completions; the model writes variations and evaluates every pair; PUBLISH writes every pair in the cache; TRANSLATE makes the document in another language; TO SEMANTIC CACHE adds the new pairs to the cache of the LLM gateway)\n"
             + "- `/symbol`: opens the symbolic pattern search / edit window\n"
             + "- `/ontology`: opens the ontology management window (node tree)\n"
             + "- `/diary` or `/journal`: opens the journal to write a new entry (Markdown editor: H1, H2, bold, italic, underline, code, links, pictures of the Pictures folder resized in the live preview; the previous entries stay hidden unless shown)\n"
@@ -1476,6 +1589,8 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     [RelayCommand]
     private void NewConversation()
     {
+        // A new conversation for the server too: its context starts empty.
+        _conversationId = Guid.NewGuid().ToString("N");
         if (SendCommand.IsRunning)
             SendCommand.Cancel();
 
@@ -1514,9 +1629,6 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     /// <summary>Raised when code blocks must be displayed in a dedicated window.</summary>
     public event Action<CodeWindowViewModel>? CodeWindowRequested;
 
-    /// <summary>Raised when the user types the <c>/cache</c> command.</summary>
-    public event Action<CacheWindowViewModel, bool>? CacheWindowRequested;
-
     /// <summary>Raised by <c>/search</c> (a tab of the workspace) or <c>/nsearch</c> (its own window): the search in every index.</summary>
     public event Action<SearchWindowViewModel, bool>? SearchWindowRequested;
 
@@ -1531,6 +1643,9 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
 
     /// <summary>Raised when the user types the <c>/symbol</c> command.</summary>
     public event Action<SymbolicPatternWindowViewModel, bool>? SymbolicPatternWindowRequested;
+
+    /// <summary>Raised when the user types the <c>/cache</c> command.</summary>
+    public event Action<CacheWindowViewModel, bool>? CacheWindowRequested;
 
     /// <summary>Raised when the user types the <c>/ontology</c> command.</summary>
     public event Action<OntologyWindowViewModel, bool>? OntologyWindowRequested;
@@ -1698,17 +1813,11 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
     public event Action? ExitRequested;
 
     /// <summary>
-    /// Opens the tool of <paramref name="command"/> (<c>/cache</c>, <c>/log</c>…): in a tab of the workspace, or in its
+    /// Opens the tool of <paramref name="command"/> (<c>/json</c>, <c>/log</c>…): in a tab of the workspace, or in its
     /// own window when <paramref name="detached"/>. Returns false when it is not a tool command.
     /// </summary>
     public bool OpenTool(string command, bool detached)
     {
-        if (IsCommand(command, CacheCommand))
-        {
-            CacheWindowRequested?.Invoke(new CacheWindowViewModel(_assistant), detached);
-            return true;
-        }
-
         if (IsCommand(command, SearchCommand))
         {
             SearchWindowRequested?.Invoke(new SearchWindowViewModel(_assistant), detached);
@@ -1718,6 +1827,12 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
         if (IsCommand(command, JsonCommand))
         {
             JsonClientWindowRequested?.Invoke(new JsonClientWindowViewModel(_settings), detached);
+            return true;
+        }
+
+        if (IsCommand(command, CacheCommand))
+        {
+            CacheWindowRequested?.Invoke(new CacheWindowViewModel(_assistant, _ollama, () => SelectedModel, _settings.LlmGatewayUrl), detached);
             return true;
         }
 
@@ -2039,7 +2154,8 @@ public partial class MainViewModel : ViewModelBase, INoteContextProvider
         if (FullSystemPrompt() is { } system)
             history.Add(new AssistantMessage("system", system));
 
-        var exchanges = Messages.Where(m => !m.IsError && !m.IsLocal && !string.IsNullOrEmpty(m.Content)).ToList();
+        // An answer disliked and asked again is left out: the answer of the other model stands for it.
+        var exchanges = Messages.Where(m => !m.IsError && !m.IsLocal && !m.AskedAgain && !string.IsNullOrEmpty(m.Content)).ToList();
         var prompt = exchanges.LastOrDefault(m => m.IsUser);
         if (prompt is null)
             return history;

@@ -1,0 +1,364 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:KAONOMI.Chat.ViewModels"
+             xmlns:v="using:KAONOMI.Chat.Views"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1180" d:DesignHeight="700"
+             x:Class="KAONOMI.Chat.Views.CalculatorView"
+             x:DataType="vm:CalculatorViewModel"
+             Focusable="True">
+
+    <Design.DataContext>
+        <vm:CalculatorViewModel />
+    </Design.DataContext>
+
+    <!-- A fixed light palette, like a hardware calculator, whatever the theme of the chat -->
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="CalcBody" Color="#FFFFFF" />
+        <SolidColorBrush x:Key="CalcEdge" Color="#E3E5EA" />
+        <SolidColorBrush x:Key="CalcScreen" Color="#F4F5F7" />
+        <SolidColorBrush x:Key="CalcText" Color="#16181D" />
+        <SolidColorBrush x:Key="CalcMuted" Color="#6B7280" />
+        <SolidColorBrush x:Key="CalcAccent" Color="#E08A00" />
+    </UserControl.Resources>
+
+    <UserControl.Styles>
+        <!-- Keys: a fixed size, wider than tall -->
+        <Style Selector="Button.key">
+            <Setter Property="Width" Value="64" />
+            <Setter Property="Height" Value="46" />
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontSize" Value="19" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="Command" Value="{Binding PressCommand}" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.08" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.key:pressed">
+            <Setter Property="RenderTransform" Value="scale(0.95)" />
+        </Style>
+
+        <Style Selector="Button.digit"><Setter Property="Background" Value="#F1F2F5" /><Setter Property="Foreground" Value="#16181D" /><Setter Property="FontWeight" Value="SemiBold" /></Style>
+        <Style Selector="Button.digit:pointerover /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="#E6E8EC" /><Setter Property="Foreground" Value="#16181D" /></Style>
+        <Style Selector="Button.digit:pressed /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="#DADDE3" /><Setter Property="Foreground" Value="#16181D" /></Style>
+
+        <Style Selector="Button.fn"><Setter Property="Background" Value="#E2E5EA" /><Setter Property="Foreground" Value="#16181D" /><Setter Property="FontSize" Value="17" /></Style>
+        <Style Selector="Button.fn:pointerover /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="#D6DAE0" /><Setter Property="Foreground" Value="#16181D" /></Style>
+        <Style Selector="Button.fn:pressed /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="#CBD0D7" /><Setter Property="Foreground" Value="#16181D" /></Style>
+
+        <Style Selector="Button.sci"><Setter Property="Background" Value="#F8F9FB" /><Setter Property="Foreground" Value="#4B5563" /><Setter Property="FontSize" Value="15" /></Style>
+        <Style Selector="Button.sci:pointerover /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="#EEF0F3" /><Setter Property="Foreground" Value="#16181D" /></Style>
+        <Style Selector="Button.sci:pressed /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="#E3E6EA" /><Setter Property="Foreground" Value="#16181D" /></Style>
+
+        <Style Selector="Button.op"><Setter Property="Background" Value="#FFF1DC" /><Setter Property="Foreground" Value="#D97E00" /><Setter Property="FontSize" Value="22" /><Setter Property="FontWeight" Value="SemiBold" /></Style>
+        <Style Selector="Button.op:pointerover /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="#FFE6BF" /><Setter Property="Foreground" Value="#C27000" /></Style>
+        <Style Selector="Button.op:pressed /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="#FFDBA3" /><Setter Property="Foreground" Value="#C27000" /></Style>
+
+        <Style Selector="Button.eq"><Setter Property="Background" Value="#FF9F0A" /><Setter Property="Foreground" Value="#FFFFFF" /><Setter Property="FontSize" Value="24" /><Setter Property="FontWeight" Value="Bold" /></Style>
+        <Style Selector="Button.eq:pointerover /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="#F59300" /><Setter Property="Foreground" Value="#FFFFFF" /></Style>
+        <Style Selector="Button.eq:pressed /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="#E08A00" /><Setter Property="Foreground" Value="#FFFFFF" /></Style>
+
+        <!-- Small flat buttons of the header and the lists -->
+        <Style Selector="Button.chip">
+            <Setter Property="Background" Value="#F1F2F5" />
+            <Setter Property="Foreground" Value="#4B5563" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="Padding" Value="12,3" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Focusable" Value="False" />
+        </Style>
+        <Style Selector="Button.chip:pointerover /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="#E6E8EC" /><Setter Property="Foreground" Value="#16181D" /></Style>
+        <Style Selector="Button.chip.angle"><Setter Property="Foreground" Value="#D97E00" /></Style>
+        <Style Selector="Button.chip.on"><Setter Property="Background" Value="#FFF1DC" /><Setter Property="Foreground" Value="#D97E00" /></Style>
+
+        <Style Selector="Button.recall">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="6,2" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Right" />
+        </Style>
+        <Style Selector="Button.recall:pointerover /template/ ContentPresenter#PART_ContentPresenter"><Setter Property="Background" Value="#ECEEF1" /></Style>
+
+        <Style Selector="SelectableTextBlock.result.error">
+            <Setter Property="Foreground" Value="#DC2626" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+
+        <!-- The tape: a light sheet; its border never changes on hover or focus -->
+        <Style Selector="TextBox#TapeBox /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+        <Style Selector="TextBox#TapeBox:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="TextBox#TapeBox:focus /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+        <Style Selector="TextBox#TapeBox, TextBox#TapeBox:pointerover, TextBox#TapeBox:focus">
+            <Setter Property="Foreground" Value="#1F2937" />
+        </Style>
+    </UserControl.Styles>
+
+    <!-- The calculator (a card of fixed size) on the left, the tape of every calculation filling the rest; scrolls
+         instead of being cut when the place is smaller (a pane of the 4K workspace) -->
+    <ScrollViewer x:Name="Scroller" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+    <Grid ColumnDefinitions="Auto,*" Margin="16" MinWidth="1080" MinHeight="620">
+
+        <Border Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left"
+                Background="{StaticResource CalcBody}" BorderBrush="{StaticResource CalcEdge}" BorderThickness="1"
+                CornerRadius="18" Padding="16" BoxShadow="0 8 24 0 #1A0F172A">
+            <StackPanel Spacing="12">
+                <!-- Header: brand, DEG / RAD, Copy, note -->
+                <Grid ColumnDefinitions="*,Auto,Auto,Auto">
+                    <StackPanel VerticalAlignment="Center" Spacing="0">
+                        <TextBlock Text="KAONOMI" FontSize="11" FontWeight="Bold" LetterSpacing="3"
+                                   Foreground="{StaticResource CalcAccent}" />
+                        <TextBlock Text="Scientific calculator" FontSize="13" Foreground="{StaticResource CalcMuted}" />
+                    </StackPanel>
+                    <Button Grid.Column="1" Classes="chip angle" Content="{Binding AngleLabel}" MinWidth="56"
+                            HorizontalContentAlignment="Center" Margin="0,0,6,0" VerticalAlignment="Center"
+                            Command="{Binding ToggleAngleCommand}"
+                            ToolTip.Tip="Angles of sin, cos, tan and their inverses: degrees (DEG) or radians (RAD)" />
+                    <Button Grid.Column="2" Classes="chip" Content="Copy" Margin="0,0,6,0" VerticalAlignment="Center"
+                            Click="OnCopyClick" ToolTip.Tip="Copy the result (Ctrl+C)" />
+                    <v:AddNoteButton Grid.Column="3" VerticalAlignment="Center" />
+                </Grid>
+
+                <!-- Display: the expression above, its result below -->
+                <Border Background="{StaticResource CalcScreen}" CornerRadius="12" Padding="18,12" MinHeight="104"
+                        BorderBrush="#E6E8EC" BorderThickness="1">
+                    <StackPanel Spacing="2" VerticalAlignment="Bottom">
+                        <TextBlock Text="{Binding DisplayExpression}" FontSize="15" Foreground="{StaticResource CalcMuted}"
+                                   FontFamily="Cascadia Mono, Menlo, Consolas, monospace"
+                                   TextAlignment="Right" TextWrapping="Wrap" />
+                        <SelectableTextBlock Classes="result" Classes.error="{Binding IsError}" Text="{Binding Result}"
+                                             FontSize="40" FontWeight="Light" Foreground="{StaticResource CalcText}"
+                                             FontFamily="Cascadia Mono, Menlo, Consolas, monospace"
+                                             TextAlignment="Right" TextWrapping="Wrap" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Keys: the scientific keys on the left, the standard ones on the right -->
+                <Grid x:Name="Keys" HorizontalAlignment="Center"
+                      ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,14,Auto,Auto,Auto,Auto,Auto"
+                      RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+            <Button Grid.Row="0" Grid.Column="0" Classes="key sci" Content="sin" CommandParameter="sin(" />
+            <Button Grid.Row="0" Grid.Column="1" Classes="key sci" Content="cos" CommandParameter="cos(" />
+            <Button Grid.Row="0" Grid.Column="2" Classes="key sci" Content="tan" CommandParameter="tan(" />
+            <Button Grid.Row="0" Grid.Column="3" Classes="key sci" Content="π" CommandParameter="π" />
+            <Button Grid.Row="0" Grid.Column="4" Classes="key sci" Content="e" CommandParameter="e" ToolTip.Tip="Euler's number 2.71828…" />
+
+            <Button Grid.Row="1" Grid.Column="0" Classes="key sci" Content="sin⁻¹" CommandParameter="asin(" />
+            <Button Grid.Row="1" Grid.Column="1" Classes="key sci" Content="cos⁻¹" CommandParameter="acos(" />
+            <Button Grid.Row="1" Grid.Column="2" Classes="key sci" Content="tan⁻¹" CommandParameter="atan(" />
+            <Button Grid.Row="1" Grid.Column="3" Classes="key sci" Content="Ans" CommandParameter="Ans" ToolTip.Tip="Last result" />
+            <Button Grid.Row="1" Grid.Column="4" Classes="key sci" Content="mod" CommandParameter="mod" ToolTip.Tip="Remainder of the division" />
+
+            <Button Grid.Row="2" Grid.Column="0" Classes="key sci" Content="sinh" CommandParameter="sinh(" />
+            <Button Grid.Row="2" Grid.Column="1" Classes="key sci" Content="cosh" CommandParameter="cosh(" />
+            <Button Grid.Row="2" Grid.Column="2" Classes="key sci" Content="tanh" CommandParameter="tanh(" />
+            <Button Grid.Row="2" Grid.Column="3" Classes="key sci" Content="|x|" CommandParameter="abs(" ToolTip.Tip="Absolute value" />
+            <Button Grid.Row="2" Grid.Column="4" Classes="key sci" Content="n!" CommandParameter="!" ToolTip.Tip="Factorial" />
+
+            <Button Grid.Row="3" Grid.Column="0" Classes="key sci" Content="ln" CommandParameter="ln(" ToolTip.Tip="Natural logarithm" />
+            <Button Grid.Row="3" Grid.Column="1" Classes="key sci" Content="log" CommandParameter="log(" ToolTip.Tip="Base 10 logarithm" />
+            <Button Grid.Row="3" Grid.Column="2" Classes="key sci" Content="eˣ" CommandParameter="exp(" />
+            <Button Grid.Row="3" Grid.Column="3" Classes="key sci" Content="10ˣ" CommandParameter="10^" />
+            <Button Grid.Row="3" Grid.Column="4" Classes="key sci" Content="∛" CommandParameter="cbrt(" ToolTip.Tip="Cube root" />
+
+            <Button Grid.Row="4" Grid.Column="0" Classes="key sci" Content="x²" CommandParameter="^2" />
+            <Button Grid.Row="4" Grid.Column="1" Classes="key sci" Content="x³" CommandParameter="^3" />
+            <Button Grid.Row="4" Grid.Column="2" Classes="key sci" Content="1/x" CommandParameter="^-1" ToolTip.Tip="Inverse" />
+            <Button Grid.Row="4" Grid.Column="3" Classes="key sci" Content="log₂" CommandParameter="log2(" ToolTip.Tip="Base 2 logarithm" />
+            <Button Grid.Row="4" Grid.Column="4" Classes="key sci" Content="Rand" CommandParameter="Rand" ToolTip.Tip="Random number from 0 to 1" />
+
+            <Button Grid.Row="0" Grid.Column="6" Classes="key fn" Content="C" CommandParameter="C" ToolTip.Tip="Clear (Esc)" />
+            <Button Grid.Row="0" Grid.Column="7" Classes="key fn" Content="(" CommandParameter="(" />
+            <Button Grid.Row="0" Grid.Column="8" Classes="key fn" Content=")" CommandParameter=")" />
+            <Button Grid.Row="0" Grid.Column="9" Classes="key fn" Content="%" CommandParameter="%" ToolTip.Tip="Hundredth of the value before it" />
+            <Button Grid.Row="0" Grid.Column="10" Classes="key fn" Content="⌫" CommandParameter="⌫" ToolTip.Tip="Delete the last character (Backspace)" />
+
+            <Button Grid.Row="1" Grid.Column="6" Classes="key digit" Content="7" CommandParameter="7" />
+            <Button Grid.Row="1" Grid.Column="7" Classes="key digit" Content="8" CommandParameter="8" />
+            <Button Grid.Row="1" Grid.Column="8" Classes="key digit" Content="9" CommandParameter="9" />
+            <Button Grid.Row="1" Grid.Column="9" Classes="key op" Content="÷" CommandParameter="÷" />
+            <Button Grid.Row="1" Grid.Column="10" Classes="key fn" Content="√" CommandParameter="√" ToolTip.Tip="Square root of the value after it" />
+
+            <Button Grid.Row="2" Grid.Column="6" Classes="key digit" Content="4" CommandParameter="4" />
+            <Button Grid.Row="2" Grid.Column="7" Classes="key digit" Content="5" CommandParameter="5" />
+            <Button Grid.Row="2" Grid.Column="8" Classes="key digit" Content="6" CommandParameter="6" />
+            <Button Grid.Row="2" Grid.Column="9" Classes="key op" Content="×" CommandParameter="×" />
+            <Button Grid.Row="2" Grid.Column="10" Classes="key fn" Content="xʸ" CommandParameter="^" ToolTip.Tip="Power (^)" />
+
+            <Button Grid.Row="3" Grid.Column="6" Classes="key digit" Content="1" CommandParameter="1" />
+            <Button Grid.Row="3" Grid.Column="7" Classes="key digit" Content="2" CommandParameter="2" />
+            <Button Grid.Row="3" Grid.Column="8" Classes="key digit" Content="3" CommandParameter="3" />
+            <Button Grid.Row="3" Grid.Column="9" Classes="key op" Content="−" CommandParameter="−" />
+            <Button Grid.Row="3" Grid.Column="10" Classes="key fn" Content="±" CommandParameter="±" ToolTip.Tip="Change the sign of the last number" />
+
+            <Button Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" Classes="key digit" Width="136" HorizontalContentAlignment="Left" Padding="26,0,0,0" Content="0" CommandParameter="0" />
+            <Button Grid.Row="4" Grid.Column="8" Classes="key digit" Content="." CommandParameter="." />
+            <Button Grid.Row="4" Grid.Column="9" Classes="key op" Content="+" CommandParameter="+" />
+            <Button Grid.Row="4" Grid.Column="10" Classes="key eq" Content="=" CommandParameter="=" ToolTip.Tip="Result (Enter)" />
+                </Grid>
+
+                <!-- Recent calculations: click one to put it back -->
+                <Border Background="#F8F9FB" CornerRadius="12" Padding="10,6">
+                    <StackPanel>
+                        <Grid ColumnDefinitions="*,Auto" Margin="2,0,0,4">
+                            <TextBlock Text="RECENT" FontSize="10" FontWeight="Bold" LetterSpacing="2"
+                                       Foreground="{StaticResource CalcMuted}" VerticalAlignment="Center" />
+                            <Button Grid.Column="1" Classes="chip" Content="Clear" FontSize="10" Padding="8,1"
+                                    IsVisible="{Binding HasHistory}" Command="{Binding ClearHistoryCommand}" />
+                        </Grid>
+                        <TextBlock Text="The calculations done with = are listed here" FontSize="11" Margin="2,0,0,2"
+                                   Foreground="{StaticResource CalcMuted}" IsVisible="{Binding !HasHistory}" />
+                        <ScrollViewer MaxHeight="84" IsVisible="{Binding HasHistory}">
+                            <ItemsControl ItemsSource="{Binding History}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:CalculatorEntry">
+                                        <Button Classes="recall" ToolTip.Tip="Put this calculation back"
+                                                Command="{Binding $parent[v:CalculatorView].((vm:CalculatorViewModel)DataContext).ReuseCommand}"
+                                                CommandParameter="{Binding}">
+                                            <TextBlock FontFamily="Cascadia Mono, Menlo, Consolas, monospace" FontSize="12">
+                                                <Run Text="{Binding Expression}" Foreground="#6B7280" />
+                                                <Run Text=" = " Foreground="#9CA3AF" />
+                                                <Run Text="{Binding Result}" Foreground="#16181D" FontWeight="SemiBold" />
+                                            </TextBlock>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!-- Right panel: the tape of every calculation, or the graph of functions of x -->
+        <Border Grid.Column="1" Margin="16,0,0,0" MinWidth="260"
+                Background="{StaticResource CalcBody}" BorderBrush="{StaticResource CalcEdge}" BorderThickness="1"
+                CornerRadius="18" Padding="16" BoxShadow="0 8 24 0 #1A0F172A">
+            <Grid RowDefinitions="Auto,*">
+                <Grid ColumnDefinitions="*,Auto,Auto" Margin="0,0,0,10">
+                    <StackPanel VerticalAlignment="Center" IsVisible="{Binding !IsGraphMode}"
+                                ToolTip.Tip="Every calculation done with =, kept across the restarts (calculator-tape.txt)">
+                        <TextBlock Text="TAPE" FontSize="11" FontWeight="Bold" LetterSpacing="3"
+                                   Foreground="{StaticResource CalcAccent}" />
+                        <TextBlock Text="Every calculation, kept" FontSize="13" Foreground="{StaticResource CalcMuted}" />
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Center" IsVisible="{Binding IsGraphMode}">
+                        <TextBlock Text="GRAPH" FontSize="11" FontWeight="Bold" LetterSpacing="3"
+                                   Foreground="{StaticResource CalcAccent}" />
+                        <TextBlock x:Name="GraphRange" FontSize="13" Foreground="{StaticResource CalcMuted}" />
+                    </StackPanel>
+                    <!-- Tape | Graph -->
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="2" Margin="0,0,8,0" VerticalAlignment="Center">
+                        <Button Classes="chip" Classes.on="{Binding !IsGraphMode}" Content="Tape"
+                                Command="{Binding ShowGraphCommand}" CommandParameter="tape" />
+                        <Button Classes="chip" Classes.on="{Binding IsGraphMode}" Content="📈 Graph"
+                                Command="{Binding ShowGraphCommand}" CommandParameter="graph" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="4" VerticalAlignment="Center" IsVisible="{Binding !IsGraphMode}">
+                        <Button Classes="chip" Classes.on="{Binding IsTapeEditing}" Content="✎ Edit" Command="{Binding ToggleTapeEditingCommand}"
+                                ToolTip.Tip="Edit the text of the tape (notes, removing lines); click again to see it with its pictures" />
+                        <TextBlock x:Name="TapeStatus" FontSize="11" Foreground="#059669" VerticalAlignment="Center" Margin="0,0,4,0" />
+                        <Button Classes="chip" Content="⬇ Word" Click="OnExportWord"
+                                ToolTip.Tip="Export the tape, with its pictures, to a Word document (.docx)" />
+                        <Button Classes="chip" Content="Clear" Command="{Binding ClearTapeCommand}" ToolTip.Tip="Empty the tape" />
+                    </StackPanel>
+                </Grid>
+
+                <Border Grid.Row="1" Background="{StaticResource CalcScreen}" CornerRadius="12"
+                        BorderBrush="#E6E8EC" BorderThickness="1" IsVisible="{Binding !IsGraphMode}">
+                  <Panel>
+                    <!-- The tape rendered: its lines and the pictures of the graphs (resizable with their corner grip) -->
+                    <ScrollViewer x:Name="TapeScroller" IsVisible="{Binding !IsTapeEditing}">
+                        <ContentControl x:Name="TapeRendered" Margin="14,10" Foreground="#1F2937" />
+                    </ScrollViewer>
+                    <TextBox x:Name="TapeBox" IsVisible="{Binding IsTapeEditing}" Text="{Binding Tape}" Background="Transparent" BorderThickness="0"
+                             AcceptsReturn="True" TextWrapping="Wrap" FontSize="13" Padding="14,10"
+                             FontFamily="Cascadia Mono, Menlo, Consolas, monospace"
+                             VerticalContentAlignment="Top" CaretBrush="#E08A00" SelectionBrush="#40FF9F0A"
+                             PlaceholderText="The calculations done with = are written here, and kept"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                  </Panel>
+                </Border>
+
+                <!-- Graph: the functions, the curves, zoom and move in x and y -->
+                <Grid Grid.Row="1" RowDefinitions="Auto,Auto,*,Auto" IsVisible="{Binding IsGraphMode}">
+                    <Border Background="{StaticResource CalcScreen}" CornerRadius="10" BorderBrush="#E6E8EC" BorderThickness="1">
+                        <Grid ColumnDefinitions="Auto,*">
+                            <TextBlock Text="y =" FontFamily="Cascadia Mono, Menlo, Consolas, monospace" FontSize="14"
+                                       Foreground="{StaticResource CalcMuted}" VerticalAlignment="Center" Margin="12,0,4,0" />
+                            <TextBox Grid.Column="1" x:Name="GraphInputBox" Text="{Binding GraphInput}"
+                                     Background="Transparent" BorderThickness="0" Padding="4,8"
+                                     FontFamily="Cascadia Mono, Menlo, Consolas, monospace" FontSize="14" Foreground="#16181D"
+                                     CaretBrush="#E08A00" SelectionBrush="#40FF9F0A"
+                                     PlaceholderText="sin(x); x^2/4 - 2; 1/x   (several functions separated by ;)"
+                                     ToolTip.Tip="Functions of x, separated by ; (y = and f(x) = are optional). Everything of the calculator works: + − × ÷ ^ √ ! %, sin cos tan (radians), ln log exp abs, π e, implicit multiplication (2x, 3sin(x))" />
+                        </Grid>
+                    </Border>
+                    <TextBlock Grid.Row="1" Text="{Binding GraphError}" IsVisible="{Binding HasGraphError}" Foreground="#DC2626"
+                               FontSize="12" TextWrapping="Wrap" Margin="4,4,0,0" />
+
+                    <Border Grid.Row="2" Margin="0,8,0,0" CornerRadius="10" ClipToBounds="True" BorderBrush="#E6E8EC" BorderThickness="1">
+                        <Panel>
+                            <v:GraphView x:Name="Graph" Functions="{Binding GraphFunctions}" />
+                            <!-- Legend -->
+                            <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="8" Padding="8,4" CornerRadius="6"
+                                    Background="#E6FFFFFF" BorderBrush="#E6E8EC" BorderThickness="1" IsHitTestVisible="False">
+                                <ItemsControl ItemsSource="{Binding GraphFunctions}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="v:GraphFunction">
+                                            <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,1">
+                                                <Border Width="14" Height="3" CornerRadius="1.5" VerticalAlignment="Center"
+                                                        Background="{Binding Color, Converter={x:Static v:CalculatorView.ColorBrush}}" />
+                                                <TextBlock Text="{Binding Label}" FontSize="12" Foreground="#16181D"
+                                                           FontFamily="Cascadia Mono, Menlo, Consolas, monospace" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Border>
+                        </Panel>
+                    </Border>
+
+                    <!-- Zoom and move -->
+                    <WrapPanel Grid.Row="3" Margin="0,8,0,0" ItemSpacing="4" LineSpacing="4" HorizontalAlignment="Center">
+                        <Button Classes="chip" Content="＋ Zoom" Click="OnGraphZoomIn" ToolTip.Tip="Zoom in (wheel, + key)" />
+                        <Button Classes="chip" Content="－ Zoom" Click="OnGraphZoomOut" ToolTip.Tip="Zoom out (wheel, − key)" />
+                        <Button Classes="chip" Content="x ＋" Click="OnGraphZoomXIn" ToolTip.Tip="Zoom in x only (Shift + wheel)" />
+                        <Button Classes="chip" Content="x －" Click="OnGraphZoomXOut" ToolTip.Tip="Zoom out x only (Shift + wheel)" />
+                        <Button Classes="chip" Content="y ＋" Click="OnGraphZoomYIn" ToolTip.Tip="Zoom in y only (Alt / Option + wheel)" />
+                        <Button Classes="chip" Content="y －" Click="OnGraphZoomYOut" ToolTip.Tip="Zoom out y only (Alt / Option + wheel)" />
+                        <Button Classes="chip" Content="←" Click="OnGraphLeft" ToolTip.Tip="Move left (drag, ← key)" />
+                        <Button Classes="chip" Content="→" Click="OnGraphRight" ToolTip.Tip="Move right (drag, → key)" />
+                        <Button Classes="chip" Content="↑" Click="OnGraphUp" ToolTip.Tip="Move up (drag, ↑ key)" />
+                        <Button Classes="chip" Content="↓" Click="OnGraphDown" ToolTip.Tip="Move down (drag, ↓ key)" />
+                        <Button Classes="chip" Content="Reset" Click="OnGraphReset" ToolTip.Tip="Back to -10…10 (double-click, 0 key)" />
+                        <Button Classes="chip on" Content="📷 Camera" Click="OnGraphCamera"
+                                ToolTip.Tip="Take a picture of the graph (PNG in calculator.graphDirectory of config.yml: Pictures/kaonomi/maths by default) and add it to the tape" />
+                        <TextBlock x:Name="CameraStatus" FontSize="11" Foreground="#059669" VerticalAlignment="Center" Margin="6,0,0,0" />
+                    </WrapPanel>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+    </ScrollViewer>
+</UserControl>

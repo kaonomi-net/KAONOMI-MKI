@@ -182,6 +182,17 @@ public sealed partial class ProcessWindowViewModel : ViewModelBase, INoteContext
             Pattern = @"KAONOMI\.LLMGateway($|/bin/|\\bin\\)",
             Start = () => Dotnet(ProjectsDirectory, "run", "--project", "KAONOMI.LLMGateway")
         };
+        if (OllamaModelService.IsOpenAiCompatible(_settings.LlmProvider))
+        {
+            // llmProvider: lmstudio. The local server of LM Studio, started by its command line (lms).
+            yield return new ManagedProcess
+            {
+                Name = "LM Studio", Group = "Models", Port = ("127.0.0.1", 1234),
+                Description = "LM Studio · the models of the chat, 127.0.0.1:1234 (its local server: lms server start)",
+                Start = () => Info("lms", null, "server", "start")
+            };
+            yield break;
+        }
         yield return new ManagedProcess
         {
             Name = "Ollama", Group = "Models", Port = ("127.0.0.1", 11434),

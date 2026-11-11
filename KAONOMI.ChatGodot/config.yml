@@ -1,7 +1,14 @@
 # Kaonomi Chat configuration (copied next to the executable on build).
 # Relative paths are resolved from the executable folder.
 
-ollamaUrl: http://localhost:11434
+ollamaUrl: http://localhost:1234
+
+# The API of the LLM server at ollamaUrl: ollama, or lmstudio for LM Studio (its OpenAI-compatible API). With LM Studio:
+#   ollamaUrl: http://localhost:1234
+#   llmProvider: lmstudio
+# and the models are named by their identifier in LM Studio (llmmodel in config.json, visionmodel below), e.g.
+# openai/gpt-oss-20b. The same two keys ("ollamaUrl", "llmProvider") are in the config.json of the server.
+llmProvider: lmstudio
 
 # Base URL of the Kaonomi REST server (completion, cache, ontology, symbolic patterns, logs, notes, evaluations...).
 serverUrl: https://localhost:49165
@@ -174,7 +181,7 @@ keepawake: on
 
 # Vision model of Ollama (it reads pictures): the ✨ Analyse of the image analysis window (/pictures, /fooocus, the
 # pictures of /work) and the ✨ AI review of the /work document. Installed with: ollama pull <model>.
-visionmodel: mistral-small3.2
+visionmodel: lfm3-omni-2b
 
 # 3D animation of the Kaonomi band (above the chat): MARI (the 3D robot face whose mouth follows the voice and the
 # streamed words; used when missing or unknown), JEROME (photo portrait in 3D, same moving mouth), HAL (red eye of a

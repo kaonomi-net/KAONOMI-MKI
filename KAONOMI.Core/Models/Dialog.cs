@@ -34,6 +34,21 @@ namespace KAONOMI.Core.Models
         /// <summary>The entities of the user prompt, found by the NER of the server (the agent of the entities of the sequence).</summary>
         public List<NerEntity> Entities { get; set; } = new List<NerEntity>();
 
+        /// <summary>
+        /// What Kaonomi knows about these entities (the agent of the entities): the entities of the ontology the prompt
+        /// names and the intels that match them. The processor writes it in the prompt of the model.
+        /// </summary>
+        public List<DialogKnowledge> Knowledge { get; set; } = new List<DialogKnowledge>();
+
+        /// <summary>The user prompt as it was sent to the model (its previous exchanges compressed); null before the processor.</summary>
+        public string? PromptSentUserText { get; set; }
+
+        /// <summary>The system prompt as it was sent to the model (with the knowledge kept); null before the processor.</summary>
+        public string? PromptSentSystemText { get; set; }
+
+        /// <summary>What the compression of the prompt did; null before the processor.</summary>
+        public PromptCompressionStats? PromptCompression { get; set; }
+
         /// <summary>Initializes empty request, response, and interaction collections.</summary>
         public Dialog()
         { 

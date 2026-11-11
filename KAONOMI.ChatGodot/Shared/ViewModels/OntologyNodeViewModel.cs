@@ -22,7 +22,7 @@ public partial class OntologyNodeViewModel : ViewModelBase
     private static readonly HashSet<string> EditableProperties =
     [
         nameof(AppName), nameof(MachineName), nameof(UserName), nameof(Comment),
-        nameof(Name), nameof(EntityType), nameof(Description), nameof(Symbol), nameof(IsOntologyClass),
+        nameof(Name), nameof(EntityType), nameof(Summary), nameof(Description), nameof(Symbol), nameof(IsOntologyClass),
         nameof(SentencesExemples), nameof(Synonyms), nameof(Title), nameof(Tags), nameof(Events), nameof(Signals), nameof(RelatedLinks), nameof(RelatedEntities), nameof(Confidentiality),
         nameof(AngryLevel), nameof(SadLevel), nameof(HappyLevel),
         nameof(FearLevel), nameof(SurpriseLevel), nameof(DisgustLevel), nameof(StartDate), nameof(EndDate)
@@ -154,6 +154,10 @@ public partial class OntologyNodeViewModel : ViewModelBase
     [NotifyPropertyChangedFor(nameof(HasEntityType))]
     private string _entityType = string.Empty;
 
+    /// <summary>The summary: what the entity is in one or two sentences.</summary>
+    [ObservableProperty] private string _summary = string.Empty;
+
+    /// <summary>The full description.</summary>
     [ObservableProperty] private string _description = string.Empty;
     [ObservableProperty] private string _symbol = string.Empty;
 
@@ -298,7 +302,7 @@ public partial class OntologyNodeViewModel : ViewModelBase
 
     /// <summary>Case- and accent-insensitive match on every text field of the node (and its id).</summary>
     public bool MatchesText(string term) =>
-        new[] { Name, Title, Description, Symbol, EntityType, Synonyms, Tags, Events, Signals, SentencesExemples, Comment, RelatedLinks, RelatedEntities, Id }
+        new[] { Name, Title, Summary, Description, Symbol, EntityType, Synonyms, Tags, Events, Signals, SentencesExemples, Comment, RelatedLinks, RelatedEntities, Id }
             .Any(field => field is not null && System.Globalization.CultureInfo.InvariantCulture.CompareInfo.IndexOf(
                 field, term,
                 System.Globalization.CompareOptions.IgnoreCase | System.Globalization.CompareOptions.IgnoreNonSpace) >= 0);
@@ -537,6 +541,7 @@ public partial class OntologyNodeViewModel : ViewModelBase
             // The drop-down must already contain the stored value, otherwise it would clear it.
             _owner.EnsureEntityTypeOption(entry.EntityType?.Trim());
             EntityType = entry.EntityType?.Trim() ?? string.Empty;
+            Summary = entry.Summary ?? string.Empty;
             Description = entry.Description ?? string.Empty;
             Symbol = entry.Symbol ?? string.Empty;
             IsOntologyClass = entry.IsOntologyClass;
@@ -578,6 +583,7 @@ public partial class OntologyNodeViewModel : ViewModelBase
         entry.Comment = Comment;
         entry.Name = Name;
         entry.EntityType = EntityType;
+        entry.Summary = string.IsNullOrWhiteSpace(Summary) ? null : Summary.Trim();
         entry.Description = Description;
         entry.Symbol = Symbol;
         entry.IsOntologyClass = IsOntologyClass;

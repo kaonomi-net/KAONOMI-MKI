@@ -1,0 +1,9 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Colors of the Kaonomi band (3D face and clock) of the chat. These are the defaults (dark band, green clock);
+         a theme can override them (AppTheme.ImageTheme.Band*), its resources being looked up first. -->
+    <Color x:Key="BandBackgroundColor">#101010</Color>
+    <SolidColorBrush x:Key="BandBackgroundBrush" Color="#101010" />
+    <SolidColorBrush x:Key="BandClockBrush" Color="#22C55E" />
+    <SolidColorBrush x:Key="BandDateBrush" Color="#8022C55E" />
+</ResourceDictionary>

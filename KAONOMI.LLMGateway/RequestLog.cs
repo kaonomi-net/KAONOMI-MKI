@@ -14,6 +14,13 @@ public sealed class RequestLog(Func<int> size)
 
     public long Total { get; private set; }
 
+    /// <summary>A prompt as the log keeps it: on one line, its first 160 characters.</summary>
+    public static string Excerpt(string prompt)
+    {
+        var line = prompt.ReplaceLineEndings(" ");
+        return line.Length > 160 ? line[..160] + "…" : line;
+    }
+
     public void Add(RequestRecord record)
     {
         lock (_lock)

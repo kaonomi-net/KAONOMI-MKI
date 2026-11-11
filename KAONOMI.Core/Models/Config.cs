@@ -18,8 +18,16 @@ namespace KAONOMI.Core.Models
         public string appDescription { get; set; } = "Description of the application ";
         /// <summary>URL of the associated documentation.</summary>
         public string appDocumentationUrl { get; set; } = @"https://www.kaonomi.net";
-        /// <summary>Base URL of the Ollama server (e.g. http://localhost:11434).</summary>
+        /// <summary>
+        /// Base URL of the LLM server: Ollama (e.g. http://localhost:11434) or, with <see cref="llmProvider"/> set to
+        /// "lmstudio", LM Studio (e.g. http://localhost:1234).
+        /// </summary>
         public string ollamaUrl { get; set; } = "http://localhost:11434";
+        /// <summary>
+        /// Which API the server at <see cref="ollamaUrl"/> speaks: "ollama" (its own API, <c>/api/chat</c>) or
+        /// "lmstudio" (the OpenAI-compatible API of LM Studio, <c>/v1/chat/completions</c>; "openai" is the same).
+        /// </summary>
+        public string llmProvider { get; set; } = "ollama";
         /// <summary>Base URL of the Fooocus API that generates the images (KAONOMI.Server/Fooocus/fooocus_api.py).</summary>
         public string fooocusUrl { get; set; } = "http://127.0.0.1:8888";
         /// <summary>Optional dialog server URL.</summary>
@@ -45,6 +53,31 @@ namespace KAONOMI.Core.Models
         /// <c>xlm-roberta-base-ner-hrl-int8</c> when the large one is missing).
         /// </summary>
         public string? nerModelFolder { get; set; }
+
+        /// <summary>
+        /// The most characters the processor of the dialogs sends to the model (the system prompt, the knowledge and
+        /// the user prompt together): above, the previous exchanges written in the prompt are shortened, then the
+        /// oldest dropped. About four characters make a token: 12000 fits a context of 4096 tokens with its answer.
+        /// </summary>
+        public int promptMaxChars { get; set; } = 12000;
+
+        /// <summary>
+        /// The most characters of knowledge (entities of the ontology, intels) the processor writes in the system
+        /// prompt; 0: none is written.
+        /// </summary>
+        public int promptKnowledgeMaxChars { get; set; } = 3000;
+
+        /// <summary>The last exchanges of a conversation the processor writes as they were said.</summary>
+        public int contextRecentTurns { get; set; } = 2;
+
+        /// <summary>The exchanges before those, shortened (300 characters of the question, 600 of the answer).</summary>
+        public int contextShortTurns { get; set; } = 4;
+
+        /// <summary>The exchanges before those, brief (160 and 220 characters); the older ones become digests (100 and 120).</summary>
+        public int contextBriefTurns { get; set; } = 8;
+
+        /// <summary>The most characters of the context of the conversation written in a prompt; above, the oldest exchanges are left out.</summary>
+        public int contextMaxChars { get; set; } = 6000;
 
         /// <summary>Look of the console applications: "matrix", "jarvis" or "ubuntu" applies that theme (HelperConsoleTheme), any other value keeps the classic console.</summary>
         public string consoleTheme { get; set; } = "matrix";

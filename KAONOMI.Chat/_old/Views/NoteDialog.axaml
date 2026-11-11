@@ -1,0 +1,52 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:KAONOMI.Chat.ViewModels"
+        x:Class="KAONOMI.Chat.Views.NoteDialog"
+        x:DataType="vm:NoteDialogViewModel"
+        Icon="/Assets/kaonomi-logo.ico"
+        Width="560" SizeToContent="Height" CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        Title="{Binding Title}">
+
+    <Design.DataContext>
+        <vm:NoteDialogViewModel />
+    </Design.DataContext>
+
+    <StackPanel>
+        <!-- Anonymity notice -->
+        <Border Background="#C62828" Padding="16,10">
+            <TextBlock Text="All notes are anonyms!" Foreground="White" FontWeight="Bold" FontSize="15"
+                       HorizontalAlignment="Center" />
+        </Border>
+
+        <StackPanel Margin="20" Spacing="12">
+            <TextBlock FontSize="13" Opacity="0.8" TextWrapping="Wrap"
+                       Text="{Binding WindowName, StringFormat='Your note about the {0} window:'}" />
+
+            <TextBox x:Name="NoteBox" Text="{Binding Text}"
+                     AcceptsReturn="True" TextWrapping="Wrap" MinHeight="140" MaxHeight="320"
+                     PlaceholderText="Type your note…"
+                     IsEnabled="{Binding !IsSent}" />
+
+            <Expander Header="Context sent with the note (no user or machine name)" HorizontalAlignment="Stretch">
+                <TextBox Text="{Binding Context, Mode=OneWay}" IsReadOnly="True" TextWrapping="Wrap"
+                         FontFamily="Cascadia Mono, Consolas, Menlo, Courier New, monospace" FontSize="11"
+                         MaxHeight="220" />
+            </Expander>
+
+            <Grid ColumnDefinitions="*,Auto,Auto">
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                    <Ellipse Width="8" Height="8" Fill="#E81123" IsVisible="{Binding IsError}" VerticalAlignment="Center" />
+                    <ProgressBar IsIndeterminate="True" Width="40" Height="4" VerticalAlignment="Center"
+                                 IsVisible="{Binding SaveCommand.IsRunning}" />
+                    <TextBlock Text="{Binding Status}" TextWrapping="Wrap" FontSize="12" MaxWidth="320"
+                               VerticalAlignment="Center" />
+                </StackPanel>
+                <Button Grid.Column="1" x:Name="CancelButton" Content="Cancel" MinWidth="90" Margin="8,0,0,0"
+                        IsCancel="True" IsEnabled="{Binding !SaveCommand.IsRunning}" />
+                <Button Grid.Column="2" Content="Save" Classes="accent" MinWidth="90" Margin="8,0,0,0"
+                        Command="{Binding SaveCommand}" />
+            </Grid>
+        </StackPanel>
+    </StackPanel>
+</Window>

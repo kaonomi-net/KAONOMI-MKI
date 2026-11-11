@@ -663,6 +663,51 @@ namespace KAONOMI.Server
             // DELETE /preset/{id}: marks the preset deleted (isDeleted = true); returns its id, or "-1" with the error message.
             app.MapDelete("/preset/{id}", (string id) => Task.FromResult(SoftDelete(() => session.PresetDelete(id))));
 
+            // GET /dialogcontext/{sessionId}: the context the server keeps for a conversation (its exchanges, the older the
+            // more compressed, and its entities); 404 when it has none.
+            app.MapGet("/dialogcontext/{sessionId}", (string sessionId) =>
+            {
+                var result = session.DialogContextGet(sessionId);
+                return result is null ? Results.NotFound() : Results.Ok(result);
+            });
+
+            // ── Cache builders: prompts and their completions written by hand (/cache in the chat; never erased) ──
+
+            // GET /cachebuilder/{id}: loads one cache builder by its document id (404 when it does not exist).
+            app.MapGet("/cachebuilder/{id}", (string id) =>
+            {
+                CacheBuilder result = session.CacheBuilderGet(id);
+                return result is null ? Results.NotFound() : Results.Ok(result);
+            });
+
+            // PUT /cachebuilder: creates a cache builder; returns the new id, or "-1" with the error message. Its related
+            // entities and its tags, when it has none, are detected in its prompts and completions (see WithDetections).
+            app.MapPut("/cachebuilder", (CacheBuilder p) => Task.FromResult(SoftDelete(() => session.CacheBuilderSave(WithDetections(session, p)))));
+
+            // POST /cachebuilder/update: saves (creates or overwrites) a cache builder; returns the saved id, or "-1" with the error message.
+            app.MapPost("/cachebuilder/update", (CacheBuilder p) => Task.FromResult(SoftDelete(() => session.CacheBuilderSave(WithDetections(session, p)))));
+
+            // POST /cachebuilder/search: free-text search on title, prompts, completions, model, language, comment and tags (body: SearchCriterias; "*" or empty: the newest ones).
+            app.MapPost("/cachebuilder/search", (SearchCriterias p) =>
+            {
+                var size = p.size > 0 ? p.size : 10;
+                return Task.FromResult(session.CacheBuildersSearch(string.IsNullOrWhiteSpace(p.term) ? "*" : p.term, size));
+            });
+
+            // POST /cachebuilder/last: the "size" most recent cache builders, newest first ("term" is ignored).
+            app.MapPost("/cachebuilder/last", (SearchCriterias p) =>
+            {
+                var size = p.size > 0 ? p.size : 10;
+                return Task.FromResult(session.CacheBuildersLast(size));
+            });
+
+            // POST /cachebuilder/{id}/publish: writes every prompt-completion pair of the cache builder in the index "cache"
+            // (one document each; a pair already in the cache is written over, never added twice; the pairs published before and gone are marked deleted).
+            app.MapPost("/cachebuilder/{id}/publish", (string id) => Task.FromResult(SoftDelete(() => session.CacheBuilderPublish(id))));
+
+            // DELETE /cachebuilder/{id}: marks the cache builder deleted (isDeleted = true); returns its id, or "-1" with the error message.
+            app.MapDelete("/cachebuilder/{id}", (string id) => Task.FromResult(SoftDelete(() => session.CacheBuilderDelete(id))));
+
             // ── Wiki: the pages of the wiki of Kaonomi (/wiki in the chat), one document each, its id the slug of its title; never erased ──
 
             // GET /wiki/{id}: loads a page by its slug (404 when it does not exist or is deleted).
@@ -1939,6 +1984,66 @@ namespace KAONOMI.Server
                 interview.entities ??= new List<InterviewEntity>();
             }
             return interview;
+        }
+
+        /// <summary>
+        /// A cache builder about to be saved, completed with what its prompts and completions say when it was left
+        /// empty: its related entities (the named entities the NER finds: people, organisations, places…, by their name
+        /// in the ontology when they are known there; the dates, numbers and amounts of the rules are left out) and its
+        /// tags (the declared tags the text holds, see <see cref="Symbolic.TagGazetteer"/>). What the user filled is
+        /// never touched; a detection that fails leaves the list empty.
+        /// </summary>
+        private static CacheBuilder WithDetections(SessionManager session, CacheBuilder builder)
+        {
+            if (builder is null)
+            {
+                return builder;
+            }
+            var texts = (builder.prompts ?? new List<string>()).Concat(builder.completions ?? new List<string>())
+                .Where(t => !string.IsNullOrWhiteSpace(t)).Select(t => t.Trim()).ToList();
+            if (texts.Count == 0)
+            {
+                return builder;
+            }
+
+            if (builder.relatedEntities is not { Count: > 0 })
+            {
+                try
+                {
+                    var ner = Ner.NerService.Get(session.Config);
+                    var names = new List<string>();
+                    foreach (var text in texts)
+                    {
+                        foreach (var entity in ner.Extract(text).entities.Where(e => e.source != "rule"))
+                        {
+                            var name = (string.IsNullOrWhiteSpace(entity.ontologyName) ? entity.text : entity.ontologyName).Trim();
+                            if (name.Length > 0 && !names.Contains(name, StringComparer.OrdinalIgnoreCase))
+                            {
+                                names.Add(name);
+                            }
+                        }
+                    }
+                    builder.relatedEntities = names;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("NER of a cache builder: " + ex.Message);
+                }
+            }
+
+            if (builder.Tags is not { Count: > 0 })
+            {
+                try
+                {
+                    var found = Symbolic.TagGazetteer.Get(session.Config).Find(string.Join("\n", texts)).Tags.Select(t => t.Tag);
+                    builder.Tags = TagRules.NormalizeTags(found);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Tags of a cache builder: " + ex.Message);
+                }
+            }
+            return builder;
         }
 
         private static ServiceReturn SoftDelete(Func<ServiceReturn> mark)

@@ -1,0 +1,374 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:KAONOMI.Chat.ViewModels"
+        xmlns:v="using:KAONOMI.Chat.Views"
+        xmlns:md="clr-namespace:LiveMarkdown.Avalonia;assembly=LiveMarkdown.Avalonia"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="540" d:DesignHeight="650"
+        x:Class="KAONOMI.Chat.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Icon="/Assets/kaonomi-logo.ico"
+        Width="540" Height="700" MinWidth="420" MinHeight="420"
+        WindowStartupLocation="Manual"
+        Topmost="True" CanResize="False" CanMaximize="False" ShowInTaskbar="False"
+        Title="Kaonomi Chat">
+
+    <Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <Window.Styles>
+        <!-- The chat is outside the Windows working area (AppBar): drop-downs and menus must not be slid back into it
+             horizontally, otherwise they open to the left of their control. They still flip / slide vertically. -->
+        <Style Selector="Popup">
+            <Setter Property="PlacementConstraintAdjustment" Value="FlipY, SlideY, ResizeY" />
+        </Style>
+        <Style Selector="ContextMenu">
+            <Setter Property="PlacementConstraintAdjustment" Value="FlipY, SlideY, ResizeY" />
+        </Style>
+        <Style Selector="Border.bubble">
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="Padding" Value="14,10" />
+            <Setter Property="Margin" Value="0,6" />
+            <Setter Property="MaxWidth" Value="470" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundBaseLowBrush}" />
+        </Style>
+        <!-- Full chat (vertical screen): wider bubbles -->
+        <Style Selector=":is(Window).fullChat Border.bubble">
+            <Setter Property="MaxWidth" Value="900" />
+        </Style>
+        <Style Selector="Border.bubble.user">
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Background" Value="{DynamicResource SystemAccentColor}" />
+        </Style>
+        <Style Selector="Border.bubble.user SelectableTextBlock">
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <Style Selector="Border.bubble.user TextBlock.author">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+        </Style>
+        <Style Selector="Border.bubble.error">
+            <Setter Property="Background" Value="#33E81123" />
+            <Setter Property="BorderBrush" Value="#E81123" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+        <!-- Copy-to-clipboard button in each bubble header -->
+        <Style Selector="Button.copy">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="4,2" />
+            <Setter Property="MinWidth" Value="0" />
+            <Setter Property="MinHeight" Value="0" />
+            <Setter Property="Opacity" Value="0.55" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+        <Style Selector="Button.copy:pointerover">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <!-- Thumb already sent for this answer -->
+        <Style Selector="Button.copy.active">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="Button.copy.active PathIcon.copyIcon">
+            <Setter Property="Foreground" Value="{DynamicResource SystemControlHighlightAccentBrush}" />
+        </Style>
+        <Style Selector="PathIcon.copyIcon">
+            <Setter Property="Width" Value="13" />
+            <Setter Property="Height" Value="13" />
+        </Style>
+        <Style Selector="Border.bubble.user PathIcon.copyIcon">
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <Style Selector="TextBlock.author">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Opacity" Value="0.75" />
+            <Setter Property="Margin" Value="0,0,0,4" />
+        </Style>
+        <Style Selector="TextBlock.stats">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Opacity" Value="0.6" />
+            <Setter Property="Margin" Value="0,6,0,0" />
+        </Style>
+        <Style Selector="ItemsControl.ticker">
+            <Setter Property="Height" Value="28" />
+            <Setter Property="ItemsPanel">
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </Setter>
+            <Setter Property="ItemTemplate">
+                <DataTemplate x:DataType="vm:TickerItemViewModel">
+                    <StackPanel Classes="tickerItem"
+                                Classes.red="{Binding IsRed}"
+                                Classes.green="{Binding IsGreen}"
+                                Classes.link="{Binding HasUrl}"
+                                Orientation="Horizontal" Spacing="6" Margin="0,0,40,0"
+                                VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Arrow}" IsVisible="{Binding HasArrow}" />
+                        <TextBlock Text="{Binding Text}" />
+                    </StackPanel>
+                </DataTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="StackPanel.tickerItem TextBlock">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style Selector="StackPanel.tickerItem.link">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="StackPanel.tickerItem.link:pointerover TextBlock">
+            <Setter Property="TextDecorations" Value="Underline" />
+        </Style>
+        <Style Selector="StackPanel.tickerItem.red TextBlock">
+            <Setter Property="Foreground" Value="#FF4040" />
+        </Style>
+        <Style Selector="StackPanel.tickerItem.green TextBlock">
+            <Setter Property="Foreground" Value="#3CD050" />
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,*,Auto,Auto">
+
+        <!-- Header -->
+        <!-- Header on two lines so that it fits the narrow chat strip: title and actions, then the model picker -->
+        <Border x:Name="HeaderBar" Grid.Row="0" Padding="12,8"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto">
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Kaonomi Chat" FontSize="18" FontWeight="SemiBold"
+                           VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                    <ToggleButton Content="System prompt" Padding="10,4"
+                                  ToolTip.Tip="Show or hide the system prompt"
+                                  IsChecked="{Binding IsSystemPromptVisible}" />
+                    <Button Content="New chat" Padding="10,4"
+                            ToolTip.Tip="Start a new conversation"
+                            Command="{Binding NewConversationCommand}" />
+                    <v:AddNoteButton />
+                </StackPanel>
+                <Grid Grid.Row="1" Grid.ColumnSpan="2" ColumnDefinitions="Auto,*,Auto" Margin="0,8,0,0">
+                    <TextBlock Grid.Column="0" Text="Model" VerticalAlignment="Center" Margin="0,0,8,0" />
+                    <ComboBox Grid.Column="1" HorizontalAlignment="Stretch"
+                              ItemsSource="{Binding Models}"
+                              SelectedItem="{Binding SelectedModel}"
+                              IsEnabled="{Binding !SendCommand.IsRunning}" />
+                    <Button Grid.Column="2" Content="⟳" Margin="6,0,0,0"
+                            ToolTip.Tip="Reload the model list"
+                            Command="{Binding RefreshModelsCommand}" />
+                </Grid>
+                <!-- Previous exchanges (prompt + answer) written into each prompt, 0 to 20 (historyExchanges in config.yml) -->
+                <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="8" Margin="0,8,0,0"
+                            ToolTip.Tip="Number of previous exchanges (prompt + answer) sent with each prompt under &quot;Discussions précédentes&quot;; 0 sends the prompt alone">
+                    <TextBlock Text="History" VerticalAlignment="Center" />
+                    <ComboBox ItemsSource="{Binding HistoryExchangeChoices}" SelectedItem="{Binding HistoryExchanges}"
+                              MinWidth="72" MaxDropDownHeight="320" />
+                    <TextBlock Text="previous exchanges in the prompt" FontSize="12" Opacity="0.7"
+                               VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Ticker band (/messageflow/last), scrolled right-to-left by the code-behind -->
+        <Border x:Name="TickerBand" Grid.Row="1" Background="#101010" IsVisible="{Binding HasTickerItems}">
+            <Canvas x:Name="TickerCanvas" Height="28" ClipToBounds="True">
+                <ItemsControl x:Name="TickerStrip" Classes="ticker" ItemsSource="{Binding TickerItems}" />
+                <ItemsControl x:Name="TickerStripCopy" Classes="ticker" ItemsSource="{Binding TickerItems}" />
+            </Canvas>
+        </Border>
+
+        <!-- Kaonomi band: a 200 px high panel with the 3D robot face (OpenGL) whose mouth moves with the streamed words
+             and while the answer is read aloud; its colors come from the theme (Themes/Band.axaml by default).
+             In the full chat (vertical screen), it moves to the top and takes 60 % of the height. -->
+        <Panel x:Name="Band" Grid.Row="2" Height="200" Background="{DynamicResource BandBackgroundBrush}">
+            <v:KaonomiScene x:Name="Scene" BackColor="{DynamicResource BandBackgroundColor}" />
+            <!-- animation: JEROME in config.yml: the photo portrait, same 3D face scene with another face -->
+            <v:KaonomiScene x:Name="JeromeScene" Animation="Jerome" BackColor="{DynamicResource BandBackgroundColor}" IsVisible="False" />
+            <!-- animation: HAL in config.yml: the red eye of a computer, same 3D scene with another image -->
+            <v:KaonomiScene x:Name="HalScene" Animation="Hal" BackColor="{DynamicResource BandBackgroundColor}" IsVisible="False" />
+            <!-- animation: MARIEKILLEUSE in config.yml: the robot doll with a knife, same 3D face scene with another image -->
+            <v:KaonomiScene x:Name="MarieKilleuseScene" Animation="MarieKilleuse" BackColor="{DynamicResource BandBackgroundColor}" IsVisible="False" />
+            <!-- animation: MUSUKO in config.yml: the robot boy, same 3D face scene with another image -->
+            <v:KaonomiScene x:Name="MusukoScene" Animation="Musuko" BackColor="{DynamicResource BandBackgroundColor}" IsVisible="False" />
+            <!-- animation: KAONAMI in config.yml: the masked robot, same 3D face scene with another image -->
+            <v:KaonomiScene x:Name="KaonamiScene" Animation="Kaonami" BackColor="{DynamicResource BandBackgroundColor}" IsVisible="False" />
+            <!-- animation: PEPPER in config.yml: the robot with a tablet, same 3D face scene with another image -->
+            <v:KaonomiScene x:Name="PepperScene" Animation="Pepper" BackColor="{DynamicResource BandBackgroundColor}" IsVisible="False" />
+            <!-- animation: GREEN in config.yml: the android child with green eyes, same 3D face scene with another image -->
+            <v:KaonomiScene x:Name="GreenScene" Animation="Green" BackColor="{DynamicResource BandBackgroundColor}" IsVisible="False" />
+            <!-- animation: JEROMELIVE in config.yml: Jerome filmed, same 3D face scene with a frame of his video -->
+            <v:KaonomiScene x:Name="JeromeLiveScene" Animation="JeromeLive" BackColor="{DynamicResource BandBackgroundColor}" IsVisible="False" />
+            <!-- animation: MARVIN in config.yml: the gloomy robot with green eye slits, same 3D face scene with another image -->
+            <v:KaonomiScene x:Name="MarvinScene" Animation="Marvin" BackColor="{DynamicResource BandBackgroundColor}" IsVisible="False" />
+            <!-- animation: JARVIS in config.yml: holographic display instead of the face (only one scene is shown) -->
+            <v:JarvisScene x:Name="Jarvis" BackColor="{DynamicResource BandBackgroundColor}" IsVisible="False" />
+            <!-- Clock, top right of the band (updated every second by the code-behind) -->
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,12,16,0" IsHitTestVisible="False">
+                <TextBlock x:Name="ClockTime" FontFamily="Cascadia Mono, Consolas, Menlo, monospace" FontSize="30"
+                           Foreground="{DynamicResource BandClockBrush}" HorizontalAlignment="Right" />
+                <TextBlock x:Name="ClockDate" FontSize="12" Foreground="{DynamicResource BandDateBrush}" Margin="0,0,2,0" HorizontalAlignment="Right" />
+            </StackPanel>
+        </Panel>
+
+        <!-- System prompt -->
+        <Border Grid.Row="3" Padding="12,8" IsVisible="{Binding IsSystemPromptVisible}"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <TextBox Text="{Binding SystemPrompt}"
+                     PlaceholderText="Instructions given to the model before the conversation (optional)"
+                     AcceptsReturn="True" TextWrapping="Wrap" MaxHeight="140" />
+        </Border>
+
+        <!-- Conversation -->
+        <Panel Grid.Row="4">
+            <ScrollViewer x:Name="MessagesScroller" Padding="12,8">
+                <ItemsControl ItemsSource="{Binding Messages}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="vm:ChatMessageViewModel">
+                            <Border Classes="bubble"
+                                    Classes.user="{Binding IsUser}"
+                                    Classes.error="{Binding IsError}">
+                                <StackPanel>
+                                    <Grid ColumnDefinitions="*,Auto,Auto,Auto">
+                                        <TextBlock Grid.Column="0" Classes="author" Text="{Binding Author}" />
+                                        <Button Grid.Column="1" Classes="copy" Classes.active="{Binding IsLiked}"
+                                                Margin="8,-4,0,0"
+                                                ToolTip.Tip="Like this answer"
+                                                IsVisible="{Binding CanEvaluate}"
+                                                Click="OnLikeClick">
+                                            <PathIcon Classes="copyIcon" Data="{StaticResource Icon.ThumbUp}" />
+                                        </Button>
+                                        <Button Grid.Column="2" Classes="copy" Classes.active="{Binding IsDisliked}"
+                                                Margin="2,-4,0,0"
+                                                ToolTip.Tip="Dislike this answer"
+                                                IsVisible="{Binding CanEvaluate}"
+                                                Click="OnDislikeClick">
+                                            <PathIcon Classes="copyIcon" Data="{StaticResource Icon.ThumbDown}" />
+                                        </Button>
+                                        <Button Grid.Column="3" Classes="copy" Margin="2,-4,-6,0"
+                                                ToolTip.Tip="Copy to clipboard"
+                                                IsVisible="{Binding !IsPending}"
+                                                Click="OnCopyMessageClick">
+                                            <PathIcon Classes="copyIcon" Data="{StaticResource Icon.Copy}" />
+                                        </Button>
+                                    </Grid>
+                                    <SelectableTextBlock Text="{Binding Content}" TextWrapping="Wrap"
+                                                         IsVisible="{Binding IsUser}" />
+                                    <md:MarkdownRenderer IsVisible="{Binding IsAssistant}"
+                                                         MarkdownBuilder="{Binding Content, Converter={x:Static md:ValueConverters.ToObservableStringBuilder}}" />
+                                    <ProgressBar IsIndeterminate="True" Width="80" Height="4"
+                                                 HorizontalAlignment="Left" Margin="0,6,0,0"
+                                                 IsVisible="{Binding IsPending}" />
+                                    <Button Content="{Binding ShowCodeLabel}" Margin="0,8,0,0"
+                                            IsVisible="{Binding HasCode}"
+                                            Command="{Binding $parent[ItemsControl].((vm:MainViewModel)DataContext).ShowCodeCommand}"
+                                            CommandParameter="{Binding}" />
+                                    <TextBlock Classes="stats" Text="{Binding Stats}"
+                                               IsVisible="{Binding HasStats}" />
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="6" Margin="24,0"
+                        IsVisible="{Binding HasNoMessages}" IsHitTestVisible="False" Opacity="0.6">
+                <TextBlock Text="Ask your local model a question" FontSize="18"
+                           HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" />
+                <TextBlock Text="Enter to send · Shift+Enter for a new line · /help or /? for the commands"
+                           HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" FontSize="12" />
+            </StackPanel>
+        </Panel>
+
+        <!-- Input -->
+        <Border Grid.Row="5" Padding="12,8"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                BorderThickness="0,1,0,0">
+            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*">
+                <!-- Saved prompts (folder: prompts.directory in config.yml) and exports; short labels, wrapped when too narrow -->
+                <WrapPanel Grid.ColumnSpan="2" Orientation="Horizontal" ItemSpacing="6" LineSpacing="6" Margin="0,0,0,6">
+                    <Button Padding="8,3" Click="OnSavePromptClick"
+                            ToolTip.Tip="Save the prompt being typed to a file of the prompts folder">
+                        <StackPanel Orientation="Horizontal" Spacing="5">
+                            <PathIcon Data="{StaticResource Icon.Save}" Width="13" Height="13"
+                                      VerticalAlignment="Center" />
+                            <TextBlock Text="Save" FontSize="12" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Padding="8,3" Click="OnLoadPromptClick"
+                            ToolTip.Tip="Load a saved prompt into the input box">
+                        <StackPanel Orientation="Horizontal" Spacing="5">
+                            <PathIcon Data="{StaticResource Icon.FolderOpen}" Width="13" Height="13"
+                                      VerticalAlignment="Center" />
+                            <TextBlock Text="Load" FontSize="12" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Padding="8,3" Click="OnPromptCollectionClick"
+                            ToolTip.Tip="Prompt collection: run every *.prompt.json prompt of a folder in the chat, one after the other (Esc to stop)">
+                        <StackPanel Orientation="Horizontal" Spacing="5">
+                            <PathIcon Data="{StaticResource Icon.List}" Width="13" Height="13"
+                                      VerticalAlignment="Center" />
+                            <TextBlock Text="Collection" FontSize="12" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Content="JSON" FontSize="12" Padding="10,3"
+                            ToolTip.Tip="Export the whole conversation as a JSON file"
+                            IsEnabled="{Binding !HasNoMessages}"
+                            Click="OnExportJsonClick" />
+                    <Button Content="Word" FontSize="12" Padding="10,3"
+                            ToolTip.Tip="Export the conversation as a Microsoft Word document"
+                            IsEnabled="{Binding !HasNoMessages}"
+                            Click="OnExportWordClick" />
+                </WrapPanel>
+                <TextBox x:Name="InputBox" Grid.Row="1" Grid.Column="0"
+                         Text="{Binding Input}"
+                         PlaceholderText="Your message…"
+                         AcceptsReturn="True" TextWrapping="Wrap"
+                         MinHeight="44" MaxHeight="180"
+                         VerticalContentAlignment="Center" />
+                <Panel Grid.Row="1" Grid.Column="1" Margin="8,0,0,0" VerticalAlignment="Bottom">
+                    <Button Content="Send" Classes="accent" MinHeight="44" MinWidth="80"
+                            HorizontalContentAlignment="Center"
+                            Command="{Binding SendCommand}"
+                            IsVisible="{Binding !SendCommand.IsRunning}" />
+                    <Button Content="Cancel" MinHeight="44" MinWidth="80"
+                            HorizontalContentAlignment="Center"
+                            Command="{Binding SendCancelCommand}"
+                            IsVisible="{Binding SendCommand.IsRunning}" />
+                </Panel>
+            </Grid>
+        </Border>
+
+        <!-- Status bar -->
+        <!-- Status bar on two lines: state (and export result), then the Ollama and server addresses -->
+        <Border Grid.Row="6" Padding="12,4"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto">
+                <Panel Grid.Row="0" Grid.Column="0" Margin="0,0,8,0" VerticalAlignment="Center">
+                    <Ellipse Width="8" Height="8" Fill="#E81123" IsVisible="{Binding !IsConnected}" />
+                    <Ellipse Width="8" Height="8" Fill="#16C60C" IsVisible="{Binding IsConnected}" />
+                </Panel>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Status}" FontSize="12"
+                           VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                <TextBlock x:Name="ExportStatus" Grid.Row="0" Grid.Column="2" FontSize="12" VerticalAlignment="Center"
+                           Margin="8,0,0,0" MaxWidth="240" TextTrimming="CharacterEllipsis" />
+                <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+                    <TextBlock FontSize="11" Opacity="0.6" TextTrimming="CharacterEllipsis">
+                        <Run Text="{Binding OllamaUrl}" />
+                        <Run Text=" · " />
+                        <Run Text="{Binding ServerUrl, StringFormat='Kaonomi server: {0}'}" />
+                    </TextBlock>
+                    <!-- The Kaonomi REST server does not answer: prompts cannot be sent ("/" commands still work) -->
+                    <TextBlock FontSize="11" Foreground="#E81123" Margin="6,0,0,0" Text="unreachable · Send disabled"
+                               IsVisible="{Binding !IsServerReachable}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

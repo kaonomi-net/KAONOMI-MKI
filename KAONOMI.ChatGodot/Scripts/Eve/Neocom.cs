@@ -46,7 +46,7 @@ public partial class Neocom : PanelContainer
         ("/iq", "🧩", "IQ tests"),
         ("/activity", "🗒", "Activity journal (each SAVE)"),
         ("/folders", "📁", "Folders of windows"),
-        ("/cache", "🗃", "Cache"),
+        ("/cache", "🗃", "Cache builder (prompts and completions)"),
         ("/search", "🔎", "Search every index (fuzzy)"),
         ("/json", "🌐", "HTTP JSON client"),
         ("/cmd", "⌨", "Console (cmd.exe)"),

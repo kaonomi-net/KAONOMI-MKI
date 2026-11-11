@@ -1,0 +1,169 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:KAONOMI.Chat.ViewModels"
+        xmlns:v="using:KAONOMI.Chat.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="650"
+        x:Class="KAONOMI.Chat.Views.IdeaView"
+        x:DataType="vm:IdeaWindowViewModel">
+
+    <Design.DataContext>
+        <vm:IdeaWindowViewModel />
+    </Design.DataContext>
+
+    <UserControl.KeyBindings>
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding SelectedResult.SaveCommand}" />
+        <KeyBinding Gesture="Ctrl+N" Command="{Binding NewCommand}" />
+        <KeyBinding Gesture="F5" Command="{Binding SearchCommand}" />
+    </UserControl.KeyBindings>
+
+    <UserControl.Styles>
+        <Style Selector="TextBlock.label">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Opacity" Value="0.75" />
+            <Setter Property="Margin" Value="0,12,0,4" />
+        </Style>
+        <Style Selector="TextBlock.meta">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Opacity" Value="0.6" />
+        </Style>
+        <Style Selector="Border.new">
+            <Setter Property="Background" Value="#3316C60C" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Padding" Value="6,1" />
+        </Style>
+        <Style Selector="Border.dirty">
+            <Setter Property="Background" Value="#33FFB900" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Padding" Value="6,1" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <Border Grid.Row="0" Padding="12,10"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <Grid ColumnDefinitions="*,Auto,Auto,Auto">
+                <TextBox x:Name="SearchBox" Grid.Column="0"
+                         Text="{Binding Term}"
+                         PlaceholderText="Search ideas (title, description, category, tags) · empty: latest ideas"
+                         VerticalContentAlignment="Center" MinHeight="36" />
+                <Button Grid.Column="1" Content="Search" Classes="accent"
+                        MinWidth="110" MinHeight="36" Margin="8,0,0,0"
+                        Command="{Binding SearchCommand}" />
+                <Button Grid.Column="2" Content="New idea" MinWidth="100" MinHeight="36" Margin="8,0,0,0"
+                        ToolTip.Tip="Create a new idea (Ctrl+N)"
+                        Command="{Binding NewCommand}" />
+                <v:AddNoteButton Grid.Column="3" Margin="8,0,0,0" />
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" ColumnDefinitions="340,4,*">
+            <Panel Grid.Column="0">
+                <ListBox ItemsSource="{Binding Results}"
+                         SelectedItem="{Binding SelectedResult}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="vm:IdeaEntryViewModel">
+                            <StackPanel Spacing="2" Margin="0,4">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <TextBlock Classes="meta" Text="{Binding Summary}" />
+                                    <Border Classes="new" IsVisible="{Binding IsNew}">
+                                        <TextBlock Classes="meta" Text="new" />
+                                    </Border>
+                                    <Border Classes="dirty" IsVisible="{Binding IsDirty}">
+                                        <TextBlock Classes="meta" Text="modified" />
+                                    </Border>
+                                </StackPanel>
+                                <TextBlock Text="{Binding DisplayTitle}" FontWeight="SemiBold"
+                                           TextWrapping="Wrap" MaxLines="1" TextTrimming="CharacterEllipsis" />
+                                <TextBlock Classes="meta" Text="{Binding IdeaDescription}"
+                                           TextWrapping="Wrap" MaxLines="2" TextTrimming="CharacterEllipsis" />
+                                <TextBlock Classes="meta" Text="{Binding TagsPreview}" IsVisible="{Binding HasTags}"
+                                           TextWrapping="Wrap" MaxLines="1" TextTrimming="CharacterEllipsis" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <TextBlock Text="No ideas" Opacity="0.6"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           IsVisible="{Binding !HasResults}" IsHitTestVisible="False" />
+            </Panel>
+
+            <GridSplitter Grid.Column="1" ResizeDirection="Columns"
+                          Background="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+
+            <Grid Grid.Column="2" RowDefinitions="Auto,*"
+                  IsVisible="{Binding SelectedResult, Converter={x:Static ObjectConverters.IsNotNull}}">
+
+                <Border Grid.Row="0" Padding="16,8" DataContext="{Binding SelectedResult}"
+                        x:DataType="vm:IdeaEntryViewModel"
+                        BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                        BorderThickness="0,0,0,1">
+                    <Grid ColumnDefinitions="*,Auto,Auto,Auto,Auto">
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <SelectableTextBlock Text="{Binding IdLabel}" FontSize="12" />
+                            <TextBlock Classes="meta" Text="{Binding DateLabel}" />
+                            <TextBlock Classes="meta" Text="{Binding AuthorLabel}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6"
+                                    VerticalAlignment="Center" Margin="0,0,12,0">
+                            <Ellipse Width="8" Height="8" VerticalAlignment="Center"
+                                     Fill="#E81123" IsVisible="{Binding IsError}" />
+                            <TextBlock Text="{Binding Status}" FontSize="12" MaxWidth="280"
+                                       TextTrimming="CharacterEllipsis" VerticalAlignment="Center"
+                                       ToolTip.Tip="{Binding Status}" />
+                        </StackPanel>
+                        <Button Grid.Column="2" Margin="0,0,6,0" Padding="8,6"
+                                ToolTip.Tip="Delete this idea"
+                                Command="{Binding $parent[v:IdeaView].((vm:IdeaWindowViewModel)DataContext).DeleteCommand}">
+                            <PathIcon Data="{StaticResource Icon.Delete}" Width="14" Height="14" />
+                        </Button>
+                        <Button Grid.Column="3" Content="Discard changes" Margin="0,0,6,0"
+                                Command="{Binding RevertCommand}" />
+                        <Button Grid.Column="4" Content="Save" Classes="accent" MinWidth="110"
+                                ToolTip.Tip="Save the idea (Ctrl+S)"
+                                Command="{Binding SaveCommand}" />
+                    </Grid>
+                </Border>
+
+                <ScrollViewer Grid.Row="1" Padding="16,0,16,16">
+                    <StackPanel DataContext="{Binding SelectedResult}" x:DataType="vm:IdeaEntryViewModel">
+                        <TextBlock Classes="label" Text="Title" />
+                        <TextBox x:Name="TitleBox" Text="{Binding IdeaTitle}" FontSize="16"
+                                 PlaceholderText="A short title for the idea" />
+
+                        <TextBlock Classes="label" Text="Category" />
+                        <AutoCompleteBox Text="{Binding Category}" FilterMode="ContainsOrdinal" MinimumPrefixLength="0"
+                                         ItemsSource="{Binding $parent[v:IdeaView].((vm:IdeaWindowViewModel)DataContext).Categories}"
+                                         PlaceholderText="e.g. Product, Research, UI" />
+
+                        <TextBlock Classes="label" Text="Description" />
+                        <TextBox Text="{Binding IdeaDescription}" AcceptsReturn="True" TextWrapping="Wrap"
+                                 MinHeight="220" PlaceholderText="Describe the idea…" />
+
+                        <TextBlock Classes="label" Text="Tags (one per line)" />
+                        <TextBox Text="{Binding Tags}" AcceptsReturn="True"
+                                 MinHeight="60" MaxHeight="140" />
+
+                        <TextBlock Classes="label" Text="Comment" />
+                        <TextBox Text="{Binding Comment}" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="60" />
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+
+        <Border Grid.Row="2" Padding="12,4"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <ProgressBar IsIndeterminate="True" Width="60" Height="4" VerticalAlignment="Center"
+                             IsVisible="{Binding SearchCommand.IsRunning}" />
+                <Ellipse Width="8" Height="8" VerticalAlignment="Center"
+                         Fill="#E81123" IsVisible="{Binding IsError}" />
+                <TextBlock Text="{Binding Status}" FontSize="12" VerticalAlignment="Center" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

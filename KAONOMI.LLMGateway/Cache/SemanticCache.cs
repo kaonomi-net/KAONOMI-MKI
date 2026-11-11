@@ -11,6 +11,9 @@ public sealed class CacheEntry
     public string Id { get; set; } = Guid.NewGuid().ToString("N")[..12];
     /// <summary>The model that answered (after the router); <see cref="SemanticCache.Any"/> for every model (an import).</summary>
     public string Model { get; set; } = "";
+    /// <summary>True for an answer written for every model (an import that names none): not the answer of a model, but one given to the cache.</summary>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public bool Curated => Model == SemanticCache.Any;
     /// <summary>
     /// The hash of what comes before the last prompt: the system prompt, the history, the format asked;
     /// <see cref="SemanticCache.Any"/> for every context (an import that names none).
@@ -53,8 +56,10 @@ public sealed record CacheLookup(CacheEntry? Hit, double BestScore, CacheEntry? 
 /// same entities (numbers, dates, names… when the entity guard is on). Once <c>minAnswers</c> answers are kept for a
 /// prompt that close (3 by default), the cache answers it, with one of them drawn at random (not the one it gave last),
 /// so that its answers vary; until then the prompt goes to the model and its answer is kept with the others. The
-/// entries expire after the TTL; past the maximum, the ones used the longest ago go. They are kept in cache.json,
-/// written a few seconds after a change.
+/// answers written for every model (<see cref="CacheEntry.Curated"/>: an import without a model, the phrases a cache
+/// builder sends) are trusted: one is enough for the cache to answer, they are given back before the answers of a
+/// model, and they do not expire. The other entries expire after the TTL; past the maximum, the ones used the longest
+/// ago go. They are kept in cache.json, written a few seconds after a change.
 /// </summary>
 public sealed class SemanticCache : IDisposable
 {
@@ -130,6 +135,12 @@ public sealed class SemanticCache : IDisposable
                 if (!sameScope || (settings.EntityGuard && entry.EntitySignature != signature) || score < threshold)
                     continue;
                 similar.Add((entry, score));
+            }
+            // The answers given to the cache come first, and one of them is enough.
+            if (similar.Where(s => s.Entry.Curated).ToList() is { Count: > 0 } curated)
+            {
+                similar = curated;
+                needed = 1;
             }
             if (similar.Count >= needed)
             {
@@ -220,6 +231,26 @@ public sealed class SemanticCache : IDisposable
                                      && e.Prompt == prompt && e.Answer == answer);
     }
 
+    /// <summary>
+    /// Takes out the answer <paramref name="answer"/> kept for the prompt <paramref name="prompt"/> (both compared
+    /// without the spaces around them), whatever the model and the context; returns the entries taken out.
+    /// </summary>
+    public IReadOnlyList<CacheEntry> RemoveInteraction(string prompt, string answer)
+    {
+        var wantedPrompt = prompt.Trim();
+        var wantedAnswer = answer.Trim();
+        if (wantedPrompt.Length == 0 || wantedAnswer.Length == 0)
+            return [];
+        lock (_lock)
+        {
+            var removed = _entries.Where(e => e.Prompt.Trim() == wantedPrompt && e.Answer.Trim() == wantedAnswer).ToList();
+            foreach (var entry in removed)
+                _entries.Remove(entry);
+            _dirty |= removed.Count > 0;
+            return removed;
+        }
+    }
+
     public bool Remove(string id)
     {
         lock (_lock)
@@ -265,7 +296,7 @@ public sealed class SemanticCache : IDisposable
         if (settings.TtlHours <= 0)
             return;
         var limit = now - TimeSpan.FromHours(settings.TtlHours);
-        if (_entries.RemoveAll(e => e.Created < limit) > 0)
+        if (_entries.RemoveAll(e => !e.Curated && e.Created < limit) > 0)
             _dirty = true;
     }
 

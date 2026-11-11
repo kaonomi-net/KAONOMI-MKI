@@ -1,0 +1,370 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:KAONOMI.Chat.ViewModels"
+        xmlns:v="using:KAONOMI.Chat.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1400" d:DesignHeight="800"
+        x:Class="KAONOMI.Chat.Views.OntologyView"
+        x:DataType="vm:OntologyWindowViewModel">
+
+    <Design.DataContext>
+        <vm:OntologyWindowViewModel />
+    </Design.DataContext>
+
+    <UserControl.KeyBindings>
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding SelectedNode.SaveCommand}" />
+        <KeyBinding Gesture="F5" Command="{Binding RefreshCommand}" />
+    </UserControl.KeyBindings>
+
+    <UserControl.Styles>
+        <Style Selector="TextBlock.label">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Opacity" Value="0.75" />
+            <Setter Property="Margin" Value="0,12,0,4" />
+        </Style>
+        <Style Selector="TextBlock.meta">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Opacity" Value="0.6" />
+        </Style>
+        <Style Selector="Border.badge">
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Padding" Value="6,0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style Selector="Border.badge.deleted">
+            <Setter Property="Background" Value="#33E81123" />
+        </Style>
+        <Style Selector="Border.badge.new">
+            <Setter Property="Background" Value="#3316C60C" />
+        </Style>
+        <Style Selector="Border.badge.dirty">
+            <Setter Property="Background" Value="#33FFB900" />
+        </Style>
+        <Style Selector="Border.badge.linked">
+            <Setter Property="Background" Value="#335B8DEF" />
+        </Style>
+        <!-- Occurrences shown under a virtual link -->
+        <Style Selector="StackPanel.node.virtual TextBlock.name">
+            <Setter Property="FontStyle" Value="Italic" />
+        </Style>
+        <Style Selector="Border.badge.orphan">
+            <Setter Property="Background" Value="#33888888" />
+        </Style>
+
+        <!-- Tree rows: expand state is bound to the node view model -->
+        <Style Selector="TreeViewItem" x:DataType="vm:OntologyTreeItem">
+            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+        </Style>
+        <Style Selector="StackPanel.node.deleted">
+            <Setter Property="Opacity" Value="0.5" />
+        </Style>
+        <Style Selector="StackPanel.node.deleted TextBlock.name">
+            <Setter Property="TextDecorations" Value="Strikethrough" />
+        </Style>
+        <Style Selector="StackPanel.node.match TextBlock.name">
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Toolbar -->
+        <Border Grid.Row="0" Padding="12,10"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <Grid ColumnDefinitions="*,Auto,Auto,Auto">
+                <TextBox x:Name="SearchBox" Grid.Column="0"
+                         Text="{Binding Term}"
+                         PlaceholderText="Filter nodes as you type (all fields, accents ignored) · Enter: first match · Esc: clear"
+                         VerticalContentAlignment="Center" MinHeight="36" />
+                <Button Grid.Column="1" Content="Search" Classes="accent"
+                        ToolTip.Tip="Search now (local + server) and select the first match"
+                        MinWidth="100" MinHeight="36" Margin="8,0,0,0"
+                        Command="{Binding SearchCommand}" />
+                <Button Grid.Column="2" Content="Clear" MinWidth="80" MinHeight="36" Margin="6,0,0,0"
+                        ToolTip.Tip="Show the whole tree again"
+                        Command="{Binding ClearSearchCommand}" />
+                <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="6" Margin="20,0,0,0">
+                    <Button Content="Add root node" MinHeight="36"
+                            Command="{Binding AddRootCommand}" />
+                    <Button Content="Expand all" MinHeight="36"
+                            Command="{Binding ExpandAllCommand}" />
+                    <Button Content="Collapse all" MinHeight="36"
+                            Command="{Binding CollapseAllCommand}" />
+                    <ToggleButton Content="Show deleted" MinHeight="36"
+                                  IsChecked="{Binding ShowDeleted}" />
+                    <Button Content="⟳ Refresh" MinHeight="36"
+                            ToolTip.Tip="Reload all nodes from the server (F5). Unsaved changes are lost."
+                            Command="{Binding RefreshCommand}" />
+                    <v:AddNoteButton />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" ColumnDefinitions="480,4,*">
+
+            <!-- Tree -->
+            <Panel Grid.Column="0">
+                <!-- Attach mode banner: the next node clicked becomes a virtual parent -->
+                <Border Padding="10,8" VerticalAlignment="Top" ZIndex="1"
+                        Background="{DynamicResource SystemControlHighlightAccentBrush}"
+                        IsVisible="{Binding IsAttaching}">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock Grid.Column="0" Text="{Binding AttachPrompt}" Foreground="White"
+                                   TextWrapping="Wrap" VerticalAlignment="Center" />
+                        <Button Grid.Column="1" Content="Cancel" Margin="8,0,0,0" Command="{Binding CancelAttachCommand}" />
+                    </Grid>
+                </Border>
+
+                <TreeView x:Name="NodeTree"
+                          ItemsSource="{Binding RootItems}"
+                          SelectedItem="{Binding SelectedTreeItem}">
+                    <TreeView.ItemTemplate>
+                        <!-- One item per occurrence: a node with virtual parents appears at each place it is attached -->
+                        <TreeDataTemplate x:DataType="vm:OntologyTreeItem" ItemsSource="{Binding Children}">
+                            <StackPanel Classes="node"
+                                        Classes.deleted="{Binding Node.IsDeleted}"
+                                        Classes.match="{Binding Node.IsMatch}"
+                                        Classes.virtual="{Binding IsInVirtualBranch}"
+                                        Orientation="Horizontal" Spacing="6" Background="Transparent">
+                                <StackPanel.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Edit" Command="{Binding Node.EditCommand}" />
+                                        <MenuItem Header="Add child node" Command="{Binding Node.AddChildCommand}" />
+                                        <Separator />
+                                        <MenuItem Header="Attach to another node…" Command="{Binding Node.AttachCommand}"
+                                                  ToolTip.Tip="Also show this node, with all its children, under another node (virtual parent)" />
+                                        <MenuItem Header="{Binding DetachHeader}" Command="{Binding DetachCommand}"
+                                                  IsVisible="{Binding IsVirtualLink}"
+                                                  ToolTip.Tip="Remove this virtual link (the node stays at its real place)" />
+                                        <Separator />
+                                        <MenuItem Header="Export…" Command="{Binding Node.ExportCommand}"
+                                                  ToolTip.Tip="Save this node and its descendants to a JSON file, without ids" />
+                                        <MenuItem Header="Import…" Command="{Binding Node.ImportCommand}"
+                                                  ToolTip.Tip="Create the nodes of a JSON export as children of this node (new ids)" />
+                                        <Separator />
+                                        <MenuItem Header="Delete (isDeleted = true)" Command="{Binding Node.DeleteCommand}"
+                                                  ToolTip.Tip="Also flags every descendant as deleted" />
+                                        <MenuItem Header="Undelete (isDeleted = false)" Command="{Binding Node.RestoreCommand}"
+                                                  ToolTip.Tip="Restores this node and its deleted ancestors" />
+                                        <MenuItem Header="Undelete with descendants" Command="{Binding Node.RestoreWithDescendantsCommand}"
+                                                  ToolTip.Tip="Restores this node, its deleted ancestors and all its deleted descendants" />
+                                        <Separator />
+                                        <MenuItem Header="Show deleted nodes" ToggleType="CheckBox"
+                                                  IsChecked="{Binding Node.Owner.ShowDeleted, Mode=TwoWay}" />
+                                    </ContextMenu>
+                                </StackPanel.ContextMenu>
+
+                                <TextBlock Text="◆" FontSize="10" VerticalAlignment="Center"
+                                           ToolTip.Tip="Ontology class"
+                                           IsVisible="{Binding Node.IsOntologyClass}" />
+                                <TextBlock Text="●" FontSize="8" VerticalAlignment="Center" Opacity="0.6"
+                                           ToolTip.Tip="Instance"
+                                           IsVisible="{Binding !Node.IsOntologyClass}" />
+                                <TextBlock Classes="name" Text="{Binding Node.DisplayName}" VerticalAlignment="Center" />
+                                <TextBlock Classes="meta" Text="{Binding Node.EntityType}" VerticalAlignment="Center"
+                                           IsVisible="{Binding Node.HasEntityType}" />
+                                <Border Classes="badge linked" IsVisible="{Binding IsVirtualLink}"
+                                        ToolTip.Tip="{Binding VirtualLinkTip}">
+                                    <TextBlock Classes="meta" Text="⇢ linked" />
+                                </Border>
+                                <Border Classes="badge deleted" IsVisible="{Binding Node.IsDeleted}">
+                                    <TextBlock Classes="meta" Text="deleted" />
+                                </Border>
+                                <Border Classes="badge new" IsVisible="{Binding Node.IsNew}">
+                                    <TextBlock Classes="meta" Text="new" />
+                                </Border>
+                                <Border Classes="badge dirty" IsVisible="{Binding Node.IsDirty}">
+                                    <TextBlock Classes="meta" Text="modified" />
+                                </Border>
+                                <Border Classes="badge orphan" IsVisible="{Binding Node.IsOrphan}"
+                                        ToolTip.Tip="The parent id does not match any loaded node">
+                                    <TextBlock Classes="meta" Text="orphan" />
+                                </Border>
+                            </StackPanel>
+                        </TreeDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+
+                <TextBlock Text="No node · use “Add root node” or right-click a node"
+                           Opacity="0.6" TextWrapping="Wrap" Margin="20"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           IsVisible="{Binding !HasNodes}" IsHitTestVisible="False" />
+            </Panel>
+
+            <GridSplitter Grid.Column="1" ResizeDirection="Columns"
+                          Background="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+
+            <!-- Editor -->
+            <Grid Grid.Column="2" RowDefinitions="Auto,*"
+                  IsVisible="{Binding SelectedNode, Converter={x:Static ObjectConverters.IsNotNull}}">
+
+                <Border Grid.Row="0" Padding="16,8" DataContext="{Binding SelectedNode}"
+                        x:DataType="vm:OntologyNodeViewModel"
+                        BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                        BorderThickness="0,0,0,1">
+                    <Grid ColumnDefinitions="*,Auto,Auto,Auto,Auto">
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <SelectableTextBlock Text="{Binding IdLabel}" FontSize="12" />
+                            <SelectableTextBlock Classes="meta" Text="{Binding ParentLabel}" FontSize="11" />
+                            <SelectableTextBlock Classes="meta" Text="{Binding VirtualParentsLabel}" FontSize="11"
+                                                 TextWrapping="Wrap" IsVisible="{Binding HasVirtualParents}" />
+                            <TextBlock Classes="meta" Text="{Binding DatesLabel}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6"
+                                    VerticalAlignment="Center" Margin="0,0,12,0">
+                            <Ellipse Width="8" Height="8" VerticalAlignment="Center"
+                                     Fill="#E81123" IsVisible="{Binding IsError}" />
+                            <TextBlock Text="{Binding Status}" FontSize="12" MaxWidth="360"
+                                       TextTrimming="CharacterEllipsis" VerticalAlignment="Center"
+                                       ToolTip.Tip="{Binding Status}" />
+                        </StackPanel>
+                        <Button Grid.Column="2" Content="Add child" Margin="0,0,6,0"
+                                ToolTip.Tip="Add a child under this node (save the node first)"
+                                Command="{Binding AddChildCommand}" />
+                        <Button Grid.Column="3" Content="Discard changes" Margin="0,0,6,0"
+                                Command="{Binding RevertCommand}" />
+                        <Button Grid.Column="4" Content="Save" Classes="accent" MinWidth="110"
+                                ToolTip.Tip="Ctrl+S"
+                                Command="{Binding SaveCommand}" />
+                    </Grid>
+                </Border>
+
+                <ScrollViewer Grid.Row="1" Padding="16,0,16,16">
+                    <Grid DataContext="{Binding SelectedNode}" x:DataType="vm:OntologyNodeViewModel"
+                          ColumnDefinitions="*,24,*">
+
+                        <!-- Left column: identity and texts -->
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Classes="label" Text="Name" />
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBox x:Name="NameBox" Grid.Column="0" Text="{Binding Name}" />
+                                <!-- Auto fill with the chat's selected Ollama model; replaced by Cancel while running -->
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" Margin="8,0,0,0">
+                                    <ProgressBar IsIndeterminate="True" Width="40" Height="4" VerticalAlignment="Center"
+                                                 IsVisible="{Binding AutoFillCommand.IsRunning}" />
+                                    <Button Content="Auto" Classes="accent" MinWidth="80"
+                                            ToolTip.Tip="Ask the model selected in the chat to fill the comment, synonyms, tags and 3 example sentences"
+                                            Command="{Binding AutoFillCommand}"
+                                            IsVisible="{Binding !AutoFillCommand.IsRunning}" />
+                                    <Button Content="Cancel" MinWidth="80"
+                                            Command="{Binding AutoFillCancelCommand}"
+                                            IsVisible="{Binding AutoFillCommand.IsRunning}" />
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*,12,*" RowDefinitions="Auto,Auto">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Classes="label" Text="Entity type" />
+                                <!-- NER types from config.yml (ontology.entityTypes); "" = no type -->
+                                <ComboBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch"
+                                          ItemsSource="{Binding $parent[v:OntologyView].((vm:OntologyWindowViewModel)DataContext).EntityTypeOptions}"
+                                          SelectedItem="{Binding EntityType}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate x:DataType="x:String">
+                                            <Panel>
+                                                <TextBlock Text="{Binding}" />
+                                                <TextBlock Text="(none)" Opacity="0.6"
+                                                           IsVisible="{Binding Converter={x:Static StringConverters.IsNullOrEmpty}}" />
+                                            </Panel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <TextBlock Grid.Row="0" Grid.Column="2" Classes="label" Text="Symbol" />
+                                <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Symbol}" />
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*,12,*" RowDefinitions="Auto,Auto,Auto">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Classes="label" Text="Confidentiality (lowest to highest)" />
+                                <ComboBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch"
+                                          ItemsSource="{Binding $parent[v:OntologyView].((vm:OntologyWindowViewModel)DataContext).ConfidentialityOptions}"
+                                          DisplayMemberBinding="{Binding Label, x:DataType=vm:OntologyWindowViewModel+ConfidentialityOption}"
+                                          SelectedValueBinding="{Binding Value, x:DataType=vm:OntologyWindowViewModel+ConfidentialityOption}"
+                                          SelectedValue="{Binding Confidentiality}" />
+                                <CheckBox Grid.Row="1" Grid.Column="2" Content="Ontology class (unchecked: instance)"
+                                          IsChecked="{Binding IsOntologyClass}" VerticalAlignment="Center" />
+                                <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Classes="meta" Margin="0,4,0,0"
+                                           Text="{Binding MinimumConfidentialityLabel}" TextWrapping="Wrap"
+                                           IsVisible="{Binding HasMinimumConfidentiality}" />
+                            </Grid>
+
+                            <TextBlock Classes="label" Text="Description" />
+                            <TextBox Text="{Binding Description}" AcceptsReturn="True" TextWrapping="Wrap"
+                                     MinHeight="90" MaxHeight="220" />
+
+                            <TextBlock Classes="label" Text="Example sentences (one per line)" />
+                            <TextBox Text="{Binding SentencesExemples}" AcceptsReturn="True" TextWrapping="Wrap"
+                                     MinHeight="110" MaxHeight="260" />
+
+                            <TextBlock Classes="label" Text="Comment" />
+                            <TextBox Text="{Binding Comment}" AcceptsReturn="True" TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <!-- Right column: lists, emotions, metadata -->
+                        <StackPanel Grid.Column="2">
+                            <Grid ColumnDefinitions="*,12,*" RowDefinitions="Auto,Auto">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Classes="label" Text="Synonyms (one per line)" />
+                                <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Synonyms}" AcceptsReturn="True"
+                                         MinHeight="90" MaxHeight="200" />
+                                <TextBlock Grid.Row="0" Grid.Column="2" Classes="label" Text="Tags (one per line)" />
+                                <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Tags}" AcceptsReturn="True"
+                                         MinHeight="90" MaxHeight="200" />
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*,12,*" RowDefinitions="Auto,Auto">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Classes="label" Text="Related entities (one per line)" />
+                                <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding RelatedEntities}" AcceptsReturn="True"
+                                         MinHeight="60" MaxHeight="160" />
+                                <TextBlock Grid.Row="0" Grid.Column="2" Classes="label" Text="Related links (one per line)" />
+                                <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding RelatedLinks}" AcceptsReturn="True"
+                                         MinHeight="60" MaxHeight="160" />
+                            </Grid>
+
+                            <TextBlock Classes="label" Text="Emotion levels" />
+                            <Grid ColumnDefinitions="Auto,8,*,16,Auto,8,*" RowDefinitions="Auto,6,Auto,6,Auto">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Angry" VerticalAlignment="Center" />
+                                <NumericUpDown Grid.Row="0" Grid.Column="2" Value="{Binding AngryLevel}" Increment="1" FormatString="0" />
+                                <TextBlock Grid.Row="0" Grid.Column="4" Text="Sad" VerticalAlignment="Center" />
+                                <NumericUpDown Grid.Row="0" Grid.Column="6" Value="{Binding SadLevel}" Increment="1" FormatString="0" />
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Happy" VerticalAlignment="Center" />
+                                <NumericUpDown Grid.Row="2" Grid.Column="2" Value="{Binding HappyLevel}" Increment="1" FormatString="0" />
+                                <TextBlock Grid.Row="2" Grid.Column="4" Text="Fear" VerticalAlignment="Center" />
+                                <NumericUpDown Grid.Row="2" Grid.Column="6" Value="{Binding FearLevel}" Increment="1" FormatString="0" />
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="Surprise" VerticalAlignment="Center" />
+                                <NumericUpDown Grid.Row="4" Grid.Column="2" Value="{Binding SurpriseLevel}" Increment="1" FormatString="0" />
+                                <TextBlock Grid.Row="4" Grid.Column="4" Text="Disgust" VerticalAlignment="Center" />
+                                <NumericUpDown Grid.Row="4" Grid.Column="6" Value="{Binding DisgustLevel}" Increment="1" FormatString="0" />
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*,12,*,12,*" RowDefinitions="Auto,Auto">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Classes="label" Text="Application" />
+                                <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding AppName}" />
+                                <TextBlock Grid.Row="0" Grid.Column="2" Classes="label" Text="User" />
+                                <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding UserName}" />
+                                <TextBlock Grid.Row="0" Grid.Column="4" Classes="label" Text="Machine" />
+                                <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding MachineName}" />
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+
+        <!-- Status bar -->
+        <Border Grid.Row="2" Padding="12,4"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <ProgressBar IsIndeterminate="True" Width="60" Height="4" VerticalAlignment="Center"
+                             IsVisible="{Binding IsBusy}" />
+                <Ellipse Width="8" Height="8" VerticalAlignment="Center"
+                         Fill="#E81123" IsVisible="{Binding IsError}" />
+                <TextBlock Text="{Binding Status}" FontSize="12" VerticalAlignment="Center" />
+                <TextBlock Text="· Right-click a node to edit, add a child, delete or restore it"
+                           FontSize="12" Opacity="0.6" VerticalAlignment="Center" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

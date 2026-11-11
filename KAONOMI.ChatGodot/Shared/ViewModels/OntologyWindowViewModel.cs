@@ -278,6 +278,7 @@ public partial class OntologyWindowViewModel : ViewModelBase, INoteContextProvid
         {
           "type": "object",
           "properties": {
+            "summary":         { "type": "string" },
             "description":     { "type": "string" },
             "comment":         { "type": "string" },
             "emotions": {
@@ -298,7 +299,7 @@ public partial class OntologyWindowViewModel : ViewModelBase, INoteContextProvid
             "sentences":       { "type": "array", "items": { "type": "string" }, "minItems": 3, "maxItems": 3 },
             "relatedEntities": { "type": "array", "items": { "type": "string" } }
           },
-          "required": ["description", "comment", "emotions", "entityType", "synonyms", "tags", "sentences", "relatedEntities"]
+          "required": ["summary", "description", "comment", "emotions", "entityType", "synonyms", "tags", "sentences", "relatedEntities"]
         }
         """)!;
 
@@ -324,7 +325,7 @@ public partial class OntologyWindowViewModel : ViewModelBase, INoteContextProvid
 
         const string system =
             "You enrich the nodes of an ontology. Answer only with the requested JSON, plain text values, no Markdown. " +
-            "Write the description, comment, synonyms, sentences and related entities in the same language as the node name and " +
+            "Write the summary, description, comment, synonyms, sentences and related entities in the same language as the node name and " +
             "description; tags and the entity type are always in English. Detect that language from the name itself " +
             "(e.g. \"Anniversaire\" is French, \"Geburtstag\" is German) and never switch to English unless the name is English.";
         var context = string.Join("\n", new[]
@@ -333,12 +334,15 @@ public partial class OntologyWindowViewModel : ViewModelBase, INoteContextProvid
             string.IsNullOrWhiteSpace(node.EntityType) ? null : $"Entity type: {node.EntityType}",
             node.IsOntologyClass ? "Kind: ontology class" : "Kind: instance",
             node.Parent is null ? null : $"Parent node: {node.Parent.DisplayName}",
-            string.IsNullOrWhiteSpace(node.Description) ? null : $"Description: {node.Description}",
+            string.IsNullOrWhiteSpace(node.Summary) ? null : $"Summary: {node.Summary}",
+            string.IsNullOrWhiteSpace(node.Description) ? null : $"Full description: {node.Description}",
         }.Where(line => line is not null));
         var user =
             $"{context}\n\n" +
             "Fill these fields for this node:\n" +
-            "- description: a clear definition of the term in 2 to 4 sentences (improve the current description if there is one).\n" +
+            "- summary: what the term is in one or two short sentences (improve the current summary if there is one).\n" +
+            "- description: the full description of the term, a clear and complete definition in 4 to 8 sentences that says more " +
+            "than the summary (improve the current full description if there is one).\n" +
             "- comment: one or two sentences explaining the term.\n" +
             "- emotions: how strongly the term usually evokes each emotion, from 0 (not at all) to 10 (very strongly): " +
             "angry, sad, happy, fear, surprise, disgust.\n" +
@@ -377,6 +381,8 @@ public partial class OntologyWindowViewModel : ViewModelBase, INoteContextProvid
             node.Tags = string.Join(Environment.NewLine, tags);
             node.SentencesExemples = string.Join(Environment.NewLine, sentences);
             node.RelatedEntities = string.Join(Environment.NewLine, related);
+            if (!string.IsNullOrWhiteSpace(answer.Summary))
+                node.Summary = answer.Summary.Replace("**", string.Empty).Trim();
             if (!string.IsNullOrWhiteSpace(answer.Description))
                 node.Description = answer.Description.Replace("**", string.Empty).Trim();
             if (answer.Emotions is { } emotions)
@@ -447,6 +453,7 @@ public partial class OntologyWindowViewModel : ViewModelBase, INoteContextProvid
         public List<string>? Sentences { get; set; }
         public List<string>? RelatedEntities { get; set; }
         public string? EntityType { get; set; }
+        public string? Summary { get; set; }
         public string? Description { get; set; }
         public EmotionLevels? Emotions { get; set; }
     }

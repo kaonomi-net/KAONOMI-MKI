@@ -25,7 +25,7 @@ public partial class SymbolicPatternWindowViewModel : ViewModelBase, INoteContex
     }
 
     private SymbolicPatternWindowViewModel(ChatSettings settings) : this(
-        new KaonomiAssistantService(settings.ServerUrl), new OllamaModelService(settings.OllamaUrl),
+        new KaonomiAssistantService(settings.ServerUrl), new OllamaModelService(settings.OllamaUrl, settings.LlmProvider),
         () => null, settings.ResolvedRegexDirectory)
     {
     }

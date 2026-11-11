@@ -14,7 +14,10 @@ namespace KAONOMI.Server
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Implements named-entity and related extraction for dialogs.
+    /// The entities of the prompt of a dialog and what Kaonomi knows about them: the NER of the server finds the
+    /// entities; those the ontology knows are read there (their type, description, synonyms, dates); the intels that
+    /// match the entities are found. The entities and this knowledge are kept with the dialog: the processor, later in
+    /// the sequence, writes the knowledge in the prompt, compresses it and asks the model.
     /// </summary>
     internal class DialogEntityVAgent : VGrainBase<IDialogEntityVAgent>, IDialogEntityVAgent
     {
@@ -105,6 +108,43 @@ namespace KAONOMI.Server
 
             await StoreEntitiesAsync(dialog, result.entities, session, appName);
             await StoreTagsAsync(dialog, result.entities, session, appName);
+            await CollectKnowledgeAsync(dialog, prompt, result.entities, session, appName, config);
+        }
+
+        /// <summary>
+        /// What is known about the entities, kept with the dialog (<see cref="Dialog.Knowledge"/>): the entities of the
+        /// ontology the prompt names (their summary and full description), the summary of the entities they list as
+        /// related, and the intels that match the entities (the prompt read with the names and the
+        /// synonyms the ontology gives them). A failure is logged and leaves the dialog without knowledge: the model
+        /// still answers.
+        /// </summary>
+        private static async Task CollectKnowledgeAsync(Dialog dialog, string? prompt, IReadOnlyCollection<NerEntity> entities,
+            SessionManager session, string appName, Config config)
+        {
+            dialog.Knowledge = new List<DialogKnowledge>();
+            try
+            {
+                var notes = new List<string>();
+                var nodes = await Task.Run(() => Knowledge.EntityKnowledge.OntologyNodes(entities, session, notes));
+                var fromOntology = Knowledge.EntityKnowledge.FromOntology(nodes, notes);
+                var fromRelated = await Task.Run(() => Knowledge.EntityKnowledge.FromRelated(nodes, session, notes));
+                var fromIntels = await Task.Run(() => Knowledge.EntityKnowledge.FromIntels(prompt, entities, nodes, config, notes));
+                dialog.Knowledge.AddRange(fromOntology);
+                dialog.Knowledge.AddRange(fromIntels);
+                dialog.Knowledge.AddRange(fromRelated);
+                foreach (var note in notes)
+                    session.LogSave(note, appName, "WARNING");
+                session.LogSave($"Knowledge: {nodes.Count} entity(ies) of the ontology, {fromOntology.Count} with something to say"
+                    + (fromOntology.Count > 0 ? " (" + string.Join(", ", fromOntology.Take(20).Select(k => k.title)) + ")" : string.Empty)
+                    + $"; {fromRelated.Count} related entity(ies) with a summary"
+                    + (fromRelated.Count > 0 ? " (" + string.Join(", ", fromRelated.Take(20).Select(k => k.title)) + ")" : string.Empty)
+                    + $"; {fromIntels.Count} intel(s) for the entities"
+                    + (fromIntels.Count > 0 ? " (" + string.Join(", ", fromIntels.Take(20).Select(k => $"{k.title} {k.score} %")) + ")" : string.Empty), appName, "INFO");
+            }
+            catch (Exception ex)
+            {
+                session.LogSave($"Error collecting the knowledge of dialog '{dialog.id}': {ex.Message}", appName, "ERROR");
+            }
         }
 
         /// <summary>

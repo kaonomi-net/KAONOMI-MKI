@@ -1,0 +1,280 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:KAONOMI.Chat.ViewModels"
+        xmlns:v="using:KAONOMI.Chat.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="650"
+        x:Class="KAONOMI.Chat.Views.SymbolicPatternView"
+        x:DataType="vm:SymbolicPatternWindowViewModel">
+
+    <Design.DataContext>
+        <vm:SymbolicPatternWindowViewModel />
+    </Design.DataContext>
+
+    <UserControl.Styles>
+        <Style Selector="TextBlock.label">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Opacity" Value="0.75" />
+            <Setter Property="Margin" Value="0,12,0,4" />
+        </Style>
+        <Style Selector="TextBlock.meta">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Opacity" Value="0.6" />
+        </Style>
+        <Style Selector="Border.deleted">
+            <Setter Property="Background" Value="#33E81123" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Padding" Value="6,1" />
+        </Style>
+        <Style Selector="Border.new">
+            <Setter Property="Background" Value="#3316C60C" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Padding" Value="6,1" />
+        </Style>
+        <Style Selector="Border.dirty">
+            <Setter Property="Background" Value="#33FFB900" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Padding" Value="6,1" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <Border Grid.Row="0" Padding="12,10"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <Grid ColumnDefinitions="*,Auto,Auto,Auto">
+                <TextBox x:Name="SearchBox" Grid.Column="0"
+                         Text="{Binding Term}"
+                         PlaceholderText="Search symbolic patterns…"
+                         VerticalContentAlignment="Center" MinHeight="36" />
+                <Button Grid.Column="1" Content="Search" Classes="accent"
+                        MinWidth="110" MinHeight="36" Margin="8,0,0,0"
+                        Command="{Binding SearchCommand}" />
+                <Button Grid.Column="2" Content="New" MinWidth="100" MinHeight="36" Margin="8,0,0,0"
+                        ToolTip.Tip="Create a new symbolic pattern"
+                        Command="{Binding NewCommand}" />
+                <v:AddNoteButton Grid.Column="3" Margin="8,0,0,0" />
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" ColumnDefinitions="340,4,*">
+            <Panel Grid.Column="0">
+                <ListBox ItemsSource="{Binding Results}"
+                         SelectedItem="{Binding SelectedResult}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="vm:SymbolicPatternEntryViewModel">
+                            <StackPanel Spacing="2" Margin="0,4">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <TextBlock Classes="meta" Text="{Binding Summary}" />
+                                    <Border Classes="deleted" IsVisible="{Binding IsDeleted}">
+                                        <TextBlock Classes="meta" Text="deleted" />
+                                    </Border>
+                                    <Border Classes="new" IsVisible="{Binding IsNew}">
+                                        <TextBlock Classes="meta" Text="new" />
+                                    </Border>
+                                    <Border Classes="dirty" IsVisible="{Binding IsDirty}">
+                                        <TextBlock Classes="meta" Text="modified" />
+                                    </Border>
+                                </StackPanel>
+                                <TextBlock Text="{Binding Symbol}" FontWeight="SemiBold"
+                                           TextWrapping="Wrap" MaxLines="1" TextTrimming="CharacterEllipsis" />
+                                <TextBlock Classes="meta" Text="{Binding RegexPreview}"
+                                           FontFamily="Cascadia Mono, Consolas, Menlo, Courier New, monospace"
+                                           TextWrapping="Wrap" MaxLines="2" TextTrimming="CharacterEllipsis" />
+                                <TextBlock Classes="meta" Text="{Binding Event}" IsVisible="{Binding HasEvent}"
+                                           TextTrimming="CharacterEllipsis" />
+                                <TextBlock Classes="meta" Text="{Binding TagsPreview}" IsVisible="{Binding HasTags}"
+                                           TextWrapping="Wrap" MaxLines="1" TextTrimming="CharacterEllipsis" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <TextBlock Text="No results" Opacity="0.6"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           IsVisible="{Binding !HasResults}" IsHitTestVisible="False" />
+            </Panel>
+
+            <GridSplitter Grid.Column="1" ResizeDirection="Columns"
+                          Background="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+
+            <Grid Grid.Column="2" RowDefinitions="Auto,*"
+                  IsVisible="{Binding SelectedResult, Converter={x:Static ObjectConverters.IsNotNull}}">
+
+                <Border Grid.Row="0" Padding="16,8" DataContext="{Binding SelectedResult}"
+                        x:DataType="vm:SymbolicPatternEntryViewModel"
+                        BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                        BorderThickness="0,0,0,1">
+                    <Grid ColumnDefinitions="*,Auto,Auto,Auto,Auto">
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <SelectableTextBlock Text="{Binding IdLabel}" FontSize="12" />
+                            <TextBlock Classes="meta" Text="{Binding DateLabel}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6"
+                                    VerticalAlignment="Center" Margin="0,0,12,0">
+                            <Ellipse Width="8" Height="8" VerticalAlignment="Center"
+                                     Fill="#E81123" IsVisible="{Binding IsError}" />
+                            <TextBlock Text="{Binding Status}" FontSize="12" MaxWidth="280"
+                                       TextTrimming="CharacterEllipsis" VerticalAlignment="Center"
+                                       ToolTip.Tip="{Binding Status}" />
+                        </StackPanel>
+                        <Button Grid.Column="2" Content="Clone" Margin="0,0,6,0"
+                                ToolTip.Tip="Create a copy of this document (new id on save)"
+                                Command="{Binding $parent[v:SymbolicPatternView].((vm:SymbolicPatternWindowViewModel)DataContext).CloneCommand}" />
+                        <Button Grid.Column="3" Content="Discard changes" Margin="0,0,6,0"
+                                Command="{Binding RevertCommand}" />
+                        <Button Grid.Column="4" Content="Save" Classes="accent" MinWidth="110"
+                                Command="{Binding SaveCommand}" />
+                    </Grid>
+                </Border>
+
+                <ScrollViewer Grid.Row="1" Padding="16,0,16,16">
+                  <StackPanel>
+                    <StackPanel DataContext="{Binding SelectedResult}" x:DataType="vm:SymbolicPatternEntryViewModel">
+                        <Grid ColumnDefinitions="*,12,*" RowDefinitions="Auto,Auto,Auto,Auto">
+                            <TextBlock Grid.Row="0" Grid.Column="0" Classes="label" Text="Application" />
+                            <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding AppName}" />
+                            <TextBlock Grid.Row="0" Grid.Column="2" Classes="label" Text="User" />
+                            <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding UserName}" />
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Classes="label" Text="Machine" />
+                            <TextBox Grid.Row="3" Grid.Column="0" Text="{Binding MachineName}" />
+                            <TextBlock Grid.Row="2" Grid.Column="2" Classes="label" Text="Event" />
+                            <TextBox Grid.Row="3" Grid.Column="2" Text="{Binding Event}" />
+                        </Grid>
+
+                        <TextBlock Classes="label" Text="Comment" />
+                        <TextBox Text="{Binding Comment}" AcceptsReturn="True" TextWrapping="Wrap" />
+
+                        <TextBlock Classes="label" Text="Tags (one per line)" />
+                        <TextBox Text="{Binding Tags}" AcceptsReturn="True"
+                                 MinHeight="60" MaxHeight="140" />
+
+                        <CheckBox Content="Deleted" IsChecked="{Binding IsDeleted}" Margin="0,10,0,0" />
+
+                        <TextBlock Classes="label" Text="Symbol" />
+                        <TextBox Text="{Binding Symbol}" />
+
+                        <Grid ColumnDefinitions="*,Auto" Margin="0,12,0,4">
+                            <TextBlock Classes="label" Text="Regex patterns" Margin="0" VerticalAlignment="Center" />
+                            <Button Grid.Column="1" Content="+ Add pattern" Padding="10,3"
+                                    ToolTip.Tip="Add a regular expression"
+                                    Command="{Binding AddPatternCommand}" />
+                        </Grid>
+                        <ItemsControl ItemsSource="{Binding RegexPatterns}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:RegexPatternItemViewModel">
+                                    <StackPanel Margin="0,0,0,6">
+                                        <Grid ColumnDefinitions="*,Auto">
+                                            <TextBox Text="{Binding Pattern}"
+                                                     FontFamily="Cascadia Mono, Consolas, Menlo, Courier New, monospace"
+                                                     TextWrapping="Wrap" PlaceholderText="Regular expression, e.g. \bhello\b"
+                                                     BorderBrush="{Binding IsInvalid, Converter={x:Static v:SymbolicPatternView.InvalidBorder}}" />
+                                            <Button Grid.Column="1" Margin="6,0,0,0" Padding="8,4" VerticalAlignment="Top"
+                                                    ToolTip.Tip="Remove this regular expression"
+                                                    Command="{Binding $parent[ItemsControl].((vm:SymbolicPatternEntryViewModel)DataContext).RemovePatternCommand}"
+                                                    CommandParameter="{Binding}">
+                                                <PathIcon Data="{StaticResource Icon.Delete}" Width="14" Height="14" />
+                                            </Button>
+                                        </Grid>
+                                        <TextBlock Text="{Binding Error}" IsVisible="{Binding IsInvalid}"
+                                                   Foreground="#E81123" FontSize="11" TextWrapping="Wrap" Margin="2,2,0,0" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+
+                    <!-- Regex assistant: examples + goal → regex from the completion service → Add -->
+                    <Expander DataContext="{Binding RegexAssistant}" x:DataType="vm:RegexAssistantViewModel"
+                              Header="Regex assistant" IsExpanded="True"
+                              HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0,14,0,0">
+                        <StackPanel>
+                            <TextBlock Classes="label" Margin="0,0,0,4" Text="Example lines (one per line)" />
+                            <TextBox Text="{Binding Examples}" AcceptsReturn="True" TextWrapping="NoWrap"
+                                     FontFamily="Cascadia Mono, Consolas, Menlo, Courier New, monospace"
+                                     MinHeight="90" MaxHeight="200"
+                                     PlaceholderText="Order 12345 shipped on 2026-10-08&#x0a;Order 987 shipped on 2026-09-30" />
+
+                            <TextBlock Classes="label" Text="Extraction goal" />
+                            <Grid ColumnDefinitions="*,Auto,Auto">
+                                <TextBox Text="{Binding Goal}"
+                                         PlaceholderText="e.g. the order number and the shipping date" />
+                                <Button Grid.Column="2" Content="Load…" MinWidth="70" Margin="6,0,0,0"
+                                        Click="OnLoadRegexClick"
+                                        ToolTip.Tip="Load a saved regex with its goal and examples (regex folder of config.yml)" />
+                                <Panel Grid.Column="1" Margin="8,0,0,0">
+                                    <Button Content="Generate regex" Classes="accent" MinWidth="130"
+                                            ToolTip.Tip="Ask the local Ollama model selected in the chat window for a regex"
+                                            Command="{Binding GenerateCommand}"
+                                            IsVisible="{Binding !GenerateCommand.IsRunning}" />
+                                    <Button Content="Cancel" MinWidth="130"
+                                            Command="{Binding GenerateCancelCommand}"
+                                            IsVisible="{Binding GenerateCommand.IsRunning}" />
+                                </Panel>
+                            </Grid>
+
+                            <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,8,0,0">
+                                <ProgressBar IsIndeterminate="True" Width="60" Height="4" VerticalAlignment="Center"
+                                             IsVisible="{Binding GenerateCommand.IsRunning}" />
+                                <Ellipse Width="8" Height="8" VerticalAlignment="Center"
+                                         Fill="#E81123" IsVisible="{Binding IsError}" />
+                                <TextBlock Text="{Binding Status}" FontSize="12" TextWrapping="Wrap" />
+                            </StackPanel>
+
+                            <StackPanel IsVisible="{Binding HasRegex}">
+                                <TextBlock Classes="label" Text="Generated regex (you can edit it)" />
+                                <Grid ColumnDefinitions="*,Auto,Auto">
+                                    <TextBox Text="{Binding GeneratedRegex}" TextWrapping="Wrap"
+                                             FontFamily="Cascadia Mono, Consolas, Menlo, Courier New, monospace"
+                                             BorderBrush="{Binding IsInvalid, Converter={x:Static v:SymbolicPatternView.InvalidBorder}}" />
+                                    <Button Grid.Column="1" Content="Add" Classes="accent" MinWidth="80" Margin="8,0,0,0"
+                                            VerticalAlignment="Top"
+                                            ToolTip.Tip="Add this regex to the regex patterns of the selected document"
+                                            Command="{Binding AddCommand}" />
+                                    <Button Grid.Column="2" Content="Save…" MinWidth="70" Margin="6,0,0,0"
+                                            VerticalAlignment="Top" Click="OnSaveRegexClick"
+                                            ToolTip.Tip="Save the regex with the goal and the examples (JSON, regex folder of config.yml)" />
+                                </Grid>
+                                <TextBlock Text="{Binding RegexError}" IsVisible="{Binding IsInvalid}"
+                                           Foreground="#E81123" FontSize="11" TextWrapping="Wrap" Margin="2,2,0,0" />
+
+                                <TextBlock Classes="label" Text="Test on the examples" />
+                                <ItemsControl ItemsSource="{Binding ExampleResults}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="vm:RegexExampleResult">
+                                            <Grid ColumnDefinitions="Auto,*" Margin="0,1">
+                                                <TextBlock Text="{Binding Mark}" FontWeight="Bold" Margin="0,0,8,0"
+                                                           Foreground="{Binding IsMatch, Converter={x:Static v:SymbolicPatternView.MatchBrush}}" />
+                                                <StackPanel Grid.Column="1">
+                                                    <!-- Detected parts highlighted in yellow -->
+                                                    <v:HighlightedTextBlock Segments="{Binding Segments}" FontSize="12" TextWrapping="Wrap"
+                                                                            FontFamily="Cascadia Mono, Consolas, Menlo, Courier New, monospace" />
+                                                    <TextBlock Classes="meta" Text="{Binding Detail}" TextWrapping="Wrap" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </StackPanel>
+                    </Expander>
+                  </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+
+        <Border Grid.Row="2" Padding="12,4"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <ProgressBar IsIndeterminate="True" Width="60" Height="4" VerticalAlignment="Center"
+                             IsVisible="{Binding SearchCommand.IsRunning}" />
+                <Ellipse Width="8" Height="8" VerticalAlignment="Center"
+                         Fill="#E81123" IsVisible="{Binding IsError}" />
+                <TextBlock Text="{Binding Status}" FontSize="12" VerticalAlignment="Center" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

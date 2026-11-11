@@ -66,6 +66,15 @@ public partial class ChatMessageViewModel : ViewModelBase
     [NotifyPropertyChangedFor(nameof(CanEvaluate))]
     private bool _isError;
 
+    /// <summary>The model that gave this answer (the one the server names), null for the other messages.</summary>
+    public string? Model { get; set; }
+
+    /// <summary>The request this answer replied to, as it was sent (system prompt, prompt with its history), to ask it again.</summary>
+    public IReadOnlyList<AssistantMessage>? Request { get; set; }
+
+    /// <summary>True once this answer was disliked and asked again to another model: it is asked again only once.</summary>
+    public bool AskedAgain { get; set; }
+
     /// <summary>True for a finished model answer, which can be liked or disliked (not for local or error bubbles).</summary>
     public bool CanEvaluate => IsAssistant && !IsLocal && !IsPending && !IsError && !string.IsNullOrWhiteSpace(Content);
 

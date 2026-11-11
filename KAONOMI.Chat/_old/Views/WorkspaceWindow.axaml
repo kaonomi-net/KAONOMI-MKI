@@ -1,0 +1,63 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
+        x:Class="KAONOMI.Chat.Views.WorkspaceWindow"
+        Icon="/Assets/kaonomi-logo.ico"
+        Width="1200" Height="800" MinWidth="600" MinHeight="400"
+        WindowStartupLocation="Manual"
+        Title="Kaonomi">
+    <Window.Styles>
+        <Style Selector="TabControl#Tabs">
+            <Setter Property="Padding" Value="0" />
+        </Style>
+        <Style Selector="TabControl#Tabs > TabItem">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="MinHeight" Value="34" />
+            <Setter Property="Padding" Value="12,0,6,0" />
+        </Style>
+        <Style Selector="Button.closeTab">
+            <Setter Property="Padding" Value="4" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Opacity" Value="0.6" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style Selector="Button.closeTab:pointerover">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="TabControl.pane">
+            <Setter Property="Padding" Value="0" />
+        </Style>
+        <Style Selector="TabControl.pane > TabItem">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="MinHeight" Value="34" />
+            <Setter Property="Padding" Value="12,0,6,0" />
+        </Style>
+        <Style Selector="Border.pane">
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="ClipToBounds" Value="True" />
+        </Style>
+        <!-- Bars between the panes of the 4K layout: thin, highlighted when hovered or dragged -->
+        <Style Selector="GridSplitter.paneSplitter">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="GridSplitter.paneSplitter:pointerover">
+            <Setter Property="Background" Value="{DynamicResource SystemControlHighlightAccentBrush}" />
+        </Style>
+        <!-- Pane under a dragged tab: the tool moves there when the tab is released -->
+        <Style Selector="Border.pane.dropTarget">
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlHighlightAccentBrush}" />
+            <Setter Property="BorderThickness" Value="3" />
+            <Setter Property="Background" Value="#142EB7D7" />
+        </Style>
+    </Window.Styles>
+
+    <!-- One tab per tool view (cache, ontology, dashboards…), opened from the chat. On a 4K largest screen, the code-behind
+         replaces this single tab strip by 4 equal panes (2 × 2), each with its own tabs. -->
+    <TabControl x:Name="Tabs" />
+</Window>

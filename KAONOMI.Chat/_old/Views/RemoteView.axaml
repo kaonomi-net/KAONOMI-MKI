@@ -1,0 +1,232 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:KAONOMI.Chat.ViewModels"
+             xmlns:v="using:KAONOMI.Chat.Views"
+             xmlns:m="using:KAONOMI.Chat.Models"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1400" d:DesignHeight="860"
+             x:Class="KAONOMI.Chat.Views.RemoteView"
+             x:DataType="vm:RemoteWindowViewModel">
+
+    <Design.DataContext>
+        <vm:RemoteWindowViewModel />
+    </Design.DataContext>
+
+    <UserControl.KeyBindings>
+        <KeyBinding Gesture="Ctrl+Enter" Command="{Binding SayCommand}" />
+        <KeyBinding Gesture="Escape" Command="{Binding StopCommand}" />
+    </UserControl.KeyBindings>
+
+    <UserControl.Styles>
+        <Style Selector="TextBlock.title">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="0,0,0,8" />
+        </Style>
+        <Style Selector="TextBlock.label">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Opacity" Value="0.75" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style Selector="TextBlock.value">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Opacity" Value="0.8" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+        </Style>
+        <Style Selector="TextBlock.meta">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Opacity" Value="0.6" />
+        </Style>
+        <Style Selector="Border.panel">
+            <Setter Property="Padding" Value="14" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" />
+        </Style>
+        <Style Selector="TextBlock.status.error">
+            <Setter Property="Foreground" Value="#E5484D" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="*,Auto">
+        <Grid Grid.Row="0" ColumnDefinitions="*,12,360,12,400" Margin="12">
+
+            <!-- What the chatbot says, and its system prompt -->
+            <Grid Grid.Column="0" RowDefinitions="*,12,*">
+                <Border Grid.Row="0" Classes="panel">
+                    <Grid RowDefinitions="Auto,*,Auto">
+                        <Grid ColumnDefinitions="Auto,*">
+                            <TextBlock Classes="title" Text="The chatbot says" />
+                            <TextBlock Grid.Column="1" Classes="meta" Text="{Binding ScriptName, StringFormat='· {0}'}" Margin="8,0,0,8"
+                                       VerticalAlignment="Center" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding ScriptPath}" />
+                        </Grid>
+                        <TextBox Grid.Row="1" x:Name="SayBox" Text="{Binding Text}" AcceptsReturn="True" TextWrapping="Wrap"
+                                 VerticalContentAlignment="Top"
+                                 PlaceholderText="Text the chatbot says as its answer: shown in the chat, read aloud with the voice below, the 3D animation following it (Ctrl+Enter). As a script (Run): said paragraph by paragraph (paragraphs separated by a blank line); a line CHANGE:MARI switches to the preset MARI" />
+                        <Grid Grid.Row="2" ColumnDefinitions="Auto,*,Auto" Margin="0,10,0,0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Button Content="Say" Classes="accent" MinWidth="90" Command="{Binding SayCommand}"
+                                        ToolTip.Tip="The chatbot says the whole text at once (Ctrl+Enter)" />
+                                <Button Content="▶ Run script" MinWidth="110" Command="{Binding RunScriptCommand}"
+                                        ToolTip.Tip="Says the text paragraph by paragraph; a line CHANGE:NAME switches to the preset NAME (an unknown preset keeps the current one)" />
+                                <Button Content="Stop" MinWidth="80" Command="{Binding StopCommand}"
+                                        ToolTip.Tip="Stops the voice and the script (Esc)" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="6">
+                                <Button Content="Open…" Click="OnOpenScript" ToolTip.Tip="Opens a script (.txt) of ~/kaonomi/script" />
+                                <Button Content="Save" Click="OnSaveScript" ToolTip.Tip="Saves the script (Ctrl+S; asks for a name the first time)" />
+                                <Button Content="Save as…" Click="OnSaveScriptAs" ToolTip.Tip="Saves the script under another name in ~/kaonomi/script" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="2" Classes="panel">
+                    <Grid RowDefinitions="Auto,Auto,*">
+                        <TextBlock Classes="title" Text="System prompt of the preset" />
+                        <TextBlock Grid.Row="1" Classes="meta" TextWrapping="Wrap" Margin="0,0,0,8"
+                                   Text="The personality of the preset, added to the system prompt of the chat for the next prompts." />
+                        <TextBox Grid.Row="2" Text="{Binding Persona}" AcceptsReturn="True" TextWrapping="Wrap"
+                                 VerticalContentAlignment="Top"
+                                 PlaceholderText="E.g. Tu t'appelles Mari. Tu es gentille et tu t'intéresses à l'utilisateur." />
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- Preset, voice, effects, animation, save -->
+            <Border Grid.Column="2" Classes="panel">
+                <ScrollViewer>
+                    <StackPanel Spacing="10">
+                        <TextBlock Classes="title" Text="Voice and animation" />
+                        <TextBlock Classes="label" Text="Start from a preset" />
+                        <Grid ColumnDefinitions="*,Auto">
+                            <ComboBox ItemsSource="{Binding Presets}" SelectedItem="{Binding SelectedPreset}"
+                                      PlaceholderText="Presets" HorizontalAlignment="Stretch">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate x:DataType="m:ChatPreset">
+                                        <StackPanel ToolTip.Tip="{Binding Description}">
+                                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
+                                            <TextBlock Text="{Binding Description}" FontSize="11" Opacity="0.6"
+                                                       TextTrimming="CharacterEllipsis" MaxWidth="260" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <Button Grid.Column="1" Content="Delete" Margin="6,0,0,0" Command="{Binding DeletePresetCommand}"
+                                    ToolTip.Tip="Deletes the saved preset (the built-in presets cannot be deleted)" />
+                        </Grid>
+
+                        <TextBlock Classes="label" Text="Voice" />
+                        <Grid ColumnDefinitions="*,Auto">
+                            <ComboBox ItemsSource="{Binding InstalledVoices}" SelectedItem="{Binding Voice}" HorizontalAlignment="Stretch" />
+                            <Button Grid.Column="1" Content="Try" Margin="6,0,0,0" Command="{Binding TestVoiceCommand}"
+                                    ToolTip.Tip="Says a sentence with this voice and these effects" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="80,*,44" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
+                            <TextBlock Grid.Row="0" Classes="label" Text="Pitch" />
+                            <Slider Grid.Row="0" Grid.Column="1" Minimum="0.5" Maximum="2" Value="{Binding Pitch}" SmallChange="0.01" LargeChange="0.05"
+                                    ToolTip.Tip="1 = normal, lower = deeper, higher = higher" />
+                            <TextBlock Grid.Row="0" Grid.Column="2" Classes="value" Text="{Binding Pitch, StringFormat={}{0:0.00}}" />
+                            <TextBlock Grid.Row="1" Classes="label" Text="Speed" />
+                            <Slider Grid.Row="1" Grid.Column="1" Minimum="0.5" Maximum="2" Value="{Binding Speed}" SmallChange="0.01" LargeChange="0.05" />
+                            <TextBlock Grid.Row="1" Grid.Column="2" Classes="value" Text="{Binding Speed, StringFormat={}{0:0.00}}" />
+                            <TextBlock Grid.Row="2" Classes="label" Text="Robot" />
+                            <Slider Grid.Row="2" Grid.Column="1" Minimum="0" Maximum="1" Value="{Binding Robot}" SmallChange="0.01" LargeChange="0.05"
+                                    ToolTip.Tip="0 = natural voice, 1 = plainly robotic" />
+                            <TextBlock Grid.Row="2" Grid.Column="2" Classes="value" Text="{Binding Robot, StringFormat={}{0:0.00}}" />
+                            <TextBlock Grid.Row="3" Classes="label" Text="Vibrato" />
+                            <Slider Grid.Row="3" Grid.Column="1" Minimum="0" Maximum="1" Value="{Binding Vibrato}" SmallChange="0.01" LargeChange="0.05" />
+                            <TextBlock Grid.Row="3" Grid.Column="2" Classes="value" Text="{Binding Vibrato, StringFormat={}{0:0.00}}" />
+                            <TextBlock Grid.Row="4" Classes="label" Text="Assistant" />
+                            <Slider Grid.Row="4" Grid.Column="1" Minimum="0" Maximum="1" Value="{Binding Assistant}" SmallChange="0.01" LargeChange="0.05"
+                                    ToolTip.Tip="The sheen of a film's AI: doubling, small-room reverb, presence" />
+                            <TextBlock Grid.Row="4" Grid.Column="2" Classes="value" Text="{Binding Assistant, StringFormat={}{0:0.00}}" />
+                            <TextBlock Grid.Row="5" Classes="label" Text="Horror" />
+                            <Slider Grid.Row="5" Grid.Column="1" Minimum="0" Maximum="1" Value="{Binding Horror}" SmallChange="0.01" LargeChange="0.05"
+                                    ToolTip.Tip="Horror-film treatment: demonic shadow, breath, stutters, dark hall" />
+                            <TextBlock Grid.Row="5" Grid.Column="2" Classes="value" Text="{Binding Horror, StringFormat={}{0:0.00}}" />
+                        </Grid>
+
+                        <TextBlock Classes="label" Text="3D animation" />
+                        <ComboBox ItemsSource="{Binding Animations}" SelectedItem="{Binding Animation}" HorizontalAlignment="Stretch" />
+
+                        <Separator Margin="0,6" />
+                        <TextBlock Classes="title" Text="Save as a preset" Margin="0" />
+                        <TextBox Text="{Binding PresetName}" PlaceholderText="Name of the preset (e.g. ROBOTJEROME)" />
+                        <TextBox Text="{Binding PresetDescription}" PlaceholderText="Description (written from the settings when empty)" />
+                        <Button Content="Save preset" Classes="accent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                                Command="{Binding SavePresetCommand}"
+                                ToolTip.Tip="Saved in presets.json (offered by /config and /remote) and written into config.yml (kept at the next start); a saved preset of the same name is replaced" />
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <!-- Piper voices: installed, and the catalog to download -->
+            <Border Grid.Column="4" Classes="panel">
+                <Grid RowDefinitions="Auto,Auto,Auto,140,Auto,Auto,*">
+                    <TextBlock Classes="title" Text="Voices" />
+                    <TextBlock Grid.Row="1" Classes="meta" Text="{Binding VoicesDirectory}" TextTrimming="CharacterEllipsis" Margin="0,0,0,8" />
+                    <TextBlock Grid.Row="2" Classes="label" Text="Installed" Margin="0,0,0,4" />
+                    <ListBox Grid.Row="3" ItemsSource="{Binding InstalledVoices}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <Grid ColumnDefinitions="*,Auto,Auto">
+                                    <TextBlock Text="{Binding}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                                    <Button Grid.Column="1" Content="Try" Padding="8,2" Margin="6,0,0,0"
+                                            Command="{Binding $parent[UserControl].((vm:RemoteWindowViewModel)DataContext).TestVoiceCommand}"
+                                            CommandParameter="{Binding}" />
+                                    <Button Grid.Column="2" Content="Delete" Padding="8,2" Margin="4,0,0,0"
+                                            Command="{Binding $parent[UserControl].((vm:RemoteWindowViewModel)DataContext).DeleteVoiceCommand}"
+                                            CommandParameter="{Binding}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <Grid Grid.Row="4" ColumnDefinitions="*,Auto" Margin="0,14,0,4">
+                        <TextBlock Classes="label" Text="Download (Piper catalog)" />
+                        <Button Grid.Column="1" Content="Reload" Padding="8,2" Command="{Binding LoadCatalogCommand}"
+                                ToolTip.Tip="Downloads the catalog of the Piper voices again (rhasspy/piper-voices)" />
+                    </Grid>
+                    <Grid Grid.Row="5" Margin="0,0,0,6">
+                        <TextBox Text="{Binding CatalogFilter}"
+                                 PlaceholderText="Filter: fr_, english, de_DE high…" />
+                        <ProgressBar IsIndeterminate="True" IsVisible="{Binding IsCatalogLoading}" VerticalAlignment="Bottom" MinHeight="2" Height="2" />
+                    </Grid>
+                    <ListBox Grid.Row="6" ItemsSource="{Binding CatalogVoices}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="vm:CatalogVoiceViewModel">
+                                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto">
+                                    <TextBlock Text="{Binding Voice.Key}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Grid.Row="1" Classes="meta" Text="{Binding Details}" TextTrimming="CharacterEllipsis" />
+                                    <ProgressBar Grid.Row="2" Minimum="0" Maximum="100" Value="{Binding Progress}" Margin="0,4,0,0"
+                                                 IsVisible="{Binding IsDownloading}" />
+                                    <StackPanel Grid.Column="1" Grid.RowSpan="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="6,0,0,0">
+                                        <Button Content="Download" Padding="8,2" IsVisible="{Binding CanDownload}"
+                                                Command="{Binding $parent[UserControl].((vm:RemoteWindowViewModel)DataContext).DownloadVoiceCommand}"
+                                                CommandParameter="{Binding}"
+                                                ToolTip.Tip="Downloads the voice into the voices folder, then tries it" />
+                                        <Button Content="Try" Padding="8,2" IsVisible="{Binding IsInstalled}"
+                                                Command="{Binding $parent[UserControl].((vm:RemoteWindowViewModel)DataContext).TestVoiceCommand}"
+                                                CommandParameter="{Binding Voice.Key}" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Status -->
+        <Border Grid.Row="1" Padding="12,4" Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Classes="status" Classes.error="{Binding IsError}" Text="{Binding Status}" FontSize="12"
+                           TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+                <v:AddNoteButton Grid.Column="1" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

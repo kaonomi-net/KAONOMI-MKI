@@ -53,8 +53,12 @@ public sealed class OntologyEntry
     /// <summary>Kind of entity this node represents.</summary>
     public string? EntityType { get; set; }
 
+    /// <summary>The summary: what the entity is in one or two sentences (read first; searched by <c>/ontology/search</c>).</summary>
+    [JsonPropertyName("summary")]
+    public string? Summary { get; set; }
+
     [JsonPropertyName("description")]
-    /// <summary>Description; this is the field searched by <c>/ontology/search</c>.</summary>
+    /// <summary>The full description; searched by <c>/ontology/search</c> with the summary.</summary>
     public string? Description { get; set; }
 
     [JsonPropertyName("nodevirtualeftchildrenId")]

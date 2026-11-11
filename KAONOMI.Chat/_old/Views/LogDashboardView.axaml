@@ -1,0 +1,224 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:KAONOMI.Chat.ViewModels"
+        xmlns:v="using:KAONOMI.Chat.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1500" d:DesignHeight="950"
+        x:Class="KAONOMI.Chat.Views.LogDashboardView"
+        x:DataType="vm:LogDashboardViewModel">
+
+    <UserControl.Styles>
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="12" />
+            <Setter Property="Margin" Value="4" />
+        </Style>
+        <Style Selector="TextBlock.cardTitle">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="0,0,0,6" />
+        </Style>
+        <Style Selector="TextBlock.kpi">
+            <Setter Property="FontSize" Value="28" />
+            <Setter Property="FontWeight" Value="Light" />
+        </Style>
+        <Style Selector="TextBlock.meta">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Opacity" Value="0.7" />
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        </Style>
+        <!-- Errors in red; other texts keep the theme color -->
+        <Style Selector="TextBlock.error">
+            <Setter Property="Foreground" Value="#E81123" />
+        </Style>
+        <Style Selector="Button.row">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Padding" Value="4,2" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*" Margin="10">
+
+        <!-- Header: size, refresh, auto-refresh, status -->
+        <Grid ColumnDefinitions="Auto,*,Auto,Auto,Auto,Auto,Auto,Auto" Margin="4,0,4,6">
+            <TextBlock Text="Logs dashboard" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Center" />
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" Margin="16,0,0,0" VerticalAlignment="Center">
+                <Ellipse Width="8" Height="8" Fill="#E81123" IsVisible="{Binding IsError}" VerticalAlignment="Center" />
+                <ProgressBar IsIndeterminate="True" Width="60" Height="4" IsVisible="{Binding RefreshCommand.IsRunning}"
+                             VerticalAlignment="Center" />
+                <TextBlock Text="{Binding Status}" FontSize="12" Opacity="0.8" VerticalAlignment="Center"
+                           TextTrimming="CharacterEllipsis" />
+            </StackPanel>
+            <TextBlock Grid.Column="2" Text="Period" VerticalAlignment="Center" Margin="0,0,6,0" />
+            <ComboBox Grid.Column="3" ItemsSource="{Binding Scopes}" SelectedItem="{Binding Scope}" MinWidth="160"
+                      ToolTip.Tip="Number of logs read with GET /log/last" />
+            <CheckBox Grid.Column="4" Content="Auto-refresh (15 s)" IsChecked="{Binding AutoRefresh}" Margin="12,0,0,0" />
+            <Button Grid.Column="5" Content="Refresh" Classes="accent" MinWidth="90" Margin="8,0,0,0"
+                    Command="{Binding RefreshCommand}" />
+            <Button Grid.Column="6" Content="SAVE" MinWidth="70" Margin="8,0,0,0" Click="OnSaveClick"
+                    ToolTip.Tip="Saves the content of the window (figures, applications, errors and the logs of the table) as JSON" />
+            <v:AddNoteButton Grid.Column="7" Margin="8,0,0,0" />
+        </Grid>
+
+        <!-- Key figures -->
+        <UniformGrid Grid.Row="1" Columns="5">
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="cardTitle" Text="Logs" />
+                    <TextBlock Classes="kpi" Text="{Binding TotalText}" />
+                    <TextBlock Classes="meta" Text="{Binding TotalDetails}" />
+                </StackPanel>
+            </Border>
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="cardTitle" Text="Errors" />
+                    <TextBlock Classes="kpi" Text="{Binding ErrorText}" Foreground="{Binding ErrorBrush}" />
+                    <TextBlock Classes="meta" Text="{Binding ErrorDetails}" />
+                </StackPanel>
+            </Border>
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="cardTitle" Text="Applications" />
+                    <TextBlock Classes="kpi" Text="{Binding AppsText}" />
+                    <TextBlock Classes="meta" Text="{Binding AppsDetails}" ToolTip.Tip="{Binding AppsDetails}" />
+                </StackPanel>
+            </Border>
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="cardTitle" Text="Time span" />
+                    <TextBlock Classes="kpi" Text="{Binding SpanText}" />
+                    <TextBlock Classes="meta" Text="{Binding SpanDetails}" />
+                </StackPanel>
+            </Border>
+            <Border Classes="card">
+                <StackPanel>
+                    <TextBlock Classes="cardTitle" Text="Rate" />
+                    <TextBlock Classes="kpi" Text="{Binding RateText}" />
+                    <TextBlock Classes="meta" Text="{Binding RateDetails}" />
+                </StackPanel>
+            </Border>
+        </UniformGrid>
+
+        <!-- Activity, by application, most frequent errors -->
+        <Grid Grid.Row="2" ColumnDefinitions="2*,*,*" Height="250">
+            <Border Classes="card">
+                <Grid RowDefinitions="Auto,*,Auto">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock Classes="cardTitle" Text="{Binding ActivityTitle}" />
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10">
+                            <TextBlock Text="■ all logs" FontSize="11" Foreground="#2B9BF4" />
+                            <TextBlock Text="■ errors" FontSize="11" Foreground="#E81123" />
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="1" ColumnDefinitions="*,Auto">
+                        <v:UsageChart LineColor="#2B9BF4" SecondaryLineColor="#E81123"
+                                      Values="{Binding Activity}" SecondaryValues="{Binding ErrorActivity}"
+                                      Maximum="{Binding ActivityMax}"
+                                      Capacity="{x:Static vm:LogDashboardViewModel.Buckets}" />
+                        <TextBlock Grid.Column="1" Text="{Binding ActivityMaxLabel}" FontSize="10" Opacity="0.8"
+                                   VerticalAlignment="Top" Margin="6,0,0,0" />
+                    </Grid>
+                    <Grid Grid.Row="2" ColumnDefinitions="*,*" Margin="0,4,0,0">
+                        <TextBlock Classes="meta" Text="{Binding ActivityStart}" />
+                        <TextBlock Grid.Column="1" Classes="meta" Text="{Binding ActivityEnd}" HorizontalAlignment="Right" />
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1" Classes="card">
+                <Grid RowDefinitions="Auto,*">
+                    <TextBlock Classes="cardTitle" Text="By application (click to filter)" />
+                    <ScrollViewer Grid.Row="1">
+                        <ItemsControl ItemsSource="{Binding AppStats}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:AppStatViewModel">
+                                    <Button Classes="row" ToolTip.Tip="{Binding App}"
+                                            Command="{Binding $parent[ItemsControl].((vm:LogDashboardViewModel)DataContext).FilterAppCommand}"
+                                            CommandParameter="{Binding}">
+                                        <StackPanel Spacing="2">
+                                            <Grid ColumnDefinitions="*,Auto">
+                                                <TextBlock Text="{Binding App}" FontSize="11" TextTrimming="CharacterEllipsis" />
+                                                <TextBlock Grid.Column="1" Text="{Binding CountText}" FontSize="11" Margin="6,0,0,0"
+                                                           Classes.error="{Binding HasErrors}" />
+                                            </Grid>
+                                            <ProgressBar Minimum="0" Maximum="100" Value="{Binding Share}" Height="5" MinHeight="5" />
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="2" Classes="card">
+                <Grid RowDefinitions="Auto,*">
+                    <TextBlock Classes="cardTitle" Text="Most frequent errors (click to filter)" />
+                    <TextBlock Grid.Row="1" Text="No error 🎉" Opacity="0.6" HorizontalAlignment="Center" VerticalAlignment="Center"
+                               IsVisible="{Binding !HasTopErrors}" />
+                    <ScrollViewer Grid.Row="1">
+                        <ItemsControl ItemsSource="{Binding TopErrors}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:ErrorStatViewModel">
+                                    <Button Classes="row" ToolTip.Tip="{Binding Message}"
+                                            Command="{Binding $parent[ItemsControl].((vm:LogDashboardViewModel)DataContext).FilterErrorCommand}"
+                                            CommandParameter="{Binding}">
+                                        <StackPanel Spacing="1" Margin="0,0,0,4">
+                                            <TextBlock Text="{Binding Message}" FontSize="11" Foreground="#E81123"
+                                                       TextWrapping="Wrap" MaxLines="2" TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Classes="meta" Text="{Binding Details}" />
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Filters and log table -->
+        <Border Grid.Row="3" Classes="card">
+            <Grid RowDefinitions="Auto,Auto,*">
+                <Grid ColumnDefinitions="Auto,*,Auto,Auto,Auto" Margin="0,0,0,8">
+                    <TextBlock Classes="cardTitle" Text="{Binding TableTitle}" VerticalAlignment="Center" Margin="0,0,12,0" MinWidth="150" />
+                    <TextBox Grid.Column="1" Text="{Binding Search}" PlaceholderText="Search in the messages and application names…" />
+                    <ComboBox Grid.Column="2" ItemsSource="{Binding Types}" SelectedItem="{Binding SelectedType}"
+                              MinWidth="120" Margin="8,0,0,0" />
+                    <ComboBox Grid.Column="3" ItemsSource="{Binding Apps}" SelectedItem="{Binding SelectedApp}"
+                              MinWidth="260" MaxWidth="360" Margin="8,0,0,0" />
+                    <Button Grid.Column="4" Content="Clear filters" Margin="8,0,0,0" Command="{Binding ClearFiltersCommand}" />
+                </Grid>
+
+                <Grid Grid.Row="1" ColumnDefinitions="185,70,300,*" Margin="10,0,10,4">
+                    <TextBlock Text="Date" FontSize="11" FontWeight="SemiBold" Opacity="0.7" />
+                    <TextBlock Grid.Column="1" Text="Type" FontSize="11" FontWeight="SemiBold" Opacity="0.7" />
+                    <TextBlock Grid.Column="2" Text="Application" FontSize="11" FontWeight="SemiBold" Opacity="0.7" />
+                    <TextBlock Grid.Column="3" Text="Message" FontSize="11" FontWeight="SemiBold" Opacity="0.7" />
+                </Grid>
+
+                <ListBox Grid.Row="2" ItemsSource="{Binding Rows}" Background="Transparent">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="vm:LogRowViewModel">
+                            <Grid ColumnDefinitions="185,70,300,*" ToolTip.Tip="{Binding Comment}">
+                                <TextBlock Text="{Binding Date}" FontSize="12"
+                                           FontFamily="Cascadia Mono, Consolas, Menlo, Courier New, monospace" />
+                                <Border Grid.Column="1" CornerRadius="4" Padding="6,0" HorizontalAlignment="Left"
+                                        Background="{Binding IsError, Converter={x:Static v:LogDashboardView.TypeBackground}}">
+                                    <TextBlock Text="{Binding Type}" FontSize="11" FontWeight="SemiBold" />
+                                </Border>
+                                <TextBlock Grid.Column="2" Text="{Binding App}" FontSize="12" TextTrimming="CharacterEllipsis" />
+                                <TextBlock Grid.Column="3" Text="{Binding Comment}" FontSize="12" TextTrimming="CharacterEllipsis"
+                                           Classes.error="{Binding IsError}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

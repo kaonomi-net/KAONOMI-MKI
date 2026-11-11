@@ -47,6 +47,17 @@ public sealed class LlmProxy(Gateway gateway)
             return;
         }
 
+        if (gateway.Settings.UpstreamIsOpenAi && api != LlmApi.OpenAiChat)
+        {
+            // LM Studio does not speak the API of Ollama, and the gateway does not translate one into the other.
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            await context.Response.WriteAsJsonAsync(new
+            {
+                error = $"the upstream of the gateway is LM Studio, which has no {context.Request.Path}: ask /v1/chat/completions (llmProvider \"lmstudio\" in the settings of the client)"
+            }, cancellationToken);
+            return;
+        }
+
         var request = LlmRequest.Parse(api, body);
         var entities = gateway.Extractor.Extract(request.LastPrompt).ToList();
         if (request.HasImages)
@@ -58,7 +69,10 @@ public sealed class LlmProxy(Gateway gateway)
         if (decision.Rule is { } rule)
             context.Response.Headers["X-Gateway-Rule"] = rule;
 
-        // The cache: the same model, the same context, a close prompt with the same entities.
+        // The cache: the same model, the same context, a close question with the same entities. The question is the
+        // prompt without the name it is addressed to and without the previous exchanges written before it, which
+        // count as context (see CacheQuestion).
+        var (question, discussion) = CacheQuestion.Of(request.LastPrompt);
         var cacheState = "OFF";
         var cacheReason = "cache off";
         double score = 0;
@@ -68,9 +82,9 @@ public sealed class LlmProxy(Gateway gateway)
         var bypass = string.Equals(context.Request.Headers["X-Gateway-Cache"], "off", StringComparison.OrdinalIgnoreCase);
         if (gateway.CacheSettings.Enabled && !bypass && request.NotCacheable is null)
         {
-            contextKey = SemanticCache.ContextKey(request.ContextParts());
-            signature = EntityExtractor.Signature(entities);
-            (embedder, vector) = await gateway.EmbedAsync(request.LastPrompt, cancellationToken);
+            contextKey = SemanticCache.ContextKey(discussion is null ? request.ContextParts() : [.. request.ContextParts(), "discussion:" + discussion]);
+            signature = EntityExtractor.Signature(question == request.LastPrompt ? entities : gateway.Extractor.Extract(question));
+            (embedder, vector) = await gateway.EmbedAsync(question, cancellationToken);
             var lookup = gateway.Cache.Find(decision.Model, contextKey, embedder.Name, vector, signature);
             score = lookup.BestScore;
             cacheReason = lookup.Reason;
@@ -105,7 +119,7 @@ public sealed class LlmProxy(Gateway gateway)
         catch (HttpRequestException ex)
         {
             context.Response.StatusCode = StatusCodes.Status502BadGateway;
-            await context.Response.WriteAsJsonAsync(new { error = $"Ollama not reached at {gateway.Settings.Upstream}: {ex.Message}" }, cancellationToken);
+            await context.Response.WriteAsJsonAsync(new { error = $"{gateway.Settings.UpstreamName} not reached at {gateway.Settings.Upstream}: {ex.Message}" }, cancellationToken);
             Record(context, api, decision, cacheState, score, cacheReason, stopwatch, 502, request);
             return;
         }
@@ -121,7 +135,7 @@ public sealed class LlmProxy(Gateway gateway)
             {
                 gateway.Cache.Add(new CacheEntry
                 {
-                    Model = decision.Model, Context = contextKey!, System = request.SystemPrompt, Prompt = request.LastPrompt, EntitySignature = signature!,
+                    Model = decision.Model, Context = contextKey!, System = request.SystemPrompt, Prompt = question, EntitySignature = signature!,
                     Embedder = embedder.Name, Vector = vector, Answer = answer.Text, Thinking = answer.Thinking,
                     AnswerMs = Gateway.Elapsed(stopwatch)
                 });
@@ -153,7 +167,7 @@ public sealed class LlmProxy(Gateway gateway)
         catch (HttpRequestException ex)
         {
             context.Response.StatusCode = StatusCodes.Status502BadGateway;
-            await context.Response.WriteAsJsonAsync(new { error = $"Ollama not reached at {gateway.Settings.Upstream}: {ex.Message}" });
+            await context.Response.WriteAsJsonAsync(new { error = $"{gateway.Settings.UpstreamName} not reached at {gateway.Settings.Upstream}: {ex.Message}" });
         }
     }
 
@@ -175,8 +189,8 @@ public sealed class LlmProxy(Gateway gateway)
                     node?["message"]?["tool_calls"] is null && Json.Str(node?["done_reason"]) is null or "stop"),
                 LlmApi.OllamaGenerate => new Relayed(Json.Str(node?["response"]) ?? "", Json.Str(node?["thinking"]),
                     Json.Str(node?["done_reason"]) is null or "stop"),
-                _ => new Relayed(Json.Str(node?["choices"]?[0]?["message"]?["content"]) ?? "", Json.Str(node?["choices"]?[0]?["message"]?["reasoning"]),
-                    node?["choices"]?[0]?["message"]?["tool_calls"] is null && Json.Str(node?["choices"]?[0]?["finish_reason"]) is null or "stop")
+                _ => new Relayed(Json.Str(node?["choices"]?[0]?["message"]?["content"]) ?? "", Reasoning(node?["choices"]?[0]?["message"]),
+                    !HasToolCalls(node?["choices"]?[0]?["message"]) && Json.Str(node?["choices"]?[0]?["finish_reason"]) is null or "stop")
             };
         }
         catch (JsonException)
@@ -184,6 +198,14 @@ public sealed class LlmProxy(Gateway gateway)
             return new Relayed("", null, false);
         }
     }
+
+    /// <summary>The thinking of a message or delta of OpenAI: "reasoning" for Ollama, "reasoning_content" for LM Studio (empty when none).</summary>
+    private static string? Reasoning(JsonNode? message) =>
+        (Json.Str(message?["reasoning"]) ?? Json.Str(message?["reasoning_content"])) is { Length: > 0 } text ? text : null;
+
+    /// <summary>True when a message or delta of OpenAI calls tools; LM Studio writes "tool_calls": [] when it calls none.</summary>
+    private static bool HasToolCalls(JsonNode? message) =>
+        message?["tool_calls"] is { } calls && calls is not JsonArray { Count: 0 };
 
     /// <summary>
     /// A streamed answer relayed line by line as it comes (NDJSON of Ollama, server-sent events of OpenAI), its text
@@ -233,8 +255,9 @@ public sealed class LlmProxy(Gateway gateway)
                     default:
                         var choice = node?["choices"]?[0];
                         text.Append(Json.Str(choice?["delta"]?["content"]));
-                        thinking.Append(Json.Str(choice?["delta"]?["reasoning"]));
-                        cut |= choice?["delta"]?["tool_calls"] is not null;
+                        // "reasoning" for Ollama, "reasoning_content" for LM Studio.
+                        thinking.Append(Reasoning(choice?["delta"]));
+                        cut |= HasToolCalls(choice?["delta"]);
                         if (Json.Str(choice?["finish_reason"]) is { } finish && finish != "stop")
                             cut = true;
                         break;
@@ -345,15 +368,14 @@ public sealed class LlmProxy(Gateway gateway)
 
     private void Record(HttpContext context, LlmApi api, RouteDecision decision, string cache, double score, string cacheReason, Stopwatch stopwatch, int status, LlmRequest request)
     {
-        var prompt = request.LastPrompt.ReplaceLineEndings(" ");
         gateway.Log.Add(new RequestRecord(DateTimeOffset.UtcNow, context.Request.Path, decision.RequestedModel, decision.Model, decision.Rule,
             decision.Reason, decision.Entities.Select(e => e.ToString()).Distinct().Take(20).ToList(), cache, Math.Round(score, 3), cacheReason,
-            Gateway.Elapsed(stopwatch), status, prompt.Length > 160 ? prompt[..160] + "…" : prompt));
+            Gateway.Elapsed(stopwatch), status, RequestLog.Excerpt(request.LastPrompt)));
         Console.WriteLine($"[{api}] {decision.RequestedModel} → {decision.Model} ({decision.Reason}) · cache {cache} ({cacheReason}) · {Gateway.Elapsed(stopwatch)} ms");
     }
 
     private Uri Upstream(HttpContext context) =>
-        new($"{gateway.Settings.Upstream.TrimEnd('/')}{context.Request.Path}{context.Request.QueryString}");
+        new($"{gateway.Settings.UpstreamBase}{context.Request.Path}{context.Request.QueryString}");
 
     private static void CopyRequestHeaders(HttpContext context, HttpRequestMessage upstream)
     {

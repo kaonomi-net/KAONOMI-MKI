@@ -147,7 +147,7 @@ Every prerequisite and how to install it: [PREREQUISITES.md](PREREQUISITES.md) (
 | `KAONOMI.LLMGateway.Tests` | Tests of the gateway: cache, entity extractor, router, end to end |
 | [`KAONOMI.ImmuneSystem`](KAONOMI.ImmuneSystem/README.md) | Console scanner (self-contained, read only, no network): AI-generated or AI-edited images (C2PA, IPTC, generator parameters), code in Office files (VBA, Excel 4.0 macros, DDE, OLE, Power Query…), browser histories (AI services visited, files downloaded); one JSON report |
 | [`KAONOMI.ChatGodot`](KAONOMI.ChatGodot/README.md) | The Kaonomi chat (Godot 4.7 .NET, EVE Online look): the chat, its voice mode, its desktop of tool windows, the journal of the activities, `/think`, the games (`/game:solitaire`, `/game:chess`, `/game:go`), `/fractal`, `/immune`, `/gateway` |
-| [`KAONOMI.UI`](KAONOMI.UI/README.md) | The same chat in Avalonia UI, flat (no effects) with the 3D animations of the faces and JARVIS (OpenGL, the same shaders), the voice mode, the 9 themes with their animated backgrounds and the 3D relation graph. It compiles the view models and services of `KAONOMI.ChatGodot/Shared/` as they are, so every command works the same; the tools open in movable windows with a task bar |
+| [`KAONOMI.Chat`](KAONOMI.Chat/README.md) | The same chat in Avalonia, aligned on the Godot chat: the same view models, services, commands and tool windows (linked from `KAONOMI.ChatGodot/Shared`), with the full chat on a vertical screen when one is connected |
 
 Solution file: `KAONOMI.slnx`.
 
@@ -174,7 +174,7 @@ cd KAONOMI.ACHEngine && dotnet run
 cd KAONOMI.Server && dotnet run
 cd KAONOMI.LLMGateway && dotnet run           # optional: the gateway, http://localhost:11435 → Ollama
 cd KAONOMI.ChatGodot && godot-mono --path .   # the chat (the first time: godot-mono --headless --path . --import)
-dotnet run --project KAONOMI.UI               # or the flat chat in Avalonia (no Godot needed)
+dotnet run --project KAONOMI.Chat             # or the chat in Avalonia (no Godot needed)
 ```
 
 The server listens on `https://localhost:49165` and `http://localhost:49166`. The root path redirects to Swagger.

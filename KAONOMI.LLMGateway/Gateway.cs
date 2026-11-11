@@ -44,7 +44,7 @@ public sealed class Gateway : IDisposable
     public SemanticCache Cache { get; }
     public RequestLog Log { get; }
     public IEmbedder Embedder { get; private set; }
-    public string EmbedderNote { get; private set; } = "the local embedding of the words, until Ollama is read";
+    public string EmbedderNote { get; private set; } = "the local embedding of the words, until the upstream is read";
     public DateTimeOffset Started { get; } = DateTimeOffset.UtcNow;
     public bool UpstreamOk { get; private set; }
     public IReadOnlyCollection<string> InstalledModels => _installed ?? [];
@@ -79,25 +79,28 @@ public sealed class Gateway : IDisposable
     }
 
     /// <summary>
-    /// Reads the models of Ollama: the router skips a rule whose model is missing; the cache uses the embedding model
-    /// when it is installed, the local embedding of the words otherwise.
+    /// Reads the models of the upstream (<c>/api/tags</c> of Ollama, <c>/v1/models</c> of LM Studio): the router skips
+    /// a rule whose model is missing; the cache uses the embedding model when it is installed, the local embedding of
+    /// the words otherwise.
     /// </summary>
     public async Task RefreshModelsAsync()
     {
+        var openAi = Settings.UpstreamIsOpenAi;
+        var upstreamName = Settings.UpstreamName;
         try
         {
             using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(5));
-            using var response = await Http.GetAsync($"{Settings.Upstream.TrimEnd('/')}/api/tags", timeout.Token);
+            using var response = await Http.GetAsync($"{Settings.UpstreamBase}{(openAi ? "/v1/models" : "/api/tags")}", timeout.Token);
             response.EnsureSuccessStatusCode();
             using var document = JsonDocument.Parse(await response.Content.ReadAsStringAsync(timeout.Token));
-            _installed = document.RootElement.GetProperty("models").EnumerateArray()
-                .Select(m => m.GetProperty("name").GetString() ?? "").Where(n => n.Length > 0).ToList();
+            _installed = document.RootElement.GetProperty(openAi ? "data" : "models").EnumerateArray()
+                .Select(m => m.GetProperty(openAi ? "id" : "name").GetString() ?? "").Where(n => n.Length > 0).ToList();
             UpstreamOk = true;
         }
         catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException or JsonException or KeyNotFoundException or InvalidOperationException)
         {
             UpstreamOk = false;
-            EmbedderNote = $"Ollama not reached at {Settings.Upstream} ({ex.Message}): the local embedding of the words";
+            EmbedderNote = $"{upstreamName} not reached at {Settings.Upstream} ({ex.Message}): the local embedding of the words";
             if (Embedder is not LexicalEmbedder)
                 Embedder = new LexicalEmbedder();
             return;
@@ -106,15 +109,15 @@ public sealed class Gateway : IDisposable
         if (!string.IsNullOrEmpty(model) && ModelRouter.IsInstalled(_installed, model))
         {
             var name = _installed.First(m => string.Equals(m, model, StringComparison.OrdinalIgnoreCase) || string.Equals(m, model + ":latest", StringComparison.OrdinalIgnoreCase));
-            if (Embedder.Name != "ollama:" + name)
+            if (Embedder.Name != (openAi ? "openai:" : "ollama:") + name)
             {
-                var candidate = new OllamaEmbedder(Http, Settings.Upstream, name);
+                IEmbedder candidate = openAi ? new OpenAiEmbedder(Http, Settings.UpstreamBase, name) : new OllamaEmbedder(Http, Settings.UpstreamBase, name);
                 try
                 {
                     using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(60));
                     await candidate.EmbedAsync("ping", timeout.Token);
                     Embedder = candidate;
-                    EmbedderNote = $"the embedding model {name} of Ollama";
+                    EmbedderNote = $"the embedding model {name} of {upstreamName}";
                     Console.WriteLine($"[cache] embeddings by {name}");
                 }
                 catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException or JsonException or KeyNotFoundException or InvalidOperationException)
@@ -130,7 +133,9 @@ public sealed class Gateway : IDisposable
                 Embedder = new LexicalEmbedder();
             EmbedderNote = string.IsNullOrEmpty(model)
                 ? "no embedding model set: the local embedding of the words"
-                : $"{model} is not installed in Ollama (ollama pull {model}): the local embedding of the words";
+                : openAi
+                    ? $"{model} is not listed by LM Studio (download it there and name its identifier, e.g. text-embedding-nomic-embed-text-v1.5): the local embedding of the words"
+                    : $"{model} is not installed in Ollama (ollama pull {model}): the local embedding of the words";
         }
     }
 

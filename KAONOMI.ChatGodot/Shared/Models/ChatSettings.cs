@@ -105,8 +105,19 @@ public enum SceneAnimation
 public sealed class ChatSettings
 {
     [JsonPropertyName("ollamaUrl")]
-    /// <summary>Base URL of the local Ollama API.</summary>
+    /// <summary>Base URL of the local LLM server: Ollama, or LM Studio (http://localhost:1234) when <see cref="LlmProvider"/> says so.</summary>
     public string OllamaUrl { get; set; } = "http://localhost:11434";
+
+    [JsonPropertyName("llmProvider")]
+    /// <summary>
+    /// The API of the server at <see cref="OllamaUrl"/> (<c>llmProvider</c> in config.yml): "ollama", or "lmstudio"
+    /// for LM Studio (its OpenAI-compatible API).
+    /// </summary>
+    public string LlmProvider { get; set; } = "ollama";
+
+    /// <summary>The name of the LLM server for the messages: "LM Studio" or "Ollama".</summary>
+    [JsonIgnore]
+    public string LlmProviderName => Services.OllamaModelService.DisplayName(LlmProvider);
 
     [JsonPropertyName("serverUrl")]
     /// <summary>
@@ -557,6 +568,9 @@ public sealed class ChatSettings
             if (!string.IsNullOrWhiteSpace(document.OllamaUrl) && Uri.TryCreate(document.OllamaUrl.Trim(), UriKind.Absolute, out _))
                 settings.OllamaUrl = document.OllamaUrl.Trim();
 
+            if (!string.IsNullOrWhiteSpace(document.LlmProvider))
+                settings.LlmProvider = document.LlmProvider.Trim();
+
             if (!string.IsNullOrWhiteSpace(document.ServerUrl) && Uri.TryCreate(document.ServerUrl.Trim(), UriKind.Absolute, out _))
                 settings.ServerUrl = document.ServerUrl.Trim();
 
@@ -960,6 +974,8 @@ public sealed class ChatSettings
     private sealed class ChatYamlDocument
     {
         public string? OllamaUrl { get; set; }
+
+        public string? LlmProvider { get; set; }
 
         public string? ServerUrl { get; set; }
 

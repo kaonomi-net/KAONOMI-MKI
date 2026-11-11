@@ -1,0 +1,142 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:KAONOMI.Chat.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="760"
+        x:Class="KAONOMI.Chat.Views.YoutubeView"
+        x:DataType="vm:YoutubeWindowViewModel">
+
+    <Design.DataContext>
+        <vm:YoutubeWindowViewModel />
+    </Design.DataContext>
+
+    <UserControl.KeyBindings>
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding SaveCommand}" />
+        <KeyBinding Gesture="Ctrl+N" Command="{Binding NewCommand}" />
+        <KeyBinding Gesture="F5" Command="{Binding SearchCommand}" />
+    </UserControl.KeyBindings>
+
+    <UserControl.Styles>
+        <Style Selector="TextBlock.label">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Opacity" Value="0.75" />
+            <Setter Property="Margin" Value="0,12,0,4" />
+        </Style>
+        <Style Selector="TextBlock.meta">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Opacity" Value="0.6" />
+        </Style>
+        <Style Selector="Border.thumb">
+            <Setter Property="Background" Value="#22000000" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="ClipToBounds" Value="True" />
+        </Style>
+        <Style Selector="Button.play">
+            <Setter Property="Background" Value="#FF0033" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+        <Style Selector="Button.play:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#D9002B" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <Style Selector="TextBlock.status.error">
+            <Setter Property="Foreground" Value="#E5484D" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Search in the saved videos -->
+        <Border Grid.Row="0" Padding="12,10" Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <Grid ColumnDefinitions="*,Auto,Auto">
+                <TextBox x:Name="SearchBox" Text="{Binding Term}" VerticalContentAlignment="Center" MinHeight="36"
+                         PlaceholderText="Search the videos of Kaonomi (title and description) · empty: latest videos" />
+                <Button Grid.Column="1" Content="Search" Classes="accent" MinWidth="110" MinHeight="36" Margin="8,0,0,0"
+                        Command="{Binding SearchCommand}" />
+                <Button Grid.Column="2" Content="New video" MinWidth="100" MinHeight="36" Margin="8,0,0,0"
+                        ToolTip.Tip="Add another video (Ctrl+N)" Command="{Binding NewCommand}" />
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" ColumnDefinitions="420,4,*">
+            <!-- Saved videos: double-click opens one -->
+            <Panel Grid.Column="0">
+                <ListBox x:Name="VideoList" ItemsSource="{Binding Videos}" SelectedItem="{Binding SelectedVideo}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="vm:YoutubeVideoItemViewModel">
+                            <Grid ColumnDefinitions="128,*" Margin="0,4">
+                                <Border Classes="thumb" Width="128" Height="72">
+                                    <Image Source="{Binding Thumbnail}" Stretch="UniformToFill" />
+                                </Border>
+                                <StackPanel Grid.Column="1" Margin="10,0,0,0" Spacing="3" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding DisplayTitle}" FontWeight="SemiBold" TextWrapping="Wrap"
+                                               MaxLines="2" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Classes="meta" Text="{Binding Summary}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <TextBlock Text="No video in Kaonomi yet" Opacity="0.5" HorizontalAlignment="Center" VerticalAlignment="Center"
+                           IsVisible="{Binding !Videos.Count}" />
+            </Panel>
+            <GridSplitter Grid.Column="1" ResizeDirection="Columns" Background="Transparent" />
+
+            <!-- The video: its address fills the title and description -->
+            <ScrollViewer Grid.Column="2">
+                <StackPanel Margin="18,8,18,18">
+                    <TextBlock Classes="label" Text="YOUTUBE ADDRESS" Margin="0,4,0,4" />
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBox x:Name="UrlBox" Text="{Binding Url}" MinHeight="36" VerticalContentAlignment="Center"
+                                 PlaceholderText="https://www.youtube.com/watch?v=…  ·  youtu.be/…  ·  shorts/…" />
+                        <Button Grid.Column="1" Content="Paste" MinHeight="36" Margin="8,0,0,0" Click="OnPasteClick"
+                                ToolTip.Tip="Paste the address copied from the browser" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="Auto,*" Margin="0,14,0,0">
+                        <Border Classes="thumb" Width="320" Height="180">
+                            <Panel>
+                                <Image Source="{Binding Thumbnail}" Stretch="UniformToFill" />
+                                <TextBlock Text="▶" FontSize="48" Opacity="0.25" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           IsVisible="{Binding Thumbnail, Converter={x:Static ObjectConverters.IsNull}}" />
+                            </Panel>
+                        </Border>
+                        <StackPanel Grid.Column="1" Margin="16,0,0,0" Spacing="10" VerticalAlignment="Center">
+                            <Button Classes="play" Content="▶  Open the video" MinHeight="40" MinWidth="180"
+                                    Command="{Binding OpenCommand}" ToolTip.Tip="Open the video in the browser" />
+                            <Button Classes="accent" Content="{Binding SaveLabel}" MinHeight="36" MinWidth="180"
+                                    Command="{Binding SaveCommand}" ToolTip.Tip="Save the video in Kaonomi (Ctrl+S)" />
+                            <Button Content="Delete" MinHeight="32" MinWidth="180" Command="{Binding DeleteCommand}"
+                                    ToolTip.Tip="Delete the video from Kaonomi" />
+                            <StackPanel Orientation="Horizontal" Spacing="8" IsVisible="{Binding IsFetching}">
+                                <ProgressBar IsIndeterminate="True" Width="80" VerticalAlignment="Center" />
+                                <TextBlock Classes="meta" Text="Reading YouTube…" />
+                            </StackPanel>
+                            <TextBlock Classes="meta" Text="{Binding Author, StringFormat='Channel: {0}'}"
+                                       IsVisible="{Binding Author, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                        </StackPanel>
+                    </Grid>
+
+                    <TextBlock Classes="label" Text="TITLE" />
+                    <TextBox Text="{Binding Title}" MinHeight="36" VerticalContentAlignment="Center" TextWrapping="Wrap" />
+
+                    <TextBlock Classes="label" Text="DESCRIPTION" />
+                    <TextBox Text="{Binding Description}" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="220" MaxHeight="520"
+                             VerticalContentAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+
+                    <TextBlock Classes="label" Text="NOTE" />
+                    <TextBox Text="{Binding Comment}" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="60"
+                             PlaceholderText="Why this video (optional, saved in comment)" />
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <Border Grid.Row="2" Padding="12,6" Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <TextBlock Classes="status" Classes.error="{Binding IsError}" Text="{Binding Status}" FontSize="12"
+                       TextTrimming="CharacterEllipsis" />
+        </Border>
+    </Grid>
+</UserControl>

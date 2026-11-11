@@ -1,7 +1,7 @@
 <Solution>
   <Project Path="KAONOMI.Admin/KAONOMI.Admin.csproj" Id="b6fa5888-372c-4d0f-8c44-44a458a4d313" />
   <Project Path="KAONOMI.ChatGodot/KAONOMI.ChatGodot.csproj" />
-  <Project Path="KAONOMI.UI/KAONOMI.UI.csproj" />
+  <Project Path="KAONOMI.Chat/KAONOMI.Chat.csproj" />
   <Project Path="KAONOMI.Core/KAONOMI.Core.csproj" />
   <Project Path="KAONOMI.Dreamer/KAONOMI.Dreamer.csproj" Id="a91c4e27-6b3d-4f85-9c12-5d8e0a7b4f63" />
   <Project Path="KAONOMI.Metacognition/KAONOMI.Metacognition.csproj" Id="aaa8efd3-193a-4c10-89f9-616cde9a377f" />

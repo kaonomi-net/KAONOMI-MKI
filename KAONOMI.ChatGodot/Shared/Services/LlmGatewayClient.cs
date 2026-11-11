@@ -68,6 +68,12 @@ public sealed record GatewayPhraseAnswer(string Text, int Hits, List<string> Ids
 public sealed record GatewayPhrase(
     string Prompt, string Model, string Context, string? System, List<GatewayPhraseAnswer> Answers, int Hits, DateTimeOffset LastHit);
 
+/// <summary>
+/// What the gateway did with a disliked answer: the answers taken out of its cache, the model that had answered, and
+/// the model to ask again (null when the answer did not come from the default model, or no escalation model is set).
+/// </summary>
+public sealed record GatewayDislikeResult(int Removed, string? Model, string? EscalationModel, string? Reason);
+
 /// <summary>What an import of phrases did.</summary>
 public sealed record GatewayImportResult(int Phrases, int Added, int Skipped, List<string> Errors);
 
@@ -141,6 +147,17 @@ public sealed class LlmGatewayClient(string baseUrl)
         using var response = await Http.PostAsync(BaseUrl + "/gateway/cache/import", content, cancellationToken);
         await EnsureAsync(response, cancellationToken);
         return await response.Content.ReadJsonAsync<GatewayImportResult>(cancellationToken);
+    }
+
+    /// <summary>
+    /// Tells the gateway that <paramref name="answer"/> to <paramref name="prompt"/> (as it was sent) was disliked
+    /// (<c>POST /gateway/feedback/dislike</c>): the interaction leaves its cache.
+    /// </summary>
+    public async Task<GatewayDislikeResult?> DislikeAsync(string prompt, string answer, string? model, CancellationToken cancellationToken = default)
+    {
+        using var response = await Http.PostJsonAsync(BaseUrl + "/gateway/feedback/dislike", new { prompt, answer, model }, cancellationToken);
+        await EnsureAsync(response, cancellationToken);
+        return await response.Content.ReadJsonAsync<GatewayDislikeResult>(cancellationToken);
     }
 
     public async Task<List<GatewayRequestRecord>> LogAsync(int take, CancellationToken cancellationToken = default) =>

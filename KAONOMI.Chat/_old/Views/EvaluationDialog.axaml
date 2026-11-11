@@ -1,0 +1,51 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:KAONOMI.Chat.ViewModels"
+        x:Class="KAONOMI.Chat.Views.EvaluationDialog"
+        x:DataType="vm:EvaluationDialogViewModel"
+        Icon="/Assets/kaonomi-logo.ico"
+        Width="520" SizeToContent="Height" CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        Title="{Binding Title}">
+
+    <Design.DataContext>
+        <vm:EvaluationDialogViewModel />
+    </Design.DataContext>
+
+    <StackPanel Margin="20" Spacing="12">
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <Panel VerticalAlignment="Center">
+                <PathIcon Data="{StaticResource Icon.ThumbUp}" Width="22" Height="22" IsVisible="{Binding !IsNegative}"
+                          Foreground="{DynamicResource SystemControlHighlightAccentBrush}" />
+                <PathIcon Data="{StaticResource Icon.ThumbDown}" Width="22" Height="22" IsVisible="{Binding IsNegative}"
+                          Foreground="{DynamicResource SystemControlHighlightAccentBrush}" />
+            </Panel>
+            <TextBlock Text="{Binding Question}" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+
+        <Border Padding="10,6" CornerRadius="6" Background="{DynamicResource SystemControlBackgroundBaseLowBrush}">
+            <TextBlock Text="{Binding AnswerPreview}" TextWrapping="Wrap" FontSize="12" Opacity="0.75"
+                       MaxHeight="90" TextTrimming="CharacterEllipsis" />
+        </Border>
+
+        <TextBox x:Name="ExplanationBox" Text="{Binding Explanation}"
+                 AcceptsReturn="True" TextWrapping="Wrap" MinHeight="120" MaxHeight="260"
+                 PlaceholderText="Explain your evaluation (optional)"
+                 IsEnabled="{Binding !IsSent}" />
+
+        <Grid ColumnDefinitions="*,Auto,Auto">
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                <Ellipse Width="8" Height="8" Fill="#E81123" IsVisible="{Binding IsError}" VerticalAlignment="Center" />
+                <ProgressBar IsIndeterminate="True" Width="40" Height="4" VerticalAlignment="Center"
+                             IsVisible="{Binding SendCommand.IsRunning}" />
+                <TextBlock Text="{Binding Status}" TextWrapping="Wrap" FontSize="12" MaxWidth="300"
+                           VerticalAlignment="Center" />
+            </StackPanel>
+            <Button Grid.Column="1" x:Name="CancelButton" Content="Cancel" MinWidth="90" Margin="8,0,0,0"
+                    IsCancel="True" IsEnabled="{Binding !SendCommand.IsRunning}" />
+            <Button Grid.Column="2" Content="Send" Classes="accent" MinWidth="90" Margin="8,0,0,0"
+                    Command="{Binding SendCommand}" />
+        </Grid>
+    </StackPanel>
+</Window>

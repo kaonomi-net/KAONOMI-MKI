@@ -26,6 +26,12 @@ namespace KAONOMI.Admin
             // Load configuration
             Config config = HelperConfigManager.GetFromFile<Config>("config.json");
             _config = config;
+            // The LLM server and the model of config.json (ollamaUrl, llmProvider: "ollama" or "lmstudio", llmmodel).
+            if (!string.IsNullOrWhiteSpace(config.ollamaUrl))
+                ollamaUrl = config.ollamaUrl;
+            if (!string.IsNullOrWhiteSpace(config.llmmodel))
+                defaultModel = config.llmmodel;
+            _defaultModel = defaultModel;
             string AppName = config.appName;
 
             HelperConsoleTheme.Start(config.appName, config.appDescription, config.appDocumentationUrl, config.consoleTheme);
@@ -94,7 +100,7 @@ namespace KAONOMI.Admin
                 nxMetaData2.Value_Int = input.Length;
                 perf.metadatas.Add(nxMetaData2);
 
-                var result = await HelperOllamaClient.SendChatMessageAsync(ollamaUrl, defaultModel, input);
+                var result = await HelperOllamaClient.SendChatMessageAsync(ollamaUrl, defaultModel, input, null, _config.llmProvider);
 
                 // Display results
                 Console.WriteLine();

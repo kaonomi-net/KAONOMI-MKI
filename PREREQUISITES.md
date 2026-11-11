@@ -110,6 +110,27 @@ The LLM of the chat, of the agent sequence of the server and of the AI tools (tr
 
 The models need a good GPU or a Mac with Apple Silicon (about 13 GB for `gpt-oss:20b`, 14 GB for `mistral-small3.2`).
 
+### LM Studio in place of Ollama
+
+KAONOMI also speaks to [LM Studio](https://lmstudio.ai) through its OpenAI-compatible API (`/v1/models`, `/v1/chat/completions`).
+
+1. In LM Studio, download a chat model and a vision model, then start the local server (the *Developer* tab, or
+   `lms server start`) — it listens on `http://localhost:1234`.
+2. In `KAONOMI.Server/config.json` (and `KAONOMI.Admin/config.json`):
+   ```json
+   "ollamaUrl": "http://localhost:1234",
+   "llmProvider": "lmstudio",
+   "llmmodel": "openai/gpt-oss-20b"
+   ```
+3. In `KAONOMI.ChatGodot/config.yml`: `ollamaUrl: http://localhost:1234`, `llmProvider: lmstudio`, and `visionmodel`
+   with the identifier of the vision model; `llmmodel` in `KAONOMI.ChatGodot/config.json`.
+4. With the gateway: `"upstream": "http://localhost:1234"` and `"upstreamProvider": "lmstudio"` in
+   `KAONOMI.LLMGateway/config/llmgateway.json` (the models of the rules become those of LM Studio); its clients keep
+   `llmProvider: lmstudio` and point `ollamaUrl` to `http://localhost:11435`.
+
+The models are named by their LM Studio identifier (the one of `GET http://localhost:1234/v1/models`). The context
+length is set on the model in LM Studio, not in a request: allow at least 16,000 tokens for the analysis of pages.
+
 ---
 
 ## 5. Fooocus — images (optional)

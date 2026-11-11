@@ -99,7 +99,7 @@ public sealed class SetupCheck
             new() { Group = TextToSpeech, Name = $"Voice of the chat ({settings.Language})", Check = CheckVoiceAsync },
             new() { Group = TextToSpeech, Name = "Voice of the intro (English)", Check = CheckIntroVoiceAsync },
             new() { Group = Animations, Name = "Faces of the animations", Check = CheckFacesAsync },
-            new() { Group = Services, Name = "Ollama", Check = CheckOllamaAsync },
+            new() { Group = Services, Name = settings.LlmProviderName, Check = CheckOllamaAsync },
             new() { Group = Services, Name = $"Chat model ({settings.Model})", Check = (d, ct) => CheckOllamaModelAsync(d, settings.Model, ct) },
             new() { Group = Services, Name = $"Vision model ({settings.VisionModel})", Check = (d, ct) => CheckOllamaModelAsync(d, settings.VisionModel, ct) },
             new() { Group = Services, Name = "Kaonomi server", Check = CheckServerAsync },
@@ -364,12 +364,15 @@ public sealed class SetupCheck
         {
             using var timeout = CancellationTokenSource.CreateLinkedTokenSource(ct);
             timeout.CancelAfter(TimeSpan.FromSeconds(5));
-            _ollamaModels = await new OllamaModelService(_settings.OllamaUrl).ListModelsAsync(timeout.Token);
+            _ollamaModels = await new OllamaModelService(_settings.OllamaUrl, _settings.LlmProvider).ListModelsAsync(timeout.Token);
             d.Set(DependencyState.Ok, $"{_settings.OllamaUrl}: {_ollamaModels.Count} model(s)");
         }
         catch (Exception ex) when (ex is HttpRequestException or OperationCanceledException or InvalidOperationException && !ct.IsCancellationRequested)
         {
-            d.Set(DependencyState.Missing, $"not reachable at {_settings.OllamaUrl}", "Install Ollama and start it (the models are pulled with: ollama pull <model>)", "https://ollama.com/download");
+            if (OllamaModelService.IsOpenAiCompatible(_settings.LlmProvider))
+                d.Set(DependencyState.Missing, $"not reachable at {_settings.OllamaUrl}", "Install LM Studio and start its local server (Developer tab, or: lms server start)", "https://lmstudio.ai/download");
+            else
+                d.Set(DependencyState.Missing, $"not reachable at {_settings.OllamaUrl}", "Install Ollama and start it (the models are pulled with: ollama pull <model>)", "https://ollama.com/download");
         }
     }
 
@@ -380,7 +383,17 @@ public sealed class SetupCheck
             await Task.Delay(100, ct);
         if (_ollamaModels is null)
         {
-            d.Set(DependencyState.Missing, "Ollama is not reachable");
+            d.Set(DependencyState.Missing, $"{_settings.LlmProviderName} is not reachable");
+            return;
+        }
+        if (OllamaModelService.IsOpenAiCompatible(_settings.LlmProvider))
+        {
+            // LM Studio names a model by its identifier (e.g. openai/gpt-oss-20b), downloaded from the application.
+            if (_ollamaModels.Any(m => string.Equals(m, model, StringComparison.OrdinalIgnoreCase)))
+                d.Set(DependencyState.Ok, model);
+            else
+                d.Set(DependencyState.Missing, $"{model} is not listed by LM Studio ({(_ollamaModels.Count == 0 ? "no model" : string.Join(", ", _ollamaModels.Take(6)))})",
+                    $"Download it in LM Studio (or: lms get {model}), or name one of its models in llmmodel / visionmodel", "https://lmstudio.ai/models");
             return;
         }
         static string Bare(string name) => name.EndsWith(":latest", StringComparison.OrdinalIgnoreCase) ? name[..^7] : name;

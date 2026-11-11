@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="KAONOMI.Chat.Views.AddNoteButton"
+             VerticalAlignment="Center">
+    <!-- "Add a note" icon, placed in the header of every window -->
+    <Button x:Name="NoteButton" MinWidth="36" MinHeight="36" Padding="8,4"
+            ToolTip.Tip="Add a note (anonymous)">
+        <PathIcon Data="{StaticResource Icon.Note}" Width="16" Height="16"
+                  VerticalAlignment="Center" HorizontalAlignment="Center" />
+    </Button>
+</UserControl>

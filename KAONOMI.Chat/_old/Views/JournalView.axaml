@@ -1,0 +1,216 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:KAONOMI.Chat.ViewModels"
+             xmlns:v="using:KAONOMI.Chat.Views"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1400" d:DesignHeight="900"
+             x:Class="KAONOMI.Chat.Views.JournalView"
+             x:DataType="vm:JournalWindowViewModel">
+
+    <Design.DataContext>
+        <vm:JournalWindowViewModel />
+    </Design.DataContext>
+
+    <UserControl.Styles>
+        <!-- Formatting toolbar: compact flat buttons -->
+        <Style Selector="Button.tool">
+            <Setter Property="MinWidth" Value="34" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Padding" Value="8,0" />
+            <Setter Property="Margin" Value="0,0,4,0" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Focusable" Value="False" />
+        </Style>
+        <!-- Emotion buttons: round, the chosen one outlined with the accent color -->
+        <Style Selector="Button.feeling">
+            <Setter Property="Width" Value="36" />
+            <Setter Property="Height" Value="36" />
+            <Setter Property="CornerRadius" Value="18" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="FontSize" Value="19" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Opacity" Value="0.55" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Focusable" Value="False" />
+        </Style>
+        <Style Selector="Button.feeling:pointerover">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="Button.feeling.selected">
+            <Setter Property="Opacity" Value="1" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlHighlightAccentBrush}" />
+        </Style>
+        <Style Selector="Border.separator">
+            <Setter Property="Width" Value="1" />
+            <Setter Property="Margin" Value="6,4" />
+            <Setter Property="Background" Value="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+        </Style>
+        <Style Selector="TextBlock.weak">
+            <Setter Property="Foreground" Value="#D97E00" />
+        </Style>
+        <Style Selector="TextBlock.meta">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Opacity" Value="0.6" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
+
+        <!-- Header -->
+        <Border Grid.Row="0" Padding="12,8"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                    <TextBlock Text="Journal" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding ModeLabel}" Classes="meta" FontSize="12" VerticalAlignment="Center" />
+                </StackPanel>
+                <!-- Password: from 12 characters the entry is encrypted with AES-256 before it is sent (never saved) -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Spacing="1">
+                        <TextBox x:Name="PasswordBox" Text="{Binding Password}" PasswordChar="●" Width="240"
+                                 PlaceholderText="Password (12+ characters) to encrypt"
+                                 ToolTip.Tip="With a password of at least 12 characters the entry is encrypted with AES-256 (key derived with PBKDF2-SHA256) before it is sent; the password is never saved: without it the entry cannot be read" />
+                        <TextBlock Text="Don't forget your password" FontSize="11" FontWeight="SemiBold" Foreground="#D97E00"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                    <ToggleButton x:Name="RevealPassword" Content="👁" Padding="8,4" ToolTip.Tip="Show / hide the password" />
+                    <TextBlock Text="{Binding PasswordInfo}" FontSize="12" VerticalAlignment="Center" MinWidth="200"
+                               Classes.weak="{Binding !IsPasswordValid}" />
+                    <Button Content="🔓 Unlock" Classes="accent" Command="{Binding UnlockCommand}" IsVisible="{Binding IsLocked}"
+                            ToolTip.Tip="Decrypt this entry with the password" />
+                </StackPanel>
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="6">
+                    <ToggleButton Content="Previous entries" IsChecked="{Binding ShowHistory}"
+                                  ToolTip.Tip="Show the previous entries (hidden by default)" />
+                    <Button Content="New entry" Command="{Binding NewEntryCommand}" ToolTip.Tip="Start a new entry" />
+                    <Button Command="{Binding DeleteCommand}" ToolTip.Tip="Delete this entry">
+                        <PathIcon Data="{StaticResource Icon.Delete}" Width="13" Height="13" />
+                    </Button>
+                    <Button Content="Save" Classes="accent" MinWidth="90" Command="{Binding SaveCommand}"
+                            ToolTip.Tip="Save the entry (Ctrl+S / ⌘S)" />
+                    <v:AddNoteButton />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Formatting toolbar and feeling -->
+        <Border Grid.Row="1" Padding="12,6" BorderThickness="0,0,0,1"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+            <Grid ColumnDefinitions="*,Auto">
+                <WrapPanel Orientation="Horizontal">
+                    <Button Classes="tool" Content="H1" FontWeight="Bold" Click="OnH1Click" ToolTip.Tip="Heading 1 (Ctrl+1 / ⌘1)" />
+                    <Button Classes="tool" Content="H2" FontWeight="SemiBold" Click="OnH2Click" ToolTip.Tip="Heading 2 (Ctrl+2 / ⌘2)" />
+                    <Border Classes="separator" />
+                    <Button Classes="tool" Content="B" FontWeight="Bold" Click="OnBoldClick" ToolTip.Tip="Bold (Ctrl+B / ⌘B)" />
+                    <Button Classes="tool" Content="I" FontStyle="Italic" Click="OnItalicClick" ToolTip.Tip="Italic (Ctrl+I / ⌘I)" />
+                    <Button Classes="tool" Click="OnUnderlineClick" ToolTip.Tip="Underline (Ctrl+U / ⌘U)">
+                        <TextBlock Text="U" TextDecorations="Underline" />
+                    </Button>
+                    <Border Classes="separator" />
+                    <Button Classes="tool" Content="&lt;/&gt;" FontFamily="Cascadia Mono, Menlo, Consolas, monospace"
+                            Click="OnCodeClick" ToolTip.Tip="Code: inline, or a code block for several lines (Ctrl+E / ⌘E)" />
+                    <Button Classes="tool" Content="🔗 Link" Click="OnLinkClick" ToolTip.Tip="Link (Ctrl+K / ⌘K): [text](address)" />
+                    <Button Classes="tool" Content="🖼 Image" Click="OnImageClick"
+                            ToolTip.Tip="Insert pictures of the Pictures folder (local links); resize them in the preview with their corner grip" />
+                    <Border Classes="separator" />
+                    <Button Classes="tool" Content="• List" Click="OnListClick" ToolTip.Tip="Bullet list" />
+                    <Button Classes="tool" Content="❝ Quote" Click="OnQuoteClick" ToolTip.Tip="Quote" />
+                </WrapPanel>
+                <!-- Emotion of the entry: one emoticon button per emotion, its name (Happy, Sad…) is saved in "feeling" -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="4" VerticalAlignment="Center">
+                    <TextBlock Text="Feeling" VerticalAlignment="Center" Margin="0,0,4,0" />
+                    <ItemsControl ItemsSource="{Binding Feelings}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" Spacing="2" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="vm:JournalFeeling">
+                                <Button Classes="feeling" Classes.selected="{Binding IsSelected}" Content="{Binding Emoji}"
+                                        ToolTip.Tip="{Binding Name}"
+                                        Command="{Binding $parent[v:JournalView].((vm:JournalWindowViewModel)DataContext).ChooseFeelingCommand}"
+                                        CommandParameter="{Binding}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock Text="{Binding FeelingLabel}" VerticalAlignment="Center" MinWidth="110" Margin="6,0,0,0"
+                               FontSize="12" Opacity="0.75" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- History (hidden by default), editor, preview -->
+        <Grid Grid.Row="2" x:Name="Body" ColumnDefinitions="Auto,*,4,*">
+
+            <Border Grid.Column="0" Width="320" IsVisible="{Binding ShowHistory}" Padding="10,10,6,10"
+                    BorderThickness="0,0,1,0" BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+                <Grid RowDefinitions="Auto,*">
+                    <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,8">
+                        <TextBox x:Name="HistorySearchBox" Text="{Binding HistorySearch}" PlaceholderText="Search in the entries…" />
+                        <Button Grid.Column="1" Content="⟳" Margin="6,0,0,0" Command="{Binding SearchHistoryCommand}"
+                                ToolTip.Tip="Search (Enter); empty: the last entries" />
+                    </Grid>
+                    <ListBox Grid.Row="1" x:Name="HistoryList" ItemsSource="{Binding History}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="vm:JournalHistoryItem">
+                                <StackPanel Spacing="2" Margin="0,2">
+                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                        <TextBlock Text="{Binding DateLabel}" FontSize="11" FontWeight="SemiBold" />
+                                        <TextBlock Text="{Binding Feeling}" FontSize="11" />
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding Preview}" FontSize="12" Opacity="0.75" TextWrapping="Wrap" MaxLines="3"
+                                               TextTrimming="CharacterEllipsis" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+
+            <!-- Locked encrypted entry: the editor is replaced by this notice until it is unlocked -->
+            <Border Grid.Column="1" Margin="10" CornerRadius="8" IsVisible="{Binding IsLocked}"
+                    Background="{DynamicResource SystemControlBackgroundBaseLowBrush}">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
+                    <TextBlock Text="🔒" FontSize="56" HorizontalAlignment="Center" />
+                    <TextBlock Text="This entry is encrypted (AES-256)" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Center" />
+                    <TextBlock Text="Type its password above and press Unlock" Opacity="0.7" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+
+            <TextBox Grid.Column="1" x:Name="Editor" Text="{Binding Text}" AcceptsReturn="True" AcceptsTab="True"
+                     IsVisible="{Binding !IsLocked}"
+                     TextWrapping="Wrap" Margin="10" Padding="12,10" FontSize="14" VerticalContentAlignment="Top"
+                     FontFamily="Cascadia Mono, Menlo, Consolas, monospace"
+                     PlaceholderText="# My day&#x0a;&#x0a;Write here… **bold**, *italic*, &lt;u&gt;underline&lt;/u&gt;, `code`, [link](https://…)"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto" />
+
+            <GridSplitter Grid.Column="2" ResizeDirection="Columns"
+                          Background="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+
+            <Border Grid.Column="3" Margin="10" CornerRadius="8" Padding="2"
+                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                    BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}" BorderThickness="1">
+                <ScrollViewer x:Name="PreviewScroller" HorizontalScrollBarVisibility="Auto">
+                    <ContentControl x:Name="PreviewHost" Margin="18,14" />
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <!-- Status -->
+        <Border Grid.Row="3" Padding="12,4"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Ellipse Width="8" Height="8" VerticalAlignment="Center" Fill="#E81123" IsVisible="{Binding IsError}" />
+                <TextBlock Text="● not saved" FontSize="12" Foreground="#B18D1D" VerticalAlignment="Center"
+                           IsVisible="{Binding IsDirty}" />
+                <TextBlock Text="{Binding Status}" FontSize="12" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

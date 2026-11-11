@@ -14,7 +14,9 @@ namespace KAONOMI.Server
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Synchronizes session and conversational context after pipeline processing.
+    /// After the answer: keeps the exchange (the question, the answer, their entities) in the context of its
+    /// conversation (<see cref="DialogContext"/>), where the older exchanges become digests; the processor writes this
+    /// context before the next question of the conversation (see <see cref="Knowledge.ContextManager"/>).
     /// </summary>
     internal class DialogContextUpdateVAgent : VGrainBase<IDialogContextUpdateVAgent>, IDialogContextUpdateVAgent
     {
@@ -89,8 +91,43 @@ namespace KAONOMI.Server
         {
             session.LogSave("Running Context Update", appName, "INFO");
 
-            // TODO: Implement context update logic (enrichment, synchronization, session variables, etc.)
-            await Task.CompletedTask;
+            // The exchange that was just answered joins the context of its conversation (DialogContext, its id the id
+            // of the session): the processor will write it before the next question. A request without a session has
+            // no context to keep.
+            if (string.IsNullOrWhiteSpace(dialog.SessionId))
+            {
+                session.LogSave("No session in the request: no context kept", appName, "INFO");
+                return;
+            }
+            var completion = dialog.response?.choices?.FirstOrDefault()?.message?.content;
+            if (string.IsNullOrWhiteSpace(completion) || dialog.request is null)
+            {
+                session.LogSave("No answer: the context is left as it is", appName, "INFO");
+                return;
+            }
+            try
+            {
+                // The question as the user asked it: without the exchanges the chat may have written before it, nor the
+                // name it is addressed to.
+                var prompt = string.IsNullOrWhiteSpace(dialog.PromptUserText) ? HelperLlmParsersAndTools.GetUserPromptFromRequest(dialog.request) : dialog.PromptUserText;
+                var question = Knowledge.ContextManager.Question(prompt, bare: true);
+
+                // The entities of the question and of the answer: those that come back are what the context keeps.
+                var ner = Ner.NerService.Get(config);
+                var entities = await Task.Run(() => ner.Extract(question, types: null).entities.Concat(ner.Extract(completion, types: null).entities).ToList());
+                var names = Knowledge.ContextManager.EntityNames(entities);
+
+                var context = session.DialogContextGet(dialog.SessionId) ?? new DialogContext { id = dialog.SessionId.Trim(), appName = appName };
+                context.userName = dialog.userName;
+                context.machineName = dialog.machineName;
+                var note = Knowledge.ContextManager.AddTurn(context, dialog.id, question, completion, names, config);
+                session.DialogContextSave(context);
+                session.LogSave($"Context of {dialog.SessionId}: {note}", appName, "INFO");
+            }
+            catch (Exception ex)
+            {
+                session.LogSave($"Error updating the context of '{dialog.SessionId}': {ex.Message}", appName, "ERROR");
+            }
         }
     }
 }
